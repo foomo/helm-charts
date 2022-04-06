@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   csp-reporter:
   - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2022-04-06T14:04:38.918007771Z"
+    description: Content Security Policy Reporter
+    digest: 553da87e2ddc2acbde038ef2f0bf2a8853e7ee892f8c65568b8a23a45ff923d4
+    name: csp-reporter
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/csp-reporter-1.2.0/csp-reporter-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: 1.1.0
     created: "2022-04-04T10:12:49.121147473Z"
     description: Content Security Policy Reporter
@@ -41,4 +51,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/csp-reporter-0.1.0/csp-reporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-04-04T10:12:49.121167573Z"
+generated: "2022-04-06T14:04:38.918025971Z"
