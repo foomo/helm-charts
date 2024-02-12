@@ -1,0 +1,47 @@
+name: Lint and Test Charts
+
+on:
+  pull_request:
+    branches: ['main']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: azure/setup-helm@v3.5
+        with:
+          version: v3.12.0
+
+      - name: Run Helm plugin install
+        run: |
+          helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
+
+      - name: Run Helm lint
+        run: |
+          make lint
+
+      - name: Run Helm docs
+        run: |
+          make docs
+          if ! git diff --exit-code; then
+              echo "Documentation not up to date. Please run `make docs` and commit changes!" >&2
+              exit 1
+          fi
+
+      - name: Run Helm schema
+        run: |
+          make schema
+          if ! git diff --exit-code; then
+              echo "Documentation not up to date. Please run `make schema` and commit changes!" >&2
+              exit 1
+          fi

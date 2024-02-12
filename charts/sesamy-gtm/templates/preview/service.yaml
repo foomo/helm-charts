@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sesamy.gtm.preview.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
+  {{- with .Values.preview.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "sesamy.gtm.namespace" . }}
+spec:
+  type: {{ .Values.preview.service.type }}
+  ports:
+    - name: https
+      port: 443
+      targetPort: https
+    - name: http
+      port: {{ .Values.preview.service.port }}
+      targetPort: http
+  selector:
+    {{- include "sesamy.gtm.preview.selectorLabels" . | nindent 4 }}

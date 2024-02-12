@@ -1,0 +1,3 @@
+{{- if and (gt (int .Values.tagging.replicaCount) 1) (kindIs "invalid" .Values.tagging.maxUnavailable)}}
+{{- fail "`.Values.tagging.maxUnavailable` must be set when `.Values.tagging.replicas` is greater than 1." }}
+{{- end }}

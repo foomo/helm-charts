@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sesamy.gtm.tagging.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.gtm.namespace" . }}
+spec:
+  {{- if not .Values.tagging.autoscaling.enabled }}
+  replicas: {{ .Values.tagging.replicaCount }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.tagging.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sesamy.gtm.tagging.labels" . | nindent 8 }}
+        {{- with .Values.tagging.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "sesamy.gtm.serviceAccountName" . }}
+      {{- with .Values.tagging.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tagging.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tagging.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: gtm-tagging
+          {{- with .Values.gtm.image }}
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          {{- with .Values.tagging.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.tagging.service.port }}
+              protocol: TCP
+          env:
+            - name: CONTAINER_CONFIG
+              value: {{ .Values.gtm.containerConfig | quote }}
+            - name: CONTAINER_REFRESH_SECONDS
+              value: {{ .Values.gtm.containerRefreshSeconds | quote }}
+            - name: NODE_TLS_REJECT_UNAUTHORIZED
+              value: "0"
+            - name: PREVIEW_SERVER_URL
+              value: "https://{{ include "sesamy.gtm.preview.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local/gtm"
+            {{- if .Values.gtm.googleCloudProject }}
+            - name: GOOGLE_CLOUD_PROJECT
+              value: {{ .Values.gtm.googleCloudProject | quote }}
+            {{- end }}
+            {{- if .Values.gtm.googleApplicationCredentials }}
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/run/secrets/gtm/google_application_credentials"
+            {{- end }}
+            {{- with .Values.tagging.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.tagging.extraEnvFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          readinessProbe:
+            {{- toYaml .Values.tagging.readinessProbe | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.tagging.livenessProbe | nindent 12 }}
+          {{- with .Values.tagging.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumeMounts }}
+          volumeMounts:
+            {{- if .Values.gtm.googleApplicationCredentials }}
+            - mountPath: "/run/secrets/gtm"
+              name: google-application-credentials
+              readOnly: true
+            {{- end }}
+            {{- with .Values.tagging.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- end }}
+      {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumes }}
+      volumes:
+        {{- if .Values.gtm.googleApplicationCredentials }}
+        - name: google-application-credentials
+          secret:
+            secretName: {{ include "sesamy.gtm.tagging.fullname" . }}
+        {{- end }}
+        {{- with .Values.tagging.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- with .Values.tagging.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tagging.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tagging.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tagging.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
