@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Helm docs
         run: |
-          docker run --rm --volume "$(pwd):/helm-docs" -u "$(id -u)" jnorwood/helm-docs:v1.12.0
+          make docs
           if ! git diff --exit-code; then
               echo "Documentation not up to date. Please run `make docs` and commit changes!" >&2
               exit 1

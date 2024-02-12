@@ -20,7 +20,7 @@ lint:
 ## Generate README
 ## https://github.com/norwoodj/helm-docs
 docs:
-	@helm-docs . --template-files ./README.md.gotmpl
+	@docker run --rm --volume "$$(pwd):/helm-docs" jnorwood/helm-docs:v1.12.0 --template-files ./README.md.gotmpl
 
 .PHONY: schema
 ## Generate values JSON schema
