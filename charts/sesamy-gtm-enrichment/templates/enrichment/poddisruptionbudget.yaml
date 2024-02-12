@@ -1,0 +1,16 @@
+{{- if gt (int .Values.enrichment.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "sesamy.gtm-enrichment.enrichment.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm-enrichment.enrichment.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.gtm-enrichment.namespace" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sesamy.gtm-enrichment.enrichment.selectorLabels" . | nindent 6 }}
+  {{- with .Values.enrichment.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,17 @@
+{{- if .Values.rbac.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "sesamy.gtm-enrichment.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm-enrichment.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.gtm-enrichment.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "sesamy.gtm-enrichment.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "sesamy.gtm-enrichment.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}

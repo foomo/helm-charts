@@ -1,0 +1,16 @@
+{{- if gt (int .Values.preview.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "sesamy.gtm.preview.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.gtm.namespace" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sesamy.gtm.preview.selectorLabels" . | nindent 6 }}
+  {{- with .Values.preview.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+{{- end }}

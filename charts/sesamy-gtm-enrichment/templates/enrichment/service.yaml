@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sesamy.gtm-enrichment.enrichment.fullname" . }}
+  labels:
+    {{- include "sesamy.gtm-enrichment.enrichment.labels" . | nindent 4 }}
+  {{- with .Values.enrichment.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "sesamy.gtm-enrichment.namespace" . }}
+spec:
+  type: {{ .Values.enrichment.service.type }}
+  ports:
+    - name: https
+      port: 443
+      targetPort: https
+    - name: http
+      port: {{ .Values.enrichment.service.port }}
+      targetPort: http
+  selector:
+    {{- include "sesamy.gtm-enrichment.enrichment.selectorLabels" . | nindent 4 }}

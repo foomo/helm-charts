@@ -1,0 +1,3 @@
+{{- if and (gt (int .Values.preview.replicaCount) 1) (kindIs "invalid" .Values.preview.maxUnavailable)}}
+{{- fail "`.Values.preview.maxUnavailable` must be set when `.Values.preview.replicas` is greater than 1." }}
+{{- end }}
