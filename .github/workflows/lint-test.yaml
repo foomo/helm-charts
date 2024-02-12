@@ -22,13 +22,17 @@ jobs:
         with:
           version: v3.12.0
 
+      - uses: Run Helm plugin install
+        run: |
+          helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
+
       - name: Run Helm lint
         run: |
           make lint
 
       - name: Run Helm docs
         run: |
-          make docs
+          docker run --rm --volume "$(pwd):/helm-docs" -u "$(id -u)" jnorwood/helm-docs:v1.12.0
           if ! git diff --exit-code; then
               echo "Documentation not up to date. Please run `make docs` and commit changes!" >&2
               exit 1
