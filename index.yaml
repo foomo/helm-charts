@@ -72,6 +72,27 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/csp-reporter-0.1.0/csp-reporter-0.1.0.tgz
     version: 0.1.0
   sesamy-gtm:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
+    appVersion: 2.2.0
+    created: "2024-03-04T13:38:46.796049013Z"
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: d4f6a5a641445ef10652908779ca70a90eec5753961043d772e514bcac8bb26d
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.0.2/sesamy-gtm-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 2.2.0
     created: "2024-02-12T09:37:24.513913278Z"
@@ -95,4 +116,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-enrichment-0.0.1/sesamy-gtm-enrichment-0.0.1.tgz
     version: 0.0.1
-generated: "2024-02-12T09:37:24.679118508Z"
+generated: "2024-03-04T13:38:46.796074291Z"
