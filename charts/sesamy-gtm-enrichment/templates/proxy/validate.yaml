@@ -1,7 +1,0 @@
-{{- if not .Values.proxy.tls.key }}
-{{- fail "Required `proxy.tls.key` not set" -}}
-{{- end }}
-
-{{- if not .Values.proxy.tls.crt }}
-{{- fail "Required `proxy.tls.crt` not set" -}}
-{{- end }}

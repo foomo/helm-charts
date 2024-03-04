@@ -1,13 +1,58 @@
 # sesamy-gtm
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
+
+**Homepage:** <https://www.foomo.org>
+
+## Source Code
+
+* <https://github.com/foomo/helm-charts>
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| collect.affinity | object | `{}` | Affinity settings for pods. |
+| collect.autoscaling.behavior.enabled | bool | `false` | Enable autoscaling behaviours |
+| collect.autoscaling.behavior.scaleDown | object | `{}` | Scale down policies, must conform to HPAScalingRules |
+| collect.autoscaling.behavior.scaleUp | object | `{}` | Scale up policies, must conform to HPAScalingRules |
+| collect.autoscaling.customMetrics | list | `[]` | Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics) |
+| collect.autoscaling.enabled | bool | `false` | Enable autoscaling |
+| collect.autoscaling.maxReplicas | int | `100` | Maximum autoscaling replicas |
+| collect.autoscaling.minReplicas | int | `1` | Minimum autoscaling replicas |
+| collect.autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilisation percentage |
+| collect.autoscaling.targetMemoryUtilizationPercentage | string | `nil` | Target memory utilisation percentage |
+| collect.dnsConfig | object | `{}` | DNSConfig settings for pods. |
+| collect.enabled | bool | `false` |  |
+| collect.extraEnv | list | `[]` | Environment variables to add |
+| collect.extraEnvFrom | list | `[]` | Environment variables from secrets or configmaps to add |
+| collect.extraPorts | list | `[]` | Port definitions to add |
+| collect.extraVolumeMounts | list | `[]` | Volume mounts to add |
+| collect.extraVolumes | list | `[]` | Volumes to add |
+| collect.hostAliases | list | `[]` | Host aliases to add |
+| collect.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
+| collect.image.repository | string | `""` | The image repository |
+| collect.image.tag | string | `""` | The image tag |
+| collect.imagePullSecrets | list | `[]` | Image pull secrets |
+| collect.livenessProbe | object | `{}` | Liveness probe settings for pods. |
+| collect.maxUnavailable | string | `nil` | Pod Disruption Budget maxUnavailable |
+| collect.nodeSelector | object | `{}` | Tolerations settings for pods. |
+| collect.podAnnotations | object | `{}` | Annotations for pods |
+| collect.podLabels | object | `{}` | Labels for pods |
+| collect.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| collect.readinessProbe | object | `{}` | Readiness probe settings for pods. |
+| collect.replicaCount | int | `1` | Number of replicas |
+| collect.resources | object | `{}` | Resource request & limits. |
+| collect.roll | bool | `false` | Always roll your deployment |
+| collect.securityContext | object | `{}` |  |
+| collect.service.annotations | object | `{}` | Annotations for the service |
+| collect.service.labels | object | `{}` | Labels for service |
+| collect.service.port | int | `8080` | Port of the service |
+| collect.service.type | string | `"ClusterIP"` | Type of the service |
+| collect.startupProbe | object | `{}` | Startup probe settings for pods. |
+| collect.tolerations | list | `[]` | Tolerations settings for pods. |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | gtm.containerConfig | string | `""` | Base64-encoded container parameters in the URL query string format. |
 | gtm.containerRefreshSeconds | int | `60` | Interval between container refreshes. |
@@ -23,13 +68,13 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | ingress.paths.preview[0].path | string | `"/gtm"` |  |
 | ingress.paths.preview[0].pathType | string | `"Prefix"` |  |
 | ingress.paths.preview[0].port | int | `8080` |  |
-| ingress.paths.tagging[0].path | string | `"/g/collect"` |  |
-| ingress.paths.tagging[0].pathType | string | `"Prefix"` |  |
+| ingress.paths.tagging[0].path | string | `"/gtm.js"` |  |
+| ingress.paths.tagging[0].pathType | string | `"Exact"` |  |
 | ingress.paths.tagging[0].port | int | `8080` |  |
-| ingress.paths.tagging[1].path | string | `"/gtm.js"` |  |
-| ingress.paths.tagging[1].pathType | string | `"Exact"` |  |
+| ingress.paths.tagging[1].path | string | `"/gtag/js"` |  |
+| ingress.paths.tagging[1].pathType | string | `"Prefix"` |  |
 | ingress.paths.tagging[1].port | int | `8080` |  |
-| ingress.paths.tagging[2].path | string | `"/gtag/js"` |  |
+| ingress.paths.tagging[2].path | string | `"/g/collect"` |  |
 | ingress.paths.tagging[2].pathType | string | `"Prefix"` |  |
 | ingress.paths.tagging[2].port | int | `8080` |  |
 | ingress.tls | list | `[]` |  |

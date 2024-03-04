@@ -4,6 +4,12 @@
 
 Content Security Policy Reporter
 
+**Homepage:** <https://www.foomo.org>
+
+## Source Code
+
+* <https://github.com/foomo/helm-charts>
+
 ## Values
 
 | Key | Type | Default | Description |
