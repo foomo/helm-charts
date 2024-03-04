@@ -1,0 +1,11 @@
+{{- if and .Values.collect.enabled (not .Values.collect.image.tag) }}
+{{- fail "Required `collect.image.tag` not set" -}}
+{{- end }}
+
+{{- if and .Values.collect.enabled (not .Values.collect.image.repository) }}
+{{- fail "Required `collect.image.repository` not set" -}}
+{{- end }}
+
+{{- if and .Values.collect.enabled (gt (int .Values.collect.replicaCount) 1) (kindIs "invalid" .Values.collect.maxUnavailable)}}
+{{- fail "`.Values.collect.maxUnavailable` must be set when `.Values.collect.replicas` is greater than 1." }}
+{{- end }}
