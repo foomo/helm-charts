@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.3.0](https://img.shields.io/badge/AppVersion-2.3.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -60,7 +60,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | gtm.googleCloudProject | Optional | `""` | Google Cloud project ID. Let the tagging server implicitly choose the project. |
 | gtm.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | gtm.image.repository | string | `"gcr.io/cloud-tagging-10302018/gtm-cloud-image"` | The image repository |
-| gtm.image.tag | string | `"2.2.0"` | The image tag |
+| gtm.image.tag | string | `"2.3.0"` | The image tag |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
