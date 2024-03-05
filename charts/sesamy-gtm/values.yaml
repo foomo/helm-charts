@@ -17,7 +17,7 @@ gtm:
     # -- The image pull policy
     pullPolicy: IfNotPresent
     # -- The image tag
-    tag: "2.2.0"
+    tag: "2.3.0"
   # -- Base64-encoded container parameters in the URL query string format.
   containerConfig: ''
   # -- Interval between container refreshes.
