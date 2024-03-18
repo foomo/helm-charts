@@ -1,9 +1,19 @@
 {{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
 
-{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+{{ template "chart.badgesSection" . }}
 
 {{ template "chart.description" . }}
 
-{{ template "chart.sourcesSection" . }}
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+## Resources
+
+- [Source](https://github.com/foomo/helm-charts)
+- [GTM Changelog](https://developers.google.com/tag-platform/tag-manager/server-side/release-notes)
 
 {{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}

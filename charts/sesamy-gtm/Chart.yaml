@@ -13,6 +13,8 @@ annotations:
   "artifacthub.io/links": |
     - name: Chart Source
       url: https://github.com/foomo/helm-charts
+    - name: GTM Changelog
+      url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
 
 version: 0.0.3
 appVersion: 2.3.0
