@@ -1,0 +1,45 @@
+{{- if .Values.contentserver.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "contentserver.contentserver.fullname" . }}
+  labels:
+    {{- include "contentserver.contentserver.labels" . | nindent 4 }}
+  namespace: {{ include "contentserver.namespace" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "contentserver.contentserver.fullname" . }}
+  minReplicas: {{ .Values.contentserver.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.contentserver.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.contentserver.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.contentserver.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.contentserver.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.contentserver.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+    {{- with .Values.contentserver.autoscaling.customMetrics }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if .Values.contentserver.autoscaling.behavior.enabled }}
+  behavior:
+    {{- with .Values.contentserver.autoscaling.behavior.scaleDown }}
+    scaleDown: {{ toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.contentserver.autoscaling.behavior.scaleUp }}
+    scaleUp: {{ toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
