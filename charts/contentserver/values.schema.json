@@ -196,23 +196,18 @@
                     }
                 },
                 "paths": {
-                    "type": "object",
-                    "properties": {
-                        "contentserver": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "path": {
-                                        "type": "string"
-                                    },
-                                    "pathType": {
-                                        "type": "string"
-                                    },
-                                    "port": {
-                                        "type": "integer"
-                                    }
-                                }
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "path": {
+                                "type": "string"
+                            },
+                            "pathType": {
+                                "type": "string"
+                            },
+                            "port": {
+                                "type": "integer"
                             }
                         }
                     }

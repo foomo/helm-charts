@@ -20,16 +20,14 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          {{- range $svcName, $paths := $.Values.ingress.paths }}
-          {{- range $paths }}
+          {{- range $.Values.ingress.paths }}
           - path: {{ .path }}
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "contentserver.fullname" $ }}-{{ $svcName }}
+                name: {{ include "contentserver.fullname" $ }}
                 port:
                   number: {{ .port }}
-              {{- end }}
            {{- end }}
     {{- end }}
   {{- with .Values.ingress.tls }}

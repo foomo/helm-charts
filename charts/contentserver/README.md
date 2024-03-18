@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.10.2](https://img.shields.io/badge/AppVersion-1.10.2-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.10.2](https://img.shields.io/badge/AppVersion-1.10.2-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -59,9 +59,9 @@ Helm chart for the foomo Content Server.
 | ingress.className | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"example.com"` |  |
-| ingress.paths.contentserver[0].path | string | `"/contentserver"` |  |
-| ingress.paths.contentserver[0].pathType | string | `"Prefix"` |  |
-| ingress.paths.contentserver[0].port | int | `8080` |  |
+| ingress.paths[0].path | string | `"/contentserver"` |  |
+| ingress.paths[0].pathType | string | `"Prefix"` |  |
+| ingress.paths[0].port | int | `8080` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |

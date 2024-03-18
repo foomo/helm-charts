@@ -170,10 +170,9 @@ ingress:
   className: ""
   annotations: {}
   paths:
-    contentserver:
-      - path: /contentserver
-        pathType: Prefix
-        port: 8080
+    - path: /contentserver
+      pathType: Prefix
+      port: 8080
   hosts:
     - example.com
   tls: []
