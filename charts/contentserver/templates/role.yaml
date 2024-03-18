@@ -1,0 +1,18 @@
+{{- if .Values.rbac.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "contentserver.fullname" . }}
+  labels:
+    {{- include "contentserver.labels" . | nindent 4 }}
+  namespace: {{ include "contentserver.namespace" . }}
+rules:
+  - apiGroups:
+      - policy
+    resources:
+      - podsecuritypolicies
+    verbs:
+      - use
+    resourceNames:
+      - {{ include "contentserver.fullname" . }}
+{{- end }}
