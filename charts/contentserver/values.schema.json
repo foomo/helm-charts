@@ -2,6 +2,31 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "config": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "basePath": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "object",
+                    "properties": {
+                        "poll": {
+                            "type": "boolean"
+                        },
+                        "pollInterval": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "contentserver": {
             "type": "object",
             "properties": {
@@ -89,9 +114,12 @@
                 "livenessProbe": {
                     "type": "object",
                     "properties": {
-                        "tcpSocket": {
+                        "httpGet": {
                             "type": "object",
                             "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
                                 "port": {
                                     "type": "integer"
                                 }
@@ -117,9 +145,12 @@
                 "readinessProbe": {
                     "type": "object",
                     "properties": {
-                        "tcpSocket": {
+                        "httpGet": {
                             "type": "object",
                             "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
                                 "port": {
                                     "type": "integer"
                                 }
@@ -159,15 +190,21 @@
                 "startupProbe": {
                     "type": "object",
                     "properties": {
-                        "tcpSocket": {
+                        "httpGet": {
                             "type": "object",
                             "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
                                 "port": {
                                     "type": "integer"
                                 }
                             }
                         }
                     }
+                },
+                "terminationGracePeriodSeconds": {
+                    "type": "integer"
                 },
                 "tolerations": {
                     "type": "array"
@@ -281,6 +318,31 @@
                 }
             }
         },
+        "otel": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "otlp": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "endpoint": {
+                            "type": "string"
+                        },
+                        "insecure": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "ratio": {
+                    "type": "integer"
+                }
+            }
+        },
         "persistence": {
             "type": "object",
             "properties": {
@@ -318,33 +380,8 @@
                 }
             }
         },
-        "repository": {
-            "type": "object",
-            "properties": {
-                "poll": {
-                    "type": "boolean"
-                },
-                "timeout": {
-                    "type": "string"
-                },
-                "url": {
-                    "type": "string"
-                }
-            }
-        },
         "revisionHistoryLimit": {
             "type": "integer"
-        },
-        "server": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "string"
-                }
-            }
         },
         "serviceAccount": {
             "type": "object",
