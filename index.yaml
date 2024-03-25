@@ -9,6 +9,30 @@ entries:
           url: https://github.com/foomo/contentserver
     apiVersion: v2
     appVersion: 1.11.0-rc.10
+    created: "2024-03-25T13:17:05.330246437Z"
+    description: Helm chart for the foomo Content Server.
+    digest: ddd7ee15833f30c0c2f02aa627f0dde3a401d5dc0fe99044eea7bce2d433c3c1
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-contentserver
+    name: contentserver
+    sources:
+    - https://github.com/foomo/helm-charts
+    - https://github.com/foomo/contentserver
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/contentserver-0.0.3-rc.2/contentserver-0.0.3-rc.2.tgz
+    version: 0.0.3-rc.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+        - name: Image Source
+          url: https://github.com/foomo/contentserver
+    apiVersion: v2
+    appVersion: 1.11.0-rc.10
     created: "2024-03-25T10:16:03.867115208Z"
     description: Helm chart for the foomo Content Server.
     digest: 893338faf506bb26d008b8b6c6c8118bf1e8208b20d7d52adf34506d514fe03b
@@ -210,4 +234,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-enrichment-0.0.1/sesamy-gtm-enrichment-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-25T10:16:03.867153009Z"
+generated: "2024-03-25T13:17:05.33028577Z"
