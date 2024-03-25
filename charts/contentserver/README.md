@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0-rc.1](https://img.shields.io/badge/AppVersion-1.11.0--rc.1-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0-rc.10](https://img.shields.io/badge/AppVersion-1.11.0--rc.10-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -40,7 +40,7 @@ Helm chart for the foomo Content Server.
 | contentserver.hostAliases | list | `[]` | Host aliases to add |
 | contentserver.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | contentserver.image.repository | string | `"foomo/contentserver"` | The image repository |
-| contentserver.image.tag | string | `"1.11.0-rc.9"` | The image tag |
+| contentserver.image.tag | string | `"1.11.0-rc.10"` | The image tag |
 | contentserver.imagePullSecrets | list | `[]` | Image pull secrets |
 | contentserver.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":9400}}` | Liveness probe settings for pods. |
 | contentserver.maxUnavailable | string | `nil` | Pod Disruption Budget maxUnavailable |
