@@ -1,8 +1,10 @@
-name: Lint and Test Charts
+name: PR check
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-    branches: ['main']
+  merge_group:
   workflow_dispatch:
 
 concurrency:
@@ -10,17 +12,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-test:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: azure/setup-helm@v3.5
-        with:
-          version: v3.12.0
+      - uses: azure/setup-helm@v4
 
       - name: Run Helm plugin install
         run: |
