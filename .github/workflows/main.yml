@@ -1,16 +1,14 @@
-name: Release Charts
+name: Release Tag
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -19,12 +17,9 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: azure/setup-helm@v3.5
-        with:
-          version: v3.12.0
+      - uses: azure/setup-helm@v4
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
+      - uses: helm/chart-releaser-action@v1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_SKIP_EXISTING: "true"

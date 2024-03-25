@@ -9,21 +9,34 @@ namespaceOverride: ''
 # -- Number of revisions to retain to allow rollback
 revisionHistoryLimit: 10
 
-# Server configuration
-server:
-  # --- Address to bind web server host:port, when empty no webserver will be spawned
-  address: ':8080'
-  # -- Path to export the webserver on - useful when behind a proxy e.g. /contentserver
-  path: '/contentserver'
-# Repository configuration
-repository:
-  # --- If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision
-  poll: false
-  # -- Repository server url e.g. http://contentserverexport:8080
-  url: ''
-  # --- Timeout duration for the contentserver
-  timeout: '2m'
+# Open Telemtry configuration
+otel:
+  # --- Otel enabled
+  enabled: false
+  # --- Trace collect ratio
+  ratio: 1
+  otlp:
+    # --- OTLP export enabled
+    enabled: true
+    # --- OTLP insecure exporter
+    insecure: true
+    # --- OTLP exporter endpoint
+    endpoint: ''
 
+# Service configuration
+config:
+  # --- Address to bind to host:port
+  address: ':8080'
+  # -- Path to export the webserver on
+  basePath: '/contentserver'
+  # Repository configuration
+  repository:
+    # -- Repository server url
+    url: http://contentserverexport:8080
+    # --- If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision
+    poll: false
+    # --- Update poll interval
+    pollInterval: 60s
 
 # Persistence storage settings
 persistence:
@@ -48,11 +61,11 @@ contentserver:
   # Your custom collect image
   image:
     # -- The image repository
-    repository: 'foomo/contentserver'
+    repository: foomo/contentserver
     # -- The image pull policy
     pullPolicy: IfNotPresent
     # -- The image tag
-    tag: '1.10.2'
+    tag: 1.11.0-rc.10
   # -- Always roll your deployment
   roll: false
   # -- Number of replicas
@@ -99,16 +112,22 @@ contentserver:
   #    memory: 128Mi
   # -- Startup probe settings for pods.
   startupProbe:
-    tcpSocket:
-      port: 8080
+    httpGet:
+      path: /healthz/startup
+      port: 9400
   # -- Readiness probe settings for pods.
   readinessProbe:
-    tcpSocket:
-      port: 8080
+    httpGet:
+      path: /healthz/readiness
+      port: 9400
   # -- Liveness probe settings for pods.
   livenessProbe:
-    tcpSocket:
-      port: 8080
+    httpGet:
+      path: /healthz/liveness
+      port: 9400
+  # --- Termination grace period in seconds
+  terminationGracePeriodSeconds: 30
+  # Autoscaling settings
   autoscaling:
     # -- Enable autoscaling
     enabled: false

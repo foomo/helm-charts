@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.10.2](https://img.shields.io/badge/AppVersion-1.10.2-informational?style=flat-square)
+![Version: 0.0.3-rc.1](https://img.shields.io/badge/Version-0.0.3--rc.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.0-rc.10](https://img.shields.io/badge/AppVersion-1.11.0--rc.10-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -15,6 +15,11 @@ Helm chart for the foomo Content Server.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| config.address | string | `":8080"` | - Address to bind to host:port |
+| config.basePath | string | `"/contentserver"` | Path to export the webserver on |
+| config.repository.poll | bool | `false` | - If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision |
+| config.repository.pollInterval | string | `"60s"` | - Update poll interval |
+| config.repository.url | string | `"http://contentserverexport:8080"` | Repository server url |
 | contentserver.affinity | object | `{}` | Affinity settings for pods. |
 | contentserver.autoscaling.behavior.enabled | bool | `false` | Enable autoscaling behaviours |
 | contentserver.autoscaling.behavior.scaleDown | object | `{}` | Scale down policies, must conform to HPAScalingRules |
@@ -35,15 +40,15 @@ Helm chart for the foomo Content Server.
 | contentserver.hostAliases | list | `[]` | Host aliases to add |
 | contentserver.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | contentserver.image.repository | string | `"foomo/contentserver"` | The image repository |
-| contentserver.image.tag | string | `"1.10.2"` | The image tag |
+| contentserver.image.tag | string | `"1.11.0-rc.10"` | The image tag |
 | contentserver.imagePullSecrets | list | `[]` | Image pull secrets |
-| contentserver.livenessProbe | object | `{"tcpSocket":{"port":8080}}` | Liveness probe settings for pods. |
+| contentserver.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":9400}}` | Liveness probe settings for pods. |
 | contentserver.maxUnavailable | string | `nil` | Pod Disruption Budget maxUnavailable |
 | contentserver.nodeSelector | object | `{}` | Tolerations settings for pods. |
 | contentserver.podAnnotations | object | `{}` | Annotations for pods |
 | contentserver.podLabels | object | `{}` | Labels for pods |
 | contentserver.podSecurityContext | object | `{}` | The SecurityContext for pods |
-| contentserver.readinessProbe | object | `{"tcpSocket":{"port":8080}}` | Readiness probe settings for pods. |
+| contentserver.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":9400}}` | Readiness probe settings for pods. |
 | contentserver.replicaCount | int | `1` | Number of replicas |
 | contentserver.resources | object | `{}` | Resource request & limits. |
 | contentserver.roll | bool | `false` | Always roll your deployment |
@@ -52,7 +57,8 @@ Helm chart for the foomo Content Server.
 | contentserver.service.labels | object | `{}` | Labels for service |
 | contentserver.service.port | int | `8080` | Port of the service |
 | contentserver.service.type | string | `"ClusterIP"` | Type of the service |
-| contentserver.startupProbe | object | `{"tcpSocket":{"port":8080}}` | Startup probe settings for pods. |
+| contentserver.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":9400}}` | Startup probe settings for pods. |
+| contentserver.terminationGracePeriodSeconds | int | `30` | - Termination grace period in seconds |
 | contentserver.tolerations | list | `[]` | Tolerations settings for pods. |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | ingress.annotations | object | `{}` |  |
@@ -76,6 +82,11 @@ Helm chart for the foomo Content Server.
 | networkPolicy.metrics.cidrs | list | `[]` | Specifies specific network CIDRs which are allowed to access the metrics port. In case you use namespaceSelector, you also have to specify your kubelet networks here. The metrics ports are also used for probes. |
 | networkPolicy.metrics.namespaceSelector | object | `{}` | Specifies the namespaces which are allowed to access the metrics port |
 | networkPolicy.metrics.podSelector | object | `{}` | Specifies the Pods which are allowed to access the metrics port. As this is cross-namespace communication, you also need the namespaceSelector. |
+| otel.enabled | bool | `false` | - Otel enabled |
+| otel.otlp.enabled | bool | `true` | - OTLP export enabled |
+| otel.otlp.endpoint | string | `""` | - OTLP exporter endpoint |
+| otel.otlp.insecure | bool | `true` | - OTLP insecure exporter |
+| otel.ratio | int | `1` | - Trace collect ratio |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes for the PVC |
 | persistence.annotations | object | `{}` | Annotations for the PVC |
 | persistence.enabled | bool | `false` | Enable persistent storage |
@@ -84,12 +95,7 @@ Helm chart for the foomo Content Server.
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | - Storage class to be used |
 | rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
-| repository.poll | bool | `false` | - If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision |
-| repository.timeout | string | `"2m"` | - Timeout duration for the contentserver |
-| repository.url | string | `""` | Repository server url e.g. http://contentserverexport:8080 |
 | revisionHistoryLimit | int | `10` | Number of revisions to retain to allow rollback |
-| server.address | string | `":8080"` | - Address to bind web server host:port, when empty no webserver will be spawned |
-| server.path | string | `"/contentserver"` | Path to export the webserver on - useful when behind a proxy e.g. /contentserver |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |

@@ -38,6 +38,7 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.contentserver.terminationGracePeriodSeconds }}
       containers:
         - name: contentserver
           {{- with .Values.contentserver.image }}
@@ -52,25 +53,54 @@ spec:
             - name: http
               containerPort: {{ .Values.contentserver.service.port }}
               protocol: TCP
+            - name: healthz
+              containerPort: 9400
+              protocol: TCP
+            {{- if .Values.serviceMonitor.enabled }}
+            - name: prometheus
+              containerPort: 9200
+              protocol: TCP
+            {{- end }}
           args:
-            - -var-dir
+            - http
+            - {{ .Values.config.repository.url }}
+            - --address
+            - {{ .Values.config.address }}
+            - --base-path
+            - {{ .Values.config.basePath }}
+            - --graceful-period
+            - {{ .Values.contentserver.terminationGracePeriodSeconds }}s
+            - --graceful-timeout
+            - {{ div .Values.contentserver.terminationGracePeriodSeconds 2 }}s
+            - --history-dir
             - {{ .Values.persistence.path }}
-            {{- if .Values.server.address }}
-            - -webserver-address
-            - {{ .Values.server.address }}
-            - -webserver-path
-            - {{ .Values.server.path }}
+            {{- if .Values.config.repository.poll }}
+            - --poll
+            - --poll-interval
+            - {{ .Values.config.repository.pollInterval }}
             {{- end }}
-            {{- if .Values.repository.poll }}
-            - -poll
+            - --service-healthz-enabled
+            {{- if .Values.serviceMonitor.enabled }}
+            - --service-prometheus-enabled
             {{- end }}
-            - -repository-timeout-duration
-            - {{ .Values.repository.timeout }}
             {{- with .Values.contentserver.extraArgs }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-            - {{ .Values.repository.url }}
           env:
+            {{- if .Values.otel.enabled }}
+            - name: OTEL_ENABLED
+              value: {{ .Values.otel.enabled }}
+            - name: OTEL_SERVICE_NAME
+              value: "{{ .Release.Name }}"
+            - name: OTEL_TRACE_RATIO
+              value: "{{ .Values.otel.ratio }}"
+            {{- if .Values.otel.otlp.enabled }}
+            - name: OTEL_EXPORTER_OTLP_INSECURE
+              value: {{ .Values.otel.otlp.insecure }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "{{ .Values.otel.otlp.endpoint }}"
+            {{- end }}
+            {{- end }}
             {{- with .Values.contentserver.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
