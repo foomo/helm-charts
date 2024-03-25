@@ -89,14 +89,14 @@ spec:
           env:
             {{- if .Values.otel.enabled }}
             - name: OTEL_ENABLED
-              value: {{ .Values.otel.enabled }}
+              value: {{ .Values.otel.enabled | quote }}
             - name: OTEL_SERVICE_NAME
               value: "{{ .Release.Name }}"
             - name: OTEL_TRACE_RATIO
-              value: "{{ .Values.otel.ratio }}"
+              value: {{ .Values.otel.ratio | quote }}
             {{- if .Values.otel.otlp.enabled }}
             - name: OTEL_EXPORTER_OTLP_INSECURE
-              value: {{ .Values.otel.otlp.insecure }}
+              value: {{ .Values.otel.otlp.insecure | quote }}
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "{{ .Values.otel.otlp.endpoint }}"
             {{- end }}
