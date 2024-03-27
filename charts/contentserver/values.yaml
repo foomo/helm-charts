@@ -65,7 +65,7 @@ contentserver:
     # -- The image pull policy
     pullPolicy: IfNotPresent
     # -- The image tag
-    tag: 1.11.0-rc.10
+    tag: 1.11.0-rc.11
   # -- Always roll your deployment
   roll: false
   # -- Number of replicas
