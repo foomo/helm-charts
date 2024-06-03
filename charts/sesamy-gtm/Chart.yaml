@@ -15,6 +15,11 @@ annotations:
       url: https://github.com/foomo/helm-charts
     - name: GTM Changelog
       url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
-
-version: 0.0.3
+dependencies:
+  - name: loki
+    alias: loki
+    version: 6.6.1
+    repository: https://grafana.github.io/helm-charts
+    condition: loki.enabled
+version: 0.0.4
 appVersion: 2.3.0

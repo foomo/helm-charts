@@ -331,8 +331,10 @@ collect:
   #  runAsNonRoot: true
   #  runAsUser: 1000
   service:
-    # -- Port of the service
-    port: 8080
+    # -- Ports of the service
+    ports:
+      ga4: 8080
+      mpv2: 8081
     # -- Type of the service
     type: ClusterIP
     # -- Annotations for the service
@@ -414,6 +416,53 @@ collect:
   affinity: {}
   # -- DNSConfig settings for pods.
   dnsConfig: {}
+
+# Grafana Loki
+loki:
+  enabled: false
+  deploymentMode: SingleBinary
+  singleBinary:
+    replicas: 1
+  loki:
+    auth_enabled: false
+    commonConfig:
+      replication_factor: 1
+    schemaConfig:
+      configs:
+        - from: 2024-04-01
+          object_store: s3
+          store: tsdb
+          schema: v13
+          index:
+            prefix: index_
+            period: 24h
+  minio:
+    enabled: true
+  # Zero out replica counts of other deployment modes
+  backend:
+    replicas: 0
+  read:
+    replicas: 0
+  write:
+    replicas: 0
+  ingester:
+    replicas: 0
+  querier:
+    replicas: 0
+  queryFrontend:
+    replicas: 0
+  queryScheduler:
+    replicas: 0
+  distributor:
+    replicas: 0
+  compactor:
+    replicas: 0
+  indexGateway:
+    replicas: 0
+  bloomCompactor:
+    replicas: 0
+  bloomGateway:
+    replicas: 0
 
 # Ingress configuration
 ingress:

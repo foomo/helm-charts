@@ -1,3 +1,4 @@
+{{- if .Values.collect.enabled }}
 {{- if .Values.collect.autoscaling.enabled }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -42,4 +43,5 @@ spec:
     scaleUp: {{ toYaml . | nindent 6 }}
     {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}
