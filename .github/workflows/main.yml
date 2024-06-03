@@ -19,6 +19,10 @@ jobs:
 
       - uses: azure/setup-helm@v4
 
+      - name: Install deps
+        run: |
+          helm repo add grafana https://grafana.github.io/helm-charts
+
       - uses: helm/chart-releaser-action@v1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
