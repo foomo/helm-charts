@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.3.0](https://img.shields.io/badge/AppVersion-2.3.0-informational?style=flat-square)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.3.0](https://img.shields.io/badge/AppVersion-2.3.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -10,6 +10,12 @@ Helm chart for the Sesamy GTM tagging & preview service.
 
 - [Source](https://github.com/foomo/helm-charts)
 - [GTM Changelog](https://developers.google.com/tag-platform/tag-manager/server-side/release-notes)
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://grafana.github.io/helm-charts | loki(loki) | 6.6.1 |
 
 ## Values
 
@@ -50,7 +56,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | collect.securityContext | object | `{}` |  |
 | collect.service.annotations | object | `{}` | Annotations for the service |
 | collect.service.labels | object | `{}` | Labels for service |
-| collect.service.port | int | `8080` | Port of the service |
+| collect.service.ports | object | `{"ga4":8080,"mpv2":8081}` | Ports of the service |
 | collect.service.type | string | `"ClusterIP"` | Type of the service |
 | collect.startupProbe | object | `{}` | Startup probe settings for pods. |
 | collect.tolerations | list | `[]` | Tolerations settings for pods. |
@@ -79,6 +85,30 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | ingress.paths.tagging[2].pathType | string | `"Prefix"` |  |
 | ingress.paths.tagging[2].port | int | `8080` |  |
 | ingress.tls | list | `[]` |  |
+| loki.backend.replicas | int | `0` |  |
+| loki.bloomCompactor.replicas | int | `0` |  |
+| loki.bloomGateway.replicas | int | `0` |  |
+| loki.compactor.replicas | int | `0` |  |
+| loki.deploymentMode | string | `"SingleBinary"` |  |
+| loki.distributor.replicas | int | `0` |  |
+| loki.enabled | bool | `false` |  |
+| loki.indexGateway.replicas | int | `0` |  |
+| loki.ingester.replicas | int | `0` |  |
+| loki.loki.auth_enabled | bool | `false` |  |
+| loki.loki.commonConfig.replication_factor | int | `1` |  |
+| loki.loki.schemaConfig.configs[0].from | string | `"2024-04-01"` |  |
+| loki.loki.schemaConfig.configs[0].index.period | string | `"24h"` |  |
+| loki.loki.schemaConfig.configs[0].index.prefix | string | `"index_"` |  |
+| loki.loki.schemaConfig.configs[0].object_store | string | `"s3"` |  |
+| loki.loki.schemaConfig.configs[0].schema | string | `"v13"` |  |
+| loki.loki.schemaConfig.configs[0].store | string | `"tsdb"` |  |
+| loki.minio.enabled | bool | `true` |  |
+| loki.querier.replicas | int | `0` |  |
+| loki.queryFrontend.replicas | int | `0` |  |
+| loki.queryScheduler.replicas | int | `0` |  |
+| loki.read.replicas | int | `0` |  |
+| loki.singleBinary.replicas | int | `1` |  |
+| loki.write.replicas | int | `0` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |
 | networkPolicy.discovery.namespaceSelector | object | `{}` | Specifies the namespace the discovery Pods are running in |

@@ -13,9 +13,11 @@ metadata:
 spec:
   type: {{ .Values.collect.service.type }}
   ports:
-    - name: http
-      port: {{ .Values.collect.service.port }}
-      targetPort: http
+    {{- range $name, $port := $.Values.collect.service.ports }}
+    - name: {{ $name }}
+      port: {{ $port }}
+      targetPort: {{ $name }}
+    {{- end }}
   selector:
     {{- include "sesamy.gtm.collect.selectorLabels" . | nindent 4 }}
 {{- end }}

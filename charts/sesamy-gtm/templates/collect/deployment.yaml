@@ -53,9 +53,11 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
-            - name: http
-              containerPort: {{ .Values.collect.service.port }}
+            {{- range $name, $port := $.Values.collect.service.ports }}
+            - name: {{ $name }}
+              containerPort: {{ $port }}
               protocol: TCP
+            {{- end }}
             {{- with .Values.collect.extraPorts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
