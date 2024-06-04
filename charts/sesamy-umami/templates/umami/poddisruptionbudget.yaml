@@ -1,0 +1,18 @@
+{{- if .Values.umami.enabled }}
+{{- if gt (int .Values.umami.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "sesamy.umami.umami.fullname" . }}
+  labels:
+    {{- include "sesamy.umami.umami.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sesamy.umami.umami.selectorLabels" . | nindent 6 }}
+  {{- with .Values.umami.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+{{- end }}
+{{- end }}

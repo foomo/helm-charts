@@ -91,7 +91,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | loki.compactor.replicas | int | `0` |  |
 | loki.deploymentMode | string | `"SingleBinary"` |  |
 | loki.distributor.replicas | int | `0` |  |
-| loki.enabled | bool | `false` |  |
+| loki.enabled | bool | `false` | Enable loki |
 | loki.indexGateway.replicas | int | `0` |  |
 | loki.ingester.replicas | int | `0` |  |
 | loki.loki.auth_enabled | bool | `false` |  |
@@ -219,3 +219,4 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | tagging.service.port | int | `8080` | Port of the service |
 | tagging.service.type | string | `"ClusterIP"` | Type of the service |
 | tagging.tolerations | list | `[]` | Tolerations settings for pods. |
+

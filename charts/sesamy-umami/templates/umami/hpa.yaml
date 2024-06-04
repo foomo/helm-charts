@@ -1,0 +1,45 @@
+{{- if and .Values.umami.enabled .Values.umami.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "sesamy.umami.umami.fullname" . }}
+  labels:
+    {{- include "sesamy.umami.umami.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "sesamy.umami.umami.fullname" . }}
+  minReplicas: {{ .Values.umami.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.umami.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.umami.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.umami.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.umami.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.umami.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+    {{- with .Values.umami.autoscaling.customMetrics }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if .Values.umami.autoscaling.behavior.enabled }}
+  behavior:
+    {{- with .Values.umami.autoscaling.behavior.scaleDown }}
+    scaleDown: {{ toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.umami.autoscaling.behavior.scaleUp }}
+    scaleUp: {{ toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
