@@ -12,21 +12,12 @@ Helm chart for the Sesamy Umami integration.
 |-----|------|---------|-------------|
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| ingress.className | string | `""` | Ingress class name |
+| ingress.enabled | bool | `false` | Enable ingress |
 | ingress.hosts[0] | string | `"example.com"` |  |
-| ingress.paths.preview[0].path | string | `"/gtm"` |  |
-| ingress.paths.preview[0].pathType | string | `"Prefix"` |  |
-| ingress.paths.preview[0].port | int | `8080` |  |
-| ingress.paths.tagging[0].path | string | `"/gtm.js"` |  |
-| ingress.paths.tagging[0].pathType | string | `"Exact"` |  |
-| ingress.paths.tagging[0].port | int | `8080` |  |
-| ingress.paths.tagging[1].path | string | `"/gtag/js"` |  |
-| ingress.paths.tagging[1].pathType | string | `"Prefix"` |  |
-| ingress.paths.tagging[1].port | int | `8080` |  |
-| ingress.paths.tagging[2].path | string | `"/g/collect"` |  |
-| ingress.paths.tagging[2].pathType | string | `"Prefix"` |  |
-| ingress.paths.tagging[2].port | int | `8080` |  |
+| ingress.paths.umami[0].path | string | `"/"` |  |
+| ingress.paths.umami[0].pathType | string | `"Prefix"` |  |
+| ingress.paths.umami[0].port | int | `8000` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |
