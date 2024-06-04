@@ -287,4 +287,28 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-enrichment-0.0.1/sesamy-gtm-enrichment-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-03T09:27:12.943880874Z"
+  sesamy-umami:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+        - name: Umami Source
+          url: https://github.com/umami-software/umami
+    apiVersion: v2
+    appVersion: 2.11.3
+    created: "2024-06-04T20:08:32.886364503Z"
+    description: Helm chart for the Sesamy Umami integration.
+    digest: 77713bb803d68875a8f379a87cbba65c12d728132178efacb60aedff31d20418
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-umami
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-06-04T20:08:32.886404789Z"
