@@ -26,24 +26,7 @@
                 "paths": {
                     "type": "object",
                     "properties": {
-                        "preview": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "path": {
-                                        "type": "string"
-                                    },
-                                    "pathType": {
-                                        "type": "string"
-                                    },
-                                    "port": {
-                                        "type": "integer"
-                                    }
-                                }
-                            }
-                        },
-                        "tagging": {
+                        "umami": {
                             "type": "array",
                             "items": {
                                 "type": "object",
