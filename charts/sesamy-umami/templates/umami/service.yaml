@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sesamy.umami.umami.fullname" . }}
+  labels:
+    {{- include "sesamy.umami.umami.labels" . | nindent 4 }}
+  {{- with .Values.umami.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+spec:
+  type: {{ .Values.umami.service.type }}
+  ports:
+    - name: https
+      port: 443
+      targetPort: https
+    - name: http
+      port: {{ .Values.umami.service.port }}
+      targetPort: http
+  selector:
+    {{- include "sesamy.umami.umami.selectorLabels" . | nindent 4 }}

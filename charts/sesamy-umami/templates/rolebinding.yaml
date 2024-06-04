@@ -1,0 +1,17 @@
+{{- if .Values.rbac.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "sesamy.umami.fullname" . }}
+  labels:
+    {{- include "sesamy.umami.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "sesamy.umami.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "sesamy.umami.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}

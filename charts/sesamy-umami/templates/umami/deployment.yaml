@@ -1,0 +1,200 @@
+{{- if .Values.umami.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sesamy.umami.umami.fullname" . }}
+  labels:
+    {{- include "sesamy.umami.umami.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+spec:
+  {{- if not .Values.umami.autoscaling.enabled }}
+  replicas: {{ .Values.umami.replicaCount }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "sesamy.umami.umami.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "sesamy.umami.umami.labels" . | nindent 8 }}
+        {{- with .Values.umami.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- with .Values.umami.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "sesamy.umami.serviceAccountName" . }}
+      {{- with .Values.umami.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.umami.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.umami.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: gtm-umami-proxy
+          {{- with .Values.proxy.image }}
+          image: {{ .repository }}:{{ .tag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          ports:
+            - name: https
+              containerPort: 443
+          readinessProbe:
+            tcpSocket:
+              port: 443
+          livenessProbe:
+            tcpSocket:
+              port: 443
+          {{- with .Values.proxy.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: umami-umami-proxy-config
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+            - name: umami-umami-proxy-certs
+              mountPath: /etc/nginx/ssl
+              readOnly: true
+        - name: gtm-umami
+          {{- with .Values.umami.image }}
+          image: "{{ .registry }}/{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          {{- with .Values.umami.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ $.Values.umami.service.port }}
+              protocol: TCP
+            {{- with .Values.umami.extraPorts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sesamy.umami.umami.database.secretName" . | quote }}
+                  key: {{ default "database-uri" .Values.umami.config.database.existingSecretKey }}
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "sesamy.umami.umami.appSecret.secretName" . | quote }}
+                  key: {{ default "app-secret" .Values.umami.config.appSecret.existingSecretKey }}
+            {{- if .Values.umami.config.clientIpHeader }}
+            - name: CLIENT_IP_HEADER
+              value: {{ .Values.umami.config.clientIpHeader | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.cloudMode }}
+            - name: CLOUD_MODE
+              value: {{ .Values.umami.config.cloudMode | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.collectApiEndpoint }}
+            - name: COLLECT_API_ENDPOINT
+              value: {{ .Values.umami.config.collectApiEndpoint | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.corsMaxAge }}
+            - name: CORS_MAX_AGE
+              value: {{ .Values.umami.config.corsMaxAge | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.disableBotCheck }}
+            - name: DISABLE_BOT_CHECK
+              value: {{ .Values.umami.config.disableBotCheck | quote }}
+            {{- end }}
+            {{- if not .Values.umami.config.removeDisableLoginEnv }}
+            - name: DISABLE_LOGIN
+              value: {{ .Values.umami.config.disableLogin | quote }}
+            {{- end }}
+            - name: DISABLE_TELEMETRY
+              value: {{ .Values.umami.config.disableTelemetry | quote }}
+            - name: DISABLE_UPDATES
+              value: {{ .Values.umami.config.disableUpdates | quote }}
+            - name: FORCE_SSL
+              value: {{ .Values.umami.config.forceSSL | quote }}
+            {{- if .Values.umami.config.hostname }}
+            - name: HOSTNAME
+              value: {{ .Values.umami.config.hostname | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.ignoreHostname }}
+            - name: IGNORE_HOSTNAME
+              value: {{ .Values.umami.config.ignoreHostname | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.ignoredIpAddresses }}
+            - name: IGNORE_IP
+              value: {{ .Values.umami.config.ignoredIpAddresses | quote }}
+            {{- end }}
+            {{- if .Values.umami.config.logQuery }}
+            - name: LOG_QUERY
+              value: {{ .Values.umami.config.logQuery | quote }}
+            {{- end }}
+            - name: PORT
+              value: {{ .Values.umami.service.port | quote }}
+            - name: REMOVE_TRAILING_SLASH
+              value: {{ .Values.umami.config.removeTrailingSlash | quote }}
+            - name: TRACKER_SCRIPT_NAME
+              value: {{ .Values.umami.config.trackerScriptName | quote }}
+            {{- with .Values.umami.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.umami.extraEnvFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.umami.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.umami.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.umami.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.umami.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.umami.extraVolumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: umami-umami-proxy-config
+          configMap:
+            name: {{ include "sesamy.umami.proxy.fullname" . }}
+        - name: umami-umami-proxy-certs
+          secret:
+            secretName: {{ include "sesamy.umami.proxy.fullname" . }}
+        {{- with .Values.umami.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.umami.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.umami.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.umami.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.umami.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

@@ -1,0 +1,19 @@
+apiVersion: v2
+type: application
+name: sesamy-umami
+description: Helm chart for the Sesamy Umami integration.
+icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+home: https://www.foomo.org
+keywords:
+  - foomo
+  - sesamy
+sources:
+  - https://github.com/foomo/helm-charts
+annotations:
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/foomo/helm-charts
+    - name: Umami Source
+      url: https://github.com/umami-software/umami
+version: 0.0.1
+appVersion: 2.11.3
