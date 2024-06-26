@@ -296,6 +296,29 @@ entries:
           url: https://github.com/umami-software/umami
     apiVersion: v2
     appVersion: 2.11.3
+    created: "2024-06-26T05:57:28.990904624Z"
+    description: Helm chart for the Sesamy Umami integration.
+    digest: 3952af54d76e1c00ce6e1994d3ee35022253d9fa03f2a88fb4d16a39c8128dec
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-umami
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.2/sesamy-umami-0.0.2.tgz
+    version: 0.0.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+        - name: Umami Source
+          url: https://github.com/umami-software/umami
+    apiVersion: v2
+    appVersion: 2.11.3
     created: "2024-06-04T20:08:32.886364503Z"
     description: Helm chart for the Sesamy Umami integration.
     digest: 77713bb803d68875a8f379a87cbba65c12d728132178efacb60aedff31d20418
@@ -311,4 +334,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-04T20:08:32.886404789Z"
+generated: "2024-06-26T05:57:28.990948435Z"
