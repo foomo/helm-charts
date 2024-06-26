@@ -1,5 +1,3 @@
-{{- if .Values.umami.enabled }}
 {{- if and (gt (int .Values.umami.replicaCount) 1) (kindIs "invalid" .Values.umami.maxUnavailable)}}
 {{- fail "`.Values.umami.maxUnavailable` must be set when `.Values.umami.replicas` is greater than 1." }}
-{{- end }}
 {{- end }}

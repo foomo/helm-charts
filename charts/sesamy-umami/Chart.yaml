@@ -15,5 +15,5 @@ annotations:
       url: https://github.com/foomo/helm-charts
     - name: Umami Source
       url: https://github.com/umami-software/umami
-version: 0.0.1
+version: 0.0.2
 appVersion: 2.11.3

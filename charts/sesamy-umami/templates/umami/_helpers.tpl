@@ -25,7 +25,11 @@ app.kubernetes.io/component: umami
 umami database uri
 */}}
 {{- define "sesamy.umami.umami.database.uri" -}}
-  {{- printf "postgres://%s:%s@%s/%s" (tpl .Values.umami.config.database.auth.username $) (tpl .Values.umami.config.database.auth.password $) (tpl .Values.umami.config.database.auth.hostname $) (tpl .Values.umami.config.database.auth.database $) -}}
+  {{- if .Values.umami.config.database.uri -}}
+    {{- printf "%s" (tpl .Values.umami.config.database.uri $) -}}
+  {{- else -}}
+    {{- printf "postgres://%s:%s@%s/%s" (tpl .Values.umami.config.database.auth.username $) (tpl .Values.umami.config.database.auth.password $) (tpl .Values.umami.config.database.auth.hostname $) (tpl .Values.umami.config.database.auth.database $) -}}
+  {{- end -}}
 {{- end -}}
 
 {{/*

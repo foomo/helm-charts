@@ -319,6 +319,9 @@
                                 },
                                 "existingSecretKey": {
                                     "type": "string"
+                                },
+                                "uri": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -365,9 +368,6 @@
                 },
                 "dnsConfig": {
                     "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
                 },
                 "extraEnv": {
                     "type": "array"
