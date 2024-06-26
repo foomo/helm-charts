@@ -1,6 +1,6 @@
 # sesamy-umami
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.11.3](https://img.shields.io/badge/AppVersion-2.11.3-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.11.3](https://img.shields.io/badge/AppVersion-2.11.3-informational?style=flat-square)
 
 Helm chart for the Sesamy Umami integration.
 
@@ -81,6 +81,7 @@ Helm chart for the Sesamy Umami integration.
 | umami.config.database.auth.username | string | `""` | Database username |
 | umami.config.database.existingSecret | string | `""` | Use an existing secret containing the database uri. |
 | umami.config.database.existingSecretKey | string | `""` | Key in the existing secret containing value (default: database-url) |
+| umami.config.database.uri | string | `""` | Full connection string |
 | umami.config.disableBotCheck | string | `"1"` | By default bots are excluded from statistics. This disables checking for bots. |
 | umami.config.disableLogin | string | `"1"` | Disables the login page for the application |
 | umami.config.disableTelemetry | string | `"1"` | Umami collects completely anonymous telemetry data in order help improve the application. You can choose to disable this if you don't want to participate. |
@@ -95,7 +96,6 @@ Helm chart for the Sesamy Umami integration.
 | umami.config.removeTrailingSlash | string | `"1"` | Removes the trailing slash from all incoming urls. |
 | umami.config.trackerScriptName | string | `"umami"` | Allows you to assign a custom name to the tracker script different from the default umami. This is to help you avoid some ad-blockers. |
 | umami.dnsConfig | object | `{}` | DNSConfig settings for pods. |
-| umami.enabled | bool | `false` | Enable umami |
 | umami.extraEnv | list | `[]` | Environment variables to add |
 | umami.extraEnvFrom | list | `[]` | Environment variables from secrets or configmaps to add |
 | umami.extraPorts | list | `[]` | Port definitions to add |

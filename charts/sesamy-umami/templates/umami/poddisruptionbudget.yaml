@@ -1,4 +1,3 @@
-{{- if .Values.umami.enabled }}
 {{- if gt (int .Values.umami.replicaCount) 1 }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -14,5 +13,4 @@ spec:
   {{- with .Values.umami.maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
-{{- end }}
 {{- end }}
