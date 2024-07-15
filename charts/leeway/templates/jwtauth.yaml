@@ -1,0 +1,18 @@
+{{- if .Values.pinniped.concierge.enabled }}
+{{- range $k,$v := .Values.jwtAuths}}
+---
+apiVersion: authentication.concierge.pinniped.dev/v1alpha1
+kind: JWTAuthenticator
+metadata:
+  name: supervisor-authenticator-{{ $k }}
+spec:
+
+  # The value of the `issuer` field should exactly match the `issuer`
+  # field of your Supervisor's FederationDomain.
+  issuer: {{ $v.issuer }}
+
+  # You can use any `audience` identifier for your cluster, but it is
+  # important that it is unique for security reasons.
+  audience: {{ $v.audience }}
+{{- end }}
+{{- end }}

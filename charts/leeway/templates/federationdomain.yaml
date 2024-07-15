@@ -1,0 +1,30 @@
+{{- if .Values.pinniped.supervisor.enabled }}
+{{- range $k,$v := .Values.federationDomains }}
+---
+apiVersion: config.supervisor.pinniped.dev/v1alpha1
+kind: FederationDomain
+metadata:
+  name: federation-domain-{{ $k }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  # You can choose an arbitrary path for the issuer URL.
+  issuer: {{ $v.issuer }}
+  tls:
+    # The name of the secretName from the cert-manager Certificate
+    # resource above.
+    secretName: {{ $v.tlsSecretName }}
+  identityProviders:
+    {{- range $ki,$vi := $v.identityProviders }}
+    - displayName: {{ $ki }}-github-provider
+      objectRef:
+        apiGroup: idp.supervisor.pinniped.dev
+        kind: GitHubIdentityProvider
+        name: github-provider-{{ $ki }}
+      transforms:
+        expressions:
+          - type: policy/v1
+            expression: 'groups.exists(g, g in {{ $vi.teams | trimSuffix "\n" }})'
+            message: "Only users in certain GitHub teams are allowed to authenticate"
+    {{- end }}
+{{- end }}
+{{- end }}

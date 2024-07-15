@@ -1,0 +1,15 @@
+apiVersion: v2
+name: leeway
+description: An allowable margin of freedom
+
+type: application
+
+version: 0.1.0
+
+appVersion: 0.1.0
+dependencies:
+  - name: pinniped
+    version: 2.2.9
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+
+

@@ -1,0 +1,30 @@
+{{- if .Values.pinniped.supervisor.enabled }}
+{{- range $k,$v := .Values.githubProviders}}
+---
+apiVersion: idp.supervisor.pinniped.dev/v1alpha1
+kind: GitHubIdentityProvider
+metadata:
+  name: github-provider-{{ $k }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  claims:
+    groups: slug
+  allowAuthentication:
+    organizations:
+      policy: OnlyUsersFromAllowedOrganizations
+      allowed:
+        - {{ $k }}
+  client:
+    secretName: github-provider-client-secret-{{ $k }}
+---
+apiVersion: v1
+kind: Secret
+type: "secrets.pinniped.dev/github-client"
+metadata:
+  name: github-provider-client-secret-{{ $k }}
+  namespace: {{ $.Release.Namespace }}
+stringData:
+  clientID: {{ $v.clientID }}
+  clientSecret: {{ $v.clientSecret }}
+{{- end }}
+{{- end }}
