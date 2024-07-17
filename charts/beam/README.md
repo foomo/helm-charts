@@ -54,7 +54,7 @@ cloudflared:
 cloudflaredSplitter:
   enabled: true
   beams:
-    # lets you issue pinniped get kubeconfig with validation
+		# lets you issue pinniped get kubeconfig with validation
     kubectl: <PROVIDER_KUBECTL_ENDPOINT>
 
 cloudflaredSidecars:
@@ -93,13 +93,13 @@ $ cloudflared access tcp --hostname beam.your-domain.com --url 127.0.0.1:1234
 - Retrieve a kubeconfig using the original kubeconfig, through the tunnel:
 
 ```shell
-$ HTTPS_PROXY=socks5://127.0.0.1:1234 pinniped get kubeconfig --kubeconfig "path/to/provider/kubeconfig.yaml" > beam-kubeconfig.yaml
+HTTPS_PROXY=socks5://127.0.0.1:1234 pinniped get kubeconfig --kubeconfig "path/to/provider/kubeconfig.yaml" > beam-kubeconfig.yaml
 ```
 
 - Connect to the cluster:
 
 ```shell
-$ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-kubeconfig.yaml"
+HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-kubeconfig.yaml"
 ```
 
 ## Requirements
