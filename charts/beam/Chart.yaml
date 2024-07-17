@@ -1,0 +1,27 @@
+apiVersion: v2
+type: application
+name: beam
+description: Secure infrastructure access
+icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+home: https://www.foomo.org
+keywords:
+  - foomo
+  - pinneped
+sources:
+  - https://github.com/foomo/helm-charts
+annotations:
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/foomo/helm-charts
+    - name: Pinneped Chart Source
+      url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
+dependencies:
+  - name: pinniped
+    alias: pinniped
+    version: 2.2.10
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+    condition: pinniped.enabled
+version: 0.1.0
+appVersion: 0.1.0
+
+

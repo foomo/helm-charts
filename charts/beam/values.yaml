@@ -1,0 +1,200 @@
+# -- Overrides the chart's name
+nameOverride: ""
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+# -- The name of the Namespace to deploy
+# If not set, `.Release.Namespace` is used
+namespaceOverride: ""
+
+# -- Number of revisions to retain to allow rollback
+revisionHistoryLimit: 10
+
+cloudflared:
+  enabled: false
+  # Cloudflare Tunnel token
+  token: "TOKEN-HERE"
+  # Container image
+  image:
+    # -- The image repository
+    repository: 'cloudflare/cloudflared'
+    # -- The image pull policy
+    pullPolicy: IfNotPresent
+    # -- The image tag
+    tag: '2024.6.1'
+  # -- Number of replicas
+  replicaCount: 1
+  # -- Pod Disruption Budget maxUnavailable
+  maxUnavailable: null
+  # -- Host aliases to add
+  hostAliases: []
+  #  - ip: 1.2.3.4
+  #    hostnames:
+  #      - domain.tld
+  # -- Image pull secrets
+  imagePullSecrets: []
+  # -- Annotations for pods
+  podAnnotations: {}
+  # -- Labels for pods
+  podLabels: {}
+  # -- The SecurityContext for pods
+  podSecurityContext: {}
+  #  fsGroup: 2000
+  securityContext: {}
+  #  capabilities:
+  #    drop:
+  #      - ALL
+  #  readOnlyRootFilesystem: true
+  #  runAsNonRoot: true
+  #  runAsUser: 1000
+  # -- Resource request & limits.
+  resources: {}
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  # @default -- Liveness probe settings for pods.
+  livenessProbe:
+    httpGet:
+      path: /ready
+      port: 3100
+    failureThreshold: 1
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  # @default -- Readiness probe settings for pods.
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 3100
+  # -- Environment variables to add
+  extraEnv: []
+  # -- Environment variables from secrets or configmaps to add
+  extraEnvFrom: []
+  # -- Volume mounts to add
+  extraVolumeMounts: []
+  #  - name: foo
+  #    mountPath: "/etc/foo"
+  #    readOnly: true
+  # -- Volumes to add
+  extraVolumes: []
+  #  - name: foo
+  #    secret:
+  #      secretName: mysecret
+  #      optional: false
+  # -- Tolerations settings for pods.
+  nodeSelector: {}
+  # -- Tolerations settings for pods.
+  tolerations: []
+  # -- Affinity settings for pods.
+  affinity: {}
+  # -- DNSConfig settings for pods.
+  dnsConfig: {}
+
+# Split cloudflare tunnel traffic to multiple endpoints
+cloudflaredSplitter:
+  # --- Enable cloudflared splitter
+  enabled: false
+  # --- List of additional enpoints
+  # beams:
+  #   kubectl: your-cloud-provider-k8s-api
+  beams: {}
+  # Container image
+  image:
+    # -- The image repository
+    repository: 'nginx'
+    # -- The image pull policy
+    pullPolicy: IfNotPresent
+    # -- The image tag
+    tag: '1.27.0'
+  # --- Security context
+  securityContext: {}
+  #  capabilities:
+  #    drop:
+  #      - ALL
+  #  readOnlyRootFilesystem: true
+  #  runAsNonRoot: true
+  #  runAsUser: 1000
+  # -- Environment variables to add
+  extraEnv: []
+  # -- Environment variables from secrets or configmaps to add
+  extraEnvFrom: []
+  # -- Volume mounts to add
+  extraVolumeMounts: []
+  #  - name: foo
+  #    mountPath: "/etc/foo"
+  #    readOnly: true
+  # -- Resource request & limits.
+  resources: {}
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  # @default -- Liveness probe settings for pods.
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  # @default -- Readiness probe settings for pods.
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+
+# --- Additional cloudflared sidecars
+cloudflaredSidecars: []
+
+## Pinneped dependency
+## see https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml
+pinniped:
+  # --- Enable pinniped
+  enabled: false
+  # Concierge settings (https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90)
+  concierge:
+    # --- Enable concierge
+    enabled: false
+    # --- ClusterRoleBinding to create in the cluster
+    # teams:
+    #   dev:
+    #     role: editor
+    #     team: organization/team-dev
+    #   devops:
+    #     role: cluster-admin
+    #     team: organization/team-devops
+    teams: {}
+    # --- JWT Authenticators for Concierge
+    # jwtAuths:
+    #   your-org:
+    #     issuer: https://beam.your-domain.com/issuer-path
+    #     audience: arbitrary-but-unique-audience
+    jwtAuths: {}
+    # Override dependency
+    credentialIssuerConfig: |
+      impersonationProxy:
+        mode: enabled
+        service:
+          type: ClusterIP
+        externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443
+  # Supervisor settings (https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90)
+  supervisor:
+    # --- Enable supervisor
+    enabled: false
+    # --- GitHub Providers to create in the supervisor cluster
+    # githubProviders:
+    #   foomo:
+    #     clientId: id
+    #     clientSecret: secret
+    githubProviders: {}
+    # --- Federation Domains to create in the supervisor cluster
+    # federationDomains:
+    #   cluster:
+    #     tlsSecretName: tls-secret-name
+    #     issuer: https://beam.your-domain.com/issuer-path
+    #     identityProviders:
+    #       foomo:
+    #         teams:
+    #           - organization/team-devs
+    #           - organization/team-devops
+    federationDomains: {}

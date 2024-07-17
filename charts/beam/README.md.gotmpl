@@ -1,0 +1,112 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+## Usage
+
+### Supervisor
+
+- Create a GitHub app
+- Configure your GitHub teams and members
+- Add the following to your `values.yaml`
+
+```yaml
+pinniped:
+  enabled: true
+  supervisor:
+    enabled: true
+    githubProviders:
+      your-org:
+        clientId: <GITHUB_APP_CLIENT_ID>
+        clientSecret: <GITHUB_APP_CLIENT_SECRET>
+    federationDomains:
+      your-org:
+        issuer: https://beam.your-domain.com/issuer-path
+        tlsSecretName: <TLS_SECRET_NAME>
+        identityProviders:
+          your-org:
+            teams:
+              - organization/your-dev-team
+              - organization/your-devops-team
+```
+
+- Wait for the supervisor to acquire a loadbalancer ip
+- Add a Cloudflare DNS record to point to the supervisor loadbalancer ip
+
+
+### Cloudflared & Concierge
+
+- Create a new Cloudflare Network Tunnel and retrive it's token:
+
+```shell
+$ cloudflared tunnel create <TUNNEL_NAME>
+$ cloudflared tunnel token <TUNNEL_NAME>
+```
+
+- Add the following to your `values.yaml`
+
+```yaml
+cloudflared:
+  enabled: true
+  token: <TUNNEL_TOKEN>
+
+cloudflaredSplitter:
+  enabled: true
+  beams:
+		# lets you issue pinniped get kubeconfig with validation
+    kubectl: <PROVIDER_KUBECTL_ENDPOINT>
+
+cloudflaredSidecars:
+  - name: digitalocean
+    image: "digitalocean/doctl:latest"
+    imagePullPolicy: IfNotPresent
+    env:
+      - name: DIGITALOCEAN_ACCESS_TOKEN
+        value: <YOUR-DO-API-TOKEN>
+
+pinniped:
+  enabled: true
+  concierge:
+    enabled: true
+    teams:
+      dev:
+        role: editor
+        team: organization/your-dev-team
+      devops:
+        role: cluster-admin
+        team: organization/your-devops-team
+    jwtAuths:
+      your-org:
+        issuer: https://beam.your-domain.com/issuer-path
+        audience: arbitrary-but-unique-audience
+```
+
+### Kubernetes access
+
+- Start cloudflare tunnel on local machine:
+
+```shell
+$ cloudflared access tcp --hostname beam.your-domain.com --url 127.0.0.1:1234
+```
+
+- Retrieve a kubeconfig using the original kubeconfig, through the tunnel:
+
+```shell
+HTTPS_PROXY=socks5://127.0.0.1:1234 pinniped get kubeconfig --kubeconfig "path/to/provider/kubeconfig.yaml" > beam-kubeconfig.yaml
+```
+
+- Connect to the cluster:
+
+```shell
+HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-kubeconfig.yaml"
+```
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+

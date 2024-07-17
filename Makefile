@@ -3,6 +3,8 @@
 
 # --- Targets -----------------------------------------------------------------
 
+## === Tasks ===
+
 .PHONY: check
 ## Lint, Schema & docs
 check: lint schema docs
@@ -33,6 +35,26 @@ schema:
 		helm schema-gen $${dir}/values.yaml > $${dir}/values.schema.json ;\
 	done
 
+## === K3d ===
+
+export KUBECONFIG=$(shell pwd)/tmp/kubeconfig.yaml
+
+k3d.%: NAME=foomo-helm-charts
+k3d.%: PORT=8543
+k3d.%: VERSION=v1.30.2-k3s2
+
+k3d.up:
+	@k3d cluster create ${NAME} \
+		--image=rancher/k3s:${VERSION} \
+		--registry-create ${NAME}-registry:8542
+		--k3s-arg "--disable=traefik@server:0" \
+		--port "${PORT}:443@loadbalancer" \
+		--agents 1
+
+k3d.x:
+	@echo "$$KUBECONFIG"
+k3d.down:
+	@k3d cluster delete ${NAME}
 
 ## === Utils ===
 

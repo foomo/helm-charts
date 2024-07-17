@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=../values.schema.json
+# Use case: Standalone concierge access through Cloudflare Zero Trust
+
+cloudflared:
+  enabled: true
+  token: <CLOUDFLARE_TUNNEL_TOKEN>
+
+cloudflaredSidecars:
+  - name: digitalocean
+    image: "digitalocean/doctl:latest"
+    imagePullPolicy: IfNotPresent
+    env:
+      - name: DIGITALOCEAN_ACCESS_TOKEN
+        value: <YOUR-DO-API-TOKEN>
+
+pinniped:
+  enabled: true
+  concierge:
+    enabled: true
+    teams:
+      dev:
+        role: editor
+        team: organization/your-dev-team
+      devops:
+        role: cluster-admin
+        team: organization/your-devops-team
+    jwtAuths:
+      your-org:
+        issuer: https://beam.your-domain.com/issuer-path
+        audience: arbitrary-but-unique-audience
