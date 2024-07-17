@@ -54,7 +54,7 @@ cloudflared:
 cloudflaredSplitter:
   enabled: true
   beams:
-		# lets you issue pinniped get kubeconfig with validation
+    # lets you issue pinniped get kubeconfig with validation
     kubectl: <PROVIDER_KUBECTL_ENDPOINT>
 
 cloudflaredSidecars:
