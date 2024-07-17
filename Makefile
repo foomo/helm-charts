@@ -43,6 +43,8 @@ k3d.%: NAME=foomo-helm-charts
 k3d.%: PORT=8543
 k3d.%: VERSION=v1.30.2-k3s2
 
+.PHONY: k3d.up
+## Startup local cluster
 k3d.up:
 	@k3d cluster create ${NAME} \
 		--image=rancher/k3s:${VERSION} \
@@ -51,8 +53,8 @@ k3d.up:
 		--port "${PORT}:443@loadbalancer" \
 		--agents 1
 
-k3d.x:
-	@echo "$$KUBECONFIG"
+.PHONY: k3d.down
+## Shutdown local cluster
 k3d.down:
 	@k3d cluster delete ${NAME}
 
