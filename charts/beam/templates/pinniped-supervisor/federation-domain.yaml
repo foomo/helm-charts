@@ -20,7 +20,7 @@ spec:
       objectRef:
         apiGroup: idp.supervisor.pinniped.dev
         kind: GitHubIdentityProvider
-        name: github-provider-{{ $ki }}
+        name: {{ include "beam.pinniped.supervisor.fullname" $ }}-github-{{ $ki }}
       transforms:
         expressions:
           - type: policy/v1
