@@ -133,15 +133,15 @@ cloudflaredSplitter:
   #    cpu: 100m
   #    memory: 128Mi
   # @default -- Liveness probe settings for pods.
-  livenessProbe:
-    httpGet:
-      path: /
-      port: http
-  # @default -- Readiness probe settings for pods.
-  readinessProbe:
-    httpGet:
-      path: /
-      port: http
+  # livenessProbe:
+  #   httpGet:
+  #     path: /
+  #     port: http
+  # # @default -- Readiness probe settings for pods.
+  # readinessProbe:
+  #   httpGet:
+  #     path: /
+  #     port: http
 
 # --- Additional cloudflared sidecars
 cloudflaredSidecars: []
