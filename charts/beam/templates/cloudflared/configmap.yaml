@@ -33,7 +33,7 @@ data:
 
       map $ssl_preread_server_name $name {
         {{- if .Values.pinniped.concierge.enabled }}
-        {{ include "beam.fullname" $ }}-pinniped-concierge concierge;
+        {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }} concierge;
         {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
         {{ get (urlParse $v.issuer) "host" }} supervisor-{{ $k }};
         {{- end }}
@@ -46,7 +46,7 @@ data:
 
       {{- if .Values.pinniped.concierge.enabled }}
       upstream concierge {
-        server {{ include "beam.fullname" $ }}-pinniped-concierge:443;
+        server {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443;
       }
       {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
       upstream supervisor-{{ $k }} {
