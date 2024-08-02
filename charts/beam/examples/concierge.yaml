@@ -25,6 +25,6 @@ pinniped:
         role: cluster-admin
         team: organization/your-devops-team
     jwtAuths:
-      your-org:
+      domain-name:
         issuer: https://beam.your-domain.com/issuer-path
         audience: arbitrary-but-unique-audience

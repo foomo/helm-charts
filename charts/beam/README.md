@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -18,15 +18,16 @@ pinniped:
   supervisor:
     enabled: true
     githubProviders:
-      your-org:
+      provider-name:
+				organization: <YOUR_GITHUB_ORG>
         clientId: <GITHUB_APP_CLIENT_ID>
         clientSecret: <GITHUB_APP_CLIENT_SECRET>
     federationDomains:
-      your-org:
+      domain-name:
         issuer: https://beam.your-domain.com/issuer-path
         tlsSecretName: <TLS_SECRET_NAME>
         identityProviders:
-          your-org:
+          provider-name:
             teams:
               - organization/your-dev-team
               - organization/your-devops-team
@@ -77,7 +78,7 @@ pinniped:
         role: cluster-admin
         team: organization/your-devops-team
     jwtAuths:
-      your-org:
+      domain-name:
         issuer: https://beam.your-domain.com/issuer-path
         audience: arbitrary-but-unique-audience
 ```
