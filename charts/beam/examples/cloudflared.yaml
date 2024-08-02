@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=../values.schema.json
+# Use case: Standalone Cloudflare Zero Trust
+
+cloudflared:
+  enabled: true
+  token: <CLOUDFLARE_TUNNEL_TOKEN>

@@ -1,0 +1,6 @@
+dependencies:
+- name: pinniped
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 2.2.10
+digest: sha256:f794bb9f303c14b6cbce2144c3265b1838146c1023b62d531b20e703b3e44696
+generated: "2024-07-17T09:32:44.477537+02:00"

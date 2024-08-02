@@ -1,7 +1,18 @@
 .*
+*.log
+*.zip
 *.tgz
 /tmp/
-!.github/
+
+## Git
+!.gitkeep
 !.gitignore
-!**/.gitkeep
-!**/.helmignore
+
+## GitHub
+!.github/
+
+## Helm
+!.helmignore
+
+## Editorconfig
+!.editorconfig

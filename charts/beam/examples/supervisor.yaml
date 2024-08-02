@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../values.schema.json
+# Use case: Standalone supervisor
+
+pinniped:
+  enabled: true
+  supervisor:
+    enabled: true
+    githubProviders:
+      your-org:
+        clientId: <GITHUB_APP_CLIENT_ID>
+        clientSecret: <GITHUB_APP_CLIENT_SECRET>
+    federationDomains:
+      your-org:
+        issuer: https://beam.your-domain.com/issuer-path
+        tlsSecretName: <TLS_SECRET_NAME>
+        identityProviders:
+          your-org:
+            teams:
+              - organization/your-dev-team
+              - organization/your-devops-team

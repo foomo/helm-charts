@@ -1,0 +1,133 @@
+{{- if .Values.cloudflared.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "beam.cloudflared.fullname" . }}
+  labels:
+    {{- include "beam.cloudflared.labels" . | nindent 4 }}
+  namespace: {{ include "beam.namespace" . }}
+spec:
+  replicas: {{ .Values.cloudflared.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "beam.cloudflared.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "beam.cloudflared.labels" . | nindent 8 }}
+        {{- with .Values.cloudflared.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- with .Values.cloudflared.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.cloudflared.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cloudflared.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cloudflared.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: cloudflared
+        {{- with .Values.cloudflared.image }}
+        image: "{{ .repository }}:{{ .tag }}"
+        imagePullPolicy: {{ .pullPolicy }}
+        {{- end }}
+        command:
+          - cloudflared
+          - tunnel
+          - --metrics
+          - 0.0.0.0:3100
+          - run
+          - --token
+          - {{ .Values.cloudflared.token }}
+        {{- with .Values.cloudflared.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        ports:
+          - name: http-metrics
+            containerPort: 3100
+            protocol: TCP
+        {{- with .Values.cloudflared.extraEnv }}
+        env:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- with .Values.cloudflared.extraEnvFrom }}
+        envFrom:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        readinessProbe:
+          {{- toYaml .Values.cloudflared.readinessProbe | nindent 12 }}
+        livenessProbe:
+          {{- toYaml .Values.cloudflared.livenessProbe | nindent 12 }}
+        {{- with .Values.cloudflared.resources }}
+        resources:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- with .Values.cloudflared.extraVolumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+      {{- with .Values.cloudflaredSidecars }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- if .Values.cloudflaredSplitter.enabled }}
+      - name: splitter
+        {{- with .Values.cloudflaredSplitter.image }}
+        image: "{{ .repository }}:{{ .tag }}"
+        imagePullPolicy: {{ .pullPolicy }}
+        {{- end }}
+        {{- with .Values.cloudflaredSplitter.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+          - name: https
+            containerPort: 443
+            protocol: TCP
+        {{- with .Values.cloudflaredSplitter.extraEnv }}
+        env:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- with .Values.cloudflaredSplitter.extraEnvFrom }}
+        envFrom:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        readinessProbe:
+          {{- toYaml .Values.cloudflaredSplitter.readinessProbe | nindent 12 }}
+        livenessProbe:
+          {{- toYaml .Values.cloudflaredSplitter.livenessProbe | nindent 12 }}
+        {{- with .Values.cloudflaredSplitter.resources }}
+        resources:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        volumeMounts:
+          - name: splitter-config
+            mountPath: /etc/nginx
+          {{- with .Values.cloudflaredSplitter.extraVolumeMounts }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- end }}
+      volumes:
+        {{- if .Values.cloudflaredSplitter.enabled }}
+        - name: splitter-config
+          configMap:
+            name: {{ include "beam.cloudflared.splitter.fullname" . }}
+        {{- end }}
+        {{- with .Values.cloudflared.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+{{- end }}

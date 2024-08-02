@@ -1,0 +1,72 @@
+{{- if .Values.cloudflaredSplitter.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "beam.cloudflared.splitter.fullname" . }}
+  labels:
+    {{- include "beam.cloudflared.splitter.labels" . | nindent 4 }}
+  namespace: {{ include "beam.namespace" . }}
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  auto;
+
+    error_log  /var/log/nginx/error.log notice;
+    pid        /var/run/nginx.pid;
+    events {
+      worker_connections  1024;
+    }
+    http {
+      default_type  application/octet-stream;
+
+      log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+      access_log  /var/log/nginx/access.log  main;
+      sendfile        on;
+      keepalive_timeout  65;
+    }
+    stream {
+      map_hash_max_size 256;
+      map_hash_bucket_size 256;
+
+      map $ssl_preread_server_name $name {
+        {{- if .Values.pinniped.concierge.enabled }}
+        {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }} concierge;
+        {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
+        {{ get (urlParse $v.issuer) "host" }} supervisor-{{ $k }};
+        {{- end }}
+        {{- end }}
+        {{- range $k, $v := .Values.cloudflaredSplitter.beams }}
+        {{ $v }} {{ $k }};
+        {{- end }}
+        default https_default_backend;
+      }
+
+      {{- if .Values.pinniped.concierge.enabled }}
+      upstream concierge {
+        server {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443;
+      }
+      {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
+      upstream supervisor-{{ $k }} {
+        server {{ get (urlParse $v.issuer) "host" }}:443;
+      }
+      {{- end }}
+      {{- end }}
+      {{- range $k, $v := .Values.cloudflaredSplitter.beams }}
+      upstream {{ $k }} {
+        server {{ $v }}:443;
+      }
+      {{- end }}
+      upstream https_default_backend {
+        server 127.0.0.1:443;
+      }
+
+      server {
+        listen 443;
+        proxy_pass $name;
+        ssl_preread on;
+      }
+    }
+{{- end }}

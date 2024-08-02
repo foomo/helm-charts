@@ -1,0 +1,22 @@
+{{- if .Values.pinniped.supervisor.enabled }}
+{{- range $k,$v := .Values.pinniped.supervisor.githubProviders}}
+---
+apiVersion: idp.supervisor.pinniped.dev/v1alpha1
+kind: GitHubIdentityProvider
+metadata:
+  name: {{ include "beam.pinniped.supervisor.fullname" $ }}-github-{{ $k }}
+  labels:
+    {{- include "beam.pinniped.supervisor.labels" $ | nindent 4 }}
+  namespace: {{ include "beam.namespace" $ }}
+spec:
+  claims:
+    groups: slug
+  allowAuthentication:
+    organizations:
+      policy: OnlyUsersFromAllowedOrganizations
+      allowed:
+        - {{ $k }}
+  client:
+    secretName: {{ include "beam.pinniped.supervisor.fullname" $ }}-github-{{ $k }}
+{{- end }}
+{{- end }}
