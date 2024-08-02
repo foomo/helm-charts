@@ -150,10 +150,6 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | cloudflaredSplitter.image.repository | string | `"nginx"` | The image repository |
 | cloudflaredSplitter.image.tag | string | `"1.27.0"` | The image tag |
-| cloudflaredSplitter.livenessProbe.httpGet.path | string | `"/"` |  |
-| cloudflaredSplitter.livenessProbe.httpGet.port | string | `"http"` |  |
-| cloudflaredSplitter.readinessProbe.httpGet.path | string | `"/"` |  |
-| cloudflaredSplitter.readinessProbe.httpGet.port | string | `"http"` |  |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |
 | cloudflaredSplitter.securityContext | object | `{}` | - Security context |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
