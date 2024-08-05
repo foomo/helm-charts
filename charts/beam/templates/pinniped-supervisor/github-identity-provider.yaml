@@ -15,7 +15,7 @@ spec:
     organizations:
       policy: OnlyUsersFromAllowedOrganizations
       allowed:
-        - {{ $k }}
+        - {{ $v.organization }}
   client:
     secretName: {{ include "beam.pinniped.supervisor.fullname" $ }}-github-{{ $k }}
 {{- end }}

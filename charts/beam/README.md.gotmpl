@@ -19,15 +19,16 @@ pinniped:
   supervisor:
     enabled: true
     githubProviders:
-      your-org:
+      provider-name:
+        organization: <YOUR_GITHUB_ORG>
         clientId: <GITHUB_APP_CLIENT_ID>
         clientSecret: <GITHUB_APP_CLIENT_SECRET>
     federationDomains:
-      your-org:
+      domain-name:
         issuer: https://beam.your-domain.com/issuer-path
         tlsSecretName: <TLS_SECRET_NAME>
         identityProviders:
-          your-org:
+          provider-name:
             teams:
               - organization/your-dev-team
               - organization/your-devops-team
@@ -79,7 +80,7 @@ pinniped:
         role: cluster-admin
         team: organization/your-devops-team
     jwtAuths:
-      your-org:
+      domain-name:
         issuer: https://beam.your-domain.com/issuer-path
         audience: arbitrary-but-unique-audience
 ```
