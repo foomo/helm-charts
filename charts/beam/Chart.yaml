@@ -18,10 +18,10 @@ annotations:
 dependencies:
   - name: pinniped
     alias: pinniped
-    version: 2.2.10
+    version: 2.2.15
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: pinniped.enabled
-version: 0.1.2
-appVersion: 0.1.2
+version: 0.2.0
+appVersion: 0.2.0
 
 

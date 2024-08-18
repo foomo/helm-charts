@@ -9,11 +9,6 @@ metadata:
     {{- include "beam.pinniped.concierge.labels" $ | nindent 4 }}
   namespace: {{ include "beam.namespace" $ }}
 spec:
-  # The value of the `issuer` field should exactly match the `issuer`
-  # field of your Supervisor's FederationDomain.
-  issuer: {{ $v.issuer }}
-  # You can use any `audience` identifier for your cluster, but it is
-  # important that it is unique for security reasons.
-  audience: {{ $v.audience }}
+{{ toYaml $v | indent 2 }}
 {{- end }}
 {{- end }}

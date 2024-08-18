@@ -1,17 +1,41 @@
-{{- if .Values.cloudflaredSplitter.enabled }}
-apiVersion: v1
+{{- if .Values.cloudflared.enabled }}
+  apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "beam.cloudflared.splitter.fullname" . }}
+  name: {{ include "beam.cloudflared.fullname" . }}
   labels:
-    {{- include "beam.cloudflared.splitter.labels" . | nindent 4 }}
+    {{- include "beam.cloudflared.labels" . | nindent 4 }}
   namespace: {{ include "beam.namespace" . }}
 data:
+  config.yaml: |
+    # Name of the tunnel you want to run
+    tunnel: {{ .Values.cloudflared.tunnelName }}
+    # The location of the secret containing the tunnel credentials
+    credentials-file: /etc/cloudflared/creds/credentials.json
+    # General purpose TCP routing for the network
+    warp-routing:
+      enabled: {{ .Values.cloudflared.enableWarp }}
+    # Serves the metrics server under /metrics and the readiness server under /ready
+    metrics: 0.0.0.0:2000
+    # Autoupdates applied in a k8s pod will be lost when the pod is removed or restarted, so
+    # autoupdate doesn't make sense in Kubernetes. However, outside of Kubernetes, we strongly
+    # recommend using autoupdate.
+    no-autoupdate: true
+    # The `ingress` block tells cloudflared which local service to route incoming
+    # requests to. For more about ingress rules, see
+    # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
+    ingress:
+      {{- with .Values.cloudflared.ingress }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
+      - service: http_status:404
+  {{- if .Values.cloudflaredSplitter.enabled }}
   nginx.conf: |
     user  nginx;
     worker_processes  auto;
 
-    error_log  /var/log/nginx/error.log notice;
+    error_log  /dev/stdout notice;
     pid        /var/run/nginx.pid;
     events {
       worker_connections  1024;
@@ -23,7 +47,7 @@ data:
                         '$status $body_bytes_sent "$http_referer" '
                         '"$http_user_agent" "$http_x_forwarded_for"';
 
-      access_log  /var/log/nginx/access.log  main;
+      access_log  /dev/stdout  main;
       sendfile        on;
       keepalive_timeout  65;
     }
@@ -35,7 +59,7 @@ data:
         {{- if .Values.pinniped.concierge.enabled }}
         {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }} concierge;
         {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
-        {{ get (urlParse $v.issuer) "host" }} supervisor-{{ $k }};
+        {{ get (urlParse $v.issuer) "host" }} jwt-auth-{{ $k }};
         {{- end }}
         {{- end }}
         {{- range $k, $v := .Values.cloudflaredSplitter.beams }}
@@ -49,7 +73,7 @@ data:
         server {{ include "beam.fullname" $ }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443;
       }
       {{- range $k, $v := .Values.pinniped.concierge.jwtAuths }}
-      upstream supervisor-{{ $k }} {
+      upstream jwt-auth-{{ $k }} {
         server {{ get (urlParse $v.issuer) "host" }}:443;
       }
       {{- end }}
@@ -69,4 +93,5 @@ data:
         ssl_preread on;
       }
     }
+  {{- end }}
 {{- end }}

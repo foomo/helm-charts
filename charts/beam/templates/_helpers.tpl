@@ -50,6 +50,18 @@ app.kubernetes.io/name: {{ include "beam.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "beam.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "beam.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
 {{/*
 Create the name of the namespace
 */}}

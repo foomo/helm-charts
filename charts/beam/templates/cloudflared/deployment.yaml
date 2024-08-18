@@ -20,6 +20,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
+        # These are here so the deployment rolls when the config or secret change.
+        checksum/configmap: {{ include (print $.Template.BasePath "/cloudflared/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/cloudflared/secret.yaml") . | sha256sum }}
         {{- with .Values.cloudflared.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -28,33 +31,28 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "beam.serviceAccountName" . }}
       {{- with .Values.cloudflared.hostAliases }}
       hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.cloudflared.podSecurityContext }}
       securityContext:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- toYaml .Values.cloudflared.podSecurityContext | nindent 8 }}
       containers:
       - name: cloudflared
         {{- with .Values.cloudflared.image }}
         image: "{{ .repository }}:{{ .tag }}"
         imagePullPolicy: {{ .pullPolicy }}
         {{- end }}
-        command:
-          - cloudflared
+        args:
           - tunnel
-          - --metrics
-          - 0.0.0.0:3100
-          - --no-autoupdate
+          # Points cloudflared to the config file, which configures what
+          # cloudflared will actually do. This file is created by a ConfigMap.
+          - --config
+          - /etc/cloudflared/config/config.yaml
           - run
-          - --token
-          - {{ .Values.cloudflared.token }}
-        {{- with .Values.cloudflared.securityContext }}
         securityContext:
-          {{- toYaml . | nindent 12 }}
-        {{- end }}
+          {{- toYaml .Values.cloudflared.securityContext | nindent 12 }}
         ports:
           - name: http-metrics
             containerPort: 3100
@@ -75,10 +73,19 @@ spec:
         resources:
           {{- toYaml . | nindent 12 }}
         {{- end }}
-        {{- with .Values.cloudflared.extraVolumeMounts }}
         volumeMounts:
+          - name: config
+            mountPath: /etc/cloudflared/config
+            readOnly: true
+          # Each tunnel has an associated "credentials file" which authorizes machines
+          # to run the tunnel. cloudflared will read this file from its local filesystem,
+          # and it'll be stored in a k8s secret.
+          - name: creds
+            mountPath: /etc/cloudflared/creds
+            readOnly: true
+          {{- with .Values.cloudflared.extraVolumeMounts }}
           {{- toYaml . | nindent 12 }}
-        {{- end }}
+          {{- end }}
       {{- with .Values.cloudflaredSidecars }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
@@ -107,10 +114,14 @@ spec:
         envFrom:
           {{- toYaml . | nindent 12 }}
         {{- end }}
+        {{- with .Values.cloudflaredSplitter.readinessProbe }}
         readinessProbe:
-          {{- toYaml .Values.cloudflaredSplitter.readinessProbe | nindent 12 }}
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- with .Values.cloudflaredSplitter.livenessProbe }}
         livenessProbe:
-          {{- toYaml .Values.cloudflaredSplitter.livenessProbe | nindent 12 }}
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
         {{- with .Values.cloudflaredSplitter.resources }}
         resources:
           {{- toYaml . | nindent 12 }}
@@ -123,12 +134,54 @@ spec:
           {{- end }}
       {{- end }}
       volumes:
+        - name: creds
+          secret:
+            secretName: {{ include "beam.cloudflared.fullname" . }}
+        - name: config
+          configMap:
+            name: {{ include "beam.cloudflared.fullname" . }}
+            items:
+              - key: config.yaml
+                path: config.yaml
         {{- if .Values.cloudflaredSplitter.enabled }}
         - name: splitter-config
           configMap:
-            name: {{ include "beam.cloudflared.splitter.fullname" . }}
+            name: {{ include "beam.cloudflared.fullname" . }}
+            items:
+              - key: nginx.conf
+                path: nginx.conf
         {{- end }}
         {{- with .Values.cloudflared.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+      {{- with .Values.cloudflared.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cloudflared.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      affinity:
+         {{- with .Values.cloudflared.affinity }}
+         {{- toYaml . | nindent 8 }}
+         {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                   {{- range $k, $v := include "beam.cloudflared.selectorLabels" . | fromYaml }}
+                    - key: {{ $k }}
+                      operator: In
+                      values:
+                        - {{ $v }}
+                   {{- end }}
+      {{- end }}
+      {{- with .Values.cloudflared.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}
