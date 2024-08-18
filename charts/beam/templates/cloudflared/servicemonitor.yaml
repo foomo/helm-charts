@@ -1,0 +1,61 @@
+{{- if .Values.serviceMonitor.enabled }}
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1"}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "beam.cloudflared.fullname" $ }}
+  {{- with .Values.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "beam.cloudflared.labels" $ | nindent 4 }}
+    {{- with .Values.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if .Values.serviceMonitor.namespace }}
+  namespace: {{ .Values.serviceMonitor.namespace }}
+  {{- else }}
+  namespace: {{ include "beam.namespace" . }}
+  {{- end }}
+spec:
+  {{- with .Values.serviceMonitor.namespaceSelector }}
+  namespaceSelector:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "beam.cloudflared.selectorLabels" $ | nindent 6 }}
+    {{- with .Values.serviceMonitor.matchExpressions }}
+    matchExpressions:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  endpoints:
+    - port: http
+      {{- with .Values.serviceMonitor.interval }}
+      interval: {{ . }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ . }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.relabelings }}
+      relabelings:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.metricRelabelings }}
+      metricRelabelings:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.scheme }}
+      scheme: {{ . }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.tlsConfig }}
+      tlsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- with .Values.serviceMonitor.targetLabels }}
+  targetLabels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,16 @@
+{{- if gt (int .Values.cloudflared.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "beam.cloudflared.fullname" . }}
+  labels:
+    {{- include "beam.cloudflared.labels" . | nindent 4 }}
+  namespace: {{ include "beam.namespace" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "beam.cloudflared.selectorLabels" . | nindent 6 }}
+  {{- with .Values.cloudflared.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+{{- end }}

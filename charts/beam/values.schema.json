@@ -5,11 +5,54 @@
         "cloudflared": {
             "type": "object",
             "properties": {
+                "account": {
+                    "type": "string"
+                },
                 "affinity": {
                     "type": "object"
                 },
+                "autoscaling": {
+                    "type": "object",
+                    "properties": {
+                        "behavior": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "scaleDown": {
+                                    "type": "object"
+                                },
+                                "scaleUp": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "customMetrics": {
+                            "type": "array"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "maxReplicas": {
+                            "type": "integer"
+                        },
+                        "minReplicas": {
+                            "type": "integer"
+                        },
+                        "targetCPUUtilizationPercentage": {
+                            "type": "integer"
+                        },
+                        "targetMemoryUtilizationPercentage": {
+                            "type": "null"
+                        }
+                    }
+                },
                 "dnsConfig": {
                     "type": "object"
+                },
+                "enableWarp": {
+                    "type": "boolean"
                 },
                 "enabled": {
                     "type": "boolean"
@@ -44,6 +87,9 @@
                     }
                 },
                 "imagePullSecrets": {
+                    "type": "array"
+                },
+                "ingress": {
                     "type": "array"
                 },
                 "livenessProbe": {
@@ -108,14 +154,39 @@
                 "resources": {
                     "type": "object"
                 },
-                "securityContext": {
-                    "type": "object"
-                },
-                "token": {
+                "secret": {
                     "type": "string"
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
+                        },
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "readOnlyRootFilesystem": {
+                            "type": "boolean"
+                        }
+                    }
                 },
                 "tolerations": {
                     "type": "array"
+                },
+                "tunnelId": {
+                    "type": "string"
+                },
+                "tunnelName": {
+                    "type": "string"
                 }
             }
         },
@@ -153,6 +224,12 @@
                             "type": "string"
                         }
                     }
+                },
+                "livenessProbe": {
+                    "type": "object"
+                },
+                "readinessProbe": {
+                    "type": "object"
                 },
                 "resources": {
                     "type": "object"
@@ -212,6 +289,67 @@
         },
         "revisionHistoryLimit": {
             "type": "integer"
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "automount": {
+                    "type": "boolean"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "serviceMonitor": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "interval": {
+                    "type": "null"
+                },
+                "labels": {
+                    "type": "object"
+                },
+                "matchExpressions": {
+                    "type": "array"
+                },
+                "metricRelabelings": {
+                    "type": "array"
+                },
+                "namespace": {
+                    "type": "null"
+                },
+                "namespaceSelector": {
+                    "type": "object"
+                },
+                "relabelings": {
+                    "type": "array"
+                },
+                "scheme": {
+                    "type": "string"
+                },
+                "scrapeTimeout": {
+                    "type": "null"
+                },
+                "targetLabels": {
+                    "type": "array"
+                },
+                "tlsConfig": {
+                    "type": "null"
+                }
+            }
         }
     }
 }
