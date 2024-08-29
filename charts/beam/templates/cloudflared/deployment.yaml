@@ -55,7 +55,7 @@ spec:
           {{- toYaml .Values.cloudflared.securityContext | nindent 12 }}
         ports:
           - name: http-metrics
-            containerPort: 3100
+            containerPort: 2000
             protocol: TCP
         {{- with .Values.cloudflared.extraEnv }}
         env:
