@@ -1,0 +1,16 @@
+{{- if .Values.cloudflared.podMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "beam.cloudflared.fullname" $ }}
+  labels: {{- include "beam.cloudflared.labels" $ | nindent 4 }}
+  namespace: {{ include "beam.namespace" . }}
+spec:
+  selector:
+    matchLabels: {{- include "beam.cloudflared.selectorLabels" $ | nindent 6 }}
+  namespaceSelector:
+    matchNames: ["{{ include "beam.namespace" . }}"]
+  podMetricsEndpoints:
+    - port: http-metrics
+      path: /metrics
+{{- end }}
