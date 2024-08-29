@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -134,7 +134,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflared.hostAliases | list | `[]` | Host aliases to add |
 | cloudflared.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | cloudflared.image.repository | string | `"cloudflare/cloudflared"` | The image repository |
-| cloudflared.image.tag | string | `"2024.8.2"` | The image tag |
+| cloudflared.image.tag | string | `"2024.8.3"` | The image tag |
 | cloudflared.imagePullSecrets | list | `[]` | Image pull secrets |
 | cloudflared.ingress | list | `[]` |  |
 | cloudflared.livenessProbe.failureThreshold | int | `1` |  |
@@ -146,6 +146,8 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflared.nodeSelector | object | `{}` | Tolerations settings for pods. |
 | cloudflared.podAnnotations | object | `{}` | Annotations for pods |
 | cloudflared.podLabels | object | `{}` | Labels for pods |
+| cloudflared.podMonitor | object | `{"enabled":false}` | Pod Monitor configuration |
+| cloudflared.podMonitor.enabled | bool | `false` | If enabled, PodMonitor resources for Prometheus Operator are created |
 | cloudflared.podSecurityContext | object | `{}` | The SecurityContext for pods Security items common to everything in the pod.  Here we require that it does not run as the user defined in the image, literally named "nonroot". |
 | cloudflared.readinessProbe.httpGet.path | string | `"/ready"` |  |
 | cloudflared.readinessProbe.httpGet.port | int | `2000` |  |
@@ -187,17 +189,4 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | If not set and create is true, a name is generated using the fullname template |
-| serviceMonitor.annotations | object | `{}` | ServiceMonitor annotations |
-| serviceMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
-| serviceMonitor.interval | string | `nil` | ServiceMonitor scrape interval |
-| serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
-| serviceMonitor.matchExpressions | list | `[]` | Optional expressions to match on |
-| serviceMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint |
-| serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor resources |
-| serviceMonitor.namespaceSelector | object | `{}` | Namespace selector for ServiceMonitor resources |
-| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig |
-| serviceMonitor.scheme | string | `"http"` | ServiceMonitor will use http by default, but you can pick https as well |
-| serviceMonitor.scrapeTimeout | string | `nil` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
-| serviceMonitor.targetLabels | list | `[]` |  |
-| serviceMonitor.tlsConfig | string | `nil` | ServiceMonitor will use these tlsConfig settings to make the health check requests |
 

@@ -129,6 +129,14 @@
                 "podLabels": {
                     "type": "object"
                 },
+                "podMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "podSecurityContext": {
                     "type": "object"
                 },
@@ -304,50 +312,6 @@
                 },
                 "name": {
                     "type": "string"
-                }
-            }
-        },
-        "serviceMonitor": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "interval": {
-                    "type": "null"
-                },
-                "labels": {
-                    "type": "object"
-                },
-                "matchExpressions": {
-                    "type": "array"
-                },
-                "metricRelabelings": {
-                    "type": "array"
-                },
-                "namespace": {
-                    "type": "null"
-                },
-                "namespaceSelector": {
-                    "type": "object"
-                },
-                "relabelings": {
-                    "type": "array"
-                },
-                "scheme": {
-                    "type": "string"
-                },
-                "scrapeTimeout": {
-                    "type": "null"
-                },
-                "targetLabels": {
-                    "type": "array"
-                },
-                "tlsConfig": {
-                    "type": "null"
                 }
             }
         }
