@@ -338,6 +338,28 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/csp-reporter-0.1.0/csp-reporter-0.1.0.tgz
     version: 0.1.0
+  gateway-crds:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-09-23T12:33:30.627064678Z"
+    description: Foomo Gateway Custom Resource Definition Chart
+    digest: 78b6973e73609ab1694185a7c07f52860da1859dd6669d4f232cf63895b4af50
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - gateway
+    name: gateway-crds
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/gateway-crds-0.1.0/gateway-crds-0.1.0.tgz
+    version: 0.1.0
   sesamy-gtm:
   - annotations:
       artifacthub.io/links: |
@@ -509,4 +531,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-29T14:23:58.474213619Z"
+generated: "2024-09-23T12:33:30.627121104Z"
