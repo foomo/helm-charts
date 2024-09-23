@@ -360,6 +360,28 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/gateway-crds-0.1.0/gateway-crds-0.1.0.tgz
     version: 0.1.0
+  namespace:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-09-23T12:35:25.125509832Z"
+    description: Common Namespace Resource Chart
+    digest: bdc7471f2262e5e8e1564e52b19309649bcff6b2fb5a14c2242ebf3f91c77eaf
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - namespace
+    name: namespace
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/namespace-0.1.0/namespace-0.1.0.tgz
+    version: 0.1.0
   sesamy-gtm:
   - annotations:
       artifacthub.io/links: |
@@ -531,4 +553,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-23T12:33:30.627121104Z"
+generated: "2024-09-23T12:35:25.125587898Z"
