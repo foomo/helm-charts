@@ -23,7 +23,7 @@ lint:
 ## https://github.com/norwoodj/helm-docs
 docs:
 	@for dir in ./charts/* ; do \
-		docker run --rm --volume "$$(pwd)/$${dir}:/helm-docs/$${dir}" jnorwood/helm-docs:v1.12.0 --template-files "$${dir}/README.md.gotmpl"  ;\
+		docker run --rm --volume "$$(pwd)/$${dir}:/helm-docs/$${dir}" jnorwood/helm-docs:v1.14.2 --template-files "$${dir}/README.md.gotmpl"  ;\
 	done
 
 .PHONY: schema
