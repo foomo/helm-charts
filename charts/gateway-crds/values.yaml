@@ -1,0 +1,10 @@
+# -- Overrides the chart's name
+# @section -- Overrides
+nameOverride: ""
+# -- Overrides the chart's computed fullname
+# @section -- Overrides
+fullnameOverride: ""
+# -- The name of the Namespace to deploy
+# If not set, `.Release.Namespace` is used
+# @section -- Overrides
+namespaceOverride: ''
