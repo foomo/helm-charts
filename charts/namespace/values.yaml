@@ -1,0 +1,41 @@
+# -- Overrides the chart's name
+# @section -- Overrides
+nameOverride: ""
+# -- Overrides the chart's computed fullname
+# @section -- Overrides
+fullnameOverride: ""
+# -- The name of the Namespace to deploy
+# If not set, `.Release.Namespace` is used
+# @section -- Overrides
+namespaceOverride: ''
+
+# -- Namspace secrets
+secrets:
+  # -- Opaque secrets
+  opaque: {}
+  # my-secret:
+  #   annotations:
+  #     replicator.v1.mittwald.de/replicate-to: ".*"
+  #   data:
+  #     ...
+  # -- TLS secrets
+  tls: {}
+  # domain.com:
+  #   annotations:
+  #     replicator.v1.mittwald.de/replicate-to: ".*"
+  #   data:
+  #     tls.crt: ''
+  #     tls.key: ''
+  # -- Docker config json secrets
+  dockerConfigs: {}
+  # hub.docker.com:
+  #   annotations:
+  #     replicator.v1.mittwald.de/replicate-to: ".*"
+  #   data: '{...}'
+
+# -- Namspace serviceaccounts
+serviceAccounts: {}
+# my-service-account:
+#   annotations: {}
+
+
