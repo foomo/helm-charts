@@ -1,0 +1,75 @@
+{{- if .Values.postgres.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "backups.postgres.fullname" . }}
+  labels:
+    {{- include "backups.postgres.labels" . | nindent 4 }}
+  namespace: {{ include "backups.namespace" . }}
+spec:
+  schedule: {{ quote .Values.postgres.cronjob.schedule }}
+  concurrencyPolicy: {{ .Values.postgres.cronjob.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.postgres.cronjob.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.postgres.cronjob.successfulJobsHistoryLimit }}
+  {{- if .Values.postgres.cronjob.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{ .Values.postgres.cronjob.startingDeadlineSeconds }}
+  {{- end }}
+  jobTemplate:
+    spec:
+      {{- if .Values.postgres.cronjob.backoffLimit }}
+      backoffLimit: {{ .Values.backup.cronjob.backoffLimit }}
+      {{- end }}
+      {{- if .Values.postgres.cronjob.ttlSecondsAfterFinished }}
+      ttlSecondsAfterFinished: {{ .Values.postgres.cronjob.ttlSecondsAfterFinished }}
+      {{- end }}
+      template:
+        spec:
+          serviceAccountName: {{ include "backups.serviceAccountName" . }}
+          initContainers:
+            - name: dump
+              image: postgres:{{ .Values.postgres.postgresVersion }}-alpine 
+              command: {{- include "backups.postgres.pgdumpCommand" . | nindent 16 }}
+              env:
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: PGUSER
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: PGPASSWORD
+                {{- with .Values.postgres.dump.extraEnv }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              volumeMounts:
+                - name: data
+                  mountPath: /backup
+          containers:
+            - name: save
+              image: {{ include "backups.postgres.cloudImage" . }}
+              imagePullPolicy: IfNotPresent
+              command: {{ include "backups.postgres.uploadCommand" . | trim | nindent 16 }}
+              env:
+              {{- if .Values.postgres.storage }}
+              {{- if .Values.postgres.storage.s3 }}
+              {{- if hasKey .Values.postgres.storage.s3 "accessKey" }}
+                - name: AWS_ACCESS_KEY_ID
+                  value: {{ .Values.postgres.storage.s3.accessKey }}
+                - name: AWS_SECRET_ACCESS_KEY
+                  value: {{ .Values.postgres.storage.s3.secretAccessKey }}
+              {{- end }}
+              {{- end }}
+              {{- end }}
+                {{- with .Values.postgres.dump.extraEnv }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              volumeMounts:
+                - name: data
+                  mountPath: /backup
+          restartPolicy: {{ .Values.postgres.cronjob.restartPolicy }}
+          volumes:
+            - name: data
+              emptyDir: {}
+{{- end }}

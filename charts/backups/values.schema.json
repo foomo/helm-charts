@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "namespaceOverride": {
+            "type": "string"
+        },
+        "postgres": {
+            "type": "object",
+            "properties": {
+                "cronjob": {
+                    "type": "object",
+                    "properties": {
+                        "backoffLimit": {
+                            "type": "integer"
+                        },
+                        "concurrencyPolicy": {
+                            "type": "string"
+                        },
+                        "failedJobsHistoryLimit": {
+                            "type": "integer"
+                        },
+                        "restartPolicy": {
+                            "type": "string"
+                        },
+                        "schedule": {
+                            "type": "string"
+                        },
+                        "startingDeadlineSeconds": {
+                            "type": "string"
+                        },
+                        "successfulJobsHistoryLimit": {
+                            "type": "integer"
+                        },
+                        "ttlSecondsAfterFinished": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "dump": {
+                    "type": "object",
+                    "properties": {
+                        "extraEnv": {
+                            "type": "array"
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "postgresVersion": {
+                    "type": "string"
+                },
+                "save": {
+                    "type": "object",
+                    "properties": {
+                        "extraEnv": {
+                            "type": "array"
+                        }
+                    }
+                },
+                "storage": {
+                    "type": "null"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "revisionHistoryLimit": {
+            "type": "integer"
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "automount": {
+                    "type": "boolean"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

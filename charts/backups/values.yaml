@@ -1,0 +1,76 @@
+# -- Overrides the chart's name
+nameOverride: ""
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+# -- The name of the Namespace to deploy
+# If not set, `.Release.Namespace` is used
+namespaceOverride: ''
+
+# -- Number of revisions to retain to allow rollback
+revisionHistoryLimit: 10
+
+postgres:
+  enabled: false
+  postgresVersion: "15"
+  host: postgres-host
+  port: "5432"
+  user: postgres
+  password: password
+  name: instance-name
+  cronjob:
+    # -- Set the cronjob parameter schedule
+    
+    schedule: "@daily"
+    # -- Set the cronjob parameter concurrencyPolicy
+    
+    concurrencyPolicy: Forbid
+    # -- Set the cronjob parameter failedJobsHistoryLimit
+    
+    failedJobsHistoryLimit: 1
+    # -- Set the cronjob parameter successfulJobsHistoryLimit
+    
+    successfulJobsHistoryLimit: 1
+    #  -- Set the cronjob parameter startingDeadlineSeconds
+    
+    startingDeadlineSeconds: ""
+    # -- Set the cronjob parameter ttlSecondsAfterFinished
+    
+    ttlSecondsAfterFinished: ""
+    # -- Set the cronjob parameter restartPolicy
+    
+    restartPolicy: Never
+    # -- Set the cronjob parameter backoffLimit
+    backoffLimit: 6
+
+  # -- Set the type of postgres database
+  type: SelfHosted # CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres
+
+  # -- Set the storage location for the postgres dump, S3, GCS, Azure bucket
+  storage: ~
+  #   s3:
+  #     bucket: bucket-name
+  #     prefix: prefix
+  #     endpoint: s3.dualstack.us-east-2.amazonaws.com  # api endpoint
+  #     accesKey: acceskey
+  #     secretAccessKey: secretacceskey
+  #   gcp:
+  #     bucket: bucket
+  #     prefix: prefix
+  dump:
+    # -- Environment variables to add to pg dump container
+    extraEnv: []
+  save:
+    # -- Environment variables to add to save container
+    extraEnv: []
+
+# ServiceAccount configuration
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # -- If not set and create is true, a name is generated using the fullname template
+  name: "system-backups"
