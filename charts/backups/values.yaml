@@ -9,42 +9,44 @@ namespaceOverride: ''
 # -- Number of revisions to retain to allow rollback
 revisionHistoryLimit: 10
 
+upload:
+
+
+# Postgres settings
 postgres:
+  # -- Enable backup
   enabled: false
+  # -- Postgres version
   postgresVersion: "15"
+  # -- Postgres host
   host: postgres-host
+  # -- Postgres port
   port: "5432"
+  # -- Postgres user name
   user: postgres
+  # -- Postgres password
   password: password
   name: instance-name
+  # Cronjob settings
   cronjob:
     # -- Set the cronjob parameter schedule
-    
     schedule: "@daily"
     # -- Set the cronjob parameter concurrencyPolicy
-    
     concurrencyPolicy: Forbid
     # -- Set the cronjob parameter failedJobsHistoryLimit
-    
     failedJobsHistoryLimit: 1
     # -- Set the cronjob parameter successfulJobsHistoryLimit
-    
     successfulJobsHistoryLimit: 1
     #  -- Set the cronjob parameter startingDeadlineSeconds
-    
     startingDeadlineSeconds: ""
     # -- Set the cronjob parameter ttlSecondsAfterFinished
-    
     ttlSecondsAfterFinished: ""
     # -- Set the cronjob parameter restartPolicy
-    
     restartPolicy: Never
     # -- Set the cronjob parameter backoffLimit
     backoffLimit: 6
-
   # -- Set the type of postgres database
   type: SelfHosted # CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres
-
   # -- Set the storage location for the postgres dump, S3, GCS, Azure bucket
   storage: ~
   #   s3:
@@ -59,7 +61,7 @@ postgres:
   dump:
     # -- Environment variables to add to pg dump container
     extraEnv: []
-  save:
+  upload:
     # -- Environment variables to add to save container
     extraEnv: []
 
