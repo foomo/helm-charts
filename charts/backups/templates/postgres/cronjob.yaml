@@ -17,7 +17,7 @@ spec:
   jobTemplate:
     spec:
       {{- if .Values.postgres.cronjob.backoffLimit }}
-      backoffLimit: {{ .Values.backup.cronjob.backoffLimit }}
+      backoffLimit: {{ .Values.postgres.cronjob.backoffLimit }}
       {{- end }}
       {{- if .Values.postgres.cronjob.ttlSecondsAfterFinished }}
       ttlSecondsAfterFinished: {{ .Values.postgres.cronjob.ttlSecondsAfterFinished }}
@@ -27,7 +27,7 @@ spec:
           serviceAccountName: {{ include "backups.serviceAccountName" . }}
           initContainers:
             - name: dump
-              image: postgres:{{ .Values.postgres.postgresVersion }}-alpine
+              image: {{ .Values.postgres.dumpImage }}
               command: {{- include "backups.postgres.pgdumpCommand" . | nindent 16 }}
               env:
                 - name: PGUSER
@@ -47,26 +47,22 @@ spec:
                 - name: data
                   mountPath: /backup
           containers:
-            - name: save
+            - name: upload
               image: {{ include "backups.postgres.cloudImage" . }}
               imagePullPolicy: IfNotPresent
               command: {{ include "backups.postgres.uploadCommand" . | trim | nindent 16 }}
               env:
-              {{- with .Values.postgres.storage }}
-              {{- fail "storage no supported yet" }}
-              {{- with .s3 }}
-              {{- end }}}
-              {{- if .Values.postgres.storage }}
-              {{- if .Values.postgres.storage.s3 }}
-              {{- if hasKey .Values.postgres.storage.s3 "accessKey" }}
+              {{- with .Values.upload.s3 }}
+              {{- if hasKey . "accessKey" }}
                 - name: AWS_ACCESS_KEY_ID
-                  value: {{ .Values.postgres.storage.s3.accessKey }}
+                  value: {{ .accessKey }}
+              {{- end }}
+              {{- if hasKey . "secretAccessKey" }}
                 - name: AWS_SECRET_ACCESS_KEY
-                  value: {{ .Values.postgres.storage.s3.secretAccessKey }}
+                  value: {{ .secretAccessKey }}
               {{- end }}
               {{- end }}
-              {{- end }}
-                {{- with .Values.postgres.dump.extraEnv }}
+                {{- with .Values.postgres.upload.extraEnv }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
               volumeMounts:

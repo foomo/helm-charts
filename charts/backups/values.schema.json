@@ -51,6 +51,9 @@
                         }
                     }
                 },
+                "dumpImage": {
+                    "type": "string"
+                },
                 "enabled": {
                     "type": "boolean"
                 },
@@ -66,22 +69,16 @@
                 "port": {
                     "type": "string"
                 },
-                "postgresVersion": {
+                "type": {
                     "type": "string"
                 },
-                "save": {
+                "upload": {
                     "type": "object",
                     "properties": {
                         "extraEnv": {
                             "type": "array"
                         }
                     }
-                },
-                "storage": {
-                    "type": "null"
-                },
-                "type": {
-                    "type": "string"
                 },
                 "user": {
                     "type": "string"
@@ -107,6 +104,9 @@
                     "type": "string"
                 }
             }
+        },
+        "upload": {
+            "type": "object"
         }
     }
 }

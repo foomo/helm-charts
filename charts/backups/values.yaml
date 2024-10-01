@@ -9,25 +9,34 @@ namespaceOverride: ''
 # -- Number of revisions to retain to allow rollback
 revisionHistoryLimit: 10
 
-upload:
-
+upload: {}
+  # s3:
+  #   bucket: bucket-name
+  #   prefix: prefix
+  #   endpoint: s3.dualstack.us-east-2.amazonaws.com  # api endpoint
+  #   accesKey: acceskey
+  #   secretAccessKey: secretacceskey
+  # gcp:
+  #   bucket: bucket
+  #   prefix: prefix
 
 # Postgres settings
 postgres:
   # -- Enable backup
   enabled: false
-  # -- Postgres version
-  postgresVersion: "15"
   # -- Postgres host
-  host: postgres-host
+  host: ""
   # -- Postgres port
   port: "5432"
   # -- Postgres user name
-  user: postgres
+  user: ""
   # -- Postgres password
-  password: password
+  password: ""
   name: instance-name
   # Cronjob settings
+
+  dumpImage: postgres:15-alpine
+
   cronjob:
     # -- Set the cronjob parameter schedule
     schedule: "@daily"
@@ -48,16 +57,7 @@ postgres:
   # -- Set the type of postgres database
   type: SelfHosted # CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres
   # -- Set the storage location for the postgres dump, S3, GCS, Azure bucket
-  storage: ~
-  #   s3:
-  #     bucket: bucket-name
-  #     prefix: prefix
-  #     endpoint: s3.dualstack.us-east-2.amazonaws.com  # api endpoint
-  #     accesKey: acceskey
-  #     secretAccessKey: secretacceskey
-  #   gcp:
-  #     bucket: bucket
-  #     prefix: prefix
+
   dump:
     # -- Environment variables to add to pg dump container
     extraEnv: []
@@ -75,4 +75,4 @@ serviceAccount:
   annotations: {}
   # -- The name of the service account to use.
   # -- If not set and create is true, a name is generated using the fullname template
-  name: "system-backups"
+  name: ""
