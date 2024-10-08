@@ -21,5 +21,5 @@ dependencies:
     version: 6.6.1
     repository: https://grafana.github.io/helm-charts
     condition: loki.enabled
-version: 0.0.5
-appVersion: 2.3.0
+version: 0.0.6
+appVersion: 2.4.0
