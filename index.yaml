@@ -411,6 +411,35 @@ entries:
         - name: GTM Changelog
           url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
     apiVersion: v2
+    appVersion: 2.4.0
+    created: "2024-10-08T08:49:14.131478712Z"
+    dependencies:
+    - alias: loki
+      condition: loki.enabled
+      name: loki
+      repository: https://grafana.github.io/helm-charts
+      version: 6.6.1
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: 7c9e071227be91a259400880eca0d6480127620483c071ced04104d11c19ce1f
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.0.6/sesamy-gtm-0.0.6.tgz
+    version: 0.0.6
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+        - name: GTM Changelog
+          url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
+    apiVersion: v2
     appVersion: 2.3.0
     created: "2024-08-27T07:15:08.305759743Z"
     dependencies:
@@ -574,4 +603,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-23T15:55:08.018626965Z"
+generated: "2024-10-08T08:49:14.13152009Z"
