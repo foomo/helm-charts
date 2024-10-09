@@ -366,6 +366,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 0.1.2
+    created: "2024-10-09T06:31:57.371261519Z"
+    description: Common Namespace Resource Chart
+    digest: 069051484d48b9a44f528e9121482b493bbaf7fe285daf3a49a8b8474ff91bd9
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - namespace
+    name: namespace
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/namespace-0.1.2/namespace-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 0.1.1
     created: "2024-09-23T15:55:08.01856037Z"
     description: Common Namespace Resource Chart
@@ -603,4 +624,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-08T08:49:14.13152009Z"
+generated: "2024-10-09T06:31:57.371334545Z"
