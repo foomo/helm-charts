@@ -624,4 +624,27 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-09T06:31:57.371334545Z"
+  squadron-keel-server:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-10-22T14:00:48.770274591Z"
+    description: Squadron Keel Server chart
+    digest: 48b9e0a74abfb39f2d2b73887832366c365a3381476c55688d3f2db61401eeb2
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.1.0/squadron-keel-server-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-10-22T14:00:48.770340184Z"
