@@ -19,6 +19,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-go@v5
+
+      - name: Install helm-schema
+        run: go install github.com/dadav/helm-schema/cmd/helm-schema@latest
+
       - uses: azure/setup-helm@v4
 
       - name: Run Helm plugin install
@@ -39,7 +44,6 @@ jobs:
 
       - name: Run Helm schema
         run: |
-          go install github.com/dadav/helm-schema/cmd/helm-schema@latest
           make schema
           if ! git diff --exit-code; then
               echo "Documentation not up to date. Please run `make schema` and commit changes!" >&2
