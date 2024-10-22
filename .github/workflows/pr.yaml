@@ -39,6 +39,7 @@ jobs:
 
       - name: Run Helm schema
         run: |
+          go install github.com/dadav/helm-schema/cmd/helm-schema@latest
           make schema
           if ! git diff --exit-code; then
               echo "Documentation not up to date. Please run `make schema` and commit changes!" >&2
