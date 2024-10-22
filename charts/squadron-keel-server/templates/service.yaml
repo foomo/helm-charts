@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "keel.server.fullname" . }}
+  labels:
+    {{- include "keel.server.labels" . | nindent 4 }}
+    {{- with .Values.service.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "keel.server.namespace" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector: {{- include "keel.server.selectorLabels" . | nindent 4 }}
+  ports:
+    {{- range $key, $value := .Values.ports }}
+    - name: {{ $key }}
+      port: {{ $value }}
+      targetPort: {{ $key }}
+    {{- end }}

@@ -31,9 +31,17 @@ docs:
 ## https://github.com/knechtionscoding/helm-schema-gen
 schema: PWD=$(pwd)
 schema:
-	@for dir in ./charts/* ; do \
-		helm schema-gen $${dir}/values.yaml > $${dir}/values.schema.json ;\
-	done
+	helm-schema -n -c charts/namespace
+	helm-schema -n -c charts/squadron-keel-server
+	helm schema-gen charts/beam/values.yaml > charts/beam/values.schema.json
+	helm schema-gen charts/contentserver/values.yaml > charts/contentserver/values.schema.json
+	helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
+	helm schema-gen charts/gateway-crds/values.yaml > charts/gateway-crds/values.schema.json
+	helm schema-gen charts/sesamy-gtm/values.yaml > charts/sesamy-gtm/values.schema.json
+	helm schema-gen charts/sesamy-umami/values.yaml > charts/sesamy-umami/values.schema.json
+	#@for dir in ./charts/* ; do \
+	#	helm-schema -n -c $${dir} ;\
+	#done
 
 ## === K3d ===
 
