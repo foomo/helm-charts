@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "keel.server.fullname" . }}
+  labels:
+    {{- include "keel.server.labels" . | nindent 4 }}
+    {{- with .Values.server.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.server.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "keel.server.namespace" . }}
+spec:
+  {{- if not  .Values.autoscaling.enabled }}
+  replicas: {{ .Values.server.replicas }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- with .Values.server.strategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "keel.server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "keel.server.selectorLabels" . | nindent 8 }}
+        {{- include "keel.server.networkingLabels" . | nindent 8 }}
+      {{- with .Values.server.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "keel.server.serviceAccountName" . }}
+      {{- if .Values.graceful.enabled }}
+      terminationGracePeriodSeconds: {{ .Values.graceful.periodSeconds }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: readme
+              containerPort: 9001
+            - name: zap
+              containerPort: 9100
+            - name: pprof
+              containerPort: 6060
+            - name: viper
+              containerPort: 9300
+            - name: healthz
+              containerPort: 9400
+            - name: prometheus
+              containerPort: 9200
+            {{- range $key, $value := .Values.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
+              protocol: TCP
+            {{- end }}
+            {{- with .Values.server.additionalPorts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+            {{- include "keel.server.env.log" . | nindent 12 }}
+            {{- include "keel.server.env.squadron" . | nindent 12 }}
+            {{- include "keel.server.env.opentelemetry" . | nindent 12 }}
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ tpl $value $ | quote }}
+            {{- end }}
+            {{- with .Values.server.additionalEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- with .Values.secretEnv }}
+            - secretRef:
+                name: {{ include "keel.server.fullname" $ }}-env
+            {{- end }}
+            {{- with .Values.server.additionalEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: storage
+              mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- with .Values.server.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- range .Values.secretMounts }}
+            - name: {{ . }}
+              readOnly: true
+              mountPath: /etc/secrets/{{ . }}
+            {{- end }}
+          {{- with .Values.server.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.graceful.enabled }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
+          {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: {{ include "keel.server.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ include "keel.server.fullname" . }}-data
+        {{- end }}
+        {{- range .Values.secretMounts }}
+        - name: {{ . }}
+          secret:
+            secretName: {{ . }}
+        {{- end }}
+        {{- with .Values.server.additionalVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
