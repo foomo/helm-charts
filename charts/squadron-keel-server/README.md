@@ -78,7 +78,7 @@ Squadron Keel Server chart
 | persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class name |
-| podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | See https://kubernetes.io/docs/tasks/run-application/configure-pdb/ |
+| podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | Pod disruption budget settings |
 | podDisruptionBudget.enabled | bool | `false` | Indicates wether the pod disruption budget is enabled |
 | ports | object | `{}` | http: 8080 |
 | rbac | object | `{"enabled":false}` | RBAC configuration |
@@ -105,11 +105,11 @@ Squadron Keel Server chart
 | server.additionalVolumes | list | `[]` | Additional volumes |
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
-| server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
+| server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
-| server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
+| server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
 | server.resources | object | `{}` | See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
-| server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
+| server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
 | service | object | `{"additionalLabels":{},"annotations":{},"type":"ClusterIP"}` | Service settings |
 | service.additionalLabels | object | `{}` | Additional Service labels |
 | service.annotations | object | `{}` | Service annotations |
@@ -123,10 +123,10 @@ Squadron Keel Server chart
 | serviceMonitor.annotations | object | `{}` | ServiceMonitor annotations |
 | serviceMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
 | serviceMonitor.interval | string | `""` | ServiceMonitor scrape interval |
-| serviceMonitor.metricRelabelings | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint |
-| serviceMonitor.relabelings | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig |
+| serviceMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion |
+| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
-| serviceMonitor.targetLabels | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec |
+| serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
 | squadron | string | `""` | Squadron name |
 | unit | string | `""` | Squadron unit name |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
