@@ -1,8 +1,8 @@
-# keel-server
+# squadron-keel-server
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.4](https://img.shields.io/badge/AppVersion-0.1.4-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.5](https://img.shields.io/badge/AppVersion-0.1.5-informational?style=flat-square)
 
-Keel Server Chart
+Squadron Keel Server Chart
 
 **Homepage:** <https://www.foomo.org>
 
@@ -14,11 +14,11 @@ Keel Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| autoscaling | object | `{"additionalMetrics":{},"behavior":{},"enabled":false,"maxReplicas":5,"minReplicas":1,"targetCPU":75,"targetMemory":null}` | Autoscaling settings |
+| autoscaling | object | `{"additionalMetrics":{},"behavior":{},"enabled":false,"maxReplicas":9,"maxUnavailable":1,"minAvailable":"","minReplicas":1,"targetCPU":75,"targetMemory":null}` | Autoscaling settings |
 | autoscaling.additionalMetrics | object | `{}` | Additional scaling metrics |
 | autoscaling.behavior | object | `{}` | Autoscaling behavior settings |
 | autoscaling.enabled | bool | `false` | Specifies whether a auto scaling should be enabled |
-| autoscaling.maxReplicas | int | `5` | Maximum replication number |
+| autoscaling.maxReplicas | int | `9` | Maximum replication number |
 | autoscaling.minReplicas | int | `1` | Minimum replication number |
 | autoscaling.targetCPU | int | `75` | Target CPU utilization |
 | autoscaling.targetMemory | string | `nil` | Target Memory utilization |
@@ -78,8 +78,6 @@ Keel Server Chart
 | persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class name |
-| podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | Pod disruption budget settings |
-| podDisruptionBudget.enabled | bool | `false` | Indicates wether the pod disruption budget is enabled |
 | ports | object | `{}` | http: 8080 |
 | rbac | object | `{"enabled":false}` | RBAC configuration |
 | rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
@@ -109,7 +107,7 @@ Keel Server Chart
 | server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
-| server.resources | object | `{}` | See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
+| server.resources | object | `{}` | Resource settings |
 | server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
 | service | object | `{"additionalLabels":{},"annotations":{},"type":"ClusterIP"}` | Service settings |
 | service.additionalLabels | object | `{}` | Additional Service labels |

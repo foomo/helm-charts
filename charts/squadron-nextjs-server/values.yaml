@@ -161,15 +161,6 @@ image:
   # -- Image tag
   tag: ''
 
-
-# @schema
-# type: object
-# additionalProperties: true
-# @schema
-# -- Map of ports to expose
-# -- ports:
-# --   http: 8080
-ports: { }
 # @schema
 # type: object
 # additionalProperties: true
@@ -216,7 +207,9 @@ ingress:
   # additionalProperties: true
   # @schema
   # -- Ingress annotations
-  annotations: { }
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
   # @schema
   # type: string
   # @schema
@@ -440,8 +433,7 @@ server:
   # type: [object, null]
   # additionalProperties: true
   # @schema
-  # -- Resouce settings
-  # -- See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+  # -- Resource settings
   resources: {}
   # @schema
   # type: [object, null]
@@ -449,48 +441,24 @@ server:
   # @schema
   # -- Startup probe settings
   startupProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/startup
+    tcpSocket:
+      port: 3000
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
   readinessProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/readiness
+    tcpSocket:
+      port: 3000
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
   livenessProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/liveness
-
-# @schema
-# type: object
-# @schema
-# -- Pod disruption budget settings
-podDisruptionBudget:
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Indicates wether the pod disruption budget is enabled
-  enabled: false
-  # @schema
-  # type: [integer, string]
-  # @schema
-  # Minimum availablity
-  minAvailable: ''
-  # @schema
-  # type: [integer, string]
-  # @schema
-  # Maximum unavailablity
-  maxUnavailable: ''
+    tcpSocket:
+      port: 3000
 
 # @schema
 # type: object
@@ -511,7 +479,17 @@ autoscaling:
   # type: integer
   # @schema
   # -- Maximum replication number
-  maxReplicas: 5
+  maxReplicas: 9
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # Minimum availablity
+  minAvailable: ''
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # Maximum unavailablity
+  maxUnavailable: 1
   # @schema
   # type: [integer, null]
   # @schema
@@ -739,6 +717,41 @@ scheduling:
   # additionalProperties: true
   # @schema
   priorityClass: null
+
+# @schema
+# type: object
+# @schema
+# -- Foomo gateway settings
+gateway:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether the gateway is enabled or not
+  enabled: false
+  # @schema
+  # type: string
+  # @schema
+  # -- Sitemap
+  sitemap: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- Robots.txt
+  addToRobots: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionProperties: true
+  # @schema
+  # -- Expose settings
+  expose: []
+  # expose:
+  #   - stripBasePath: true
+  #     cmsMimetypes:
+  #       - application/x-page
+  #       - application/x-folder
+  #       - application/x-shortcut
 
 # @schema
 # type: object

@@ -1,12 +1,13 @@
 apiVersion: v2
 type: application
-name: keel-server
-description: Keel Server Chart
+name: squadron-keel-cronjob
+description: Squadron Keel CronJob Chart
 icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
 home: https://www.foomo.org
 keywords:
   - foomo
   - foomo-keel
+  - foomo-squadron
 sources:
   - https://github.com/foomo/helm-charts
 annotations:
@@ -14,5 +15,5 @@ annotations:
     - name: Chart Source
       url: https://github.com/foomo/helm-charts
 
-version: 0.1.4
-appVersion: 0.1.4
+version: 0.1.1
+appVersion: 0.1.1

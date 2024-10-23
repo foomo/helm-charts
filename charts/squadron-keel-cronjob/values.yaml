@@ -361,8 +361,7 @@ cronjob:
   # type: [object, null]
   # additionalProperties: true
   # @schema
-  # -- Resouce settings
-  # -- See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+  # -- Resource settings
   resources: {}
   # @schema
   # type: [object, null]
