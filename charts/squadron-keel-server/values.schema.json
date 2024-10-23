@@ -567,7 +567,7 @@
     },
     "podDisruptionBudget": {
       "additionalProperties": false,
-      "description": "Pod disruption budget settings\nSee https://kubernetes.io/docs/tasks/run-application/configure-pdb/",
+      "description": "Pod disruption budget settings",
       "properties": {
         "enabled": {
           "default": false,
@@ -844,7 +844,7 @@
         },
         "livenessProbe": {
           "additionalProperties": true,
-          "description": "Liveness probe settings\nSee https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes",
+          "description": "Liveness probe settings",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -888,7 +888,7 @@
         },
         "readinessProbe": {
           "additionalProperties": true,
-          "description": "Readiness probe settings\nSee https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes",
+          "description": "Readiness probe settings",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -935,7 +935,7 @@
         },
         "startupProbe": {
           "additionalProperties": true,
-          "description": "Startup probe settings\nSee https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes",
+          "description": "Startup probe settings",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -1075,7 +1075,7 @@
           "type": "string"
         },
         "metricRelabelings": {
-          "description": "ServiceMonitor metric relabel configs to apply to samples before ingestion\nSee https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint",
+          "description": "ServiceMonitor metric relabel configs to apply to samples before ingestion",
           "items": {
             "additionalProperties": true,
             "required": [],
@@ -1086,7 +1086,7 @@
           "type": "array"
         },
         "relabelings": {
-          "description": "ServiceMonitor relabel configs to apply to samples before scraping.\nSee https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig",
+          "description": "ServiceMonitor relabel configs to apply to samples before scraping.",
           "items": {
             "additionalProperties": true,
             "required": [],
@@ -1104,7 +1104,7 @@
           "type": "string"
         },
         "targetLabels": {
-          "description": "ServiceMonitor will add labels from the service to the Prometheus metric\nSee https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec",
+          "description": "ServiceMonitor will add labels from the service to the Prometheus metric",
           "items": {
             "additionalProperties": true,
             "required": [],
