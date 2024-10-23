@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Squadron Keel Server chart
 
@@ -29,12 +29,12 @@ Squadron Keel Server chart
 | graceful.delaySeconds | int | `15` | Seconds to wait for kubernetes to deregister |
 | graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
 | graceful.periodSeconds | int | `45` | Total seconds for the grace period |
-| image | object | `{"pullPolicy":"IfNotPresent","recreate":false,"repository":"","tag":""}` | Image settings |
+| image | object | `{"pullPolicy":"IfNotPresent","pullSecrets":[],"recreate":false,"repository":"","tag":""}` | Image settings |
 | image.pullPolicy | string | `"IfNotPresent"` | Image tag |
+| image.pullSecrets | list | `[]` | Image pull secrets |
 | image.recreate | bool | `false` | Force recreation |
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
-| imagePullSecrets | list | `[]` | Image pull secrets |
 | ingress | object | `{"additionalLabels":{},"annotations":{},"className":"","enabled":false,"hosts":[],"paths":[],"tls":[]}` | Ingress settings |
 | ingress.additionalLabels | object | `{}` | Additional labels |
 | ingress.annotations | object | `{}` | Ingress annotations |

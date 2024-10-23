@@ -27,12 +27,15 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "keel.server.chart" -}}
-{{- if .Values.image.recreate }}
-{{- printf "%s-%s-%d" .Chart.Name .Chart.Version .Release.Revision | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- else }}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
-{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "keel.server.chart-revision" -}}
+{{- printf "%s-%s-%d" .Chart.Name .Chart.Version .Release.Revision | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{/*
 Common labels
@@ -151,4 +154,14 @@ OpenTelemetry standard envs
   value: "{{ .Values.otel.otlp.insecure }}"
 - name: OTEL_EXPORTER_OTLP_ENDPOINT
   value: "{{ .Values.otel.otlp.endpoint }}"
+{{- end -}}
+
+{{/*
+Deployment force recreate annotions
+{{- include "keel.server.annotations.recreatePod" . | nindent 8 }}
+*/}}
+{{- define "keel.server.annotations.recreatePod" -}}
+{{- if .Values.image.recreate }}
+helm.sh/chart: {{ include "keel.server.chart-revision" . }}
+{{- end }}
 {{- end -}}

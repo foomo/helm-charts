@@ -142,6 +142,13 @@ image:
   # -- Image tag
   pullPolicy: IfNotPresent
   # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- Image pull secrets
+  pullSecrets: [ ]
+  # @schema
   # type: string
   # required: true
   # @schema
@@ -154,13 +161,6 @@ image:
   # -- Image tag
   tag: ''
 
-# @schema
-# type: array
-# items:
-#   type: string
-# @schema
-# -- Image pull secrets
-imagePullSecrets: [ ]
 
 # @schema
 # type: object
