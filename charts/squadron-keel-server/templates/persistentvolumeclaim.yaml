@@ -7,7 +7,7 @@ metadata:
   namespace: {{ include "keel.server.namespace" . }}
 spec:
   accessModes: [{{ .Values.persistence.accessMode }}]
-  {{- with .Values.persistence.storageClassName }}
+  {{- with .Values.persistence.storageClass }}
   storageClassName: {{ . }}
   {{- end }}
   resources:
@@ -28,7 +28,7 @@ spec:
   volumeName: {{ $value.name }}
   {{- end }}
   accessModes: [ {{ default $value.accessMode "ReadWriteOnce" }} ]
-  {{- with $value.storageClassName }}
+  {{- with $value.storageClass }}
   storageClassName: {{ . }}
   {{- end }}
   {{- with $value.size }}

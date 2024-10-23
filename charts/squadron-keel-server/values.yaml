@@ -288,7 +288,7 @@ persistence:
   # type: string
   # @schema
   # -- Storage class name
-  storageClassName: ''
+  storageClass: ''
 
 # @schema
 # type: object
@@ -316,19 +316,46 @@ service:
 # @schema
 # type: object
 # @schema
+# -- Security context
+securityContext:
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as user id
+  runAsUser: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as group id
+  runAsGroup: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- File system group id
+  fsGroup: 10001
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to run as non root user
+  runAsNonRoot: true
+
+# @schema
+# enum: [RollingUpdate, Recreate]
+# @schema
+# -- Deployment update strategy
+updateStrategy: RollingUpdate
+
+# @schema
+# type: number
+# @schema
+# -- Number of replications
+replicas: 1
+
+# @schema
+# type: object
+# @schema
 # -- Server settings
 server:
-  # @schema
-  # type: object
-  # additionalProperties: true
-  # @schema
-  # -- Deployment strategy settings
-  strategy: {}
-  # @schema
-  # type: number
-  # @schema
-  # -- Number of replications
-  replicas: 1
   # @schema
   # type: object
   # additionalProperties: true
@@ -392,6 +419,7 @@ server:
   # additionalVolumes:
   #  my-volume:
   #    name: my-existing-volume-name
+  #    storageClass: local-path
   # @schema
   # type: array
   # items:
@@ -420,7 +448,6 @@ server:
   # additionalProperties: true
   # @schema
   # -- Startup probe settings
-  # -- See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
   startupProbe:
     httpGet:
       port: healthz
@@ -430,7 +457,6 @@ server:
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
-  # -- See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
   readinessProbe:
     httpGet:
       port: healthz
@@ -440,7 +466,6 @@ server:
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
-  # -- See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
   livenessProbe:
     httpGet:
       port: healthz
@@ -450,7 +475,6 @@ server:
 # type: object
 # @schema
 # -- Pod disruption budget settings
-# -- See https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 podDisruptionBudget:
   # @schema
   # type: boolean
@@ -517,6 +541,12 @@ autoscaling:
 # ServiceAccount configuration
 serviceAccount:
   # @schema
+  # type: string
+  # @schema
+  # -- The name of the service account to use.
+  # -- If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # @schema
   # type: boolean
   # @schema
   # -- Specifies whether a service account should be created
@@ -532,12 +562,6 @@ serviceAccount:
   # @schema
   # -- Annotations to add to the service account
   annotations: { }
-  # @schema
-  # type: string
-  # @schema
-  # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
-  name: ""
 
 # @schema
 # type: object
@@ -578,7 +602,6 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor will add labels from the service to the Prometheus metric
-  # -- See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec
   targetLabels: [ ]
   # @schema
   # type: array
@@ -587,7 +610,6 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor relabel configs to apply to samples before scraping.
-  # -- See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
   relabelings: [ ]
   # @schema
   # type: array
@@ -596,7 +618,6 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
-  # -- See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint
   metricRelabelings: [ ]
 
 # NetworkPolicy configuration
@@ -658,7 +679,6 @@ networkPolicy:
     # type: array
     # items:
     #   type: string
-    #   additionalProperties: true
     # @schema
     # -- Additional egress rules
     additionalRules: []
@@ -680,6 +700,37 @@ graceful:
   delaySeconds: 15
   # -- Total seconds for the grace period
   periodSeconds: 45
+
+# @schema
+# type: object
+# @schema
+# -- Schedule settings
+schedule:
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  affinity: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # additionalProperties: true
+  # @schema
+  priorityClass: null
 
 # @schema
 # type: object
