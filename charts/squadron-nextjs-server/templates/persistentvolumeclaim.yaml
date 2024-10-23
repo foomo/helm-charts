@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "keel.cronjob.fullname" . }}-data
-  labels: {{- include "keel.cronjob.labels" . | nindent 4 }}
-  namespace: {{ include "keel.cronjob.namespace" . }}
+  name: {{ include "nextjs.server.fullname" . }}-data
+  labels: {{- include "nextjs.server.labels" . | nindent 4 }}
+  namespace: {{ include "nextjs.server.namespace" . }}
 spec:
   accessModes: [{{ .Values.persistence.accessMode }}]
   {{- with .Values.persistence.storageClass }}
@@ -15,15 +15,14 @@ spec:
       storage: {{ .Values.persistence.size }}
 ---
 {{- end }}
-{{- range $key, $value := .Values.cronjob.additionalVolumes }}
+{{- range $key, $value := .Values.server.additionalVolumes }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ $key }}
-  labels: {{- include "keel.cronjob.labels" $ | nindent 4 }}
-  namespace: {{ include "keel.cronjob.namespace" $ }}
+  labels: {{- include "nextjs.server.labels" $ | nindent 4 }}
+  namespace: {{ include "nextjs.server.namespace" $ }}
 spec:
-  # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
   {{- if $value.name }}
   volumeName: {{ $value.name }}
   {{- end }}

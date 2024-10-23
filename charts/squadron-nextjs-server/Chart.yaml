@@ -1,0 +1,18 @@
+apiVersion: v2
+type: application
+name: squadron-nextjs-server
+description: Squadron NextJS Server Chart
+icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+home: https://www.foomo.org
+keywords:
+  - foomo
+  - foomo-squadron
+sources:
+  - https://github.com/foomo/helm-charts
+annotations:
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/foomo/helm-charts
+
+version: 0.1.0
+appVersion: 0.1.0

@@ -1,8 +1,8 @@
-# keel-cronjob
+# squadron-keel-cronjob
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
-Keel CronJob Chart
+Squadron Keel CronJob Chart
 
 **Homepage:** <https://www.foomo.org>
 
@@ -30,7 +30,7 @@ Keel CronJob Chart
 | cronjob.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | cronjob.podAnnotations | object | `{}` | Pod annotations |
 | cronjob.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
-| cronjob.resources | object | `{}` | See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
+| cronjob.resources | object | `{}` | Resource settings |
 | cronjob.restart | string | `"Never"` | Restart policy |
 | cronjob.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
 | env | object | `{}` | FOO: bar |

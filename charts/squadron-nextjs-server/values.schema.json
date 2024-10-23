@@ -28,11 +28,31 @@
           "type": "boolean"
         },
         "maxReplicas": {
-          "default": 5,
+          "default": 9,
           "description": "Maximum replication number",
           "required": [],
           "title": "maxReplicas",
           "type": "integer"
+        },
+        "maxUnavailable": {
+          "default": 1,
+          "description": "Maximum unavailablity",
+          "required": [],
+          "title": "maxUnavailable",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "minAvailable": {
+          "default": "",
+          "description": "Minimum availablity",
+          "required": [],
+          "title": "minAvailable",
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "minReplicas": {
           "default": 1,
@@ -86,6 +106,46 @@
       "required": [],
       "title": "fullnameOverride",
       "type": "string"
+    },
+    "gateway": {
+      "additionalProperties": false,
+      "description": "Foomo gateway settings",
+      "properties": {
+        "addToRobots": {
+          "default": "",
+          "description": "Robots.txt",
+          "required": [],
+          "title": "addToRobots",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether the gateway is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "expose": {
+          "description": "Expose settings",
+          "items": {
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "expose",
+          "type": "array"
+        },
+        "sitemap": {
+          "default": "",
+          "description": "Sitemap",
+          "required": [],
+          "title": "sitemap",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "gateway",
+      "type": "object"
     },
     "global": {
       "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
@@ -190,7 +250,24 @@
         "annotations": {
           "additionalProperties": true,
           "description": "Ingress annotations",
-          "required": [],
+          "properties": {
+            "nginx.ingress.kubernetes.io/rewrite-target": {
+              "default": "/$1",
+              "required": [],
+              "title": "nginx.ingress.kubernetes.io/rewrite-target",
+              "type": "string"
+            },
+            "nginx.ingress.kubernetes.io/use-regex": {
+              "default": "true",
+              "required": [],
+              "title": "nginx.ingress.kubernetes.io/use-regex",
+              "type": "string"
+            }
+          },
+          "required": [
+            "nginx.ingress.kubernetes.io/use-regex",
+            "nginx.ingress.kubernetes.io/rewrite-target"
+          ],
           "title": "annotations",
           "type": "object"
         },
@@ -563,49 +640,6 @@
       "title": "persistence",
       "type": "object"
     },
-    "podDisruptionBudget": {
-      "additionalProperties": false,
-      "description": "Pod disruption budget settings",
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Indicates wether the pod disruption budget is enabled",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        },
-        "maxUnavailable": {
-          "default": "",
-          "description": "Maximum unavailablity",
-          "required": [],
-          "title": "maxUnavailable",
-          "type": [
-            "integer",
-            "string"
-          ]
-        },
-        "minAvailable": {
-          "default": "",
-          "description": "Minimum availablity",
-          "required": [],
-          "title": "minAvailable",
-          "type": [
-            "integer",
-            "string"
-          ]
-        }
-      },
-      "required": [],
-      "title": "podDisruptionBudget",
-      "type": "object"
-    },
-    "ports": {
-      "additionalProperties": true,
-      "description": "Map of ports to expose\nports:\n  http: 8080",
-      "required": [],
-      "title": "ports",
-      "type": "object"
-    },
     "rbac": {
       "additionalProperties": false,
       "description": "RBAC configuration",
@@ -851,32 +885,25 @@
           "additionalProperties": true,
           "description": "Liveness probe settings",
           "properties": {
-            "httpGet": {
+            "tcpSocket": {
               "additionalProperties": false,
               "properties": {
-                "path": {
-                  "default": "/healthz/liveness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
                 "port": {
-                  "default": "healthz",
+                  "default": 3000,
                   "required": [],
                   "title": "port",
-                  "type": "string"
+                  "type": "integer"
                 }
               },
               "required": [
-                "port",
-                "path"
+                "port"
               ],
-              "title": "httpGet",
+              "title": "tcpSocket",
               "type": "object"
             }
           },
           "required": [
-            "httpGet"
+            "tcpSocket"
           ],
           "title": "livenessProbe",
           "type": [
@@ -895,32 +922,25 @@
           "additionalProperties": true,
           "description": "Readiness probe settings",
           "properties": {
-            "httpGet": {
+            "tcpSocket": {
               "additionalProperties": false,
               "properties": {
-                "path": {
-                  "default": "/healthz/readiness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
                 "port": {
-                  "default": "healthz",
+                  "default": 3000,
                   "required": [],
                   "title": "port",
-                  "type": "string"
+                  "type": "integer"
                 }
               },
               "required": [
-                "port",
-                "path"
+                "port"
               ],
-              "title": "httpGet",
+              "title": "tcpSocket",
               "type": "object"
             }
           },
           "required": [
-            "httpGet"
+            "tcpSocket"
           ],
           "title": "readinessProbe",
           "type": [
@@ -930,7 +950,7 @@
         },
         "resources": {
           "additionalProperties": true,
-          "description": "Resouce settings\nSee: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+          "description": "Resource settings",
           "required": [],
           "title": "resources",
           "type": [
@@ -942,32 +962,25 @@
           "additionalProperties": true,
           "description": "Startup probe settings",
           "properties": {
-            "httpGet": {
+            "tcpSocket": {
               "additionalProperties": false,
               "properties": {
-                "path": {
-                  "default": "/healthz/startup",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
                 "port": {
-                  "default": "healthz",
+                  "default": 3000,
                   "required": [],
                   "title": "port",
-                  "type": "string"
+                  "type": "integer"
                 }
               },
               "required": [
-                "port",
-                "path"
+                "port"
               ],
-              "title": "httpGet",
+              "title": "tcpSocket",
               "type": "object"
             }
           },
           "required": [
-            "httpGet"
+            "tcpSocket"
           ],
           "title": "startupProbe",
           "type": [

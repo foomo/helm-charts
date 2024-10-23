@@ -23,7 +23,6 @@ metadata:
   labels: {{- include "keel.server.labels" $ | nindent 4 }}
   namespace: {{ include "keel.server.namespace" $ }}
 spec:
-  # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
   {{- if $value.name }}
   volumeName: {{ $value.name }}
   {{- end }}

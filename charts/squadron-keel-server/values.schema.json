@@ -2,278 +2,88 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
-    "cronjob": {
+    "autoscaling": {
       "additionalProperties": false,
-      "description": "CronJob settings",
+      "description": "Autoscaling settings",
       "properties": {
-        "additionalEnv": {
-          "description": "Additional environment variables",
-          "items": {
-            "additionalProperties": true,
-            "properties": {
-              "name": {
-                "required": [],
-                "type": "string"
-              },
-              "value": {
-                "required": [],
-                "type": "string"
-              }
-            },
-            "required": [],
-            "type": "object"
-          },
-          "required": [],
-          "title": "additionalEnv",
-          "type": "array"
-        },
-        "additionalEnvFrom": {
-          "description": "Additional env from",
-          "items": {
-            "additionalProperties": true,
-            "required": [],
-            "type": "object"
-          },
-          "required": [],
-          "title": "additionalEnvFrom",
-          "type": "array"
-        },
-        "additionalLabels": {
+        "additionalMetrics": {
           "additionalProperties": true,
-          "description": "Additional labels",
+          "description": "Additional scaling metrics",
           "required": [],
-          "title": "additionalLabels",
+          "title": "additionalMetrics",
           "type": "object"
         },
-        "additionalVolumeMounts": {
-          "description": "Additional volume mounts",
-          "items": {
-            "additionalProperties": true,
-            "properties": {
-              "mountPath": {
-                "required": [],
-                "type": "string"
-              },
-              "name": {
-                "required": [],
-                "type": "string"
-              }
-            },
-            "required": [],
-            "type": "object"
-          },
-          "required": [],
-          "title": "additionalVolumeMounts",
-          "type": "array"
-        },
-        "additionalVolumes": {
-          "description": "Additional volumes",
-          "items": {
-            "additionalProperties": true,
-            "required": [],
-            "type": "object"
-          },
-          "required": [],
-          "title": "additionalVolumes",
-          "type": "array"
-        },
-        "annotations": {
+        "behavior": {
           "additionalProperties": true,
-          "description": "Deployment annotations",
+          "description": "Autoscaling behavior settings",
           "required": [],
-          "title": "annotations",
+          "title": "behavior",
           "type": "object"
         },
-        "backoffLimit": {
-          "default": 0,
-          "description": "Successful history item to keep",
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether a auto scaling should be enabled",
           "required": [],
-          "title": "backoffLimit",
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "maxReplicas": {
+          "default": 9,
+          "description": "Maximum replication number",
+          "required": [],
+          "title": "maxReplicas",
           "type": "integer"
         },
-        "concurrency": {
-          "default": "Forbid",
-          "description": "Concurency policy",
-          "enum": [
-            "Allow",
-            "Forbid"
-          ],
-          "required": [],
-          "title": "concurrency"
-        },
-        "historyLimit": {
+        "maxUnavailable": {
           "default": 1,
-          "description": "Max history item to keep",
+          "description": "Maximum unavailablity",
           "required": [],
-          "title": "historyLimit",
+          "title": "maxUnavailable",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "minAvailable": {
+          "default": "",
+          "description": "Minimum availablity",
+          "required": [],
+          "title": "minAvailable",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "minReplicas": {
+          "default": 1,
+          "description": "Minimum replication number",
+          "required": [],
+          "title": "minReplicas",
           "type": "integer"
         },
-        "hostAliases": {
-          "description": "additionalVolumes:\n my-volume:\n   name: my-existing-volume-name\n   storageClass: local-path\nHost aliases",
-          "items": {
-            "additionalProperties": true,
-            "required": [],
-            "type": "object"
-          },
+        "targetCPU": {
+          "default": 75,
+          "description": "Target CPU utilization",
           "required": [],
-          "title": "hostAliases",
-          "type": "array"
-        },
-        "jobAnnotations": {
-          "additionalProperties": true,
-          "description": "Pod annotations",
-          "required": [],
-          "title": "jobAnnotations",
-          "type": "object"
-        },
-        "jobLabels": {
-          "additionalProperties": true,
-          "description": "Job labels",
-          "required": [],
-          "title": "jobLabels",
-          "type": "object"
-        },
-        "livenessProbe": {
-          "additionalProperties": true,
-          "description": "Liveness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/liveness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
-          "title": "livenessProbe",
+          "title": "targetCPU",
           "type": [
-            "object",
+            "integer",
             "null"
           ]
         },
-        "podAnnotations": {
-          "additionalProperties": true,
-          "description": "Pod annotations",
+        "targetMemory": {
+          "default": "null",
+          "description": "Target Memory utilization",
           "required": [],
-          "title": "podAnnotations",
-          "type": "object"
-        },
-        "readinessProbe": {
-          "additionalProperties": true,
-          "description": "Readiness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/readiness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
-          "title": "readinessProbe",
+          "title": "targetMemory",
           "type": [
-            "object",
-            "null"
-          ]
-        },
-        "resources": {
-          "additionalProperties": true,
-          "description": "Resouce settings\nSee: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
-          "required": [],
-          "title": "resources",
-          "type": [
-            "object",
-            "null"
-          ]
-        },
-        "restart": {
-          "default": "Never",
-          "description": "Restart policy",
-          "enum": [
-            "Never",
-            "OnFailure"
-          ],
-          "required": [],
-          "title": "restart"
-        },
-        "startupProbe": {
-          "additionalProperties": true,
-          "description": "Startup probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/startup",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
-          "title": "startupProbe",
-          "type": [
-            "object",
+            "integer",
             "null"
           ]
         }
       },
       "required": [],
-      "title": "cronjob",
+      "title": "autoscaling",
       "type": "object"
     },
     "env": {
@@ -329,9 +139,7 @@
           "type": "integer"
         }
       },
-      "required": [
-        "periodSeconds"
-      ],
+      "required": [],
       "title": "graceful",
       "type": "object"
     },
@@ -359,6 +167,13 @@
           "title": "pullSecrets",
           "type": "array"
         },
+        "recreate": {
+          "default": false,
+          "description": "Force recreation",
+          "required": [],
+          "title": "recreate",
+          "type": "boolean"
+        },
         "repository": {
           "default": "",
           "description": "Image repository",
@@ -379,6 +194,92 @@
         "tag"
       ],
       "title": "image",
+      "type": "object"
+    },
+    "ingress": {
+      "additionalProperties": false,
+      "description": "Ingress settings",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Ingress annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "className": {
+          "default": "",
+          "description": "Ingress class name",
+          "required": [],
+          "title": "className",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether the ingress is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "hosts": {
+          "description": "List of hosts",
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "hosts",
+          "type": "array"
+        },
+        "paths": {
+          "description": "List of hosts",
+          "items": {
+            "properties": {
+              "path": {
+                "required": [],
+                "type": "string"
+              },
+              "pathType": {
+                "enum": [
+                  "ImplementationSpecific",
+                  "Exact",
+                  "Prefix"
+                ],
+                "required": []
+              },
+              "port": {
+                "required": [],
+                "type": "integer"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "paths",
+          "type": "array"
+        },
+        "tls": {
+          "description": "paths:\n  - path: /foo\n    port: 8080\nTLS settings",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tls",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "ingress",
       "type": "object"
     },
     "log": {
@@ -657,7 +558,7 @@
           "type": "boolean"
         },
         "mountPath": {
-          "default": "/var/lib/cronjob/data",
+          "default": "/var/lib/server/data",
           "description": "Storage mount path",
           "required": [],
           "title": "mountPath",
@@ -682,6 +583,13 @@
       "title": "persistence",
       "type": "object"
     },
+    "ports": {
+      "additionalProperties": true,
+      "description": "Map of ports to expose\nports:\n  http: 8080",
+      "required": [],
+      "title": "ports",
+      "type": "object"
+    },
     "rbac": {
       "additionalProperties": false,
       "description": "RBAC configuration",
@@ -700,19 +608,19 @@
       "title": "rbac",
       "type": "object"
     },
+    "replicas": {
+      "default": 1,
+      "description": "Number of replications",
+      "required": [],
+      "title": "replicas",
+      "type": "number"
+    },
     "revisionHistoryLimit": {
       "default": 10,
       "description": "Number of revisions to keep",
       "required": [],
       "title": "revisionHistoryLimit",
       "type": "integer"
-    },
-    "schedule": {
-      "default": "",
-      "description": "Cron job schedule",
-      "required": [],
-      "title": "schedule",
-      "type": "string"
     },
     "scheduling": {
       "additionalProperties": false,
@@ -819,6 +727,273 @@
       "title": "securityContext",
       "type": "object"
     },
+    "server": {
+      "additionalProperties": false,
+      "description": "Server settings",
+      "properties": {
+        "additionalEnv": {
+          "description": "Additional environment variables",
+          "items": {
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "required": [],
+                "type": "string"
+              },
+              "value": {
+                "required": [],
+                "type": "string"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalEnv",
+          "type": "array"
+        },
+        "additionalEnvFrom": {
+          "description": "Additional env from",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalEnvFrom",
+          "type": "array"
+        },
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "additionalPorts": {
+          "description": "Additional ports",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalPorts",
+          "type": "array"
+        },
+        "additionalVolumeMounts": {
+          "description": "Additional volume mounts",
+          "items": {
+            "additionalProperties": true,
+            "properties": {
+              "mountPath": {
+                "required": [],
+                "type": "string"
+              },
+              "name": {
+                "required": [],
+                "type": "string"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalVolumeMounts",
+          "type": "array"
+        },
+        "additionalVolumes": {
+          "description": "Additional volumes",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalVolumes",
+          "type": "array"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Deployment annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "hostAliases": {
+          "description": "additionalVolumes:\n my-volume:\n   name: my-existing-volume-name\n   storageClass: local-path\nHost aliases",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hostAliases",
+          "type": "array"
+        },
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/liveness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "livenessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "podAnnotations": {
+          "additionalProperties": true,
+          "description": "Pod annotations",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/readiness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "readinessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "Resource settings",
+          "required": [],
+          "title": "resources",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "startupProbe": {
+          "additionalProperties": true,
+          "description": "resources:\n  limits:\n    memory: 256Mi\n  requests:\n    cpu: 1\n    memory: 256Mi\nStartup probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/startup",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "startupProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "server",
+      "type": "object"
+    },
+    "service": {
+      "additionalProperties": false,
+      "description": "Service settings",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional Service labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Service annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "type": {
+          "default": "ClusterIP",
+          "description": "Service type",
+          "required": [],
+          "title": "type",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "service",
+      "type": "object"
+    },
     "serviceAccount": {
       "additionalProperties": false,
       "description": "ServiceAccount configuration",
@@ -856,18 +1031,88 @@
       "title": "serviceAccount",
       "type": "object"
     },
+    "serviceMonitor": {
+      "additionalProperties": false,
+      "description": "ServiceMonitor configuration",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional ServiceMonitor labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "ServiceMonitor annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "interval": {
+          "default": "",
+          "description": "ServiceMonitor scrape interval",
+          "required": [],
+          "title": "interval",
+          "type": "string"
+        },
+        "metricRelabelings": {
+          "description": "ServiceMonitor metric relabel configs to apply to samples before ingestion",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "metricRelabelings",
+          "type": "array"
+        },
+        "relabelings": {
+          "description": "ServiceMonitor relabel configs to apply to samples before scraping.",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "relabelings",
+          "type": "array"
+        },
+        "scrapeTimeout": {
+          "default": "",
+          "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
+          "required": [],
+          "title": "scrapeTimeout",
+          "type": "string"
+        },
+        "targetLabels": {
+          "description": "ServiceMonitor will add labels from the service to the Prometheus metric",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "targetLabels",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "serviceMonitor",
+      "type": "object"
+    },
     "squadron": {
       "default": "",
       "description": "Squadron name",
       "required": [],
       "title": "squadron",
-      "type": "string"
-    },
-    "timeZone": {
-      "default": "Europe/Berlin",
-      "description": "Cron job time zone",
-      "required": [],
-      "title": "timeZone",
       "type": "string"
     },
     "unit": {
@@ -876,6 +1121,16 @@
       "required": [],
       "title": "unit",
       "type": "string"
+    },
+    "updateStrategy": {
+      "default": "RollingUpdate",
+      "description": "Deployment update strategy",
+      "enum": [
+        "RollingUpdate",
+        "Recreate"
+      ],
+      "required": [],
+      "title": "updateStrategy"
     }
   },
   "required": [

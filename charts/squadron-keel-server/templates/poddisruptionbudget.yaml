@@ -1,4 +1,4 @@
-{{- if .Values.podDisruptionBudget.enabled }}
+{{- if .Values.autoscaling.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
@@ -8,10 +8,10 @@ metadata:
 spec:
   selector:
     matchLabels: {{- include "keel.server.selectorLabels" . | nindent 6 }}
-  {{- with .Values.podDisruptionBudget.minAvailable }}
+  {{- with .Values.autoscaling.minAvailable }}
   minAvailable: {{ . }}
   {{- end }}
-  {{- with .Values.podDisruptionBudget.maxUnavailable }}
+  {{- with .Values.autoscaling.maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
 {{- end }}

@@ -32,8 +32,9 @@ docs:
 schema: PWD=$(pwd)
 schema:
 	#helm-schema -n -c charts/namespace
-	helm-schema -n -c charts/keel-server
-	helm-schema -n -c charts/keel-cronjob
+	helm-schema -n -c charts/squadron-keel-server
+	helm-schema -n -c charts/squadron-keel-cronjob
+	helm-schema -n -c charts/squadron-nextjs-server
 	helm schema-gen charts/namespace/values.yaml > charts/namespace/values.schema.json
 	helm schema-gen charts/beam/values.yaml > charts/beam/values.schema.json
 	helm schema-gen charts/contentserver/values.yaml > charts/contentserver/values.schema.json

@@ -1,0 +1,743 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's name
+nameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's computed fullname
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- The name of the Namespace to deploy
+# -- If not set, `.Release.Namespace` is used
+namespaceOverride: ''
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+revisionHistoryLimit: 10
+
+# @schema
+# type: string
+# @schema
+# -- Squadron fleet name
+fleet: ''
+# @schema
+# type: string
+# @schema
+# -- Squadron name
+squadron: ''
+# @schema
+# type: string
+# @schema
+# -- Squadron unit name
+unit: ''
+
+# @schema
+# type: object
+# @schema
+# -- Log settings
+log:
+  # @schema
+  # enum: [prod, dev]
+  # @schema
+  # -- Log mode
+  mode: prod
+  # @schema
+  # enum: [error, warn, info, debug]
+  # @schema
+  # -- Log level
+  level: info
+
+# @schema
+# type: object
+# @schema
+# -- OpenTelemetry settings
+otel:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to enable it or not
+  enabled: false
+  # @schema
+  # type: integer
+  # @schema
+  # -- Trace ratio
+  ratio: 1
+  # @schema
+  # type: object
+  # @schema
+  # -- OTLP exporter settings
+  otlp:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to use insecure connection
+    insecure: true
+    # @schema
+    # type: string
+    # @schema
+    # -- Enpoint uri
+    endpoint: 'alloy:4317'
+  # @schema
+  # type: object
+  # @schema
+  # -- GORM settings
+  gorm:
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to trace sql attributes
+    sqlParametersDisabled: true
+  # @schema
+  # type: object
+  # @schema
+  # -- Mongo settings
+  mongo:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to enable it or not
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to trace command attributes
+    commandAttributeDisabled: true
+  # @schema
+  # type: object
+  # @schema
+  # -- GOTSRPC settings
+  gotsrpc:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to enable it or not
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to trace payload attributes
+    payloadAttributeDisabled: true
+
+# @schema
+# type: object
+# @schema
+# -- Image settings
+image:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Force recreation
+  recreate: false
+  # @schema
+  # enum: [IfNotPresent, Always]
+  # @schema
+  # -- Image tag
+  pullPolicy: IfNotPresent
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- Image pull secrets
+  pullSecrets: [ ]
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  # -- Image repository
+  repository: ''
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  # -- Image tag
+  tag: ''
+
+
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of ports to expose
+# -- ports:
+# --   http: 8080
+ports: { }
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add
+# -- env:
+# --  FOO: bar
+env: { }
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add as a secret
+secretEnv: { }
+# secretEnv:
+#   FOO: bar
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+secretMounts: []
+# secretMounts:
+#   - my-secret
+
+# @schema
+# type: object
+# @schema
+# -- Ingress settings
+ingress:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether the ingress is enabled or not
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional labels
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Ingress annotations
+  annotations: { }
+  # @schema
+  # type: string
+  # @schema
+  # -- Ingress class name
+  className: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of hosts
+  hosts: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     path:
+  #       type: string
+  #     port:
+  #       type: integer
+  #     pathType:
+  #       enum: [ImplementationSpecific, Exact, Prefix]
+  # @schema
+  # -- List of hosts
+  paths: [ ]
+  # paths:
+  #   - path: /foo
+  #     port: 8080
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- TLS settings
+  tls: [ ]
+  # tls:
+  #   - secretName: chart-example-tls
+  #     hosts:
+  #       - chart-example.local
+
+# @schema
+# type: object
+# @schema
+# -- Persistence settings
+persistence:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether a pv should be attached or not
+  enabled: false
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage mount path
+  mountPath: /var/lib/server/data
+  # @schema
+  # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
+  # @schema
+  # -- Access mode
+  accessMode: ReadWriteOnce
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage size
+  size: 1Gi
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage class name
+  storageClass: ''
+
+# @schema
+# type: object
+# @schema
+# -- Service settings
+service:
+  # @schema
+  # type: string
+  # @schema
+  # -- Service type
+  type: ClusterIP
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional Service labels
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Service annotations
+  annotations: { }
+
+# @schema
+# type: object
+# @schema
+# -- Security context
+securityContext:
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as user id
+  runAsUser: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as group id
+  runAsGroup: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- File system group id
+  fsGroup: 10001
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to run as non root user
+  runAsNonRoot: true
+
+# @schema
+# enum: [RollingUpdate, Recreate]
+# @schema
+# -- Deployment update strategy
+updateStrategy: RollingUpdate
+
+# @schema
+# type: number
+# @schema
+# -- Number of replications
+replicas: 1
+
+# @schema
+# type: object
+# @schema
+# -- Server settings
+server:
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional labels
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Deployment annotations
+  annotations: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  podAnnotations: { }
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     name:
+  #       type: string
+  #     value:
+  #       type: string
+  #   additionalProperties: true
+  # @schema
+  # -- Additional environment variables
+  additionalEnv: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional env from
+  additionalEnvFrom: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     name:
+  #       type: string
+  #     mountPath:
+  #       type: string
+  #   additionalProperties: true
+  # @schema
+  # -- Additional volume mounts
+  additionalVolumeMounts: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional volumes
+  additionalVolumes: [ ]
+  # additionalVolumes:
+  #  my-volume:
+  #    name: my-existing-volume-name
+  #    storageClass: local-path
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Host aliases
+  hostAliases: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional ports
+  additionalPorts: [ ]
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Resource settings
+  resources: {}
+  # resources:
+  #   limits:
+  #     memory: 256Mi
+  #   requests:
+  #     cpu: 1
+  #     memory: 256Mi
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Startup probe settings
+  startupProbe:
+    httpGet:
+      port: healthz
+      path: /healthz/startup
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings
+  readinessProbe:
+    httpGet:
+      port: healthz
+      path: /healthz/readiness
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings
+  livenessProbe:
+    httpGet:
+      port: healthz
+      path: /healthz/liveness
+
+# @schema
+# type: object
+# @schema
+# -- Autoscaling settings
+autoscaling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a auto scaling should be enabled
+  enabled: false
+  # @schema
+  # type: integer
+  # @schema
+  # -- Minimum replication number
+  minReplicas: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Maximum replication number
+  maxReplicas: 9
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # Minimum availablity
+  minAvailable: ''
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # Maximum unavailablity
+  maxUnavailable: 1
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target CPU utilization
+  targetCPU: 75
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target Memory utilization
+  targetMemory: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional scaling metrics
+  additionalMetrics: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Autoscaling behavior settings
+  behavior: { }
+
+# @schema
+# type: object
+# @schema
+# ServiceAccount configuration
+serviceAccount:
+  # @schema
+  # type: string
+  # @schema
+  # -- The name of the service account to use.
+  # -- If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  annotations: { }
+
+# @schema
+# type: object
+# @schema
+# -- ServiceMonitor configuration
+serviceMonitor:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional ServiceMonitor labels
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- ServiceMonitor annotations
+  annotations: { }
+  # @schema
+  # type: string
+  # @schema
+  # -- ServiceMonitor scrape interval
+  interval: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
+  scrapeTimeout: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor will add labels from the service to the Prometheus metric
+  targetLabels: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor relabel configs to apply to samples before scraping.
+  relabelings: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
+  metricRelabelings: [ ]
+
+# NetworkPolicy configuration
+networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether Network Policies should be created
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  rules: []
+  # rules:
+  #   - allow-nginx-ingress
+  #   - allow-internet-egress
+  #   - allow-my-service-access
+  # @schema
+  # type: object
+  # @schema
+  # -- Ingress settings
+  ingress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether ingress should be enabled
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Additional ingress rules
+    additionalRules: []
+  # @schema
+  # type: object
+  # @schema
+  # -- Egress settings
+  egress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether egress should be enabled
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Additional egress rules
+    additionalRules: []
+
+# @schema
+# type: object
+# @schema
+# -- Graceful shutdown settings
+graceful:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether graceful shutdown is enabled
+  enabled: false
+  # @schema
+  # type: integer
+  # @schema
+  # -- Seconds to wait for kubernetes to deregister
+  delaySeconds: 15
+  # @schema
+  # type: integer
+  # @schema
+  # -- Total seconds for the grace period
+  periodSeconds: 45
+
+# @schema
+# type: object
+# @schema
+# -- Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  affinity: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # additionalProperties: true
+  # @schema
+  priorityClass: null
+
+# @schema
+# type: object
+# @schema
+# -- RBAC configuration
+rbac:
+  # -- Create PodSecurityPolicy.
+  enabled: false
