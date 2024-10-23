@@ -26,15 +26,17 @@ spec:
       labels:
         {{- include "keel.server.selectorLabels" . | nindent 8 }}
         {{- include "keel.server.networkingLabels" . | nindent 8 }}
-      {{- with .Values.server.podAnnotations }}
-      annotations: {{- toYaml . | nindent 8 }}
-      {{- end }}
+      annotations:
+        {{- include "keel.server.annotations.recreatePod" . | nindent 8 }}
+        {{- with .Values.server.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ include "keel.server.serviceAccountName" . }}
       {{- if .Values.graceful.enabled }}
       terminationGracePeriodSeconds: {{ .Values.graceful.periodSeconds }}
       {{- end }}
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.image.pullSecrets }}
       imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.server.hostAliases }}
@@ -86,7 +88,7 @@ spec:
             {{- end }}
           volumeMounts:
             {{- if .Values.persistence.enabled }}
-            - name: storage
+            - name: {{ include "keel.server.fullname" . }}-data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- end }}
             {{- with .Values.server.additionalVolumeMounts }}

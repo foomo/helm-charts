@@ -139,6 +139,16 @@
           "required": [],
           "title": "pullPolicy"
         },
+        "pullSecrets": {
+          "description": "Image pull secrets",
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "pullSecrets",
+          "type": "array"
+        },
         "recreate": {
           "default": false,
           "description": "Force recreation",
@@ -167,16 +177,6 @@
       ],
       "title": "image",
       "type": "object"
-    },
-    "imagePullSecrets": {
-      "description": "Image pull secrets",
-      "items": {
-        "required": [],
-        "type": "string"
-      },
-      "required": [],
-      "title": "imagePullSecrets",
-      "type": "array"
     },
     "ingress": {
       "additionalProperties": false,
