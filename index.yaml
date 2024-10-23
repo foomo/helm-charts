@@ -630,6 +630,28 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 0.1.2
+    created: "2024-10-23T09:12:22.931765599Z"
+    description: Squadron Keel Server chart
+    digest: f80342d335ae758d02a9eb9b0f2683959431d861fac99d820e27491bb8bd43f3
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.1.2/squadron-keel-server-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 0.1.1
     created: "2024-10-23T08:36:34.879639929Z"
     description: Squadron Keel Server chart
@@ -669,4 +691,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.1.0/squadron-keel-server-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-23T08:36:34.879712455Z"
+generated: "2024-10-23T09:12:22.931842283Z"
