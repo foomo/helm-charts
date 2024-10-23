@@ -15,6 +15,9 @@ spec:
   type: {{ .Values.service.type }}
   selector: {{- include "keel.server.selectorLabels" . | nindent 4 }}
   ports:
+    - name: server-prom-metrics
+      port: 9200
+      targetPort: 9200
     {{- range $key, $value := .Values.ports }}
     - name: {{ $key }}
       port: {{ $value }}

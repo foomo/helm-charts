@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.2](https://img.shields.io/badge/AppVersion-0.1.2-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.3](https://img.shields.io/badge/AppVersion-0.1.3-informational?style=flat-square)
 
 Squadron Keel Server chart
 
@@ -72,21 +72,31 @@ Squadron Keel Server chart
 | otel.otlp.endpoint | string | `"alloy:4317"` | Enpoint uri |
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
 | otel.ratio | int | `1` | Trace ratio |
-| persistence | object | `{"accessMode":"ReadWriteOnce","enabled":false,"mountPath":"/var/lib/server/data","size":"1Gi","storageClassName":""}` | Persistence settings |
+| persistence | object | `{"accessMode":"ReadWriteOnce","enabled":false,"mountPath":"/var/lib/server/data","size":"1Gi","storageClass":""}` | Persistence settings |
 | persistence.accessMode | string | `"ReadWriteOnce"` | Access mode |
 | persistence.enabled | bool | `false` | Indicates wether a pv should be attached or not |
 | persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
-| persistence.storageClassName | string | `""` | Storage class name |
-| podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | See https://kubernetes.io/docs/tasks/run-application/configure-pdb/ |
+| persistence.storageClass | string | `""` | Storage class name |
+| podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | Pod disruption budget settings |
 | podDisruptionBudget.enabled | bool | `false` | Indicates wether the pod disruption budget is enabled |
 | ports | object | `{}` | http: 8080 |
 | rbac | object | `{"enabled":false}` | RBAC configuration |
 | rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
+| replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
+| schedule | object | `{"affinity":{},"nodeSelector":{},"priorityClass":null,"tolerations":[]}` | Schedule settings |
+| schedule.affinity | object | `{}` | Affinity for pod assignment |
+| schedule.nodeSelector | object | `{}` | Node labels for pod assignment |
+| schedule.tolerations | list | `[]` | Tolerations for pod assignment |
 | secretEnv | object | `{}` | Map of environment variables to add as a secret |
 | secretMounts | list | `[]` |  |
-| server | object | `{"additionalEnv":[],"additionalEnvFrom":[],"additionalLabels":{},"additionalPorts":[],"additionalVolumeMounts":[],"additionalVolumes":[],"annotations":{},"hostAliases":[],"livenessProbe":{"httpGet":{"path":"/healthz/liveness","port":"healthz"}},"podAnnotations":{},"readinessProbe":{"httpGet":{"path":"/healthz/readiness","port":"healthz"}},"replicas":1,"resources":{},"startupProbe":{"httpGet":{"path":"/healthz/startup","port":"healthz"}},"strategy":{}}` | Server settings |
+| securityContext | object | `{"fsGroup":10001,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001}` | Security context |
+| securityContext.fsGroup | int | `10001` | File system group id |
+| securityContext.runAsGroup | int | `10001` | Run as group id |
+| securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
+| securityContext.runAsUser | int | `10001` | Run as user id |
+| server | object | `{"additionalEnv":[],"additionalEnvFrom":[],"additionalLabels":{},"additionalPorts":[],"additionalVolumeMounts":[],"additionalVolumes":[],"annotations":{},"hostAliases":[],"livenessProbe":{"httpGet":{"path":"/healthz/liveness","port":"healthz"}},"podAnnotations":{},"readinessProbe":{"httpGet":{"path":"/healthz/readiness","port":"healthz"}},"resources":{},"startupProbe":{"httpGet":{"path":"/healthz/startup","port":"healthz"}}}` | Server settings |
 | server.additionalEnv | list | `[]` | Additional environment variables |
 | server.additionalEnvFrom | list | `[]` | Additional env from |
 | server.additionalLabels | object | `{}` | Additional labels |
@@ -95,13 +105,11 @@ Squadron Keel Server chart
 | server.additionalVolumes | list | `[]` | Additional volumes |
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
-| server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
+| server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
-| server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
-| server.replicas | int | `1` | Number of replications |
+| server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
 | server.resources | object | `{}` | See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
-| server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | See https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
-| server.strategy | object | `{}` | Deployment strategy settings |
+| server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
 | service | object | `{"additionalLabels":{},"annotations":{},"type":"ClusterIP"}` | Service settings |
 | service.additionalLabels | object | `{}` | Additional Service labels |
 | service.annotations | object | `{}` | Service annotations |
@@ -115,9 +123,10 @@ Squadron Keel Server chart
 | serviceMonitor.annotations | object | `{}` | ServiceMonitor annotations |
 | serviceMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
 | serviceMonitor.interval | string | `""` | ServiceMonitor scrape interval |
-| serviceMonitor.metricRelabelings | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint |
-| serviceMonitor.relabelings | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig |
+| serviceMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion |
+| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
-| serviceMonitor.targetLabels | list | `[]` | See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec |
+| serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
 | squadron | string | `""` | Squadron name |
 | unit | string | `""` | Squadron unit name |
+| updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
