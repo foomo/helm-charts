@@ -541,7 +541,7 @@
           "type": "boolean"
         },
         "mountPath": {
-          "default": "/var/data",
+          "default": "/var/lib/server/data",
           "description": "Storage mount path",
           "required": [],
           "title": "mountPath",
@@ -844,7 +844,7 @@
           "type": "number"
         },
         "resources": {
-          "additionalProperties": false,
+          "additionalProperties": true,
           "description": "Resouce settings\nSee: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
           "required": [],
           "title": "resources",
@@ -1062,8 +1062,7 @@
     }
   },
   "required": [
-    "networkPolicy",
-    "rbac"
+    "networkPolicy"
   ],
   "type": "object"
 }
