@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.2](https://img.shields.io/badge/AppVersion-0.1.2-informational?style=flat-square)
 
 Squadron Keel Server chart
 
@@ -72,15 +72,16 @@ Squadron Keel Server chart
 | otel.otlp.endpoint | string | `"alloy:4317"` | Enpoint uri |
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
 | otel.ratio | int | `1` | Trace ratio |
-| persistence | object | `{"accessMode":"ReadWriteOnce","enabled":false,"mountPath":"/var/data","size":"1Gi","storageClassName":""}` | Persistence settings |
+| persistence | object | `{"accessMode":"ReadWriteOnce","enabled":false,"mountPath":"/var/lib/server/data","size":"1Gi","storageClassName":""}` | Persistence settings |
 | persistence.accessMode | string | `"ReadWriteOnce"` | Access mode |
 | persistence.enabled | bool | `false` | Indicates wether a pv should be attached or not |
-| persistence.mountPath | string | `"/var/data"` | Storage mount path |
+| persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClassName | string | `""` | Storage class name |
 | podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":"","minAvailable":""}` | See https://kubernetes.io/docs/tasks/run-application/configure-pdb/ |
 | podDisruptionBudget.enabled | bool | `false` | Indicates wether the pod disruption budget is enabled |
 | ports | object | `{}` | http: 8080 |
+| rbac | object | `{"enabled":false}` | RBAC configuration |
 | rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | secretEnv | object | `{}` | Map of environment variables to add as a secret |

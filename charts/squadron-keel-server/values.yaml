@@ -273,7 +273,7 @@ persistence:
   # type: string
   # @schema
   # -- Storage mount path
-  mountPath: /var/data
+  mountPath: /var/lib/server/data
   # @schema
   # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
   # @schema
@@ -410,6 +410,7 @@ server:
   additionalPorts: [ ]
   # @schema
   # type: [object, null]
+  # additionalProperties: true
   # @schema
   # -- Resouce settings
   # -- See: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
@@ -680,8 +681,10 @@ graceful:
   # -- Total seconds for the grace period
   periodSeconds: 45
 
-
-# RBAC configuration
+# @schema
+# type: object
+# @schema
+# -- RBAC configuration
 rbac:
   # -- Create PodSecurityPolicy.
   enabled: false
