@@ -119,9 +119,7 @@
           "type": "integer"
         }
       },
-      "required": [
-        "periodSeconds"
-      ],
+      "required": [],
       "title": "graceful",
       "type": "object"
     },
@@ -640,9 +638,9 @@
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
-    "schedule": {
+    "scheduling": {
       "additionalProperties": false,
-      "description": "Schedule settings",
+      "description": "Scheduling settings",
       "properties": {
         "affinity": {
           "additionalProperties": true,
@@ -650,6 +648,13 @@
           "required": [],
           "title": "affinity",
           "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether scheduling is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
         },
         "nodeSelector": {
           "additionalProperties": true,
@@ -681,7 +686,7 @@
         }
       },
       "required": [],
-      "title": "schedule",
+      "title": "scheduling",
       "type": "object"
     },
     "secretEnv": {

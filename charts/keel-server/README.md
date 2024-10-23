@@ -1,8 +1,8 @@
-# squadron-keel-server
+# keel-server
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.3](https://img.shields.io/badge/AppVersion-0.1.3-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.4](https://img.shields.io/badge/AppVersion-0.1.4-informational?style=flat-square)
 
-Squadron Keel Server chart
+Keel Server Chart
 
 **Homepage:** <https://www.foomo.org>
 
@@ -85,10 +85,11 @@ Squadron Keel Server chart
 | rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
 | replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
-| schedule | object | `{"affinity":{},"nodeSelector":{},"priorityClass":null,"tolerations":[]}` | Schedule settings |
-| schedule.affinity | object | `{}` | Affinity for pod assignment |
-| schedule.nodeSelector | object | `{}` | Node labels for pod assignment |
-| schedule.tolerations | list | `[]` | Tolerations for pod assignment |
+| scheduling | object | `{"affinity":{},"enabled":false,"nodeSelector":{},"priorityClass":null,"tolerations":[]}` | Scheduling settings |
+| scheduling.affinity | object | `{}` | Affinity for pod assignment |
+| scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
+| scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
+| scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
 | secretEnv | object | `{}` | Map of environment variables to add as a secret |
 | secretMounts | list | `[]` |  |
 | securityContext | object | `{"fsGroup":10001,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001}` | Security context |

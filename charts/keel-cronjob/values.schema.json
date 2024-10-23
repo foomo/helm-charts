@@ -1,0 +1,885 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "cronjob": {
+      "additionalProperties": false,
+      "description": "CronJob settings",
+      "properties": {
+        "additionalEnv": {
+          "description": "Additional environment variables",
+          "items": {
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "required": [],
+                "type": "string"
+              },
+              "value": {
+                "required": [],
+                "type": "string"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalEnv",
+          "type": "array"
+        },
+        "additionalEnvFrom": {
+          "description": "Additional env from",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalEnvFrom",
+          "type": "array"
+        },
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "additionalVolumeMounts": {
+          "description": "Additional volume mounts",
+          "items": {
+            "additionalProperties": true,
+            "properties": {
+              "mountPath": {
+                "required": [],
+                "type": "string"
+              },
+              "name": {
+                "required": [],
+                "type": "string"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalVolumeMounts",
+          "type": "array"
+        },
+        "additionalVolumes": {
+          "description": "Additional volumes",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "additionalVolumes",
+          "type": "array"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Deployment annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "backoffLimit": {
+          "default": 0,
+          "description": "Successful history item to keep",
+          "required": [],
+          "title": "backoffLimit",
+          "type": "integer"
+        },
+        "concurrency": {
+          "default": "Forbid",
+          "description": "Concurency policy",
+          "enum": [
+            "Allow",
+            "Forbid"
+          ],
+          "required": [],
+          "title": "concurrency"
+        },
+        "historyLimit": {
+          "default": 1,
+          "description": "Max history item to keep",
+          "required": [],
+          "title": "historyLimit",
+          "type": "integer"
+        },
+        "hostAliases": {
+          "description": "additionalVolumes:\n my-volume:\n   name: my-existing-volume-name\n   storageClass: local-path\nHost aliases",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hostAliases",
+          "type": "array"
+        },
+        "jobAnnotations": {
+          "additionalProperties": true,
+          "description": "Pod annotations",
+          "required": [],
+          "title": "jobAnnotations",
+          "type": "object"
+        },
+        "jobLabels": {
+          "additionalProperties": true,
+          "description": "Job labels",
+          "required": [],
+          "title": "jobLabels",
+          "type": "object"
+        },
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/liveness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "livenessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "podAnnotations": {
+          "additionalProperties": true,
+          "description": "Pod annotations",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/readiness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "readinessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "Resouce settings\nSee: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+          "required": [],
+          "title": "resources",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "restart": {
+          "default": "Never",
+          "description": "Restart policy",
+          "enum": [
+            "Never",
+            "OnFailure"
+          ],
+          "required": [],
+          "title": "restart"
+        },
+        "startupProbe": {
+          "additionalProperties": true,
+          "description": "Startup probe settings",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/startup",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "healthz",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "port",
+                "path"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "startupProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "cronjob",
+      "type": "object"
+    },
+    "env": {
+      "additionalProperties": true,
+      "description": "Map of environment variables to add\nenv:\n FOO: bar",
+      "required": [],
+      "title": "env",
+      "type": "object"
+    },
+    "fleet": {
+      "default": "",
+      "description": "Squadron fleet name",
+      "required": [],
+      "title": "fleet",
+      "type": "string"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "graceful": {
+      "additionalProperties": false,
+      "description": "Graceful shutdown settings",
+      "properties": {
+        "delaySeconds": {
+          "default": 15,
+          "description": "Seconds to wait for kubernetes to deregister",
+          "required": [],
+          "title": "delaySeconds",
+          "type": "integer"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether graceful shutdown is enabled",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "periodSeconds": {
+          "default": 45,
+          "description": "Total seconds for the grace period",
+          "required": [],
+          "title": "periodSeconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "periodSeconds"
+      ],
+      "title": "graceful",
+      "type": "object"
+    },
+    "image": {
+      "additionalProperties": false,
+      "description": "Image settings",
+      "properties": {
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "description": "Image tag",
+          "enum": [
+            "IfNotPresent",
+            "Always"
+          ],
+          "required": [],
+          "title": "pullPolicy"
+        },
+        "pullSecrets": {
+          "description": "Image pull secrets",
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "pullSecrets",
+          "type": "array"
+        },
+        "repository": {
+          "default": "",
+          "description": "Image repository",
+          "required": [],
+          "title": "repository",
+          "type": "string"
+        },
+        "tag": {
+          "default": "",
+          "description": "Image tag",
+          "required": [],
+          "title": "tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "title": "image",
+      "type": "object"
+    },
+    "log": {
+      "additionalProperties": false,
+      "description": "Log settings",
+      "properties": {
+        "level": {
+          "default": "info",
+          "description": "Log level",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
+          "required": [],
+          "title": "level"
+        },
+        "mode": {
+          "default": "prod",
+          "description": "Log mode",
+          "enum": [
+            "prod",
+            "dev"
+          ],
+          "required": [],
+          "title": "mode"
+        }
+      },
+      "required": [],
+      "title": "log",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy\nIf not set, `.Release.Namespace` is used",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "networkPolicy": {
+      "additionalProperties": false,
+      "description": "NetworkPolicy configuration",
+      "properties": {
+        "egress": {
+          "additionalProperties": false,
+          "description": "Egress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional egress rules",
+              "items": {
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether egress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "egress",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether Network Policies should be created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "ingress": {
+          "additionalProperties": false,
+          "description": "rules:\n  - allow-nginx-ingress\n  - allow-internet-egress\n  - allow-my-service-access\nIngress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional ingress rules",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether ingress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "ingress",
+          "type": "object"
+        },
+        "rules": {
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "rules",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "networkPolicy",
+      "type": "object"
+    },
+    "otel": {
+      "additionalProperties": false,
+      "description": "OpenTelemetry settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether to enable it or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "gorm": {
+          "additionalProperties": false,
+          "description": "GORM settings",
+          "properties": {
+            "enabled": {
+              "default": true,
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "sqlParametersDisabled": {
+              "default": true,
+              "description": "Indicates wether to trace sql attributes",
+              "required": [],
+              "title": "sqlParametersDisabled",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "title": "gorm",
+          "type": "object"
+        },
+        "gotsrpc": {
+          "additionalProperties": false,
+          "description": "GOTSRPC settings",
+          "properties": {
+            "enabled": {
+              "default": true,
+              "description": "Indicates wether to enable it or not",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "payloadAttributeDisabled": {
+              "default": true,
+              "description": "Indicates wether to trace payload attributes",
+              "required": [],
+              "title": "payloadAttributeDisabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "gotsrpc",
+          "type": "object"
+        },
+        "mongo": {
+          "additionalProperties": false,
+          "description": "Mongo settings",
+          "properties": {
+            "commandAttributeDisabled": {
+              "default": true,
+              "description": "Indicates wether to trace command attributes",
+              "required": [],
+              "title": "commandAttributeDisabled",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Indicates wether to enable it or not",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "mongo",
+          "type": "object"
+        },
+        "otlp": {
+          "additionalProperties": false,
+          "description": "OTLP exporter settings",
+          "properties": {
+            "endpoint": {
+              "default": "alloy:4317",
+              "description": "Enpoint uri",
+              "required": [],
+              "title": "endpoint",
+              "type": "string"
+            },
+            "insecure": {
+              "default": true,
+              "description": "Indicates wether to use insecure connection",
+              "required": [],
+              "title": "insecure",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "otlp",
+          "type": "object"
+        },
+        "ratio": {
+          "default": 1,
+          "description": "Trace ratio",
+          "required": [],
+          "title": "ratio",
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "title": "otel",
+      "type": "object"
+    },
+    "persistence": {
+      "additionalProperties": false,
+      "description": "Persistence settings",
+      "properties": {
+        "accessMode": {
+          "default": "ReadWriteOnce",
+          "description": "Access mode",
+          "enum": [
+            "ReadWriteOnce",
+            "ReadOnlyMany",
+            "ReadWriteMany"
+          ],
+          "required": [],
+          "title": "accessMode"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether a pv should be attached or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "mountPath": {
+          "default": "/var/lib/cronjob/data",
+          "description": "Storage mount path",
+          "required": [],
+          "title": "mountPath",
+          "type": "string"
+        },
+        "size": {
+          "default": "1Gi",
+          "description": "Storage size",
+          "required": [],
+          "title": "size",
+          "type": "string"
+        },
+        "storageClass": {
+          "default": "",
+          "description": "Storage class name",
+          "required": [],
+          "title": "storageClass",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "persistence",
+      "type": "object"
+    },
+    "rbac": {
+      "additionalProperties": false,
+      "description": "RBAC configuration",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Create PodSecurityPolicy.",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "title": "rbac",
+      "type": "object"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "Number of revisions to keep",
+      "required": [],
+      "title": "revisionHistoryLimit",
+      "type": "integer"
+    },
+    "schedule": {
+      "default": "",
+      "description": "Cron job schedule",
+      "required": [],
+      "title": "schedule",
+      "type": "string"
+    },
+    "scheduling": {
+      "additionalProperties": false,
+      "description": "Scheduling settings",
+      "properties": {
+        "affinity": {
+          "additionalProperties": true,
+          "description": "Affinity for pod assignment",
+          "required": [],
+          "title": "affinity",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether scheduling is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "nodeSelector": {
+          "additionalProperties": true,
+          "description": "Node labels for pod assignment",
+          "required": [],
+          "title": "nodeSelector",
+          "type": "object"
+        },
+        "priorityClass": {
+          "additionalProperties": true,
+          "default": "null",
+          "required": [],
+          "title": "priorityClass",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tolerations": {
+          "description": "Tolerations for pod assignment",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tolerations",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "scheduling",
+      "type": "object"
+    },
+    "secretEnv": {
+      "additionalProperties": true,
+      "description": "Map of environment variables to add as a secret",
+      "required": [],
+      "title": "secretEnv",
+      "type": "object"
+    },
+    "secretMounts": {
+      "description": "secretEnv:\n  FOO: bar",
+      "items": {
+        "required": [],
+        "type": "string"
+      },
+      "required": [],
+      "title": "secretMounts",
+      "type": "array"
+    },
+    "securityContext": {
+      "additionalProperties": false,
+      "description": "Security context",
+      "properties": {
+        "fsGroup": {
+          "default": 10001,
+          "description": "File system group id",
+          "required": [],
+          "title": "fsGroup",
+          "type": "integer"
+        },
+        "runAsGroup": {
+          "default": 10001,
+          "description": "Run as group id",
+          "required": [],
+          "title": "runAsGroup",
+          "type": "integer"
+        },
+        "runAsNonRoot": {
+          "default": true,
+          "description": "Indicates wether to run as non root user",
+          "required": [],
+          "title": "runAsNonRoot",
+          "type": "boolean"
+        },
+        "runAsUser": {
+          "default": 10001,
+          "description": "Run as user id",
+          "required": [],
+          "title": "runAsUser",
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "title": "securityContext",
+      "type": "object"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "ServiceAccount configuration",
+      "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations to add to the service account",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "required": [],
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use.\nIf not set and create is true, a name is generated using the fullname template",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "serviceAccount",
+      "type": "object"
+    },
+    "squadron": {
+      "default": "",
+      "description": "Squadron name",
+      "required": [],
+      "title": "squadron",
+      "type": "string"
+    },
+    "timeZone": {
+      "default": "Europe/Berlin",
+      "description": "Cron job time zone",
+      "required": [],
+      "title": "timeZone",
+      "type": "string"
+    },
+    "unit": {
+      "default": "",
+      "description": "Squadron unit name",
+      "required": [],
+      "title": "unit",
+      "type": "string"
+    }
+  },
+  "required": [
+    "networkPolicy"
+  ],
+  "type": "object"
+}

@@ -698,14 +698,22 @@ graceful:
   # @schema
   # -- Seconds to wait for kubernetes to deregister
   delaySeconds: 15
+  # @schema
+  # type: integer
+  # @schema
   # -- Total seconds for the grace period
   periodSeconds: 45
 
 # @schema
 # type: object
 # @schema
-# -- Schedule settings
-schedule:
+# -- Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  enabled: false
   # @schema
   # type: object
   # additionalProperties: true
