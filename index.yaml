@@ -360,50 +360,6 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/gateway-crds-0.1.0/gateway-crds-0.1.0.tgz
     version: 0.1.0
-  keel-cronjob:
-  - annotations:
-      artifacthub.io/links: |
-        - name: Chart Source
-          url: https://github.com/foomo/helm-charts
-    apiVersion: v2
-    appVersion: 0.1.0
-    created: "2024-10-23T16:00:25.478878412Z"
-    description: Keel CronJob Chart
-    digest: 2560da96f2c17b8c02519f015ec36417b897386b26d71ea72539bc62c76cf9bb
-    home: https://www.foomo.org
-    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
-    keywords:
-    - foomo
-    - foomo-keel
-    name: keel-cronjob
-    sources:
-    - https://github.com/foomo/helm-charts
-    type: application
-    urls:
-    - https://github.com/foomo/helm-charts/releases/download/keel-cronjob-0.1.0/keel-cronjob-0.1.0.tgz
-    version: 0.1.0
-  keel-server:
-  - annotations:
-      artifacthub.io/links: |
-        - name: Chart Source
-          url: https://github.com/foomo/helm-charts
-    apiVersion: v2
-    appVersion: 0.1.4
-    created: "2024-10-23T16:00:25.589397402Z"
-    description: Keel Server Chart
-    digest: 2edb818977ee65194b4bb600b1ad62d7f2a2a1e14257eef1cc6538bd2f2a7518
-    home: https://www.foomo.org
-    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
-    keywords:
-    - foomo
-    - foomo-keel
-    name: keel-server
-    sources:
-    - https://github.com/foomo/helm-charts
-    type: application
-    urls:
-    - https://github.com/foomo/helm-charts/releases/download/keel-server-0.1.4/keel-server-0.1.4.tgz
-    version: 0.1.4
   namespace:
   - annotations:
       artifacthub.io/links: |
@@ -608,18 +564,6 @@ entries:
     type: application
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.0.1/sesamy-gtm-0.0.1.tgz
-    version: 0.0.1
-  sesamy-gtm-enrichment:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2024-02-12T09:37:24.679094402Z"
-    description: Helm chart for your custom Sesamy GTM enrichment service.
-    digest: 0014e5e9d102d28ca4d7f1a16d47d0c4a22199b801f29aaa18c56fd7d0493553
-    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
-    name: sesamy-gtm-enrichment
-    type: application
-    urls:
-    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-enrichment-0.0.1/sesamy-gtm-enrichment-0.0.1.tgz
     version: 0.0.1
   sesamy-umami:
   - annotations:
