@@ -4,147 +4,176 @@
 # type: string
 # @schema
 # -- Overrides the chart's name
+# @section -- Overrides
 nameOverride: ''
 # @schema
 # type: string
 # @schema
 # -- Overrides the chart's computed fullname
+# @section -- Overrides
 fullnameOverride: ''
 # @schema
 # type: string
 # @schema
 # -- The name of the Namespace to deploy
-# -- If not set, `.Release.Namespace` is used
+# @section -- Overrides
 namespaceOverride: ''
+
 # @schema
 # type: integer
 # @schema
 # -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
 # @schema
 # type: string
 # @schema
 # -- Cron job schedule
+# @section -- General
 schedule: ''
 # @schema
 # type: string
 # @schema
 # -- Cron job time zone
+# @section -- General
 timeZone: 'Europe/Berlin'
 
 # @schema
 # type: string
 # @schema
 # -- Squadron fleet name
+# @section -- Squadron settings
 fleet: ''
 # @schema
 # type: string
 # @schema
 # -- Squadron name
+# @section -- Squadron settings
 squadron: ''
 # @schema
 # type: string
 # @schema
 # -- Squadron unit name
+# @section -- Squadron settings
 unit: ''
 
 # @schema
 # type: object
 # @schema
-# -- Log settings
+# Log settings
 log:
   # @schema
   # enum: [prod, dev]
   # @schema
   # -- Log mode
+  # @section -- Log settings
   mode: prod
   # @schema
   # enum: [error, warn, info, debug]
   # @schema
   # -- Log level
+  # @section -- Log settings
   level: info
 
 # @schema
 # type: object
 # @schema
-# -- OpenTelemetry settings
+# OpenTelemetry settings
 otel:
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether to enable it or not
+  # @section -- OpenTelemetry settings
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Trace ratio
+  # @section -- OpenTelemetry settings
   ratio: 1
   # @schema
   # type: object
   # @schema
   # -- OTLP exporter settings
+  # @section -- OpenTelemetry settings
   otlp:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to use insecure connection
+    # @section -- OpenTelemetry settings
     insecure: true
     # @schema
     # type: string
     # @schema
     # -- Enpoint uri
+    # @section -- OpenTelemetry settings
     endpoint: 'alloy:4317'
   # @schema
   # type: object
   # @schema
-  # -- GORM settings
+  # GORM settings
   gorm:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to enable it or not
+    # @section -- OpenTelemetry settings
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace sql attributes
+    # @section -- OpenTelemetry settings
     sqlParametersDisabled: true
   # @schema
   # type: object
   # @schema
-  # -- Mongo settings
+  # Mongo settings
+  # @section -- OpenTelemetry settings
   mongo:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
+    # @section -- OpenTelemetry settings
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace command attributes
+    # @section -- OpenTelemetry settings
     commandAttributeDisabled: true
   # @schema
   # type: object
   # @schema
-  # -- GOTSRPC settings
+  # GOTSRPC settings
+  # @section -- OpenTelemetry settings
   gotsrpc:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
+    # @section -- OpenTelemetry settings
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace payload attributes
+    # @section -- OpenTelemetry settings
     payloadAttributeDisabled: true
 
 # @schema
 # type: object
 # @schema
-# -- Image settings
+# Image settings
 image:
   # @schema
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
+  # @section -- Image settings
   pullPolicy: IfNotPresent
   # @schema
   # type: array
@@ -152,18 +181,21 @@ image:
   #   type: string
   # @schema
   # -- Image pull secrets
+  # @section -- Image settings
   pullSecrets: [ ]
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image repository
+  # @section -- Image settings
   repository: ''
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image tag
+  # @section -- Image settings
   tag: ''
 
 # @schema
@@ -171,14 +203,31 @@ image:
 # additionalProperties: true
 # @schema
 # -- Map of environment variables to add
-# -- env:
-# --  FOO: bar
+# @section -- General
 env: { }
+# env:
+#   FOO: bar
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     data:
+#       type: object
+#       additionalProperties: true
+#     stringData:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Map of secrets to be mounted
+# @section -- General
+secrets: { }
 # @schema
 # type: object
 # additionalProperties: true
 # @schema
 # -- Map of environment variables to add as a secret
+# @section -- General
 secretEnv: { }
 # secretEnv:
 #   FOO: bar
@@ -187,6 +236,8 @@ secretEnv: { }
 # items:
 #   type: string
 # @schema
+# -- List of existing secrets to be mounted
+# @section -- General
 secretMounts: []
 # secretMounts:
 #   - my-secret
@@ -194,114 +245,132 @@ secretMounts: []
 # @schema
 # type: object
 # @schema
-# -- Persistence settings
+# Persistence settings
 persistence:
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether a pv should be attached or not
+  # @section -- Persistence settings
   enabled: false
   # @schema
   # type: string
   # @schema
   # -- Storage mount path
+  # @section -- Persistence settings
   mountPath: /var/lib/cronjob/data
   # @schema
   # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
   # @schema
   # -- Access mode
+  # @section -- Persistence settings
   accessMode: ReadWriteOnce
   # @schema
   # type: string
   # @schema
   # -- Storage size
+  # @section -- Persistence settings
   size: 1Gi
   # @schema
   # type: string
   # @schema
   # -- Storage class name
+  # @section -- Persistence settings
   storageClass: ''
 
 # @schema
 # type: object
 # @schema
-# -- Security context
+# Security context
 securityContext:
   # @schema
   # type: integer
   # @schema
   # -- Run as user id
+  # @section -- Security context
   runAsUser: 10001
   # @schema
   # type: integer
   # @schema
   # -- Run as group id
+  # @section -- Security context
   runAsGroup: 10001
   # @schema
   # type: integer
   # @schema
   # -- File system group id
+  # @section -- Security context
   fsGroup: 10001
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether to run as non root user
+  # @section -- Security context
   runAsNonRoot: true
 
 # @schema
 # type: object
 # @schema
-# -- CronJob settings
+# CronJob settings
 cronjob:
   # @schema
   # enum: [Never, OnFailure]
   # @schema
   # -- Restart policy
+  # @section -- CronJob settings
   restart: Never
   # @schema
   # enum: [Allow, Forbid]
   # @schema
   # -- Concurency policy
+  # @section -- CronJob settings
   concurrency: Forbid
   # @schema
   # type: integer
   # @schema
   # -- Max history item to keep
+  # @section -- CronJob settings
   historyLimit: 1
   # @schema
   # type: integer
   # @schema
   # -- Successful history item to keep
+  # @section -- CronJob settings
   backoffLimit: 0
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional labels
+  # @section -- CronJob settings
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Deployment annotations
+  # @section -- CronJob settings
   annotations: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Job labels
+  # @section -- CronJob settings
   jobLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Pod annotations
+  # @section -- CronJob settings
   jobAnnotations: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Pod annotations
+  # @section -- CronJob settings
   podAnnotations: { }
   # @schema
   # type: array
@@ -315,6 +384,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional environment variables
+  # @section -- CronJob settings
   additionalEnv: [ ]
   # @schema
   # type: array
@@ -323,6 +393,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional env from
+  # @section -- CronJob settings
   additionalEnvFrom: [ ]
   # @schema
   # type: array
@@ -336,6 +407,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional volume mounts
+  # @section -- CronJob settings
   additionalVolumeMounts: [ ]
   # @schema
   # type: array
@@ -344,11 +416,11 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional volumes
+  # @section -- CronJob settings
   additionalVolumes: [ ]
   # additionalVolumes:
-  #  my-volume:
-  #    name: my-existing-volume-name
-  #    storageClass: local-path
+  #   - name: my-existing-volume-name
+  #     storageClass: local-path
   # @schema
   # type: array
   # items:
@@ -356,18 +428,21 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Host aliases
+  # @section -- CronJob settings
   hostAliases: [ ]
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Resource settings
+  # @section -- CronJob settings
   resources: {}
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Startup probe settings
+  # @section -- CronJob settings
   startupProbe:
     httpGet:
       port: healthz
@@ -377,6 +452,7 @@ cronjob:
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
+  # @section -- CronJob settings
   readinessProbe:
     httpGet:
       port: healthz
@@ -386,6 +462,7 @@ cronjob:
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
+  # @section -- CronJob settings
   livenessProbe:
     httpGet:
       port: healthz
@@ -394,43 +471,52 @@ cronjob:
 # @schema
 # type: object
 # @schema
-# ServiceAccount configuration
+# ServiceAccount settings
 serviceAccount:
   # @schema
   # type: string
   # @schema
   # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
+  # @section -- ServiceAccount settings
   name: ""
   # @schema
   # type: boolean
   # @schema
   # -- Specifies whether a service account should be created
+  # @section -- ServiceAccount settings
   create: true
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- ServiceAccount settings
   automount: true
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Annotations to add to the service account
+  # @section -- ServiceAccount settings
   annotations: { }
 
-# NetworkPolicy configuration
+# @schema
+# type: object
+# @schema
+# Network Policy settings
 networkPolicy:
   # @schema
   # type: boolean
   # @schema
   # -- Specifies whether Network Policies should be created
+  # @section -- Network Policy settings
   enabled: false
   # @schema
   # type: array
   # items:
   #   type: string
   # @schema
+  # -- List of rules to apply via labels
+  # @section -- Network Policy settings
   rules: []
   # rules:
   #   - allow-nginx-ingress
@@ -439,17 +525,20 @@ networkPolicy:
   # @schema
   # type: object
   # @schema
-  # -- Ingress settings
+  # Ingress settings
+  # @section -- Network Policy settings
   ingress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether ingress should be enabled
+    # @section -- Network Policy settings
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
+    # @section -- Network Policy settings
     allowExternal: true
     # @schema
     # type: array
@@ -458,21 +547,25 @@ networkPolicy:
     #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
+    # @section -- Network Policy settings
     additionalRules: []
   # @schema
   # type: object
   # @schema
-  # -- Egress settings
+  # Egress settings
+  # @section -- Network Policy settings
   egress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether egress should be enabled
+    # @section -- Network Policy settings
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
+    # @section -- Network Policy settings
     allowExternal: true
     # @schema
     # type: array
@@ -480,47 +573,57 @@ networkPolicy:
     #   type: string
     # @schema
     # -- Additional egress rules
+    # @section -- Network Policy settings
     additionalRules: []
 
 # @schema
 # type: object
 # @schema
-# -- Graceful shutdown settings
+# Graceful settings
 graceful:
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether graceful shutdown is enabled
+  # @section -- Graceful settings
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Seconds to wait for kubernetes to deregister
+  # @section -- Graceful settings
   delaySeconds: 15
+  # @schema
+  # type: integer
+  # @schema
   # -- Total seconds for the grace period
+  # @section -- Graceful settings
   periodSeconds: 45
 
 # @schema
 # type: object
 # @schema
-# -- Scheduling settings
+# Scheduling settings
 scheduling:
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling settings
   enabled: false
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Affinity for pod assignment
+  # @section -- Scheduling settings
   affinity: {}
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Node labels for pod assignment
+  # @section -- Scheduling settings
   nodeSelector: {}
   # @schema
   # type: array
@@ -529,17 +632,24 @@ scheduling:
   #   additionalProperties: true
   # @schema
   # -- Tolerations for pod assignment
+  # @section -- Scheduling settings
   tolerations: []
   # @schema
   # type: [string, null]
   # additionalProperties: true
   # @schema
+  # -- Priority class name
+  # @section -- Scheduling settings
   priorityClass: null
 
 # @schema
 # type: object
 # @schema
-# -- RBAC configuration
+# RBAC settings
 rbac:
-  # -- Create PodSecurityPolicy.
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- RBAC settings
   enabled: false

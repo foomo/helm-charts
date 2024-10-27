@@ -13,6 +13,8 @@ If release name contains chart name it will be used as a full name.
 {{- define "keel.server.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- tpl .Values.fullnameOverride . | trunc 63 | trimSuffix "-" -}}
+{{- else if and .Values.squadron .Values.unit -}}
+{{- printf "%s-%s" .Values.squadron .Values.unit | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- if contains $name .Release.Name -}}

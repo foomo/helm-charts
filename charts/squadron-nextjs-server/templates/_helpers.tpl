@@ -13,6 +13,8 @@ If release name contains chart name it will be used as a full name.
 {{- define "nextjs.server.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- tpl .Values.fullnameOverride . | trunc 63 | trimSuffix "-" -}}
+{{- else if and .Values.squadron .Values.unit -}}
+{{- printf "%s-%s" .Values.squadron .Values.unit | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- if contains $name .Release.Name -}}
@@ -53,8 +55,13 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "nextjs.server.selectorLabels" -}}
+{{ if ((.Values.global).foomo).withDeprecatedSelectorLabels }}
+app.kubernetes.io/name: {{ include "nextjs.server.fullname" . }}
+app.kubernetes.io/component: "nextjs"
+{{ else }}
 app.kubernetes.io/name: {{ include "nextjs.server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 {{- end }}
 
 {{/*
