@@ -1,41 +1,122 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
 # @section -- Overrides
-nameOverride: ""
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
 # @section -- Overrides
-fullnameOverride: ""
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
 # @section -- Overrides
 namespaceOverride: ''
 
-# -- Namspace secrets
-secrets:
-  # -- Opaque secrets
-  opaque: {}
-  # my-secret:
-  #   annotations:
-  #     replicator.v1.mittwald.de/replicate-to: ".*"
-  #   data:
-  #     ...
-  # -- TLS secrets
-  tls: {}
-  # domain.com:
-  #   annotations:
-  #     replicator.v1.mittwald.de/replicate-to: ".*"
-  #   data:
-  #     tls.crt: ''
-  #     tls.key: ''
-  # -- Docker config json secrets
-  dockerConfigs: {}
-  # hub.docker.com:
-  #   annotations:
-  #     replicator.v1.mittwald.de/replicate-to: ".*"
-  #   data: '{...}'
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     data:
+#       type: object
+#       additionalProperties: true
+#     stringData:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Opaque secrets
+# @section -- General
+secrets: {}
+# secrets:
+#   my-secret:
+#     annotations:
+#       replicator.v1.mittwald.de/replicate-to: ".*"
+#     data: {}
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     data:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- TLS secrets
+# @section -- General
+tlsSecrets: {}
+# tlsSecrets:
+#   my-domain.com:
+#     annotations:
+#       replicator.v1.mittwald.de/replicate-to: ".*"
+#     data:
+#       tls.crt: ''
+#       tls.key: ''
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     data:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Docker config json secrets
+# @section -- General
+dockerSecrets: {}
+# dockerSecrets:
+#   hub.docker.com:
+#     annotations:
+#       replicator.v1.mittwald.de/replicate-to: ".*"
+#     data: '{...}'
 
-# -- Namspace serviceaccounts
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Service accounts settings
+# @section -- General
 serviceAccounts: {}
-# my-service-account:
-#   annotations: {}
+#  my-service-account:
+#    annotations: {}
+
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#   additionalProperties: true
+# @schema
+# -- Service accounts settings
+# @section -- General
+volumes: {}
+#  my-volume:
+#    name: my-existing-volume
+#    annotations: {}
+#    storageClass: local-path
+#    size: 1Gi
 
 

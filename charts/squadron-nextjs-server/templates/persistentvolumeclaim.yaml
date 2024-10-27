@@ -15,25 +15,3 @@ spec:
       storage: {{ .Values.persistence.size }}
 ---
 {{- end }}
-{{- range $key, $value := .Values.server.additionalVolumes }}
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: {{ $key }}
-  labels: {{- include "nextjs.server.labels" $ | nindent 4 }}
-  namespace: {{ include "nextjs.server.namespace" $ }}
-spec:
-  {{- if $value.name }}
-  volumeName: {{ $value.name }}
-  {{- end }}
-  accessModes: [ {{ default $value.accessMode "ReadWriteOnce" }} ]
-  {{- with $value.storageClass }}
-  storageClassName: {{ . }}
-  {{- end }}
-  {{- with $value.size }}
-  resources:
-    requests:
-      storage: {{ . }}
-  {{- end }}
----
-{{- end }}

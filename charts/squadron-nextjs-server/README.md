@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -12,35 +12,77 @@ Squadron NextJS Server Chart
 
 ## Values
 
+### Autoscaling settings
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| autoscaling | object | `{"additionalMetrics":{},"behavior":{},"enabled":false,"maxReplicas":9,"maxUnavailable":1,"minAvailable":"","minReplicas":1,"targetCPU":75,"targetMemory":null}` | Autoscaling settings |
 | autoscaling.additionalMetrics | object | `{}` | Additional scaling metrics |
 | autoscaling.behavior | object | `{}` | Autoscaling behavior settings |
 | autoscaling.enabled | bool | `false` | Specifies whether a auto scaling should be enabled |
 | autoscaling.maxReplicas | int | `9` | Maximum replication number |
+| autoscaling.maxUnavailable | int | `1` | Maximum unavailablity |
+| autoscaling.minAvailable | string | `""` | Minimum availablity |
 | autoscaling.minReplicas | int | `1` | Minimum replication number |
 | autoscaling.targetCPU | int | `75` | Target CPU utilization |
 | autoscaling.targetMemory | string | `nil` | Target Memory utilization |
-| env | object | `{}` | FOO: bar |
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| env | object | `{}` | Map of environment variables to add |
+| replicas | int | `1` | Number of replications |
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+| secretEnv | object | `{}` | Map of environment variables to add as a secret |
+| secretMounts | list | `[]` | List of existing secrets to be mounted |
+| updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
+
+### Squadron settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | fleet | string | `""` | Squadron fleet name |
+| squadron | string | `""` | Squadron name |
+| unit | string | `""` | Squadron unit name |
+
+### Overrides
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| gateway | object | `{"addToRobots":"","enabled":false,"expose":[],"sitemap":""}` | Foomo gateway settings |
+| nameOverride | string | `""` | Overrides the chart's name |
+| namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Gateway settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | gateway.addToRobots | string | `""` | Robots.txt |
 | gateway.enabled | bool | `false` | Indicates wether the gateway is enabled or not |
 | gateway.expose | list | `[]` | Expose settings |
 | gateway.sitemap | string | `""` | Sitemap |
-| graceful | object | `{"delaySeconds":15,"enabled":false,"periodSeconds":45}` | Graceful shutdown settings |
+
+### Graceful settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | graceful.delaySeconds | int | `15` | Seconds to wait for kubernetes to deregister |
 | graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
 | graceful.periodSeconds | int | `45` | Total seconds for the grace period |
-| image | object | `{"pullPolicy":"IfNotPresent","pullSecrets":[],"recreate":false,"repository":"","tag":""}` | Image settings |
+
+### Image settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | image.pullSecrets | list | `[]` | Image pull secrets |
-| image.recreate | bool | `false` | Force recreation |
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
-| ingress | object | `{"additionalLabels":{},"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/$1","nginx.ingress.kubernetes.io/use-regex":"true"},"className":"","enabled":false,"hosts":[],"paths":[],"tls":[]}` | Ingress settings |
+
+### Ingress settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | ingress.additionalLabels | object | `{}` | Additional labels |
 | ingress.annotations | object | `{"nginx.ingress.kubernetes.io/rewrite-target":"/$1","nginx.ingress.kubernetes.io/use-regex":"true"}` | Ingress annotations |
 | ingress.className | string | `""` | Ingress class name |
@@ -48,58 +90,82 @@ Squadron NextJS Server Chart
 | ingress.hosts | list | `[]` | List of hosts |
 | ingress.paths | list | `[]` | List of hosts |
 | ingress.tls | list | `[]` | TLS settings |
-| log | object | `{"level":"info","mode":"prod"}` | Log settings |
+
+### Log settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | log.level | string | `"info"` | Log level |
 | log.mode | string | `"prod"` | Log mode |
-| nameOverride | string | `""` | Overrides the chart's name |
-| namespaceOverride | string | `""` | If not set, `.Release.Namespace` is used |
-| networkPolicy.egress | object | `{"additionalRules":[],"allowExternal":true,"enabled":true}` | Egress settings |
+
+### Network Policy settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | networkPolicy.egress.additionalRules | list | `[]` | Additional egress rules |
 | networkPolicy.egress.allowExternal | bool | `true` | Allow ingress through labels |
 | networkPolicy.egress.enabled | bool | `true` | Specifies whether egress should be enabled |
 | networkPolicy.enabled | bool | `false` | Specifies whether Network Policies should be created |
-| networkPolicy.ingress | object | `{"additionalRules":[],"allowExternal":true,"enabled":true}` | Ingress settings |
 | networkPolicy.ingress.additionalRules | list | `[]` | Additional ingress rules |
 | networkPolicy.ingress.allowExternal | bool | `true` | Allow ingress through labels |
 | networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
-| networkPolicy.rules | list | `[]` |  |
-| otel | object | `{"enabled":false,"gorm":{"enabled":true,"sqlParametersDisabled":true},"gotsrpc":{"enabled":true,"payloadAttributeDisabled":true},"mongo":{"commandAttributeDisabled":true,"enabled":true},"otlp":{"endpoint":"alloy:4317","insecure":true},"ratio":1}` | OpenTelemetry settings |
+| networkPolicy.rules | list | `[]` | List of rules to apply via labels |
+
+### OpenTelemetry settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | otel.enabled | bool | `false` | Indicates wether to enable it or not |
-| otel.gorm | object | `{"enabled":true,"sqlParametersDisabled":true}` | GORM settings |
+| otel.gorm.enabled | bool | `true` | Indicates wether to enable it or not |
 | otel.gorm.sqlParametersDisabled | bool | `true` | Indicates wether to trace sql attributes |
-| otel.gotsrpc | object | `{"enabled":true,"payloadAttributeDisabled":true}` | GOTSRPC settings |
 | otel.gotsrpc.enabled | bool | `true` | Indicates wether to enable it or not |
 | otel.gotsrpc.payloadAttributeDisabled | bool | `true` | Indicates wether to trace payload attributes |
-| otel.mongo | object | `{"commandAttributeDisabled":true,"enabled":true}` | Mongo settings |
 | otel.mongo.commandAttributeDisabled | bool | `true` | Indicates wether to trace command attributes |
 | otel.mongo.enabled | bool | `true` | Indicates wether to enable it or not |
 | otel.otlp | object | `{"endpoint":"alloy:4317","insecure":true}` | OTLP exporter settings |
 | otel.otlp.endpoint | string | `"alloy:4317"` | Enpoint uri |
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
 | otel.ratio | int | `1` | Trace ratio |
-| persistence | object | `{"accessMode":"ReadWriteOnce","enabled":false,"mountPath":"/var/lib/server/data","size":"1Gi","storageClass":""}` | Persistence settings |
+
+### Persistence settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | persistence.accessMode | string | `"ReadWriteOnce"` | Access mode |
 | persistence.enabled | bool | `false` | Indicates wether a pv should be attached or not |
-| persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
+| persistence.mountPath | string | `"/var/lib/cronjob/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class name |
-| rbac | object | `{"enabled":false}` | RBAC configuration |
-| rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
-| replicas | int | `1` | Number of replications |
-| revisionHistoryLimit | int | `10` | Number of revisions to keep |
-| scheduling | object | `{"affinity":{},"enabled":false,"nodeSelector":{},"priorityClass":null,"tolerations":[]}` | Scheduling settings |
+
+### RBAC settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
+
+### Scheduling settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | scheduling.affinity | object | `{}` | Affinity for pod assignment |
 | scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 | scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
+| scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
-| secretEnv | object | `{}` | Map of environment variables to add as a secret |
-| secretMounts | list | `[]` |  |
-| securityContext | object | `{"fsGroup":10001,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001}` | Security context |
+
+### Security context
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | securityContext.fsGroup | int | `10001` | File system group id |
 | securityContext.runAsGroup | int | `10001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
 | securityContext.runAsUser | int | `10001` | Run as user id |
-| server | object | `{"additionalEnv":[],"additionalEnvFrom":[],"additionalLabels":{},"additionalPorts":[],"additionalVolumeMounts":[],"additionalVolumes":[],"annotations":{},"hostAliases":[],"livenessProbe":{"tcpSocket":{"port":3000}},"podAnnotations":{},"readinessProbe":{"tcpSocket":{"port":3000}},"resources":{},"startupProbe":{"tcpSocket":{"port":3000}}}` | Server settings |
+
+### Server settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | server.additionalEnv | list | `[]` | Additional environment variables |
 | server.additionalEnvFrom | list | `[]` | Additional env from |
 | server.additionalLabels | object | `{}` | Additional labels |
@@ -113,15 +179,28 @@ Squadron NextJS Server Chart
 | server.readinessProbe | object | `{"tcpSocket":{"port":3000}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
 | server.startupProbe | object | `{"tcpSocket":{"port":3000}}` | Startup probe settings |
-| service | object | `{"additionalLabels":{},"annotations":{},"type":"ClusterIP"}` | Service settings |
+
+### Service settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | service.additionalLabels | object | `{}` | Additional Service labels |
 | service.annotations | object | `{}` | Service annotations |
 | service.type | string | `"ClusterIP"` | Service type |
+
+### Service account settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | If not set and create is true, a name is generated using the fullname template |
-| serviceMonitor | object | `{"additionalLabels":{},"annotations":{},"enabled":false,"interval":"","metricRelabelings":[],"relabelings":[],"scrapeTimeout":"","targetLabels":[]}` | ServiceMonitor configuration |
+| serviceAccount.name | string | `""` | The name of the service account to use. |
+
+### Service Monitor settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | serviceMonitor.additionalLabels | object | `{}` | Additional ServiceMonitor labels |
 | serviceMonitor.annotations | object | `{}` | ServiceMonitor annotations |
 | serviceMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
@@ -130,6 +209,3 @@ Squadron NextJS Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-| squadron | string | `""` | Squadron name |
-| unit | string | `""` | Squadron unit name |
-| updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |

@@ -109,7 +109,7 @@
           "type": "integer"
         },
         "hostAliases": {
-          "description": "additionalVolumes:\n my-volume:\n   name: my-existing-volume-name\n   storageClass: local-path\nHost aliases",
+          "description": "additionalVolumes:\n  - name: my-existing-volume-name\n    storageClass: local-path\nHost aliases",
           "items": {
             "additionalProperties": true,
             "required": [],
@@ -278,7 +278,7 @@
     },
     "env": {
       "additionalProperties": true,
-      "description": "Map of environment variables to add\nenv:\n FOO: bar",
+      "description": "Map of environment variables to add",
       "required": [],
       "title": "env",
       "type": "object"
@@ -305,7 +305,7 @@
     },
     "graceful": {
       "additionalProperties": false,
-      "description": "Graceful shutdown settings",
+      "description": "Graceful settings",
       "properties": {
         "delaySeconds": {
           "default": 15,
@@ -329,9 +329,7 @@
           "type": "integer"
         }
       },
-      "required": [
-        "periodSeconds"
-      ],
+      "required": [],
       "title": "graceful",
       "type": "object"
     },
@@ -421,14 +419,14 @@
     },
     "namespaceOverride": {
       "default": "",
-      "description": "The name of the Namespace to deploy\nIf not set, `.Release.Namespace` is used",
+      "description": "The name of the Namespace to deploy",
       "required": [],
       "title": "namespaceOverride",
       "type": "string"
     },
     "networkPolicy": {
       "additionalProperties": false,
-      "description": "NetworkPolicy configuration",
+      "description": "Network Policy settings",
       "properties": {
         "egress": {
           "additionalProperties": false,
@@ -505,6 +503,7 @@
           "type": "object"
         },
         "rules": {
+          "description": "List of rules to apply via labels",
           "items": {
             "required": [],
             "type": "string"
@@ -535,6 +534,7 @@
           "properties": {
             "enabled": {
               "default": true,
+              "description": "Indicates wether to enable it or not",
               "required": [],
               "title": "enabled",
               "type": "boolean"
@@ -547,9 +547,7 @@
               "type": "boolean"
             }
           },
-          "required": [
-            "enabled"
-          ],
+          "required": [],
           "title": "gorm",
           "type": "object"
         },
@@ -684,19 +682,17 @@
     },
     "rbac": {
       "additionalProperties": false,
-      "description": "RBAC configuration",
+      "description": "RBAC settings",
       "properties": {
         "enabled": {
           "default": false,
-          "description": "Create PodSecurityPolicy.",
+          "description": "Indicates wether scheduling is enabled or not",
           "required": [],
           "title": "enabled",
           "type": "boolean"
         }
       },
-      "required": [
-        "enabled"
-      ],
+      "required": [],
       "title": "rbac",
       "type": "object"
     },
@@ -742,6 +738,7 @@
         "priorityClass": {
           "additionalProperties": true,
           "default": "null",
+          "description": "Priority class name",
           "required": [],
           "title": "priorityClass",
           "type": [
@@ -773,7 +770,7 @@
       "type": "object"
     },
     "secretMounts": {
-      "description": "secretEnv:\n  FOO: bar",
+      "description": "secretEnv:\n  FOO: bar\nList of existing secrets to be mounted",
       "items": {
         "required": [],
         "type": "string"
@@ -781,6 +778,25 @@
       "required": [],
       "title": "secretMounts",
       "type": "array"
+    },
+    "secrets": {
+      "additionalProperties": {
+        "properties": {
+          "data": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "stringData": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "env:\n  FOO: bar\nMap of secrets to be mounted",
+      "required": [],
+      "title": "secrets",
+      "type": "object"
     },
     "securityContext": {
       "additionalProperties": false,
@@ -821,7 +837,7 @@
     },
     "serviceAccount": {
       "additionalProperties": false,
-      "description": "ServiceAccount configuration",
+      "description": "ServiceAccount settings",
       "properties": {
         "annotations": {
           "additionalProperties": true,
@@ -846,7 +862,7 @@
         },
         "name": {
           "default": "",
-          "description": "The name of the service account to use.\nIf not set and create is true, a name is generated using the fullname template",
+          "description": "The name of the service account to use.",
           "required": [],
           "title": "name",
           "type": "string"
@@ -878,8 +894,6 @@
       "type": "string"
     }
   },
-  "required": [
-    "networkPolicy"
-  ],
+  "required": [],
   "type": "object"
 }

@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -20,6 +21,7 @@ spec:
     - host: {{ tpl . $ | quote }}
       http:
         paths:
+          {{- if $.Values.gateway.enabled }}
           - pathType: ImplementationSpecific
             path: /static/{{ $.Values.squadron }}-{{ $.Values.unit }}/public/(.*)
             backend:
@@ -34,6 +36,7 @@ spec:
                 name: {{ include "nextjs.server.fullname" $ }}
                 port:
                   number: 3000
+          {{- end }}
           {{- range $.Values.ingress.paths }}
           - pathType: {{ default .pathType "ImplementationSpecific" }}
             path: {{ .path }}
@@ -48,3 +51,4 @@ spec:
   tls:
     {{- tpl (toYaml .) $ | nindent 4 }}
   {{- end }}
+{{- end }}
