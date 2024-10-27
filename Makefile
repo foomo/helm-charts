@@ -15,9 +15,9 @@ check: lint schema docs
 .PHONY: lint
 ## Lint Helm charts
 ## https://github.com/helm/chart-testing
-lint:
+lint: schema
 	@for dir in ./charts/* ; do \
-		helm lint $${dir} ;\
+		helm lint $${dir} --strict ;\
 	done
 
 .PHONY: docs

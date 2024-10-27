@@ -6,7 +6,7 @@ metadata:
   labels: {{- include "namespace.labels" $ | nindent 4 }}
   {{- with $value.annotations }}
   annotations: {{ toYaml . | nindent 4 }}
-  {{-end }}
+  {{- end }}
   namespace: {{ include "namespace.namespace" $ }}
 spec:
   {{- if $value.name }}
