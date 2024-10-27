@@ -12,7 +12,7 @@ metadata:
   {{- end }}
   namespace: {{ include "nextjs.server.namespace" . }}
 spec:
-  {{- if not  .Values.autoscaling.enabled }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicas }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}

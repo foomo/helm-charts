@@ -93,13 +93,6 @@
       "title": "env",
       "type": "object"
     },
-    "fleet": {
-      "default": "",
-      "description": "Squadron fleet name",
-      "required": [],
-      "title": "fleet",
-      "type": "string"
-    },
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
@@ -108,7 +101,53 @@
       "type": "string"
     },
     "global": {
-      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "additionalProperties": true,
+      "properties": {
+        "foomo": {
+          "additionalProperties": true,
+          "properties": {
+            "squadron": {
+              "additionalProperties": false,
+              "properties": {
+                "fleet": {
+                  "default": "",
+                  "description": "Squadron fleet name\nWill be automatically injected (optional)",
+                  "required": [],
+                  "title": "fleet",
+                  "type": "string"
+                },
+                "name": {
+                  "default": "",
+                  "description": "Squadron name\nWill be automatically injected",
+                  "required": [],
+                  "title": "name",
+                  "type": "string"
+                },
+                "unit": {
+                  "default": "",
+                  "description": "Squadron unit name\nWill be automatically injected",
+                  "required": [],
+                  "title": "unit",
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "title": "squadron",
+              "type": "object"
+            },
+            "withDeprecatedSelectorLabels": {
+              "default": false,
+              "description": "Enable for backward compatibility",
+              "required": [],
+              "title": "withDeprecatedSelectorLabels",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "foomo",
+          "type": "object"
+        }
+      },
       "required": [],
       "title": "global",
       "type": "object"
@@ -1125,20 +1164,6 @@
       "required": [],
       "title": "serviceMonitor",
       "type": "object"
-    },
-    "squadron": {
-      "default": "",
-      "description": "Squadron name",
-      "required": [],
-      "title": "squadron",
-      "type": "string"
-    },
-    "unit": {
-      "default": "",
-      "description": "Squadron unit name",
-      "required": [],
-      "title": "unit",
-      "type": "string"
     },
     "updateStrategy": {
       "default": "RollingUpdate",

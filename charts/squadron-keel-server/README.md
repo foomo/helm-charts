@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.8](https://img.shields.io/badge/AppVersion-0.1.8-informational?style=flat-square)
+![Version: 0.1.9](https://img.shields.io/badge/Version-0.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.9](https://img.shields.io/badge/AppVersion-0.1.9-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -39,14 +39,6 @@ Squadron Keel Server Chart
 | secrets | object | `{}` | Map of secrets to be mounted |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
 
-### Squadron settings
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| fleet | string | `""` | Squadron fleet name |
-| squadron | string | `""` | Squadron name |
-| unit | string | `""` | Squadron unit name |
-
 ### Overrides
 
 | Key | Type | Default | Description |
@@ -54,6 +46,14 @@ Squadron Keel Server Chart
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Global
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
+| global.foomo.squadron.name | string | `""` | Will be automatically injected |
+| global.foomo.squadron.unit | string | `""` | Will be automatically injected |
 
 ### Graceful settings
 
@@ -203,3 +203,9 @@ Squadron Keel Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

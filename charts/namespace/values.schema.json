@@ -105,7 +105,7 @@
       "title": "tlsSecrets",
       "type": "object"
     },
-    "volumes": {
+    "volumeClaims": {
       "additionalProperties": {
         "additionalProperties": true,
         "properties": {
@@ -118,7 +118,7 @@
       },
       "description": "Service accounts settings",
       "required": [],
-      "title": "volumes",
+      "title": "volumeClaims",
       "type": "object"
     }
   },

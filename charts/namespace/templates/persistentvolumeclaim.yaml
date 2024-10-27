@@ -1,4 +1,4 @@
-{{- range $key, $value := .Values.volumes }}
+{{- range $key, $value := .Values.volumeClaims }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
