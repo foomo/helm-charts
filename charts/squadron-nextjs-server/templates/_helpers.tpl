@@ -13,8 +13,8 @@ If release name contains chart name it will be used as a full name.
 {{- define "nextjs.server.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- tpl .Values.fullnameOverride . | trunc 63 | trimSuffix "-" -}}
-{{- else if and .Values.squadron .Values.unit -}}
-{{- printf "%s-%s" .Values.squadron .Values.unit | trunc 63 | trimSuffix "-" -}}
+{{- else if and .Values.global.foomo.squadron.name .Values.global.foomo.squadron.unit -}}
+{{- printf "%s-%s" .Values.global.foomo.squadron.name .Values.global.foomo.squadron.unit | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- if contains $name .Release.Name -}}
@@ -120,17 +120,17 @@ Squadron standard envs
 {{- include "nextjs.server.env.squadron" . | nindent 12 }}
 */}}
 {{- define "nextjs.server.env.squadron" -}}
-{{- if .Values.fleet }}
+{{- if .Values.global.foomo.squadron.fleet }}
 - name: FLEET
-  value: {{ .Values.fleet | quote }}
+  value: {{ .Values.global.foomo.squadron.fleet | quote }}
 {{- end }}
-{{- if .Values.squadron }}
+{{- if .Values.global.foomo.squadron.name }}
 - name: SQUADRON
-  value: {{ .Values.squadron | quote }}
+  value: {{ .Values.global.foomo.squadron.name | quote }}
 {{- end }}
-{{- if .Values.unit }}
+{{- if .Values.global.foomo.squadron.unit }}
 - name: UNIT
-  value: {{ .Values.unit | quote }}
+  value: {{ .Values.global.foomo.squadron.unit | quote }}
 {{- end }}
 {{- end -}}
 

@@ -7,16 +7,14 @@
 
 .PHONY: check
 ## Lint, Schema & docs
-check: lint schema docs
-	@echo "✓ lint"
-	@echo "✓ schema"
-	@echo "✓ docs"
+check: lint docs
 
 .PHONY: lint
 ## Lint Helm charts
 ## https://github.com/helm/chart-testing
 lint: schema
-	@for dir in ./charts/* ; do \
+	@echo "--- lint ------------------------------------------"
+	@set -e; for dir in ./charts/* ; do \
 		helm lint $${dir} --strict ;\
 	done
 
@@ -24,7 +22,8 @@ lint: schema
 ## Generate README
 ## https://github.com/norwoodj/helm-docs
 docs:
-	@for dir in ./charts/* ; do \
+	@echo "--- docs ------------------------------------------"
+	@set -e; for dir in ./charts/* ; do \
 		docker run --rm --volume "$$(pwd)/$${dir}:/helm-docs/$${dir}" jnorwood/helm-docs:v1.14.2 --template-files "$${dir}/README.md.gotmpl"  ;\
 	done
 
@@ -33,6 +32,7 @@ docs:
 ## https://github.com/knechtionscoding/helm-schema-gen
 schema: PWD=$(pwd)
 schema:
+	@echo "--- schema ---------------------------------------"
 	helm-schema -n -c charts/namespace
 	helm-schema -n -c charts/squadron-keel-server
 	helm-schema -n -c charts/squadron-keel-cronjob
@@ -43,7 +43,7 @@ schema:
 	helm schema-gen charts/gateway-crds/values.yaml > charts/gateway-crds/values.schema.json
 	helm schema-gen charts/sesamy-gtm/values.yaml > charts/sesamy-gtm/values.schema.json
 	helm schema-gen charts/sesamy-umami/values.yaml > charts/sesamy-umami/values.schema.json
-	#@for dir in ./charts/* ; do \
+	#@set -e; for dir in ./charts/* ; do \
 	#	helm-schema -n -c $${dir} ;\
 	#done
 

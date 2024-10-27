@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.3](https://img.shields.io/badge/AppVersion-0.1.3-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.4](https://img.shields.io/badge/AppVersion-0.1.4-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -47,14 +47,6 @@ Squadron Keel CronJob Chart
 | secrets | object | `{}` | Map of secrets to be mounted |
 | timeZone | string | `"Europe/Berlin"` | Cron job time zone |
 
-### Squadron settings
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| fleet | string | `""` | Squadron fleet name |
-| squadron | string | `""` | Squadron name |
-| unit | string | `""` | Squadron unit name |
-
 ### Overrides
 
 | Key | Type | Default | Description |
@@ -62,6 +54,14 @@ Squadron Keel CronJob Chart
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Global
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
+| global.foomo.squadron.name | string | `""` | Will be automatically injected |
+| global.foomo.squadron.unit | string | `""` | Will be automatically injected |
 
 ### Graceful settings
 
@@ -159,3 +159,9 @@ Squadron Keel CronJob Chart
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

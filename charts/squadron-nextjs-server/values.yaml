@@ -1,6 +1,48 @@
 # yaml-language-server: $schema=values.schema.json
 
 # @schema
+# type: object
+# additionalProperties: true
+# @schema
+global:
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  foomo:
+    # @schema
+    # type: boolean
+    # @schema
+    # Enable for backward compatibility
+    # @section -- Global
+    withDeprecatedSelectorLabels: false
+    # @schema
+    # type: object
+    # @schema
+    squadron:
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron name
+      # -- Will be automatically injected
+      # @section -- Global
+      name: ''
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron unit name
+      # -- Will be automatically injected
+      # @section -- Global
+      unit: ''
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron fleet name
+      # -- Will be automatically injected (optional)
+      # @section -- Global
+      fleet: ''
+
+# @schema
 # type: string
 # @schema
 # -- Overrides the chart's name
@@ -65,25 +107,6 @@ updateStrategy: RollingUpdate
 # -- Number of replications
 # @section -- General
 replicas: 1
-
-# @schema
-# type: string
-# @schema
-# -- Squadron fleet name
-# @section -- Squadron settings
-fleet: ''
-# @schema
-# type: string
-# @schema
-# -- Squadron name
-# @section -- Squadron settings
-squadron: ''
-# @schema
-# type: string
-# @schema
-# -- Squadron unit name
-# @section -- Squadron settings
-unit: ''
 
 # @schema
 # type: object

@@ -23,14 +23,14 @@ spec:
         paths:
           {{- if $.Values.gateway.enabled }}
           - pathType: ImplementationSpecific
-            path: /static/{{ $.Values.squadron }}-{{ $.Values.unit }}/public/(.*)
+            path: /static/{{ include "nextjs.server.fullname" $ }}/public/(.*)
             backend:
               service:
                 name: {{ include "nextjs.server.fullname" $ }}
                 port:
                   number: 3000
           - pathType: ImplementationSpecific
-            path: /static/{{ $.Values.squadron }}-{{ $.Values.unit }}/(_next/static/.*)
+            path: /static/{{ include "nextjs.server.fullname" $ }}/(_next/static/.*)
             backend:
               service:
                 name: {{ include "nextjs.server.fullname" $ }}

@@ -112,11 +112,12 @@ serviceAccounts: {}
 # @schema
 # -- Service accounts settings
 # @section -- General
-volumes: {}
-#  my-volume:
-#    name: my-existing-volume
-#    annotations: {}
-#    storageClass: local-path
-#    size: 1Gi
+volumeClaims: {}
+# volumeClaims:
+#   my-volume:
+#     name: my-existing-volume
+#     annotations: {}
+#     storageClass: local-path
+#     size: 1Gi
 
 
