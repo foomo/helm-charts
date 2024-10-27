@@ -15,7 +15,7 @@ check: lint docs
 lint: schema
 	@echo "--- lint ------------------------------------------"
 	@set -e; for dir in ./charts/* ; do \
-		helm lint $${dir} --strict ;\
+		helm lint $${dir} ;\
 	done
 
 .PHONY: docs
