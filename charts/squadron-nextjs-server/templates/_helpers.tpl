@@ -55,9 +55,9 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "nextjs.server.selectorLabels" -}}
-{{ if ((.Values.global).foomo).withDeprecatedSelectorLabels }}
+{{ if .Values.global.foomo.withDeprecatedSelectorLabels }}
 app.kubernetes.io/name: {{ include "nextjs.server.fullname" . }}
-app.kubernetes.io/component: "nextjs"
+app.kubernetes.io/component: nextjs
 {{ else }}
 app.kubernetes.io/name: {{ include "nextjs.server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}

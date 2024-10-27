@@ -55,8 +55,13 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "keel.cronjob.selectorLabels" -}}
+{{ if .Values.global.foomo.withDeprecatedSelectorLabels }}
+app.kubernetes.io/name: {{ include "keel.cronjob.fullname" . }}
+app.kubernetes.io/component: foomo-keel-cron
+{{- else }}
 app.kubernetes.io/name: {{ include "keel.cronjob.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 {{- end }}
 
 {{/*

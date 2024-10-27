@@ -55,8 +55,13 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "keel.server.selectorLabels" -}}
+{{ if .Values.global.foomo.withDeprecatedSelectorLabels }}
+app.kubernetes.io/name: {{ include "keel.server.fullname" . }}
+app.kubernetes.io/component: foomo-keel-server
+{{- else }}
 app.kubernetes.io/name: {{ include "keel.server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 {{- end }}
 
 {{/*
