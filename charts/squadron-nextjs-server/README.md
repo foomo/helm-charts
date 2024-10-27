@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.2](https://img.shields.io/badge/AppVersion-0.1.2-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -76,6 +76,7 @@ Squadron NextJS Server Chart
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | image.pullSecrets | list | `[]` | Image pull secrets |
+| image.recreate | bool | `false` | Force recreation |
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
 

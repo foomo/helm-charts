@@ -207,6 +207,13 @@
           "title": "pullSecrets",
           "type": "array"
         },
+        "recreate": {
+          "default": false,
+          "description": "Force recreation",
+          "required": [],
+          "title": "recreate",
+          "type": "boolean"
+        },
         "repository": {
           "default": "",
           "description": "Image repository",

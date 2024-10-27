@@ -222,6 +222,12 @@ otel:
 # Image settings
 image:
   # @schema
+  # type: boolean
+  # @schema
+  # -- Force recreation
+  # @section -- Image settings
+  recreate: false
+  # @schema
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
