@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "nextjs.server.selectorLabels" . | nindent 8 }}
+        {{- include "nextjs.server.labels" . | nindent 8 }}
         {{- include "nextjs.server.networkingLabels" . | nindent 8 }}
       annotations:
         {{- include "nextjs.server.annotations.recreatePod" . | nindent 8 }}

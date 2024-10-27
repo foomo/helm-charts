@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "keel.server.selectorLabels" . | nindent 8 }}
+        {{- include "keel.server.labels" . | nindent 8 }}
         {{- include "keel.server.networkingLabels" . | nindent 8 }}
       annotations:
         {{- include "keel.server.annotations.recreatePod" . | nindent 8 }}
