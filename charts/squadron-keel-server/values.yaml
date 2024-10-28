@@ -366,7 +366,7 @@ persistence:
   # @schema
   # -- Storage mount path
   # @section -- Persistence settings
-  mountPath: /var/lib/cronjob/data
+  mountPath: /var/lib/server/data
   # @schema
   # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
   # @schema

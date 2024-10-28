@@ -654,7 +654,7 @@
           "type": "boolean"
         },
         "mountPath": {
-          "default": "/var/lib/cronjob/data",
+          "default": "/var/lib/server/data",
           "description": "Storage mount path",
           "required": [],
           "title": "mountPath",
