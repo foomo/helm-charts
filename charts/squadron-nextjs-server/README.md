@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.4](https://img.shields.io/badge/AppVersion-0.1.4-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.5](https://img.shields.io/badge/AppVersion-0.1.5-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -134,7 +134,7 @@ Squadron NextJS Server Chart
 |-----|------|---------|-------------|
 | persistence.accessMode | string | `"ReadWriteOnce"` | Access mode |
 | persistence.enabled | bool | `false` | Indicates wether a pv should be attached or not |
-| persistence.mountPath | string | `"/var/lib/cronjob/data"` | Storage mount path |
+| persistence.mountPath | string | `"/var/lib/server/data"` | Storage mount path |
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class name |
 
