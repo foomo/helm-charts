@@ -86,6 +86,24 @@ secretEnv: { }
 # secretEnv:
 #   FOO: bar
 # @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     data:
+#       type: object
+#       additionalProperties: true
+#     stringData:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Map of secrets to be mounted
+# @section -- General
+secrets: { }
+# secrets:
+#   my-secret:
+#     data: ...
+# @schema
 # type: array
 # items:
 #   type: string

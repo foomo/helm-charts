@@ -41,6 +41,7 @@ global:
       # -- Will be automatically injected (optional)
       # @section -- Global
       fleet: ''
+
 # @schema
 # type: string
 # @schema
@@ -78,6 +79,52 @@ schedule: ''
 # -- Cron job time zone
 # @section -- General
 timeZone: 'Europe/Berlin'
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add
+# @section -- General
+env: { }
+# env:
+#   FOO: bar
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add as a secret
+# @section -- General
+secretEnv: { }
+# secretEnv:
+#   FOO: bar
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     data:
+#       type: object
+#       additionalProperties: true
+#     stringData:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Map of secrets to be mounted
+# @section -- General
+secrets: { }
+# secrets:
+#   my-secret:
+#     data: ...
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- List of existing secrets to be mounted
+# @section -- General
+secretMounts: []
+# secretMounts:
+#   - my-secret
 
 # @schema
 # type: object
@@ -219,50 +266,6 @@ image:
   # -- Image tag
   # @section -- Image settings
   tag: ''
-
-# @schema
-# type: object
-# additionalProperties: true
-# @schema
-# -- Map of environment variables to add
-# @section -- General
-env: { }
-# env:
-#   FOO: bar
-# @schema
-# type: object
-# additionalProperties:
-#   type: object
-#   properties:
-#     data:
-#       type: object
-#       additionalProperties: true
-#     stringData:
-#       type: object
-#       additionalProperties: true
-# @schema
-# -- Map of secrets to be mounted
-# @section -- General
-secrets: { }
-# @schema
-# type: object
-# additionalProperties: true
-# @schema
-# -- Map of environment variables to add as a secret
-# @section -- General
-secretEnv: { }
-# secretEnv:
-#   FOO: bar
-# @schema
-# type: array
-# items:
-#   type: string
-# @schema
-# -- List of existing secrets to be mounted
-# @section -- General
-secretMounts: []
-# secretMounts:
-#   - my-secret
 
 # @schema
 # type: object

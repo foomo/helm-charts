@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.5](https://img.shields.io/badge/AppVersion-0.1.5-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.6](https://img.shields.io/badge/AppVersion-0.1.6-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -35,6 +35,7 @@ Squadron NextJS Server Chart
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | secretEnv | object | `{}` | Map of environment variables to add as a secret |
 | secretMounts | list | `[]` | List of existing secrets to be mounted |
+| secrets | object | `{}` | Map of secrets to be mounted |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
 
 ### Overrides

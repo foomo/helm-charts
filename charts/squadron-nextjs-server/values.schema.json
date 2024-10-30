@@ -769,7 +769,7 @@
       "type": "object"
     },
     "secretMounts": {
-      "description": "secretEnv:\n  FOO: bar\nList of existing secrets to be mounted",
+      "description": "secrets:\n  my-secret:\n    data: ...\nList of existing secrets to be mounted",
       "items": {
         "required": [],
         "type": "string"
@@ -777,6 +777,25 @@
       "required": [],
       "title": "secretMounts",
       "type": "array"
+    },
+    "secrets": {
+      "additionalProperties": {
+        "properties": {
+          "data": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "stringData": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "secretEnv:\n  FOO: bar\nMap of secrets to be mounted",
+      "required": [],
+      "title": "secrets",
+      "type": "object"
     },
     "securityContext": {
       "additionalProperties": false,

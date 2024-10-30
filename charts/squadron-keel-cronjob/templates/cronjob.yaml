@@ -85,6 +85,11 @@ spec:
                 {{- with .Values.cronjob.additionalVolumeMounts }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
+                {{- range $key, $value := .Values.secrets }}
+                - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+                  readOnly: true
+                  mountPath: /run/secrets/{{ $key }}
+                {{- end }}
                 {{- range .Values.secretMounts }}
                 - name: {{ . }}
                   readOnly: true
@@ -130,6 +135,11 @@ spec:
             - name: {{ include "keel.cronjob.fullname" . }}-data
               persistentVolumeClaim:
                 claimName: {{ include "keel.cronjob.fullname" . }}-data
+            {{- end }}
+            {{- range $key, $value := .Values.secrets }}
+              - name: {{ $key }}
+                secret:
+                  secretName: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
             {{- end }}
             {{- range .Values.secretMounts }}
             - name: {{ . }}

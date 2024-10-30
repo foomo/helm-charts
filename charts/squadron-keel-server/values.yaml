@@ -99,6 +99,15 @@ env: { }
 #   FOO: bar
 # @schema
 # type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add as a secret
+# @section -- General
+secretEnv: { }
+# secretEnv:
+#   FOO: bar
+# @schema
+# type: object
 # additionalProperties:
 #   type: object
 #   properties:
@@ -112,15 +121,9 @@ env: { }
 # -- Map of secrets to be mounted
 # @section -- General
 secrets: { }
-# @schema
-# type: object
-# additionalProperties: true
-# @schema
-# -- Map of environment variables to add as a secret
-# @section -- General
-secretEnv: { }
-# secretEnv:
-#   FOO: bar
+# secrets:
+#   my-secret:
+#     data: ...
 # @schema
 # type: array
 # items:
