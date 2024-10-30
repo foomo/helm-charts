@@ -137,7 +137,7 @@ spec:
                 claimName: {{ include "keel.cronjob.fullname" . }}-data
             {{- end }}
             {{- range $key, $value := .Values.secrets }}
-              - name: {{ $key }}
+              - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
                 secret:
                   secretName: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
             {{- end }}

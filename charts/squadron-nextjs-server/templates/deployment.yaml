@@ -136,7 +136,7 @@ spec:
             claimName: {{ include "nextjs.server.fullname" . }}-data
         {{- end }}
         {{- range $key, $value := .Values.secrets }}
-        - name: {{ $key }}
+        - name: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
           secret:
             secretName: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
         {{- end }}
