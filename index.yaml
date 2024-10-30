@@ -681,6 +681,28 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 0.1.6
+    created: "2024-10-30T08:56:28.661641006Z"
+    description: Squadron Keel CronJob Chart
+    digest: 872e320d0d631970c7e34b9f8dc240e7854cf6d74c625157311e16c70608f475
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-cronjob
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.1.6/squadron-keel-cronjob-0.1.6.tgz
+    version: 0.1.6
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 0.1.5
     created: "2024-10-27T13:31:47.670777288Z"
     description: Squadron Keel CronJob Chart
@@ -787,6 +809,28 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.1.1/squadron-keel-cronjob-0.1.1.tgz
     version: 0.1.1
   squadron-keel-server:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
+    appVersion: 0.1.12
+    created: "2024-10-30T08:56:28.818925905Z"
+    description: Squadron Keel Server Chart
+    digest: 5af2fc34d2d643ec9500595a46b72cd70a422b9fb1e897f850190c94635f651d
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.1.12/squadron-keel-server-0.1.12.tgz
+    version: 0.1.12
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -1035,6 +1079,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 0.1.6
+    created: "2024-10-30T08:56:28.999083327Z"
+    description: Squadron NextJS Server Chart
+    digest: 0dc8c833981bdd7b20496d108cbf7e6ca2f950c0b2ed89feb4b244bc38188124
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-nextjs-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.1.6/squadron-nextjs-server-0.1.6.tgz
+    version: 0.1.6
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 0.1.5
     created: "2024-10-28T13:56:36.654597515Z"
     description: Squadron NextJS Server Chart
@@ -1156,4 +1221,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.1.0/squadron-nextjs-server-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-28T13:56:36.65474437Z"
+generated: "2024-10-30T08:56:28.999226813Z"
