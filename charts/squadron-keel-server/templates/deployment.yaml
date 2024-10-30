@@ -149,7 +149,7 @@ spec:
             claimName: {{ include "keel.server.fullname" . }}-data
         {{- end }}
         {{- range $key, $value := .Values.secrets }}
-        - name: {{ include "keel.server.fullname" . }}-{{ $key }}
+        - name: {{ include "keel.server.fullname" $ }}-{{ $key }}
           secret:
             secretName: {{ include "keel.server.fullname" $ }}-{{ $key }}
         {{- end }}

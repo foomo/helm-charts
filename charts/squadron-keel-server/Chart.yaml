@@ -15,5 +15,5 @@ annotations:
     - name: Chart Source
       url: https://github.com/foomo/helm-charts
 
-version: 0.1.13
-appVersion: 0.1.13
+version: 0.1.14
+appVersion: 0.1.14
