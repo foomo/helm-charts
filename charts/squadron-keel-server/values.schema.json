@@ -713,13 +713,13 @@
     },
     "secretEnv": {
       "additionalProperties": true,
-      "description": "Map of environment variables to add as a secret",
+      "description": "env:\n  FOO: bar\nMap of environment variables to add as a secret",
       "required": [],
       "title": "secretEnv",
       "type": "object"
     },
     "secretMounts": {
-      "description": "secretEnv:\n  FOO: bar\nList of existing secrets to be mounted",
+      "description": "secrets:\n  my-secret:\n    data: ...\nList of existing secrets to be mounted",
       "items": {
         "required": [],
         "type": "string"
@@ -742,7 +742,7 @@
         },
         "type": "object"
       },
-      "description": "env:\n  FOO: bar\nMap of secrets to be mounted",
+      "description": "secretEnv:\n  FOO: bar\nMap of secrets to be mounted",
       "required": [],
       "title": "secrets",
       "type": "object"
