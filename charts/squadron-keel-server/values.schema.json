@@ -199,8 +199,9 @@
         "pullSecrets": {
           "description": "Image pull secrets",
           "items": {
+            "additionalProperties": true,
             "required": [],
-            "type": "string"
+            "type": "object"
           },
           "required": [],
           "title": "pullSecrets",

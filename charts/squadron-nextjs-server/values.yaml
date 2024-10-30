@@ -253,7 +253,8 @@ image:
   # @schema
   # type: array
   # items:
-  #   type: string
+  #   type: object
+  #   additionalProperties: true
   # @schema
   # -- Image pull secrets
   # @section -- Image settings
