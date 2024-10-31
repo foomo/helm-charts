@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.7](https://img.shields.io/badge/AppVersion-0.1.7-informational?style=flat-square)
+![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.8](https://img.shields.io/badge/AppVersion-0.1.8-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -86,7 +86,7 @@ Squadron NextJS Server Chart
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.additionalLabels | object | `{}` | Additional labels |
-| ingress.annotations | object | `{"nginx.ingress.kubernetes.io/rewrite-target":"/$1","nginx.ingress.kubernetes.io/use-regex":"true"}` | Ingress annotations |
+| ingress.annotations | object | `{}` | Ingress annotations |
 | ingress.className | string | `""` | Ingress class name |
 | ingress.enabled | bool | `false` | Indicates wether the ingress is enabled or not |
 | ingress.hosts | list | `[]` | List of hosts |
