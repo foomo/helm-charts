@@ -290,24 +290,7 @@
         "annotations": {
           "additionalProperties": true,
           "description": "Ingress annotations",
-          "properties": {
-            "nginx.ingress.kubernetes.io/rewrite-target": {
-              "default": "/$1",
-              "required": [],
-              "title": "nginx.ingress.kubernetes.io/rewrite-target",
-              "type": "string"
-            },
-            "nginx.ingress.kubernetes.io/use-regex": {
-              "default": "true",
-              "required": [],
-              "title": "nginx.ingress.kubernetes.io/use-regex",
-              "type": "string"
-            }
-          },
-          "required": [
-            "nginx.ingress.kubernetes.io/use-regex",
-            "nginx.ingress.kubernetes.io/rewrite-target"
-          ],
+          "required": [],
           "title": "annotations",
           "type": "object"
         },

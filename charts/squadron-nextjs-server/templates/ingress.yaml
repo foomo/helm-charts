@@ -8,8 +8,15 @@ metadata:
     {{- with .Values.ingress.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
+  {{- if .Values.ingress.annotations }}
+  annotations: {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  {{- else if .Values.gateway.enabled }}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  {{- end }}
   {{- with .Values.ingress.annotations }}
-  annotations: {{- toYaml . | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   namespace: {{ include "nextjs.server.namespace" . }}
 spec:
@@ -22,14 +29,14 @@ spec:
       http:
         paths:
           {{- if $.Values.gateway.enabled }}
-          - pathType: ImplementationSpecific
+          - pathType: Prefix
             path: /static/{{ include "nextjs.server.fullname" $ }}/public/(.*)
             backend:
               service:
                 name: {{ include "nextjs.server.fullname" $ }}
                 port:
                   number: 3000
-          - pathType: ImplementationSpecific
+          - pathType: Prefix
             path: /static/{{ include "nextjs.server.fullname" $ }}/(_next/static/.*)
             backend:
               service:
@@ -38,7 +45,7 @@ spec:
                   number: 3000
           {{- end }}
           {{- range $.Values.ingress.paths }}
-          - pathType: {{ default .pathType "ImplementationSpecific" }}
+          - pathType: {{ default .pathType "Prefix" }}
             path: {{ .path }}
             backend:
               service:

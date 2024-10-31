@@ -298,9 +298,7 @@ ingress:
   # @schema
   # -- Ingress annotations
   # @section -- Ingress settings
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  annotations: {}
   # @schema
   # type: string
   # @schema
