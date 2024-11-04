@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -107,86 +107,120 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.2.15 |
+| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.3.3 |
 
 ## Values
 
+### Cloudflared settings
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| cloudflared.account | string | `""` |  |
-| cloudflared.affinity | object | `{}` | Affinity settings for pods. |
-| cloudflared.autoscaling.behavior.enabled | bool | `false` | Enable autoscaling behaviours |
-| cloudflared.autoscaling.behavior.scaleDown | object | `{}` | Scale down policies, must conform to HPAScalingRules |
-| cloudflared.autoscaling.behavior.scaleUp | object | `{}` | Scale up policies, must conform to HPAScalingRules |
-| cloudflared.autoscaling.customMetrics | list | `[]` | Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics) |
-| cloudflared.autoscaling.enabled | bool | `false` | Enable autoscaling |
-| cloudflared.autoscaling.maxReplicas | int | `9` | Maximum autoscaling replicas |
-| cloudflared.autoscaling.minReplicas | int | `1` | Minimum autoscaling replicas |
-| cloudflared.autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilisation percentage |
-| cloudflared.autoscaling.targetMemoryUtilizationPercentage | string | `nil` | Target memory utilisation percentage |
-| cloudflared.dnsConfig | object | `{}` | DNSConfig settings for pods. |
-| cloudflared.enableWarp | bool | `false` |  |
-| cloudflared.enabled | bool | `false` |  |
+| cloudflared.account | string | `""` | Your Cloudflare account number. |
+| cloudflared.autoscaling.additionalMetrics | object | `{}` | Additional scaling metrics |
+| cloudflared.autoscaling.behavior | object | `{}` | Autoscaling behavior settings |
+| cloudflared.autoscaling.enabled | bool | `false` | Specifies whether a auto scaling should be enabled |
+| cloudflared.autoscaling.maxReplicas | int | `9` | Maximum replication number |
+| cloudflared.autoscaling.maxUnavailable | int | `1` | Maximum unavailablity |
+| cloudflared.autoscaling.minAvailable | string | `""` | Minimum availablity |
+| cloudflared.autoscaling.minReplicas | int | `1` | Minimum replication number |
+| cloudflared.autoscaling.targetCPU | int | `80` | Target CPU utilization |
+| cloudflared.autoscaling.targetMemory | string | `nil` | Target Memory utilization |
+| cloudflared.dnsConfig | object | `{}` | DNS config |
+| cloudflared.enableWarp | bool | `false` | If true, turn on WARP routing for TCP |
+| cloudflared.enabled | bool | `false` | Indicates wether to enable it or not |
 | cloudflared.extraEnv | list | `[]` | Environment variables to add |
 | cloudflared.extraEnvFrom | list | `[]` | Environment variables from secrets or configmaps to add |
 | cloudflared.extraVolumeMounts | list | `[]` | Volume mounts to add |
 | cloudflared.extraVolumes | list | `[]` | Volumes to add |
 | cloudflared.hostAliases | list | `[]` | Host aliases to add |
-| cloudflared.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
-| cloudflared.image.repository | string | `"cloudflare/cloudflared"` | The image repository |
-| cloudflared.image.tag | string | `"2024.8.3"` | The image tag |
-| cloudflared.imagePullSecrets | list | `[]` | Image pull secrets |
-| cloudflared.ingress | list | `[]` |  |
-| cloudflared.livenessProbe.failureThreshold | int | `1` |  |
-| cloudflared.livenessProbe.httpGet.path | string | `"/ready"` |  |
-| cloudflared.livenessProbe.httpGet.port | int | `2000` |  |
-| cloudflared.livenessProbe.initialDelaySeconds | int | `10` |  |
-| cloudflared.livenessProbe.periodSeconds | int | `10` |  |
-| cloudflared.maxUnavailable | string | `nil` | Pod Disruption Budget maxUnavailable |
-| cloudflared.nodeSelector | object | `{}` | Tolerations settings for pods. |
+| cloudflared.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
+| cloudflared.image.pullSecrets | list | `[]` | Image pull secrets |
+| cloudflared.image.repository | string | `"cloudflare/cloudflared"` | Image repository |
+| cloudflared.image.tag | string | `"2024.10.1"` | Image tag |
+| cloudflared.ingress | list | `[]` | Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress)) |
+| cloudflared.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/ready","port":2000},"initialDelaySeconds":10,"periodSeconds":10}` | Liveness probe settings for pods. |
 | cloudflared.podAnnotations | object | `{}` | Annotations for pods |
 | cloudflared.podLabels | object | `{}` | Labels for pods |
-| cloudflared.podMonitor | object | `{"enabled":false}` | Pod Monitor configuration |
-| cloudflared.podMonitor.enabled | bool | `false` | If enabled, PodMonitor resources for Prometheus Operator are created |
-| cloudflared.podSecurityContext | object | `{}` | The SecurityContext for pods Security items common to everything in the pod.  Here we require that it does not run as the user defined in the image, literally named "nonroot". |
-| cloudflared.readinessProbe.httpGet.path | string | `"/ready"` |  |
-| cloudflared.readinessProbe.httpGet.port | int | `2000` |  |
-| cloudflared.replicaCount | int | `2` | Number of replicas |
+| cloudflared.podMonitor.additionalLabels | object | `{}` | Additional ServiceMonitor labels |
+| cloudflared.podMonitor.annotations | object | `{}` | ServiceMonitor annotations |
+| cloudflared.podMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
+| cloudflared.podMonitor.interval | string | `""` | ServiceMonitor scrape interval |
+| cloudflared.podMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion |
+| cloudflared.podMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
+| cloudflared.podMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
+| cloudflared.podMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
+| cloudflared.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| cloudflared.readinessProbe | object | `{"httpGet":{"path":"/ready","port":2000}}` | Readiness probe settings for pods. |
+| cloudflared.replicas | int | `2` | Number of replications |
 | cloudflared.resources | object | `{}` | Resource request & limits. |
-| cloudflared.secret | string | `""` |  |
-| cloudflared.securityContext.allowPrivilegeEscalation | bool | `false` |  |
-| cloudflared.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| cloudflared.securityContext.readOnlyRootFilesystem | bool | `true` |  |
-| cloudflared.tolerations | list | `[]` | Tolerations settings for pods. |
-| cloudflared.tunnelId | string | `""` |  |
-| cloudflared.tunnelName | string | `""` |  |
-| cloudflaredSidecars | list | `[]` | - Additional cloudflared sidecars |
-| cloudflaredSplitter.beams | object | `{}` | - List of additional enpoints beams:   kubectl: your-cloud-provider-k8s-api |
-| cloudflaredSplitter.enabled | bool | `false` | - Enable cloudflared splitter |
+| cloudflared.scheduling.affinity | object | `{}` | Affinity for pod assignment |
+| cloudflared.scheduling.enabled | bool | `true` | Indicates wether scheduling is enabled or not |
+| cloudflared.scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
+| cloudflared.scheduling.priorityClass | string | `nil` | Priority class name |
+| cloudflared.scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
+| cloudflared.secret | string | `""` | The secret for the tunnel. |
+| cloudflared.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true}` | Security items for one container. We lock it down. |
+| cloudflared.startupProbe | object | `{"httpGet":{"path":"/ready","port":2000}}` | Readiness probe settings for pods. |
+| cloudflared.tunnelId | string | `""` | The ID of the above tunnel. |
+| cloudflared.tunnelName | string | `""` | The name of the tunnel this instance will serve |
+
+### Cloudflared Sidecars settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cloudflaredSidecars | list | `[]` | Additional cloudflared sidecars |
+
+### Cloudflared Splitter settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cloudflaredSplitter.beams | object | `{}` | Mao of additional enpoints |
+| cloudflaredSplitter.enabled | bool | `false` | Enable cloudflared splitter |
 | cloudflaredSplitter.extraEnv | list | `[]` | Environment variables to add |
 | cloudflaredSplitter.extraEnvFrom | list | `[]` | Environment variables from secrets or configmaps to add |
 | cloudflaredSplitter.extraVolumeMounts | list | `[]` | Volume mounts to add |
-| cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
-| cloudflaredSplitter.image.repository | string | `"nginx"` | The image repository |
-| cloudflaredSplitter.image.tag | string | `"1.27.0"` | The image tag |
-| cloudflaredSplitter.livenessProbe | object | `{}` |  |
-| cloudflaredSplitter.readinessProbe | object | `{}` |  |
+| cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
+| cloudflaredSplitter.image.repository | string | `"nginx"` | Image repository |
+| cloudflaredSplitter.image.tag | string | `"1.27.2"` | Image tag |
+| cloudflaredSplitter.livenessProbe | object | `{}` | Liveness probe settings for pods |
+| cloudflaredSplitter.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |
-| cloudflaredSplitter.securityContext | object | `{}` | - Security context |
+| cloudflaredSplitter.securityContext | object | `{}` | Security context |
+| cloudflaredSplitter.startProbe | object | `{}` | Startup probe settings for pods |
+
+### Overrides
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | nameOverride | string | `""` | Overrides the chart's name |
-| namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |
-| pinniped.concierge.credentialIssuerConfig | string | `"impersonationProxy:\n  mode: enabled\n  service:\n    type: ClusterIP\n  externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443\n"` |  |
-| pinniped.concierge.enabled | bool | `false` | - Enable concierge |
-| pinniped.concierge.jwtAuths | object | `{}` | - JWT Authenticators for Concierge jwtAuths:   your-org:     issuer: https://beam.your-domain.com/issuer-path     audience: arbitrary-but-unique-audience |
-| pinniped.concierge.teams | object | `{}` | - ClusterRoleBinding to create in the cluster teams:   dev:     role: editor     team: organization/team-dev   devops:     role: cluster-admin     team: organization/team-devops |
-| pinniped.enabled | bool | `false` | - Enable pinniped |
-| pinniped.supervisor.enabled | bool | `false` | - Enable supervisor |
-| pinniped.supervisor.federationDomains | object | `{}` | - Federation Domains to create in the supervisor cluster federationDomains:   cluster:     tlsSecretName: tls-secret-name     issuer: https://beam.your-domain.com/issuer-path     identityProviders:       foomo:         teams:           - organization/team-devs           - organization/team-devops |
-| pinniped.supervisor.githubProviders | object | `{}` | - GitHub Providers to create in the supervisor cluster githubProviders:   foomo:     clientId: id     clientSecret: secret |
-| revisionHistoryLimit | int | `10` | Number of revisions to retain to allow rollback |
+| namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Pinniped settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| pinniped.concierge.credentialIssuerConfig | string | `"impersonationProxy:\n  mode: enabled\n  service:\n    type: ClusterIP\n  externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443\n"` | Override dependency |
+| pinniped.concierge.enabled | bool | `false` | Enable concierge |
+| pinniped.concierge.jwtAuths | object | `{}` | JWT Authenticators for Concierge |
+| pinniped.concierge.teams | object | `{}` | ClusterRoleBinding to create in the cluster |
+| pinniped.enabled | bool | `false` | Enable pinniped |
+| pinniped.supervisor.enabled | bool | `false` | Enable supervisor |
+| pinniped.supervisor.federationDomains | object | `{}` | Federation Domains to create in the supervisor cluster |
+| pinniped.supervisor.githubProviders | object | `{}` | GitHub Providers to create in the supervisor cluster |
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+
+### Service account settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | If not set and create is true, a name is generated using the fullname template |
+| serviceAccount.name | string | `""` | The name of the service account to use. |
 

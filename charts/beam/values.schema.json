@@ -1,319 +1,909 @@
 {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "cloudflared": {
-            "type": "object",
-            "properties": {
-                "account": {
-                    "type": "string"
-                },
-                "affinity": {
-                    "type": "object"
-                },
-                "autoscaling": {
-                    "type": "object",
-                    "properties": {
-                        "behavior": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "scaleDown": {
-                                    "type": "object"
-                                },
-                                "scaleUp": {
-                                    "type": "object"
-                                }
-                            }
-                        },
-                        "customMetrics": {
-                            "type": "array"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "maxReplicas": {
-                            "type": "integer"
-                        },
-                        "minReplicas": {
-                            "type": "integer"
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer"
-                        },
-                        "targetMemoryUtilizationPercentage": {
-                            "type": "null"
-                        }
-                    }
-                },
-                "dnsConfig": {
-                    "type": "object"
-                },
-                "enableWarp": {
-                    "type": "boolean"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "extraEnv": {
-                    "type": "array"
-                },
-                "extraEnvFrom": {
-                    "type": "array"
-                },
-                "extraVolumeMounts": {
-                    "type": "array"
-                },
-                "extraVolumes": {
-                    "type": "array"
-                },
-                "hostAliases": {
-                    "type": "array"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "ingress": {
-                    "type": "array"
-                },
-                "livenessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "failureThreshold": {
-                            "type": "integer"
-                        },
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        },
-                        "initialDelaySeconds": {
-                            "type": "integer"
-                        },
-                        "periodSeconds": {
-                            "type": "integer"
-                        }
-                    }
-                },
-                "maxUnavailable": {
-                    "type": "null"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podLabels": {
-                    "type": "object"
-                },
-                "podMonitor": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "readinessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "secret": {
-                    "type": "string"
-                },
-                "securityContext": {
-                    "type": "object",
-                    "properties": {
-                        "allowPrivilegeEscalation": {
-                            "type": "boolean"
-                        },
-                        "capabilities": {
-                            "type": "object",
-                            "properties": {
-                                "drop": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "readOnlyRootFilesystem": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "tolerations": {
-                    "type": "array"
-                },
-                "tunnelId": {
-                    "type": "string"
-                },
-                "tunnelName": {
-                    "type": "string"
-                }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "cloudflared": {
+      "additionalProperties": false,
+      "description": "Cloudflared settings",
+      "properties": {
+        "account": {
+          "default": "",
+          "description": "Your Cloudflare account number.",
+          "required": [],
+          "title": "account",
+          "type": "string"
+        },
+        "autoscaling": {
+          "additionalProperties": false,
+          "description": "Autoscaling settings",
+          "properties": {
+            "additionalMetrics": {
+              "additionalProperties": true,
+              "description": "Additional scaling metrics",
+              "required": [],
+              "title": "additionalMetrics",
+              "type": "object"
+            },
+            "behavior": {
+              "additionalProperties": true,
+              "description": " - type: Pods\n   pods:\n     metric:\n       name: loki_lines_total\n     target:\n       type: AverageValue\n       averageValue: 10k\nAutoscaling behavior settings",
+              "required": [],
+              "title": "behavior",
+              "type": "object"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Specifies whether a auto scaling should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "maxReplicas": {
+              "default": 9,
+              "description": "Maximum replication number",
+              "required": [],
+              "title": "maxReplicas",
+              "type": "integer"
+            },
+            "maxUnavailable": {
+              "default": 1,
+              "description": "Maximum unavailablity",
+              "required": [],
+              "title": "maxUnavailable",
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "minAvailable": {
+              "default": "",
+              "description": "Minimum availablity",
+              "required": [],
+              "title": "minAvailable",
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "minReplicas": {
+              "default": 1,
+              "description": "Minimum replication number",
+              "required": [],
+              "title": "minReplicas",
+              "type": "integer"
+            },
+            "targetCPU": {
+              "default": 80,
+              "description": "Target CPU utilization",
+              "required": [],
+              "title": "targetCPU",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "targetMemory": {
+              "default": "null",
+              "description": "Target Memory utilization",
+              "required": [],
+              "title": "targetMemory",
+              "type": [
+                "integer",
+                "null"
+              ]
             }
+          },
+          "required": [],
+          "title": "autoscaling",
+          "type": "object"
         },
-        "cloudflaredSidecars": {
-            "type": "array"
+        "dnsConfig": {
+          "additionalProperties": true,
+          "description": "DNS config",
+          "required": [],
+          "title": "dnsConfig",
+          "type": "object"
         },
-        "cloudflaredSplitter": {
-            "type": "object",
-            "properties": {
-                "beams": {
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "extraEnv": {
-                    "type": "array"
-                },
-                "extraEnvFrom": {
-                    "type": "array"
-                },
-                "extraVolumeMounts": {
-                    "type": "array"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "livenessProbe": {
-                    "type": "object"
-                },
-                "readinessProbe": {
-                    "type": "object"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                }
+        "enableWarp": {
+          "default": false,
+          "description": "If true, turn on WARP routing for TCP",
+          "required": [],
+          "title": "enableWarp",
+          "type": "boolean"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether to enable it or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "extraEnv": {
+          "description": "Environment variables to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnv",
+          "type": "array"
+        },
+        "extraEnvFrom": {
+          "description": "Environment variables from secrets or configmaps to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnvFrom",
+          "type": "array"
+        },
+        "extraVolumeMounts": {
+          "description": "Volume mounts to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumeMounts",
+          "type": "array"
+        },
+        "extraVolumes": {
+          "description": "extraVolumeMounts:\n  - name: foo\n    mountPath: \"/etc/foo\"\n    readOnly: true\nVolumes to add",
+          "items": {
+            "required": []
+          },
+          "required": [],
+          "title": "extraVolumes",
+          "type": "array"
+        },
+        "hostAliases": {
+          "description": "Host aliases to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hostAliases",
+          "type": "array"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "Image settings",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "Image tag",
+              "enum": [
+                "IfNotPresent",
+                "Always"
+              ],
+              "required": [],
+              "title": "pullPolicy"
+            },
+            "pullSecrets": {
+              "description": "Image pull secrets",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "pullSecrets",
+              "type": "array"
+            },
+            "repository": {
+              "default": "cloudflare/cloudflared",
+              "description": "Image repository",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "2024.10.1",
+              "description": "Image tag",
+              "required": [],
+              "title": "tag",
+              "type": "string"
             }
+          },
+          "required": [
+            "repository",
+            "tag"
+          ],
+          "title": "image",
+          "type": "object"
         },
-        "fullnameOverride": {
-            "type": "string"
+        "ingress": {
+          "description": "Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress))",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "ingress",
+          "type": "array"
         },
-        "nameOverride": {
-            "type": "string"
-        },
-        "namespaceOverride": {
-            "type": "string"
-        },
-        "pinniped": {
-            "type": "object",
-            "properties": {
-                "concierge": {
-                    "type": "object",
-                    "properties": {
-                        "credentialIssuerConfig": {
-                            "type": "string"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "jwtAuths": {
-                            "type": "object"
-                        },
-                        "teams": {
-                            "type": "object"
-                        }
-                    }
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings for pods.",
+          "properties": {
+            "failureThreshold": {
+              "default": 1,
+              "required": [],
+              "title": "failureThreshold",
+              "type": "integer"
+            },
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/ready",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
                 },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "supervisor": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "federationDomains": {
-                            "type": "object"
-                        },
-                        "githubProviders": {
-                            "type": "object"
-                        }
-                    }
+                "port": {
+                  "default": 2000,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
                 }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            },
+            "initialDelaySeconds": {
+              "default": 10,
+              "required": [],
+              "title": "initialDelaySeconds",
+              "type": "integer"
+            },
+            "periodSeconds": {
+              "default": 10,
+              "required": [],
+              "title": "periodSeconds",
+              "type": "integer"
             }
+          },
+          "required": [
+            "httpGet",
+            "failureThreshold",
+            "initialDelaySeconds",
+            "periodSeconds"
+          ],
+          "title": "livenessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
         },
-        "revisionHistoryLimit": {
-            "type": "integer"
+        "podAnnotations": {
+          "additionalProperties": true,
+          "description": " - ip: 1.2.3.4\n   hostnames:\n     - domain.tld\nAnnotations for pods",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
         },
-        "serviceAccount": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Labels for pods",
+          "required": [],
+          "title": "podLabels",
+          "type": "object"
+        },
+        "podMonitor": {
+          "additionalProperties": false,
+          "description": "Service Monitor settings",
+          "properties": {
+            "additionalLabels": {
+              "additionalProperties": true,
+              "description": "Additional ServiceMonitor labels",
+              "required": [],
+              "title": "additionalLabels",
+              "type": "object"
+            },
+            "annotations": {
+              "additionalProperties": true,
+              "description": "ServiceMonitor annotations",
+              "required": [],
+              "title": "annotations",
+              "type": "object"
+            },
+            "enabled": {
+              "default": false,
+              "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "interval": {
+              "default": "",
+              "description": "ServiceMonitor scrape interval",
+              "required": [],
+              "title": "interval",
+              "type": "string"
+            },
+            "metricRelabelings": {
+              "description": "ServiceMonitor metric relabel configs to apply to samples before ingestion",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "metricRelabelings",
+              "type": "array"
+            },
+            "relabelings": {
+              "description": "ServiceMonitor relabel configs to apply to samples before scraping.",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "relabelings",
+              "type": "array"
+            },
+            "scrapeTimeout": {
+              "default": "",
+              "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
+              "required": [],
+              "title": "scrapeTimeout",
+              "type": "string"
+            },
+            "targetLabels": {
+              "description": "ServiceMonitor will add labels from the service to the Prometheus metric",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "targetLabels",
+              "type": "array"
+            }
+          },
+          "required": [],
+          "title": "podMonitor",
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "additionalProperties": true,
+          "description": "The SecurityContext for pods",
+          "required": [],
+          "title": "podSecurityContext",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings for pods.",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/ready",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
                 },
-                "automount": {
-                    "type": "boolean"
-                },
-                "create": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
+                "port": {
+                  "default": 2000,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
                 }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
             }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "readinessProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "replicas": {
+          "default": 2,
+          "description": "ingress:\nThe first rule proxies traffic to the httpbin sample service named web-server at port 80\n- hostname: tunnel.example.com\n  service: http://web-service:80\nThis rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity\nissues. If hello.example.com resolves and tunnel.example.com does not, then the problem is\nin the connection from cloudflared to your local service, not from the internet to cloudflared.\n- hostname: hello.example.com\n  service: hello_world\nNumber of replications",
+          "required": [],
+          "title": "replicas",
+          "type": "number"
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "Resource request \u0026 limits.",
+          "required": [],
+          "title": "resources",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "scheduling": {
+          "additionalProperties": false,
+          "description": "extraVolumes:\n  - name: foo\n    secret:\n      secretName: mysecret\n      optional: false\nScheduling settings",
+          "properties": {
+            "affinity": {
+              "additionalProperties": true,
+              "description": "Affinity for pod assignment",
+              "required": [],
+              "title": "affinity",
+              "type": "object"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Indicates wether scheduling is enabled or not",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "nodeSelector": {
+              "additionalProperties": true,
+              "description": "Node labels for pod assignment",
+              "required": [],
+              "title": "nodeSelector",
+              "type": "object"
+            },
+            "priorityClass": {
+              "additionalProperties": true,
+              "default": "null",
+              "description": "Priority class name",
+              "required": [],
+              "title": "priorityClass",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "tolerations": {
+              "description": "Tolerations for pod assignment",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "tolerations",
+              "type": "array"
+            }
+          },
+          "required": [],
+          "title": "scheduling",
+          "type": "object"
+        },
+        "secret": {
+          "default": "",
+          "description": "The secret for the tunnel.",
+          "required": [],
+          "title": "secret",
+          "type": "string"
+        },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "podSecurityContext:\n  runAsNonRoot: true\n  runAsUser: 65532\nSecurity items for one container. We lock it down.",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "capabilities": {
+              "additionalProperties": false,
+              "properties": {
+                "drop": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [],
+                        "type": "string"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "drop",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "drop"
+              ],
+              "title": "capabilities",
+              "type": "object"
+            },
+            "readOnlyRootFilesystem": {
+              "default": true,
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "allowPrivilegeEscalation",
+            "capabilities",
+            "readOnlyRootFilesystem"
+          ],
+          "title": "securityContext",
+          "type": "object"
+        },
+        "startupProbe": {
+          "additionalProperties": true,
+          "description": " requests:\n   cpu: 100m\n   memory: 128Mi\n limits:\n   cpu: 100m\n   memory: 128Mi\nReadiness probe settings for pods.",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/ready",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": 2000,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "startupProbe",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "tunnelId": {
+          "default": "",
+          "description": "The ID of the above tunnel.",
+          "required": [],
+          "title": "tunnelId",
+          "type": "string"
+        },
+        "tunnelName": {
+          "default": "",
+          "description": "The name of the tunnel this instance will serve",
+          "required": [],
+          "title": "tunnelName",
+          "type": "string"
         }
+      },
+      "required": [
+        "extraVolumes"
+      ],
+      "title": "cloudflared",
+      "type": "object"
+    },
+    "cloudflaredSidecars": {
+      "description": "Additional cloudflared sidecars",
+      "items": {
+        "additionalProperties": true,
+        "required": [],
+        "type": "object"
+      },
+      "required": [],
+      "title": "cloudflaredSidecars",
+      "type": "array"
+    },
+    "cloudflaredSplitter": {
+      "additionalProperties": false,
+      "description": "Split cloudflare tunnel traffic to multiple endpoints",
+      "properties": {
+        "beams": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Mao of additional enpoints",
+          "required": [],
+          "title": "beams",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable cloudflared splitter",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "extraEnv": {
+          "description": "securityContext:\n  capabilities:\n    drop:\n      - ALL\n  readOnlyRootFilesystem: true\n  runAsNonRoot: true\n  runAsUser: 1000\nEnvironment variables to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnv",
+          "type": "array"
+        },
+        "extraEnvFrom": {
+          "description": "Environment variables from secrets or configmaps to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnvFrom",
+          "type": "array"
+        },
+        "extraVolumeMounts": {
+          "description": "Volume mounts to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumeMounts",
+          "type": "array"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "beams:\n  kubectl: your-cloud-provider-k8s-api\nImage settings",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "Image tag",
+              "enum": [
+                "IfNotPresent",
+                "Always"
+              ],
+              "required": [],
+              "title": "pullPolicy"
+            },
+            "repository": {
+              "default": "nginx",
+              "description": "Image repository",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "1.27.2",
+              "description": "Image tag",
+              "required": [],
+              "title": "tag",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repository",
+            "tag"
+          ],
+          "title": "image",
+          "type": "object"
+        },
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings for pods",
+          "required": [],
+          "title": "livenessProbe",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings for pods",
+          "required": [],
+          "title": "readinessProbe",
+          "type": "object"
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "extraVolumeMounts:\n  - name: foo\n    mountPath: \"/etc/foo\"\n    readOnly: true\nResource request \u0026 limits.",
+          "required": [],
+          "title": "resources",
+          "type": "object"
+        },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "Security context",
+          "required": [],
+          "title": "securityContext",
+          "type": "object"
+        },
+        "startProbe": {
+          "additionalProperties": true,
+          "description": "Startup probe settings for pods",
+          "required": [],
+          "title": "startProbe",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "cloudflaredSplitter",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "pinniped": {
+      "additionalProperties": false,
+      "description": "Pinneped dependency ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml))",
+      "properties": {
+        "concierge": {
+          "additionalProperties": false,
+          "description": "Concierge settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))",
+          "properties": {
+            "credentialIssuerConfig": {
+              "default": "impersonationProxy:\n  mode: enabled\n  service:\n    type: ClusterIP\n  externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443\n",
+              "description": "jwtAuths:\n  your-org:\n    issuer: https://beam.your-domain.com/issuer-path\n    audience: arbitrary-but-unique-audience\nOverride dependency",
+              "required": [],
+              "title": "credentialIssuerConfig",
+              "type": "string"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Enable concierge",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "jwtAuths": {
+              "additionalProperties": true,
+              "description": "teams:\n  dev:\n    role: editor\n    team: organization/team-dev\n  devops:\n    role: cluster-admin\n    team: organization/team-devops\nJWT Authenticators for Concierge",
+              "required": [],
+              "title": "jwtAuths",
+              "type": "object"
+            },
+            "teams": {
+              "additionalProperties": true,
+              "description": "ClusterRoleBinding to create in the cluster",
+              "required": [],
+              "title": "teams",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "concierge",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable pinniped",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "supervisor": {
+          "additionalProperties": false,
+          "description": "Supervisor settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))",
+          "properties": {
+            "enabled": {
+              "default": false,
+              "description": "Enable supervisor",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "federationDomains": {
+              "additionalProperties": true,
+              "description": "githubProviders:\n  foomo:\n    clientId: id\n    clientSecret: secret\nFederation Domains to create in the supervisor cluster",
+              "required": [],
+              "title": "federationDomains",
+              "type": "object"
+            },
+            "githubProviders": {
+              "additionalProperties": true,
+              "description": "GitHub Providers to create in the supervisor cluster",
+              "required": [],
+              "title": "githubProviders",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "supervisor",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "pinniped",
+      "type": "object"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "Number of revisions to keep",
+      "required": [],
+      "title": "revisionHistoryLimit",
+      "type": "integer"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "ServiceAccount settings",
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations to add to the service account",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "required": [],
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use.",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "serviceAccount",
+      "type": "object"
     }
+  },
+  "required": [
+    "cloudflaredSplitter"
+  ],
+  "type": "object"
 }
