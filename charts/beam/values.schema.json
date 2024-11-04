@@ -773,11 +773,11 @@
       "type": "string"
     },
     "pinniped": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "description": "Pinneped dependency ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml))",
       "properties": {
         "concierge": {
-          "additionalProperties": false,
+          "additionalProperties": true,
           "description": "Concierge settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))",
           "properties": {
             "credentialIssuerConfig": {
@@ -821,7 +821,7 @@
           "type": "boolean"
         },
         "supervisor": {
-          "additionalProperties": false,
+          "additionalProperties": true,
           "description": "Supervisor settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))",
           "properties": {
             "enabled": {
