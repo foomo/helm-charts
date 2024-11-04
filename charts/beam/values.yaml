@@ -568,6 +568,7 @@ cloudflaredSidecars: []
 
 # @schema
 # type: object
+# additionalProperties: true
 # @schema
 # Pinneped dependency ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml))
 pinniped:
@@ -579,6 +580,7 @@ pinniped:
   enabled: false
   # @schema
   # type: object
+  # additionalProperties: true
   # @schema
   # Concierge settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))
   concierge:
@@ -626,6 +628,7 @@ pinniped:
         externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443
   # @schema
   # type: object
+  # additionalProperties: true
   # @schema
   # Supervisor settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))
   supervisor:

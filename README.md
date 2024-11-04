@@ -1,8 +1,7 @@
 # Foomo Helm Charts
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/main.yml?style=flat-square&branch=main)
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/foomo)](https://artifacthub.io/packages/search?repo=foomo)
+![Build Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/main.yml?branch=main&logo=github&label=Build%20Status)
 
 ## Usage
 
