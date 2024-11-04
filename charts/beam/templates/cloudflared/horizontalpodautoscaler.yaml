@@ -1,0 +1,38 @@
+{{- if .Values.cloudflared.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "beam.cloudflared.fullname" . }}
+  labels: {{- include "beam.cloudflared.labels" . | nindent 4 }}
+  namespace: {{ include "beam.namespace" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "beam.cloudflared.fullname" . }}
+  minReplicas: {{ .Values.cloudflared.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.cloudflared.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.cloudflared.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.cloudflared.autoscaling.targetCPU }}
+    {{- end }}
+    {{- if .Values.cloudflared.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.cloudflared.autoscaling.targetMemory }}
+    {{- end }}
+    {{- with .Values.cloudflared.autoscaling.additionalMetrics }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.cloudflared.autoscaling.behavior }}
+  behavior: {{ toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

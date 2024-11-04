@@ -1,67 +1,248 @@
-# -- Overrides the chart's name
-nameOverride: ""
-# -- Overrides the chart's computed fullname
-fullnameOverride: ""
-# -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
-namespaceOverride: ""
+# yaml-language-server: $schema=values.schema.json
 
-# -- Number of revisions to retain to allow rollback
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's name
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's computed fullname
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- The name of the Namespace to deploy
+# @section -- Overrides
+namespaceOverride: ''
+
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
 
+# @schema
+# type: object
+# @schema
+# Cloudflared settings
 cloudflared:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to enable it or not
+  # @section -- Cloudflared settings
   enabled: false
-  # Your Cloudflare account number.
-  account: ""
-  # The name of the tunnel this instance will serve
-  tunnelName: ""
-  # The ID of the above tunnel.
-  tunnelId: ""
-  # The secret for the tunnel.
-  secret: ""
-  # If true, turn on WARP routing for TCP
+  # @schema
+  # type: string
+  # @schema
+  # -- Your Cloudflare account number.
+  # @section -- Cloudflared settings
+  account: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- The name of the tunnel this instance will serve
+  # @section -- Cloudflared settings
+  tunnelName: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- The ID of the above tunnel.
+  # @section -- Cloudflared settings
+  tunnelId: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- The secret for the tunnel.
+  # @section -- Cloudflared settings
+  secret: ''
+  # @schema
+  # type: boolean
+  # @schema
+  # -- If true, turn on WARP routing for TCP
+  # @section -- Cloudflared settings
   enableWarp: false
-  # Define ingress rules for the tunnel. See
-  # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress))
+  # @section -- Cloudflared settings
   ingress: []
-    # The first rule proxies traffic to the httpbin sample service named web-server at port 80
-    # - hostname: tunnel.example.com
-    #  service: http://web-service:80
-    # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
-    # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is
-    # in the connection from cloudflared to your local service, not from the internet to cloudflared.
-    # - hostname: hello.example.com
-    #   service: hello_world
-  # Container image
+  # ingress:
+  # The first rule proxies traffic to the httpbin sample service named web-server at port 80
+  # - hostname: tunnel.example.com
+  #   service: http://web-service:80
+  # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
+  # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is
+  # in the connection from cloudflared to your local service, not from the internet to cloudflared.
+  # - hostname: hello.example.com
+  #   service: hello_world
+  # @schema
+  # type: number
+  # @schema
+  # -- Number of replications
+  # @section -- Cloudflared settings
+  replicas: 2
+  # @schema
+  # type: object
+  # @schema
+  # Image settings
   image:
-    # -- The image repository
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- Image repository
+    # @section -- Cloudflared settings
     repository: 'cloudflare/cloudflared'
-    # -- The image pull policy
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- Image tag
+    # @section -- Cloudflared settings
     pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: '2024.8.3'
-  # -- Number of replicas
-  replicaCount: 2
-  # -- Pod Disruption Budget maxUnavailable
-  maxUnavailable: null
-  # -- Pod Monitor configuration
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- Image pull secrets
+    # @section -- Cloudflared settings
+    pullSecrets: [ ]
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- Image tag
+    # @section -- Cloudflared settings
+    tag: '2024.10.1' # https://github.com/cloudflare/cloudflared/releases
+  # @schema
+  # type: object
+  # @schema
+  # Service Monitor settings
   podMonitor:
-    # -- If enabled, PodMonitor resources for Prometheus Operator are created
+    # @schema
+    # type: boolean
+    # @schema
+    # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
+    # @section -- Cloudflared settings
     enabled: false
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Additional ServiceMonitor labels
+    # @section -- Cloudflared settings
+    additionalLabels: { }
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- ServiceMonitor annotations
+    # @section -- Cloudflared settings
+    annotations: { }
+    # @schema
+    # type: string
+    # @schema
+    # -- ServiceMonitor scrape interval
+    # @section -- Cloudflared settings
+    interval: ''
+    # @schema
+    # type: string
+    # @schema
+    # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
+    # @section -- Cloudflared settings
+    scrapeTimeout: ''
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- ServiceMonitor will add labels from the service to the Prometheus metric
+    # @section -- Cloudflared settings
+    targetLabels: [ ]
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- ServiceMonitor relabel configs to apply to samples before scraping.
+    # @section -- Cloudflared settings
+    relabelings: [ ]
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
+    # @section -- Cloudflared settings
+    metricRelabelings: [ ]
+  # @schema
+  # type: object
+  # @schema
   # Autoscaling settings
   autoscaling:
-    # -- Enable autoscaling
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether a auto scaling should be enabled
+    # @section -- Cloudflared settings
     enabled: false
-    # -- Minimum autoscaling replicas
+    # @schema
+    # type: integer
+    # @schema
+    # -- Minimum replication number
+    # @section -- Cloudflared settings
     minReplicas: 1
-    # -- Maximum autoscaling replicas
+    # @schema
+    # type: integer
+    # @schema
+    # -- Maximum replication number
+    # @section -- Cloudflared settings
     maxReplicas: 9
-    # -- Target CPU utilisation percentage
-    targetCPUUtilizationPercentage: 80
-    # -- Target memory utilisation percentage
-    targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
-    customMetrics: [ ]
+    # @schema
+    # type: [integer, string]
+    # @schema
+    # -- Minimum availablity
+    # @section -- Cloudflared settings
+    minAvailable: ''
+    # @schema
+    # type: [integer, string]
+    # @schema
+    # -- Maximum unavailablity
+    # @section -- Cloudflared settings
+    maxUnavailable: 1
+    # @schema
+    # type: [integer, null]
+    # @schema
+    # -- Target CPU utilization
+    # @section -- Cloudflared settings
+    targetCPU: 80
+    # @schema
+    # type: [integer, null]
+    # @schema
+    # -- Target Memory utilization
+    # @section -- Cloudflared settings
+    targetMemory: null
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Additional scaling metrics
+    # @section -- Cloudflared settings
+    additionalMetrics: { }
     #  - type: Pods
     #    pods:
     #      metric:
@@ -69,38 +250,67 @@ cloudflared:
     #      target:
     #        type: AverageValue
     #        averageValue: 10k
-    behavior:
-      # -- Enable autoscaling behaviours
-      enabled: false
-      # -- Scale down policies, must conform to HPAScalingRules
-      scaleDown: { }
-      # -- Scale up policies, must conform to HPAScalingRules
-      scaleUp: { }
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Autoscaling behavior settings
+    # @section -- Cloudflared settings
+    behavior: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Host aliases to add
+  # @section -- Cloudflared settings
   hostAliases: []
   #  - ip: 1.2.3.4
   #    hostnames:
   #      - domain.tld
-  # -- Image pull secrets
-  imagePullSecrets: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations for pods
+  # @section -- Cloudflared settings
   podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for pods
+  # @section -- Cloudflared settings
   podLabels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- The SecurityContext for pods
-  # Security items common to everything in the pod.  Here we require that it
-  # does not run as the user defined in the image, literally named "nonroot".
+  # @section -- Cloudflared settings
   podSecurityContext: {}
-#    runAsNonRoot: true
-#    runAsUser: 65532
-  # Security items for one container. We lock it down.
+  # podSecurityContext:
+  #   runAsNonRoot: true
+  #   runAsUser: 65532
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security items for one container. We lock it down.
+  # @section -- Cloudflared settings
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
         - ALL
     readOnlyRootFilesystem: true
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
   # -- Resource request & limits.
+  # @section -- Cloudflared settings
   resources: {}
   #  requests:
   #    cpu: 100m
@@ -108,7 +318,32 @@ cloudflared:
   #  limits:
   #    cpu: 100m
   #    memory: 128Mi
-  # @default -- Liveness probe settings for pods.
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings for pods.
+  # @section -- Cloudflared settings
+  startupProbe:
+    httpGet:
+      path: /ready
+      port: 2000
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings for pods.
+  # @section -- Cloudflared settings
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 2000
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings for pods.
+  # @section -- Cloudflared settings
   livenessProbe:
     httpGet:
       path: /ready
@@ -116,100 +351,250 @@ cloudflared:
     failureThreshold: 1
     initialDelaySeconds: 10
     periodSeconds: 10
-  # @default -- Readiness probe settings for pods.
-  readinessProbe:
-    httpGet:
-      path: /ready
-      port: 2000
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Cloudflared settings
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Cloudflared settings
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Cloudflared settings
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # extraVolumeMounts:
+  #   - name: foo
+  #     mountPath: "/etc/foo"
+  #     readOnly: true
   # -- Volumes to add
+  # @section -- Cloudflared settings
   extraVolumes: []
-  #  - name: foo
-  #    secret:
-  #      secretName: mysecret
-  #      optional: false
-  # -- Tolerations settings for pods.
-  nodeSelector: {}
-  # -- Tolerations settings for pods.
-  tolerations: []
-  # -- Affinity settings for pods.
-  affinity: {}
-  # -- DNSConfig settings for pods.
+  # extraVolumes:
+  #   - name: foo
+  #     secret:
+  #       secretName: mysecret
+  #       optional: false
+  # @schema
+  # type: object
+  # @schema
+  # Scheduling settings
+  scheduling:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether scheduling is enabled or not
+    # @section -- Cloudflared settings
+    enabled: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Affinity for pod assignment
+    # @section -- Cloudflared settings
+    affinity: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Node labels for pod assignment
+    # @section -- Cloudflared settings
+    nodeSelector: {}
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- Tolerations for pod assignment
+    # @section -- Cloudflared settings
+    tolerations: []
+    # @schema
+    # type: [string, null]
+    # additionalProperties: true
+    # @schema
+    # -- Priority class name
+    # @section -- Cloudflared settings
+    priorityClass: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- DNS config
+  # @section -- Cloudflared settings
   dnsConfig: {}
 
 # Split cloudflare tunnel traffic to multiple endpoints
 cloudflaredSplitter:
-  # --- Enable cloudflared splitter
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Enable cloudflared splitter
+  # @section -- Cloudflared Splitter settings
   enabled: false
-  # --- List of additional enpoints
+  # @schema
+  # type: object
+  # additionalProperties:
+  #   type: string
+  # @schema
+  # -- Mao of additional enpoints
+  # @section -- Cloudflared Splitter settings
+  beams: {}
   # beams:
   #   kubectl: your-cloud-provider-k8s-api
-  beams: {}
-  # Container image
+  # @schema
+  # type: object
+  # @schema
+  # Image settings
   image:
-    # -- The image repository
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- Image repository
+    # @section -- Cloudflared Splitter settings
     repository: 'nginx'
-    # -- The image pull policy
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- Image tag
+    # @section -- Cloudflared Splitter settings
     pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: '1.27.0'
-  # --- Security context
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- Image tag
+    # @section -- Cloudflared Splitter settings
+    tag: '1.27.2' # https://github.com/nginx/nginx/releases
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Cloudflared Splitter settings
   securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
+  # securityContext:
+  #   capabilities:
+  #     drop:
+  #       - ALL
+  #   readOnlyRootFilesystem: true
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Cloudflared Splitter settings
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Cloudflared Splitter settings
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Cloudflared Splitter settings
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # extraVolumeMounts:
+  #   - name: foo
+  #     mountPath: "/etc/foo"
+  #     readOnly: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Resource request & limits.
+  # @section -- Cloudflared Splitter settings
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  # @default -- Liveness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Startup probe settings for pods
+  # @section -- Cloudflared Splitter settings
+  startProbe: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings for pods
+  # @section -- Cloudflared Splitter settings
   livenessProbe: {}
-  #   httpGet:
-  #     path: /
-  #     port: http
-  # # @default -- Readiness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings for pods
+  # @section -- Cloudflared Splitter settings
   readinessProbe: {}
-  #   httpGet:
-  #     path: /
-  #     port: http
 
-# --- Additional cloudflared sidecars
+# @schema
+# type: array
+# items:
+#   type: object
+#   additionalProperties: true
+# @schema
+# -- Additional cloudflared sidecars
+# @section -- Cloudflared Sidecars settings
 cloudflaredSidecars: []
 
-## Pinneped dependency
-## see https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml
+# @schema
+# type: object
+# @schema
+# Pinneped dependency ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml))
 pinniped:
-  # --- Enable pinniped
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Enable pinniped
+  # @section -- Pinniped settings
   enabled: false
-  # Concierge settings (https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90)
+  # @schema
+  # type: object
+  # @schema
+  # Concierge settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))
   concierge:
-    # --- Enable concierge
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Enable concierge
+    # @section -- Pinniped settings
     enabled: false
-    # --- ClusterRoleBinding to create in the cluster
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- ClusterRoleBinding to create in the cluster
+    # @section -- Pinniped settings
+    teams: {}
     # teams:
     #   dev:
     #     role: editor
@@ -217,31 +602,57 @@ pinniped:
     #   devops:
     #     role: cluster-admin
     #     team: organization/team-devops
-    teams: {}
-    # --- JWT Authenticators for Concierge
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- JWT Authenticators for Concierge
+    # @section -- Pinniped settings
+    jwtAuths: {}
     # jwtAuths:
     #   your-org:
     #     issuer: https://beam.your-domain.com/issuer-path
     #     audience: arbitrary-but-unique-audience
-    jwtAuths: {}
-    # Override dependency
+    # @schema
+    # type: string
+    # @schema
+    # -- Override dependency
+    # @section -- Pinniped settings
     credentialIssuerConfig: |
       impersonationProxy:
         mode: enabled
         service:
           type: ClusterIP
         externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443
-  # Supervisor settings (https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90)
+  # @schema
+  # type: object
+  # @schema
+  # Supervisor settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L90))
   supervisor:
-    # --- Enable supervisor
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Enable supervisor
+    # @section -- Pinniped settings
     enabled: false
-    # --- GitHub Providers to create in the supervisor cluster
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- GitHub Providers to create in the supervisor cluster
+    # @section -- Pinniped settings
+    githubProviders: {}
     # githubProviders:
     #   foomo:
     #     clientId: id
     #     clientSecret: secret
-    githubProviders: {}
-    # --- Federation Domains to create in the supervisor cluster
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Federation Domains to create in the supervisor cluster
+    # @section -- Pinniped settings
+    federationDomains: {}
     # federationDomains:
     #   cluster:
     #     tlsSecretName: tls-secret-name
@@ -251,17 +662,35 @@ pinniped:
     #         teams:
     #           - organization/team-devs
     #           - organization/team-devops
-    federationDomains: {}
 
-
-# ServiceAccount configuration
+# @schema
+# type: object
+# @schema
+# ServiceAccount settings
 serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Automatically mount a ServiceAccount's API credentials?
-  automount: true
-  # -- Annotations to add to the service account
-  annotations: {}
+  # @schema
+  # type: string
+  # @schema
   # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
-  name: ""
+  # @section -- Service account settings
+  name: ''
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service account settings
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service account settings
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties:
+  #   type: string
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service account settings
+  annotations: {}
