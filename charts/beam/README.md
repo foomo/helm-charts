@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.1](https://img.shields.io/badge/AppVersion-0.4.1-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.2](https://img.shields.io/badge/AppVersion-0.4.2-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -203,7 +203,8 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | pinniped.concierge.credentialIssuerConfig | string | `"impersonationProxy:\n  mode: enabled\n  service:\n    type: ClusterIP\n  externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443\n"` | Override dependency |
 | pinniped.concierge.enabled | bool | `false` | Enable concierge |
 | pinniped.concierge.jwtAuths | object | `{}` | JWT Authenticators for Concierge |
-| pinniped.concierge.teams | object | `{}` | ClusterRoleBinding to create in the cluster |
+| pinniped.concierge.teams | object | `{}` | ClusterRoleBinding to create in the cluster for teams (groups) |
+| pinniped.concierge.users | object | `{}` | ClusterRoleBinding to create in the cluster for users |
 | pinniped.enabled | bool | `false` | Enable pinniped |
 | pinniped.supervisor.enabled | bool | `false` | Enable supervisor |
 | pinniped.supervisor.federationDomains | object | `{}` | Federation Domains to create in the supervisor cluster |

@@ -594,7 +594,7 @@ pinniped:
     # type: object
     # additionalProperties: true
     # @schema
-    # -- ClusterRoleBinding to create in the cluster
+    # -- ClusterRoleBinding to create in the cluster for teams (groups)
     # @section -- Pinniped settings
     teams: {}
     # teams:
@@ -604,6 +604,17 @@ pinniped:
     #   devops:
     #     role: cluster-admin
     #     team: organization/team-devops
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- ClusterRoleBinding to create in the cluster for users
+    # @section -- Pinniped settings
+    users: {}
+    # users:
+    #   user1:
+    #     role: editor
+    #     user: user@name.com
     # @schema
     # type: object
     # additionalProperties: true

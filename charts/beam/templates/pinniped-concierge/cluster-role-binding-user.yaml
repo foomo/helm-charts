@@ -1,0 +1,19 @@
+{{- if .Values.pinniped.concierge.enabled }}
+{{- range $k,$v := .Values.pinniped.concierge.users }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "beam.pinniped.concierge.fullname" $ }}-{{ $k }}
+  labels:
+    {{- include "beam.pinniped.concierge.labels" $ | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ $v.role }}
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: {{ $v.user }}
+{{- end }}
+{{- end }}

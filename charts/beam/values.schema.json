@@ -796,16 +796,23 @@
             },
             "jwtAuths": {
               "additionalProperties": true,
-              "description": "teams:\n  dev:\n    role: editor\n    team: organization/team-dev\n  devops:\n    role: cluster-admin\n    team: organization/team-devops\nJWT Authenticators for Concierge",
+              "description": "users:\n  user1:\n    role: editor\n    user: user\nJWT Authenticators for Concierge",
               "required": [],
               "title": "jwtAuths",
               "type": "object"
             },
             "teams": {
               "additionalProperties": true,
-              "description": "ClusterRoleBinding to create in the cluster",
+              "description": "ClusterRoleBinding to create in the cluster for teams (groups)",
               "required": [],
               "title": "teams",
+              "type": "object"
+            },
+            "users": {
+              "additionalProperties": true,
+              "description": "teams:\n  dev:\n    role: editor\n    team: organization/team-dev\n  devops:\n    role: cluster-admin\n    team: organization/team-devops\nClusterRoleBinding to create in the cluster for users",
+              "required": [],
+              "title": "users",
               "type": "object"
             }
           },
