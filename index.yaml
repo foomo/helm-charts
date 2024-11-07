@@ -8,6 +8,35 @@ entries:
         - name: Pinniped Chart Source
           url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
     apiVersion: v2
+    appVersion: 0.4.2
+    created: "2024-11-07T16:46:26.780907902Z"
+    dependencies:
+    - alias: pinniped
+      condition: pinniped.enabled
+      name: pinniped
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.3.3
+    description: Secure infrastructure access
+    digest: 9da7c09d76366d8a48bd8f3d1c05b1c3e6b86b4cd7a09ef0b0de64327320024e
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - pinneped
+    name: beam
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/beam-0.4.2/beam-0.4.2.tgz
+    version: 0.4.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+        - name: Pinniped Chart Source
+          url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
+    apiVersion: v2
     appVersion: 0.4.1
     created: "2024-11-04T14:15:24.368693656Z"
     dependencies:
@@ -1387,4 +1416,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.1.0/squadron-nextjs-server-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-04T14:15:24.368836151Z"
+generated: "2024-11-07T16:46:26.78100792Z"
