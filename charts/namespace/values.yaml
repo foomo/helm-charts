@@ -18,7 +18,42 @@ fullnameOverride: ''
 # -- The name of the Namespace to deploy
 # @section -- Overrides
 namespaceOverride: ''
-
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Cluster Roles to create
+# @section -- General
+clusterRoles: {}
+# clusterRoles:
+#   my-cluster-role:
+#     annotations: {}
+#     labels: {}
+#     rules: {}
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     group:
+#       type: string
+#       additionalProperties: true
+#     role:
+#       type: string
+#       additionalProperties: true
+# @schema
+# -- Role Bindings to create
+# @section -- General
+roleBindings: {}
+# roleBindings:
+#   my-role-binding:
+#     annotations:
+#       replicator.v1.mittwald.de/replicate-to: ".*"
+#     group: ""
+#     role: ""
 # @schema
 # type: object
 # additionalProperties:

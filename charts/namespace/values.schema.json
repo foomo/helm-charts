@@ -2,6 +2,13 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
+    "clusterRoles": {
+      "additionalProperties": true,
+      "description": "Cluster Roles to create",
+      "required": [],
+      "title": "clusterRoles",
+      "type": "object"
+    },
     "dockerSecrets": {
       "additionalProperties": {
         "properties": {
@@ -48,6 +55,29 @@
       "title": "namespaceOverride",
       "type": "string"
     },
+    "roleBindings": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "group": {
+            "additionalProperties": true,
+            "type": "string"
+          },
+          "role": {
+            "additionalProperties": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "description": "clusterRoles:\n  my-cluster-role:\n    annotations: {}\n    labels: {}\n    rules: {}\nRole Bindings to create",
+      "required": [],
+      "title": "roleBindings",
+      "type": "object"
+    },
     "secrets": {
       "additionalProperties": {
         "properties": {
@@ -66,7 +96,7 @@
         },
         "type": "object"
       },
-      "description": "Opaque secrets",
+      "description": "roleBindings:\n  my-role-binding:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    group: \"\"\n    role: \"\"\nOpaque secrets",
       "required": [],
       "title": "secrets",
       "type": "object"

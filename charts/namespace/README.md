@@ -16,7 +16,9 @@ Common Namespace Resource Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| clusterRoles | object | `{}` | Cluster Roles to create |
 | dockerSecrets | object | `{}` | Docker config json secrets |
+| roleBindings | object | `{}` | Role Bindings to create |
 | secrets | object | `{}` | Opaque secrets |
 | serviceAccounts | object | `{}` | Service accounts settings |
 | tlsSecrets | object | `{}` | TLS secrets |
