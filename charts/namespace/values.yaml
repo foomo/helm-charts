@@ -38,7 +38,10 @@ clusterRoles: {}
 #     annotations:
 #       type: object
 #       additionalProperties: true
-#     group:
+#     subjects:
+#       type: array
+#       additionalProperties: true
+#     kind:
 #       type: string
 #       additionalProperties: true
 #     role:

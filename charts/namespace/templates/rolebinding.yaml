@@ -8,10 +8,7 @@ metadata:
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
   namespace: {{ include "namespace.namespace" $ }}
-subjects:
-  {{- with $value.subjects }}
-  {{- toYaml . | nindent 4 }}
-  {{- end }}
+subjects: {{- toYaml $value.subjects | nindent 2 }}
 roleRef:
   kind: {{ $value.kind }}
   name: {{ $value.role }}

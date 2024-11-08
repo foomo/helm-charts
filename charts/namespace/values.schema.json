@@ -62,13 +62,17 @@
             "additionalProperties": true,
             "type": "object"
           },
-          "group": {
+          "kind": {
             "additionalProperties": true,
             "type": "string"
           },
           "role": {
             "additionalProperties": true,
             "type": "string"
+          },
+          "subjects": {
+            "additionalProperties": true,
+            "type": "array"
           }
         },
         "type": "object"
