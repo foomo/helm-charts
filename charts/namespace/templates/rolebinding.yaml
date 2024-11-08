@@ -1,0 +1,17 @@
+{{- range $key, $value := .Values.roleBindings }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $key }}
+  labels: {{- include "namespace.labels" $ | nindent 4 }}
+  {{- with $value.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "namespace.namespace" $ }}
+subjects: {{- toYaml $value.subjects | nindent 2 }}
+roleRef:
+  kind: {{ $value.kind }}
+  name: {{ $value.role }}
+  apiGroup: rbac.authorization.k8s.io
+---
+{{- end }}

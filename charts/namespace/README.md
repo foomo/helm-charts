@@ -1,6 +1,6 @@
 # namespace
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.3](https://img.shields.io/badge/AppVersion-0.2.3-informational?style=flat-square)
 
 Common Namespace Resource Chart
 
@@ -16,7 +16,9 @@ Common Namespace Resource Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| clusterRoles | object | `{}` | Cluster Roles to create |
 | dockerSecrets | object | `{}` | Docker config json secrets |
+| roleBindings | object | `{}` | Role Bindings to create |
 | secrets | object | `{}` | Opaque secrets |
 | serviceAccounts | object | `{}` | Service accounts settings |
 | tlsSecrets | object | `{}` | TLS secrets |
