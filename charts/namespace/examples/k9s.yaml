@@ -1,5 +1,5 @@
 clusterRoles:
-  cluster-view:
+  k9s:
     rules:
       # Grants RO access to cluster resources node, pod and namespace
       - apiGroups: [""]
