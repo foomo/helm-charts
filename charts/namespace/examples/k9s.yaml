@@ -1,0 +1,19 @@
+clusterRoles:
+  cluster-view:
+    rules:
+      # Grants RO access to cluster resources node, pod and namespace
+      - apiGroups: [""]
+        resources: ["nodes", "namespaces", "persistentvolumes", "pods"]
+        verbs: ["get", "list", "watch"]
+      # Grants RO access to RBAC resources
+      - apiGroups: ["rbac.authorization.k8s.io"]
+        resources: ["clusterroles", "roles", "clusterrolebindings", "rolebindings"]
+        verbs: ["get", "list", "watch"]
+      # Grants RO access to CRD resources
+      - apiGroups: ["apiextensions.k8s.io"]
+        resources: ["customresourcedefinitions"]
+        verbs: ["get", "list", "watch"]
+      # Grants RO access to metric server (if present)
+      - apiGroups: ["metrics.k8s.io"]
+        resources: ["nodes", "pods"]
+        verbs: ["get", "list", "watch"]
