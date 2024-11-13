@@ -17,8 +17,7 @@
             "type": "object"
           },
           "data": {
-            "additionalProperties": true,
-            "type": "object"
+            "type": "string"
           }
         },
         "type": "object"
