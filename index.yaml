@@ -453,6 +453,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 0.2.4
+    created: "2024-11-13T18:56:32.329290764Z"
+    description: Common Namespace Resource Chart
+    digest: 94377b655c811411a3614ae7a3dfe179351b4d5cc099415f76d0c2d7b30bce36
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - namespace
+    name: namespace
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/namespace-0.2.4/namespace-0.2.4.tgz
+    version: 0.2.4
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 0.2.3
     created: "2024-11-08T10:06:52.133416361Z"
     description: Common Namespace Resource Chart
@@ -1437,4 +1458,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.1.0/squadron-nextjs-server-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-08T10:06:52.133559839Z"
+generated: "2024-11-13T18:56:32.329453587Z"
