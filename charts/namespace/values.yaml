@@ -111,8 +111,7 @@ tlsSecrets: {}
 #       type: object
 #       additionalProperties: true
 #     data:
-#       type: object
-#       additionalProperties: true
+#       type: string
 # @schema
 # -- Docker config json secrets
 # @section -- General
