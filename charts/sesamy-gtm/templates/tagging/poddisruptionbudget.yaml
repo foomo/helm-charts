@@ -1,4 +1,4 @@
-{{- if gt (int .Values.tagging.replicaCount) 1 }}
+{{- if .Values.autoscaling.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
@@ -9,7 +9,10 @@ spec:
   selector:
     matchLabels:
       {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 6 }}
-  {{- with .Values.tagging.maxUnavailable }}
+  {{- with .Values.autoscaling.minAvailable }}
+  minAvailable: {{ . }}
+  {{- end }}
+  {{- with .Values.autoscaling.maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
 {{- end }}

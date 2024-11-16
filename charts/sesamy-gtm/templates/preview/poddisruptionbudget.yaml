@@ -10,7 +10,10 @@ spec:
   selector:
     matchLabels:
       {{- include "sesamy.gtm.preview.selectorLabels" . | nindent 6 }}
-  {{- with .Values.preview.maxUnavailable }}
+  {{- with .Values.autoscaling.minAvailable }}
+  minAvailable: {{ . }}
+  {{- end }}
+  {{- with .Values.autoscaling.maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
 {{- end }}

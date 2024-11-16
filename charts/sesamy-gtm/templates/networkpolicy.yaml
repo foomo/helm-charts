@@ -1,25 +1,4 @@
 {{- if .Values.networkPolicy.enabled }}
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: {{ include "sesamy.gtm.name" . }}-namespace-only
-  labels:
-    {{- include "sesamy.gtm.labels" . | nindent 4 }}
-  namespace: {{ include "sesamy.gtm.namespace" . }}
-spec:
-  policyTypes:
-    - Ingress
-    - Egress
-  podSelector: {}
-  egress:
-    - to:
-        - podSelector: {}
-  ingress:
-    - from:
-        - podSelector: {}
-
----
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -39,7 +18,6 @@ spec:
           protocol: UDP
       to:
         - namespaceSelector: {}
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

@@ -13,6 +13,11 @@ metadata:
 spec:
   type: {{ .Values.collect.service.type }}
   ports:
+    {{- if .Values.serviceMonitor.enabled }}
+    - name: prometheus
+      port: 9200
+      targetPort: 9200
+    {{- end }}
     {{- range $name, $port := $.Values.collect.service.ports }}
     - name: {{ $name }}
       port: {{ $port }}
