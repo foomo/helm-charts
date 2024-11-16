@@ -35,13 +35,13 @@ schema:
 	@echo "--- schema ---------------------------------------"
 	helm-schema -n -c charts/beam
 	helm-schema -n -c charts/namespace
+	helm-schema -n -c charts/sesamy-gtm
 	helm-schema -n -c charts/squadron-keel-server
 	helm-schema -n -c charts/squadron-keel-cronjob
 	helm-schema -n -c charts/squadron-nextjs-server
 	helm schema-gen charts/contentserver/values.yaml > charts/contentserver/values.schema.json
 	helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
 	helm schema-gen charts/gateway-crds/values.yaml > charts/gateway-crds/values.schema.json
-	helm schema-gen charts/sesamy-gtm/values.yaml > charts/sesamy-gtm/values.schema.json
 	helm schema-gen charts/sesamy-umami/values.yaml > charts/sesamy-umami/values.schema.json
 	#@set -e; for dir in ./charts/* ; do \
 	#	helm-schema -n -c $${dir} ;\

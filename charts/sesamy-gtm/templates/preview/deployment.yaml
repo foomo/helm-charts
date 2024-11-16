@@ -6,10 +6,12 @@ metadata:
     {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
-  {{- if not .Values.preview.autoscaling.enabled }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.preview.replicaCount }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
   selector:
     matchLabels:
       {{- include "sesamy.gtm.preview.selectorLabels" . | nindent 6 }}
@@ -89,21 +91,37 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- with .Values.preview.extraEnvFrom }}
-          envFrom:
-            {{- toYaml . | nindent 12 }}
+          envFrom: {{- toYaml . | nindent 12 }}
           {{- end }}
-          readinessProbe:
-            {{- toYaml .Values.preview.readinessProbe | nindent 12 }}
-          livenessProbe:
-            {{- toYaml .Values.preview.livenessProbe | nindent 12 }}
+          {{- with .Values.preview.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.preview.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.preview.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.preview.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
+          resources: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.preview.extraVolumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
       volumes:
         - name: gtm-preview-proxy-config
           configMap:
@@ -114,19 +132,6 @@ spec:
         {{- with .Values.preview.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- with .Values.preview.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.preview.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.preview.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       {{- with .Values.preview.dnsConfig }}
-      dnsConfig:
-        {{- toYaml . | nindent 8 }}
+      dnsConfig: {{- toYaml . | nindent 8 }}
       {{- end }}

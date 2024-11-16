@@ -1,58 +1,106 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
-nameOverride: ""
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
-fullnameOverride: ""
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
+# @section -- Overrides
 namespaceOverride: ''
 
-# -- Number of revisions to retain to allow rollback
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
+# @schema
+# enum: [RollingUpdate, Recreate]
+# @schema
+# -- Deployment update strategy
+# @section -- General
+updateStrategy: RollingUpdate
 
-# Google Tag Manager
+# @schema
+# type: object
+# @schema
+# Google Tag Manager Settings
 gtm:
-  image:
-    # -- The image repository
-    repository: gcr.io/cloud-tagging-10302018/gtm-cloud-image
-    # -- The image pull policy
-    pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: "2.4.0"
-  # -- Base64-encoded container parameters in the URL query string format.
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  # -- Base64-encoded container parameters in the URL query string format
+  # @section -- Google Tag Manager
   containerConfig: ''
-  # -- Interval between container refreshes.
+  # @schema
+  # type: integer
+  # @schema
+  # -- Interval between container refreshes
+  # @section -- Google Tag Manager
   containerRefreshSeconds: 60
-  # -- (Optional) Base64-encoded service account credential that is authorized to access resources.
-  # To use the BigQuery or Firestore API outside of Google Cloud.
+  # @schema
+  # type: string
+  # @schema
+  # -- (Optional) Base64-encoded service account credential that is authorized to access resources
+  # @section -- Google Tag Manager
   googleApplicationCredentials: ''
-  # -- (Optional) Google Cloud project ID.
-  # Let the tagging server implicitly choose the project.
+  # @schema
+  # type: string
+  # @schema
+  # -- (Optional) Google Cloud project ID
+  # @section -- Google Tag Manager
   googleCloudProject: ''
+  # @schema
+  # type: object
+  # @schema
+  # Image settings
+  image:
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image repository
+    # @section -- Google Tag Manager
+    repository: gcr.io/cloud-tagging-10302018/gtm-cloud-image
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- Image tag
+    # @section -- Google Tag Manager
+    pullPolicy: IfNotPresent
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)
+    # @section -- Google Tag Manager
+    tag: "2.4.0"
 
-# TLS Reverse Proxy configurations
+# @schema
+# type: object
+# @schema
+# TLS Reverse Proxy settings
 # All urls have to be valid https urls, so proxy https traffic to your containers.
 # Create a self-signed certificate by running
 # $ openssl req -x509 -newkey rsa:2048 -keyout tls.key -out tls.crt -nodes -subj '/CN=sesamy'
 proxy:
-  # TLS configuration
-  tls:
-    # -- Base64 encoded TLS key
-    key: ""
-    # -- Base64 encoded TLS cert
-    crt: ""
-  # Docker image
-  image:
-    # -- The image repository
-    repository: 'nginx'
-    # -- The image pull policy
-    pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: '1.25-alpine'
-  # -- Resource request & limits.
-  resources: {}
-  # -- Nginx SSL Reverse Proxy config.
-  # The value is templated using `tpl`.
-  # @default -- see values.yaml
+  # @schema
+  # type: string
+  # @schema
+  # -- Nginx SSL Reverse Proxy config
+  # @section -- HTTPS Proxy
   config: |
     server {
       listen              443 ssl;
@@ -74,404 +122,710 @@ proxy:
           proxy_cache_bypass $http_upgrade;
       }
     }
-
-
-
-# GTM Tagging configuration
-tagging:
-  # -- Number of replicas
-  replicaCount: 1
-  # -- Pod Disruption Budget maxUnavailable
-  maxUnavailable: null
-  # -- Host aliases to add
-  hostAliases: []
-  #  - ip: 1.2.3.4
-  #    hostnames:
-  #      - domain.tld
-  # -- Image pull secrets
-  imagePullSecrets: []
-  # -- Annotations for pods
-  podAnnotations: {}
-  # -- Labels for pods
-  podLabels: {}
-  # -- The SecurityContext for pods
-  podSecurityContext: {}
-  #  fsGroup: 2000
-  securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
-  service:
-    # -- Port of the service
-    port: 8080
-    # -- Type of the service
-    type: ClusterIP
-    # -- Annotations for the service
-    annotations: {}
-    # -- ClusterIP of the gateway service
-    clusterIP: null
-    # -- Node port if service type is NodePort
-    nodePort: null
-    # -- Set appProtocol for the service
-    appProtocol: null
-    # -- Labels for service
-    labels: {}
-  # -- Resource request & limits.
+  # Image settings
+  image:
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image repository
+    # @section -- HTTPS Proxy
+    repository: 'nginx'
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # required: true
+    # @schema
+    # -- The image pull policy
+    # @section -- HTTPS Proxy
+    pullPolicy: IfNotPresent
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image [tag](https://hub.docker.com/_/nginx)
+    # @section -- HTTPS Proxy
+    tag: '1.27-alpine'
+  # @schema
+  # type: object
+  # @schema
+  # TLS settings
+  tls:
+    # @schema
+    # type: string
+    # @schema
+    # -- Base64 encoded TLS key
+    # @section -- HTTPS Proxy
+    key: ''
+    # @schema
+    # type: string
+    # @schema
+    # -- Base64 encoded TLS cert
+    # @section -- HTTPS Proxy
+    crt: ''
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Resource request & limits
+  # @section -- HTTPS Proxy
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  # @default -- Liveness probe settings for pods.
+
+# @schema
+# type: object
+# @schema
+# GTM Tagging Settings
+tagging:
+  # @schema
+  # type: integer
+  # @schema
+  # -- Number of replicas
+  # @section -- Tagging
+  replicaCount: 1
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Host aliases to add
+  # @section -- Tagging
+  hostAliases: []
+  # hostAliases
+  #   - ip: 1.2.3.4
+  #     hostnames:
+  #       - domain.tld
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Image pull secrets
+  # @section -- Tagging
+  imagePullSecrets: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  # @section -- Tagging
+  podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Labels for pods
+  # @section -- Tagging
+  podLabels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- The SecurityContext for pods
+  # @section -- Tagging
+  podSecurityContext: {}
+  # podSecurityContext
+  #   fsGroup: 2000
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Tagging
+  securityContext: {}
+  # securityContext
+  #   capabilities:
+  #     drop:
+  #       - ALL
+  #   readOnlyRootFilesystem: true
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  # @schema
+  # type: object
+  # @schema
+  # Service settings
+  service:
+      # @schema
+      # type: integer
+      # @schema
+      # -- Port of the service
+      # @section -- Tagging
+      port: 8080
+      # @schema
+      # enum: [ClusterIP, NodePort, LoadBalancer]
+      # @schema
+      # -- Type of the service
+      # @section -- Tagging
+      type: ClusterIP
+      # @schema
+      # type: object
+      # additionalProperties: true
+      # @schema
+      # -- Annotations for the service
+      # @section -- Tagging
+      annotations: {}
+      # @schema
+      # type: [integer, null]
+      # @schema
+      # -- ClusterIP of the gateway service
+      # @section -- Tagging
+      clusterIP: null
+      # @schema
+      # type: [integer, null]
+      # @schema
+      # -- Node port if service type is NodePort
+      # @section -- Tagging
+      nodePort: null
+      # @schema
+      # type: [string, null]
+      # @schema
+      # -- Set appProtocol for the service
+      # @section -- Tagging
+      appProtocol: null
+      # @schema
+      # type: object
+      # additionalProperties: true
+      # @schema
+      # -- Labels for service
+      # @section -- Tagging
+      labels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Resource request & limits
+  # @section -- Tagging
+  resources: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Liveness probe settings for pods
+  # @section -- Tagging
+  startupProbe:
+    httpGet:
+      path: /healthz
+      port: http
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Liveness probe settings for pods
+  # @section -- Tagging
   livenessProbe:
     httpGet:
       path: /healthz
       port: http
-  # @default -- Readiness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Readiness probe settings for pods
+  # @section -- Tagging
   readinessProbe:
     httpGet:
       path: /healthz
       port: http
-  autoscaling:
-    # -- Enable autoscaling
-    enabled: false
-    # -- Minimum autoscaling replicas
-    minReplicas: 1
-    # -- Maximum autoscaling replicas
-    maxReplicas: 100
-    # -- Target CPU utilisation percentage
-    targetCPUUtilizationPercentage: 80
-    # -- Target memory utilisation percentage
-    targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
-    customMetrics: []
-    #  - type: Pods
-    #    pods:
-    #      metric:
-    #        name: loki_lines_total
-    #      target:
-    #        type: AverageValue
-    #        averageValue: 10k
-    behavior:
-      # -- Enable autoscaling behaviours
-      enabled: false
-      # -- Scale down policies, must conform to HPAScalingRules
-      scaleDown: {}
-      # -- Scale up policies, must conform to HPAScalingRules
-      scaleUp: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Tagging
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Tagging
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Tagging
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # extraVolumeMounts:
+  #   - name: foo
+  #     mountPath: "/etc/foo"
+  #     readOnly: true
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volumes to add
+  # @section -- Tagging
   extraVolumes: []
-  #  - name: foo
-  #    secret:
-  #      secretName: mysecret
-  #      optional: false
-  # -- Tolerations settings for pods.
-  nodeSelector: {}
-  # -- Tolerations settings for pods.
-  tolerations: []
-  # -- Affinity settings for pods.
-  affinity: {}
-  # -- DNSConfig settings for pods.
+  # extraVolumes
+  #   - name: foo
+  #     secret:
+  #       secretName: mysecret
+  #       optional: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- DNSConfig settings for pods
+  # @section -- Tagging
   dnsConfig: {}
 
+# @schema
+# type: object
+# @schema
 # GTM Preview configuration
 preview:
+  # @schema
+  # type: integer
+  # @schema
   # -- Number of replicas
+  # @section -- Preview
   replicaCount: 1
-  # -- Pod Disruption Budget maxUnavailable
-  maxUnavailable: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Host aliases to add
+  # @section -- Preview
   hostAliases: []
-  #  - ip: 1.2.3.4
-  #    hostnames:
-  #      - domain.tld
+  # hostAliases:
+  #   - ip: 1.2.3.4
+  #     hostnames:
+  #       - domain.tld
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Image pull secrets
+  # @section -- Preview
   imagePullSecrets: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations for pods
+  # @section -- Preview
   podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for pods
+  # @section -- Preview
   podLabels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- The SecurityContext for pods
+  # @section -- Preview
   podSecurityContext: {}
-  #  fsGroup: 2000
+  # podSecurityContext:
+  #   fsGroup: 2000
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Preview
   securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
+  # securityContext:
+  #   capabilities:
+  #     drop:
+  #       - ALL
+  #   readOnlyRootFilesystem: true
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  # @schema
+  # type: object
+  # @schema
+  # Service settings
   service:
+    # @schema
+    # type: integer
+    # @schema
     # -- Port of the service
+    # @section -- Preview
     port: 8080
+    # @schema
+    # enum: [ClusterIP, NodePort]
+    # @schema
     # -- Type of the service
+    # @section -- Preview
     type: ClusterIP
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Annotations for the service
+    # @section -- Preview
     annotations: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Labels for service
+    # @section -- Preview
     labels: {}
-  # -- Resource request & limits.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Resource request & limits
+  # @section -- Preview
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  # @default -- Liveness probe settings for pods.
-  livenessProbe:
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Startup probe settings for pods
+  # @section -- Preview
+  startupProbe:
     httpGet:
       path: /healthz
       port: http
-  # @default -- Readiness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Readiness probe settings for pods
+  # @section -- Preview
   readinessProbe:
     httpGet:
       path: /healthz
       port: http
-  autoscaling:
-    # -- Enable autoscaling
-    enabled: false
-    # -- Minimum autoscaling replicas
-    minReplicas: 1
-    # -- Maximum autoscaling replicas
-    maxReplicas: 100
-    # -- Target CPU utilisation percentage
-    targetCPUUtilizationPercentage: 80
-    # -- Target memory utilisation percentage
-    targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
-    customMetrics: []
-    #  - type: Pods
-    #    pods:
-    #      metric:
-    #        name: loki_lines_total
-    #      target:
-    #        type: AverageValue
-    #        averageValue: 10k
-    behavior:
-      # -- Enable autoscaling behaviours
-      enabled: false
-      # -- Scale down policies, must conform to HPAScalingRules
-      scaleDown: {}
-      # -- Scale up policies, must conform to HPAScalingRules
-      scaleUp: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Liveness probe settings for pods
+  # @section -- Preview
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: http
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Preview
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Preview
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Preview
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # extraVolumeMounts:
+  #   - name: foo
+  #     mountPath: "/etc/foo"
+  #     readOnly: true
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volumes to add
+  # @section -- Preview
   extraVolumes: []
-  #  - name: foo
-  #    secret:
-  #      secretName: mysecret
-  #      optional: false
-  # -- Tolerations settings for pods.
-  nodeSelector: {}
-  # -- Tolerations settings for pods.
-  tolerations: []
-  # -- Affinity settings for pods.
-  affinity: {}
-  # -- DNSConfig settings for pods.
+  # extraVolumes:
+  #   - name: foo
+  #     secret:
+  #       secretName: mysecret
+  #       optional: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- DNSConfig settings for pods
+  # @section -- Preview
   dnsConfig: {}
 
+# @schema
+# type: object
+# @schema
 # Custom GTM collect configuration
-# Build and provide your custom collect service and configure the image here.
 collect:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Enable collect
+  # @section -- Collect
   enabled: false
-  # Your custom collect image
-  image:
-    # -- The image repository
-    repository: ''
-    # -- The image pull policy
-    pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: ''
-  # -- Always roll your deployment
-  roll: false
+  # @schema
+  # type: integer
+  # @schema
   # -- Number of replicas
+  # @section -- Collect
   replicaCount: 1
-  # -- Pod Disruption Budget maxUnavailable
-  maxUnavailable: null
+  # @schema
+  # type: object
+  # @schema
+  # Image settings
+  image:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Force recreation
+    # @section -- Collect
+    recreate: false
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image repository
+    # @section -- Collect
+    repository: ''
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- The image pull policy
+    # @section -- Collect
+    pullPolicy: IfNotPresent
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- The image tag
+    # @section -- Collect
+    tag: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Host aliases to add
+  # @section -- Collect
   hostAliases: []
-  #  - ip: 1.2.3.4
-  #    hostnames:
-  #      - domain.tld
+  # hostAliases:
+  #   - ip: 1.2.3.4
+  #     hostnames:
+  #       - domain.tld
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Image pull secrets
+  # @section -- Collect
   imagePullSecrets: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations for pods
+  # @section -- Collect
   podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for pods
+  # @section -- Collect
   podLabels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- The SecurityContext for pods
+  # @section -- Collect
   podSecurityContext: {}
-  #  fsGroup: 2000
+  # podSecurityContext:
+  #   fsGroup: 2000
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Collect
   securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
+  # securityContext:
+  #   capabilities:
+  #     drop:
+  #       - ALL
+  #   readOnlyRootFilesystem: true
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  # @schema
+  # type: object
+  # @schema
+  # Service settings
   service:
-    # -- Ports of the service
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # @default -- Ports of the service
+    # @section -- Collect
     ports:
       ga4: 8080
       mpv2: 8081
     # -- Type of the service
+    # @section -- Collect
     type: ClusterIP
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Annotations for the service
+    # @section -- Collect
     annotations: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Labels for service
+    # @section -- Collect
     labels: {}
-  # -- Resource request & limits.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Resource request & limits
+  # @section -- Collect
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  # -- Startup probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Startup probe settings for pods
+  # @section -- Collect
   startupProbe: {}
-  #  httpGet:
-  #    path: /healthz
-  #    port: http
-  # -- Readiness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings for pods
+  # @section -- Collect
   readinessProbe: {}
-  #  httpGet:
-  #    path: /healthz
-  #    port: http
-  # -- Liveness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings for pods
+  # @section -- Collect
   livenessProbe: {}
-  #  httpGet:
-  #    path: /healthz
-  #    port: http
-  autoscaling:
-    # -- Enable autoscaling
-    enabled: false
-    # -- Minimum autoscaling replicas
-    minReplicas: 1
-    # -- Maximum autoscaling replicas
-    maxReplicas: 100
-    # -- Target CPU utilisation percentage
-    targetCPUUtilizationPercentage: 80
-    # -- Target memory utilisation percentage
-    targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
-    customMetrics: []
-    #  - type: Pods
-    #    pods:
-    #      metric:
-    #        name: loki_lines_total
-    #      target:
-    #        type: AverageValue
-    #        averageValue: 10k
-    behavior:
-      # -- Enable autoscaling behaviours
-      enabled: false
-      # -- Scale down policies, must conform to HPAScalingRules
-      scaleDown: {}
-      # -- Scale up policies, must conform to HPAScalingRules
-      scaleUp: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Collect
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Port definitions to add
+  # @section -- Collect
   extraPorts: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Collect
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Collect
   extraVolumeMounts: []
   #  - name: foo
   #    mountPath: "/etc/foo"
   #    readOnly: true
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volumes to add
+  # @section -- Collect
   extraVolumes: []
   #  - name: foo
   #    secret:
   #      secretName: mysecret
   #      optional: false
-  # -- Tolerations settings for pods.
-  nodeSelector: {}
-  # -- Tolerations settings for pods.
-  tolerations: []
-  # -- Affinity settings for pods.
-  affinity: {}
-  # -- DNSConfig settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- DNSConfig settings for pods
+  # @section -- Collect
   dnsConfig: {}
 
-# Grafana Loki
-loki:
-  # -- Enable loki
-  enabled: false
-  deploymentMode: SingleBinary
-  singleBinary:
-    replicas: 1
-  loki:
-    auth_enabled: false
-    commonConfig:
-      replication_factor: 1
-    schemaConfig:
-      configs:
-        - from: 2024-04-01
-          object_store: s3
-          store: tsdb
-          schema: v13
-          index:
-            prefix: index_
-            period: 24h
-  minio:
-    enabled: true
-  # Zero out replica counts of other deployment modes
-  backend:
-    replicas: 0
-  read:
-    replicas: 0
-  write:
-    replicas: 0
-  ingester:
-    replicas: 0
-  querier:
-    replicas: 0
-  queryFrontend:
-    replicas: 0
-  queryScheduler:
-    replicas: 0
-  distributor:
-    replicas: 0
-  compactor:
-    replicas: 0
-  indexGateway:
-    replicas: 0
-  bloomCompactor:
-    replicas: 0
-  bloomGateway:
-    replicas: 0
-
+# @schema
+# type: object
+# @schema
 # Ingress configuration
 ingress:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Enable ingress
+  # @section -- Ingress
   enabled: false
-  className: ""
+  # @schema
+  # type: string
+  # @schema
+  # -- Ingress class name
+  # @section -- Ingress
+  className: ''
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations
+  # @section -- Ingress
   annotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # @default -- Path settings
+  # @section -- Ingress
   paths:
     preview:
       - path: /gtm
@@ -493,96 +847,335 @@ ingress:
     #   - path: /g/collect
     #     pathType: Prefix
     #     port: 8080
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- Hosts to listen to
+  # @section -- Ingress
   hosts:
     - example.com
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tls setttings
+  # @section -- Ingress
   tls: []
-  #  - secretName: example-com-tls
-  #    hosts:
-  #      - example.com
 
 # ServiceAccount configuration
 serviceAccount:
+  # @schema
+  # type: boolean
+  # @schema
   # -- Specifies whether a service account should be created
+  # @section -- Service Account
   create: true
+  # @schema
+  # type: boolean
+  # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service Account
   automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations to add to the service account
+  # @section -- Service Account
   annotations: {}
-  # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
-  name: ""
+  # @schema
+  # type: string
+  # @schema
+  # -- The name of the service account to use
+  # @section -- Service Account
+  name: ''
 
-# ServiceMonitor configuration
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# ServiceMonitor settings
 serviceMonitor:
+  # @schema
+  # type: boolean
+  # @schema
   # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
+  # @section -- Service Monitor
   enabled: false
-  # -- Alternative namespace for ServiceMonitor resources
-  namespace: null
-  # -- Namespace selector for ServiceMonitor resources
-  namespaceSelector: {}
-  # -- Optional expressions to match on
-  matchExpressions: []
-  #  - key: prometheus.io/service-monitor
-  #    operator: NotIn
-  #    values:
-  #      - "false"
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- ServiceMonitor annotations
+  # @section -- Service Monitor
   annotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Additional ServiceMonitor labels
+  # @section -- Service Monitor
   labels: {}
+  # @schema
+  # type: string
+  # @schema
   # -- ServiceMonitor scrape interval
-  interval: null
+  # @section -- Service Monitor
+  interval: ''
+  # @schema
+  # type: string
+  # @schema
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
-  scrapeTimeout: null
+  scrapeTimeout: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- ServiceMonitor relabel configs to apply to samples before scraping
-  # https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+  # @section -- Service Monitor
   relabelings: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint
+  # @section -- Service Monitor
   metricRelabelings: []
-  ##ServiceMonitor will add labels from the service to the Prometheus metric
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor will add labels from the service to the Prometheus metric
+  # @section -- Service Monitor
   targetLabels: []
-  # -- ServiceMonitor will use http by default, but you can pick https as well
-  scheme: http
-  # -- ServiceMonitor will use these tlsConfig settings to make the health check requests
-  tlsConfig: null
 
-# NetworkPolicy configuration
-networkPolicy:
-  # -- Specifies whether Network Policies should be created
+# @schema
+# type: object
+# @schema
+# Autoscaling settings
+autoscaling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Enable autoscaling
+  # @section -- Autoscaling
   enabled: false
+  # @schema
+  # type: integer
+  # @schema
+  # -- Minimum replication number
+  # @section -- Autoscaling
+  minReplicas: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Maximum replication number
+  # @section -- Autoscaling
+  maxReplicas: 9
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # -- Minimum availablity
+  # @section -- Autoscaling
+  minAvailable: ''
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # -- Maximum unavailablity
+  # @section -- Autoscaling
+  maxUnavailable: 1
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target CPU utilization
+  # @section -- Autoscaling
+  targetCPU: 75
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target Memory utilization
+  # @section -- Autoscaling
+  targetMemory: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional scaling metrics
+  # @section -- Autoscaling
+  additionalMetrics: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Autoscaling behavior settings
+  # @section -- Autoscaling
+  behavior: { }
+
+# @schema
+# type: object
+# @schema
+# Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  # @section -- Scheduling
+  affinity: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  # @section -- Scheduling
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # additionalProperties: true
+  # @schema
+  # -- Priority class name
+  # @section -- Scheduling
+  priorityClass: null
+
+# @schema
+# type: object
+# @schema
+# NetworkPolicy settings
+networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether Network Policies should be created
+  # @section -- Network policy
+  enabled: false
+  # @schema
+  # type: object
+  # @schema
+  # Metrics settings
   metrics:
-    # -- Specifies the Pods which are allowed to access the metrics port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Specifies the Pods which are allowed to access the metrics port
+    # @section -- Network policy
     podSelector: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Specifies the namespaces which are allowed to access the metrics port
+    # @section -- Network policy
     namespaceSelector: {}
-    # -- Specifies specific network CIDRs which are allowed to access the metrics port.
-    # In case you use namespaceSelector, you also have to specify your kubelet networks here.
-    # The metrics ports are also used for probes.
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Specifies specific network CIDRs which are allowed to access the metrics port
+    # @section -- Network policy
     cidrs: []
+  # @schema
+  # type: object
+  # @schema
+  # Ingress settings
   ingress:
-    # -- Specifies the Pods which are allowed to access the http port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Specifies the Pods which are allowed to access the http port
+    # @section -- Network policy
     podSelector: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Specifies the namespaces which are allowed to access the http port
+    # @section -- Network policy
     namespaceSelector: {}
+  # @schema
+  # type: object
+  # @schema
+  # External storage settings
+  # @section -- Network policy
   externalStorage:
+    # @schema
+    # type: array
+    # items:
+    #   type: integer
+    # @schema
     # -- Specify the port used for external storage, e.g. AWS S3
+    # @section -- Network policy
     ports: []
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
     # -- Specifies specific network CIDRs you want to limit access to
+    # @section -- Network policy
     cidrs: []
+  # @schema
+  # type: object
+  # @schema
+  # Discovery settings
   discovery:
+    # @schema
+    # type: [integer, null]
+    # @schema
     # -- Specify the port used for discovery
+    # @section -- Network policy
     port: null
-    # -- Specifies the Pods labels used for discovery.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Specifies the Pods labels used for discovery
+    # @section -- Network policy
     podSelector: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Specifies the namespace the discovery Pods are running in
+    # @section -- Network policy
     namespaceSelector: {}
 
-# RBAC configuration
+# @schema
+# type: object
+# @schema
+# RBAC settings
 rbac:
-  # -- Create PodSecurityPolicy.
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- RBAC settings
   enabled: false
