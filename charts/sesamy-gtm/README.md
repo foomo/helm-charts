@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -56,6 +56,14 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | collect.service.labels | object | `{}` | Labels for service |
 | collect.service.type | string | `"ClusterIP"` | Type of the service |
 | collect.startupProbe | object | `{}` | Startup probe settings for pods |
+
+### Deprecated
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| fleet | string | `""` | Squadron fleet name |
+| squadron | string | `""` | Squadron name |
+| unit | string | `""` | Squadron unit name |
 
 ### Overrides
 

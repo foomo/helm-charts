@@ -20,6 +20,28 @@ fullnameOverride: ''
 namespaceOverride: ''
 
 # @schema
+# type: string
+# deprecated: true
+# @schema
+# -- Squadron fleet name
+# @section -- Deprecated
+fleet: ''
+# @schema
+# type: string
+# deprecated: true
+# @schema
+# -- Squadron name
+# @section -- Deprecated
+squadron: ''
+# @schema
+# type: string
+# deprecated: true
+# @schema
+# -- Squadron unit name
+# @section -- Deprecated
+unit: ''
+
+# @schema
 # type: integer
 # @schema
 # -- Number of revisions to keep

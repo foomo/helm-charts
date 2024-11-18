@@ -347,6 +347,14 @@
       "title": "collect",
       "type": "object"
     },
+    "fleet": {
+      "default": "",
+      "deprecated": true,
+      "description": "Squadron fleet name",
+      "required": [],
+      "title": "fleet",
+      "type": "string"
+    },
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
@@ -1318,6 +1326,14 @@
       "title": "serviceMonitor",
       "type": "object"
     },
+    "squadron": {
+      "default": "",
+      "deprecated": true,
+      "description": "Squadron name",
+      "required": [],
+      "title": "squadron",
+      "type": "string"
+    },
     "tagging": {
       "additionalProperties": false,
       "description": "GTM Tagging Settings",
@@ -1611,6 +1627,14 @@
       "required": [],
       "title": "tagging",
       "type": "object"
+    },
+    "unit": {
+      "default": "",
+      "deprecated": true,
+      "description": "Squadron unit name",
+      "required": [],
+      "title": "unit",
+      "type": "string"
     },
     "updateStrategy": {
       "default": "RollingUpdate",
