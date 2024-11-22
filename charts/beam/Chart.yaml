@@ -6,7 +6,8 @@ icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
 home: https://www.foomo.org
 keywords:
   - foomo
-  - pinneped
+  - pinniped
+  - cloudflared
 sources:
   - https://github.com/foomo/helm-charts
 annotations:
@@ -19,9 +20,9 @@ dependencies:
   # https://artifacthub.io/packages/helm/bitnami/pinniped
   - name: pinniped
     alias: pinniped
-    version: 2.3.3
+    version: 2.3.5
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: pinniped.enabled
-version: 0.4.2
-appVersion: 0.4.2
+version: 0.4.3
+appVersion: 0.4.3
 
