@@ -1,0 +1,61 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "nextjs.server.fullname" . }}
+  labels:
+    {{- include "nextjs.server.labels" . | nindent 4 }}
+    {{- with .Values.ingress.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if .Values.ingress.annotations }}
+  annotations: {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  {{- else if .Values.gateway.enabled }}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  {{- end }}
+  {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "nextjs.server.namespace" . }}
+spec:
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ tpl . $ | quote }}
+      http:
+        paths:
+          {{- if $.Values.gateway.enabled }}
+          - pathType: Prefix
+            path: /static/{{ include "nextjs.server.fullname" $ }}/public/(.*)
+            backend:
+              service:
+                name: {{ include "nextjs.server.fullname" $ }}
+                port:
+                  number: 3000
+          - pathType: Prefix
+            path: /static/{{ include "nextjs.server.fullname" $ }}/(_next/static/.*)
+            backend:
+              service:
+                name: {{ include "nextjs.server.fullname" $ }}
+                port:
+                  number: 3000
+          {{- end }}
+          {{- range $.Values.ingress.paths }}
+          - pathType: {{ default .pathType "Prefix" }}
+            path: {{ .path }}
+            backend:
+              service:
+                name: {{ include "nextjs.server.fullname" $ }}
+                port:
+                  number: {{ .port }}
+          {{- end }}
+    {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- tpl (toYaml .) $ | nindent 4 }}
+  {{- end }}
+{{- end }}

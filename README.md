@@ -1,6 +1,7 @@
 # Foomo Helm Charts
 
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/foomo)](https://artifacthub.io/packages/search?repo=foomo)
+![Build Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/main.yml?branch=main&logo=github&label=Build%20Status)
 
 ## Usage
 
@@ -17,3 +18,13 @@ You can then run `helm search repo foomo` to see the charts.
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 Chart documentation is available in [foomo directory](https://github.com/foomo/helm-charts/blob/main/charts/foomo/README.md).
+
+## How to Contribute
+
+Make a pull request...
+
+## License
+
+Distributed under MIT License, please see license file within the code for more details.
+
+_Made with ♥ [foomo](https://www.foomo.org) by [bestbytes](https://www.bestbytes.com)_

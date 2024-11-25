@@ -1,0 +1,150 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nextjs.server.fullname" . }}
+  labels:
+    {{- include "nextjs.server.labels" . | nindent 4 }}
+    {{- with .Values.server.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.server.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "nextjs.server.namespace" . }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
+  selector:
+    matchLabels: {{- include "nextjs.server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "nextjs.server.labels" . | nindent 8 }}
+        {{- include "nextjs.server.networkingLabels" . | nindent 8 }}
+      annotations:
+        {{- include "nextjs.server.annotations.recreatePod" . | nindent 8 }}
+        {{- with .Values.server.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "nextjs.server.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+      {{- if .Values.graceful.enabled }}
+      terminationGracePeriodSeconds: {{ .Values.graceful.periodSeconds }}
+      {{- end }}
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.securityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+            - name: prometheus
+              containerPort: 9200
+            {{- with .Values.server.additionalPorts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+            {{- include "nextjs.server.env.squadron" . | nindent 12 }}
+            {{- include "nextjs.server.env.opentelemetry" . | nindent 12 }}
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ tpl $value $ | quote }}
+            {{- end }}
+            {{- with .Values.server.additionalEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- with .Values.secretEnv }}
+            - secretRef:
+                name: {{ include "nextjs.server.fullname" $ }}-env
+            {{- end }}
+            {{- with .Values.server.additionalEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: {{ include "nextjs.server.fullname" . }}-data
+              mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- range $key, $value := .Values.secrets }}
+            - name: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
+              readOnly: true
+              mountPath: /run/secrets/{{ $key }}
+            {{- end }}
+            {{- with .Values.server.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- range .Values.secretMounts }}
+            - name: {{ . }}
+              readOnly: true
+              mountPath: /run/secrets/{{ . }}
+            {{- end }}
+          {{- with .Values.server.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.graceful.enabled }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
+          {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: {{ include "nextjs.server.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ include "nextjs.server.fullname" . }}-data
+        {{- end }}
+        {{- range $key, $value := .Values.secrets }}
+        - name: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
+          secret:
+            secretName: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
+        {{- end }}
+        {{- range .Values.secretMounts }}
+        - name: {{ . }}
+          secret:
+            secretName: {{ . }}
+        {{- end }}
+        {{- with .Values.server.additionalVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}

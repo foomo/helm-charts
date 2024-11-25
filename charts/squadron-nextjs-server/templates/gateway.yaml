@@ -1,0 +1,19 @@
+{{- if and (.Capabilities.APIVersions.Has "foomo.org/v1") .Values.gateway.enabled }}
+apiVersion: foomo.org/v1
+kind: Gateway
+metadata:
+  name: {{ include "nextjs.server.fullname" . }}
+  labels: {{- include "nextjs.server.labels" . | nindent 4 }}
+  namespace: {{ include "nextjs.server.namespace" . }}
+spec:
+  service: http://{{ include "nextjs.server.fullname" . }}.{{ include "nextjs.server.namespace" . }}
+  {{- with .Values.gateway.addToRobots }}
+  addToRobots: {{ . }}
+  {{- end }}
+  {{- with .Values.gateway.sitemap }}
+  sitemap: {{ . }}
+  {{- end }}
+  {{- with .Values.gateway.expose }}
+  expose: {{- toYaml . | nindent 4 }}
+  {{ end }}
+{{- end }}

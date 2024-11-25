@@ -1,0 +1,43 @@
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "keel.server.fullname" . }}
+  labels: {{- include "keel.server.labels" . | nindent 4 }}
+  namespace: {{ include "keel.server.namespace" . }}
+spec:
+  policyTypes:
+    {{- if .Values.networkPolicy.ingress.enabled }}
+    - Ingress
+    {{- end }}
+    {{- if .Values.networkPolicy.egress.enabled }}
+    - Egress
+    {{- end }}
+  podSelector:
+    matchLabels: {{- include "keel.server.selectorLabels" . | nindent 6 }}
+  {{- if .Values.networkPolicy.ingress.enabled }}
+  ingress:
+    {{- if .Values.networkPolicy.ingress.allowExternal }}
+    - from:
+      - podSelector:
+          matchLabels:
+            networking/allow-{{- include "keel.server.fullname" . }}-access: "true"
+    {{- end }}
+    {{ with .Values.networkPolicy.ingress.additionalRules }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.networkPolicy.egress.enabled }}
+  egress:
+    {{ if .Values.networkPolicy.egress.allowExternal }}
+    - to:
+      - podSelector:
+          matchLabels:
+            networking/allow-{{- include "keel.server.fullname" . }}-access: "true"
+    {{- end }}
+    {{ with .Values.networkPolicy.egress.additionalRules }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
