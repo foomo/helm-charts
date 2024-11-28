@@ -1,287 +1,753 @@
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
-nameOverride: ""
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
-fullnameOverride: ""
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
+# @section -- Overrides
 namespaceOverride: ''
 
-# -- Number of revisions to retain to allow rollback
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
+# @schema
+# enum: [RollingUpdate, Recreate]
+# @schema
+# -- Deployment update strategy
+# @section -- General
+updateStrategy: RollingUpdate
+# @schema
+# type: number
+# @schema
+# -- Number of replications
+# @section -- General
+replicas: 1
 
-# Open Telemtry configuration
+# @schema
+# type: object
+# @schema
+# Log settings
+log:
+  # @schema
+  # enum: [prod, dev]
+  # @schema
+  # -- Log mode
+  # @section -- Log settings
+  mode: prod
+  # @schema
+  # enum: [error, warn, info, debug]
+  # @schema
+  # -- Log level
+  # @section -- Log settings
+  level: info
+
+# @schema
+# type: object
+# @schema
+# OpenTelemetry settings
 otel:
-  # --- Otel enabled
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to enable it or not
+  # @section -- OpenTelemetry settings
   enabled: false
-  # --- Trace collect ratio
+  # @schema
+  # type: integer
+  # @schema
+  # -- Trace ratio
+  # @section -- OpenTelemetry settings
   ratio: 1
+  # @schema
+  # type: object
+  # @schema
+  # -- OTLP exporter settings
+  # @section -- OpenTelemetry settings
   otlp:
-    # --- OTLP export enabled
-    enabled: true
-    # --- OTLP insecure exporter
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to use insecure connection
+    # @section -- OpenTelemetry settings
     insecure: true
-    # --- OTLP exporter endpoint
-    endpoint: ''
+    # @schema
+    # type: string
+    # @schema
+    # -- Enpoint uri
+    # @section -- OpenTelemetry settings
+    endpoint: 'alloy:4317'
 
-# Service configuration
-config:
-  # --- Address to bind to host:port
-  address: ':8080'
-  # -- Path to export the webserver on
-  basePath: '/contentserver'
-  # Repository configuration
-  repository:
-    # -- Repository server url
-    url: http://contentserverexport:8080
-    # --- If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision
-    poll: false
-    # --- Update poll interval
-    pollInterval: 60s
-
+# @schema
+# type: object
+# @schema
 # Persistence storage settings
 persistence:
+  # @schema
+  # type: boolean
+  # @schema
   # -- Enable persistent storage
+  # @section -- Persistence
   enabled: false
-  # --- Storage class to be used
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage class to be used
+  # @section -- Persistence
   storageClass: ''
-  # --- File storage location
+  # @schema
+  # type: string
+  # @schema
+  # -- File storage location
+  # @section -- Persistence
   path: '/var/lib/contentserver'
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for the PVC
+  # @section -- Persistence
   labels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations for the PVC
+  # @section -- Persistence
   annotations: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
   # -- Access modes for the PVC
+  # @section -- Persistence
   accessModes:
     - ReadWriteOnce
+  # @schema
+  # type: string
+  # @schema
   # -- Storage size
+  # @section -- Persistence
   size: 1Gi
 
 # Content Server
 contentserver:
+  # @schema
+  # type: string
+  # @schema
+  # -- Path to export the webserver on
+  # @section -- Content Server
+  basePath: '/contentserver'
+  # @schema
+  # type: object
+  # @schema
+  # Repository settings
+  repository:
+    # @schema
+    # type: string
+    # @schema
+    # -- Repository server url
+    # @section -- Content Server
+    url: http://contentserverexport:8080
+    # @schema
+    # type: boolean
+    # @schema
+    # -- If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision
+    # @section -- Content Server
+    poll: false
+    # @schema
+    # type: string
+    # @schema
+    # -- Update poll interval
+    # @section -- Content Server
+    pollInterval: 60s
+  # @schema
+  # type: object
+  # @schema
   # Your custom collect image
   image:
-    # -- The image repository
-    repository: foomo/contentserver
-    # -- The image pull policy
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- Image tag
+    # @section -- Content Server
     pullPolicy: IfNotPresent
-    # -- The image tag
-    tag: 1.11.0-rc.11
-  # -- Always roll your deployment
-  roll: false
-  # -- Number of replicas
-  replicaCount: 1
-  # -- Pod Disruption Budget maxUnavailable
-  maxUnavailable: null
-  # -- Host aliases to add
+    # @schema
+    # type: string
+    # required: true
+    # @schema
+    # -- Image repository
+    # @section -- Content Server
+    repository: foomo/contentserver
+    # @schema
+    # type: string
+    # @schema
+    # -- Image tag
+    # @section -- Content Server
+    tag: 1.11.2
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Host aliases
+  # @section -- Content Server
   hostAliases: []
-  #  - ip: 1.2.3.4
-  #    hostnames:
-  #      - domain.tld
   # -- Image pull secrets
+  # @section -- Content Server
   imagePullSecrets: []
   # -- Annotations for pods
+  # @section -- Content Server
   podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for pods
+  # @section -- Content Server
   podLabels: {}
-  # -- The SecurityContext for pods
-  podSecurityContext: {}
-  #  fsGroup: 2000
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Content Server
   securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
-  service:
-    # -- Port of the service
-    port: 8080
-    # -- Type of the service
-    type: ClusterIP
-    # -- Annotations for the service
-    annotations: {}
-    # -- Labels for service
-    labels: {}
-  # -- Resource request & limits.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Resource request & limits
+  # @section -- Content Server
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  # -- Startup probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Startup probe settings for pods
+  # @section -- Content Server
   startupProbe:
     httpGet:
       path: /healthz/startup
       port: 9400
-  # -- Readiness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings for pods
+  # @section -- Content Server
   readinessProbe:
     httpGet:
       path: /healthz/readiness
       port: 9400
-  # -- Liveness probe settings for pods.
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings for pods
+  # @section -- Content Server
   livenessProbe:
     httpGet:
       path: /healthz/liveness
       port: 9400
-  # --- Termination grace period in seconds
-  terminationGracePeriodSeconds: 30
-  # Autoscaling settings
-  autoscaling:
-    # -- Enable autoscaling
-    enabled: false
-    # -- Minimum autoscaling replicas
-    minReplicas: 1
-    # -- Maximum autoscaling replicas
-    maxReplicas: 100
-    # -- Target CPU utilisation percentage
-    targetCPUUtilizationPercentage: 80
-    # -- Target memory utilisation percentage
-    targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
-    customMetrics: []
-    #  - type: Pods
-    #    pods:
-    #      metric:
-    #        name: loki_lines_total
-    #      target:
-    #        type: AverageValue
-    #        averageValue: 10k
-    behavior:
-      # -- Enable autoscaling behaviours
-      enabled: false
-      # -- Scale down policies, must conform to HPAScalingRules
-      scaleDown: {}
-      # -- Scale up policies, must conform to HPAScalingRules
-      scaleUp: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Content Server
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Arguements to add
+  # @section -- Content Server
   extraArgs: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Port definitions to add
+  # @section -- Content Server
   extraPorts: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Content Server
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Content Server
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volumes to add
+  # @section -- Content Server
   extraVolumes: []
-  #  - name: foo
-  #    secret:
-  #      secretName: mysecret
-  #      optional: false
-  # -- Tolerations settings for pods.
-  nodeSelector: {}
-  # -- Tolerations settings for pods.
-  tolerations: []
-  # -- Affinity settings for pods.
-  affinity: {}
-  # -- DNSConfig settings for pods.
-  dnsConfig: {}
 
-# Ingress configuration
+
+# @schema
+# type: object
+# @schema
+# Service settings
+service:
+  # @schema
+  # type: string
+  # @schema
+  # -- Service type
+  # @section -- Service settings
+  type: ClusterIP
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional Service labels
+  # @section -- Service settings
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Service annotations
+  # @section -- Service settings
+  annotations: { }
+
+# @schema
+# type: object
+# @schema
+# Security context
+securityContext:
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as user id
+  # @section -- Security context
+  runAsUser: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as group id
+  # @section -- Security context
+  runAsGroup: 10001
+  # @schema
+  # type: integer
+  # @schema
+  # -- File system group id
+  # @section -- Security context
+  fsGroup: 10001
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to run as non root user
+  # @section -- Security context
+  runAsNonRoot: true
+
+# @schema
+# type: object
+# @schema
+# Ingress settings
 ingress:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether the ingress is enabled or not
+  # @section -- Ingress settings
   enabled: false
-  className: ""
-  annotations: {}
-  paths:
-    - path: /contentserver
-      pathType: Prefix
-      port: 8080
-  hosts:
-    - example.com
-  tls: []
-  #  - secretName: example-com-tls
-  #    hosts:
-  #      - example.com
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional labels
+  # @section -- Ingress settings
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Ingress annotations
+  # @section -- Ingress settings
+  annotations: { }
+  # @schema
+  # type: string
+  # @schema
+  # -- Ingress class name
+  # @section -- Ingress settings
+  className: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of hosts
+  # @section -- Ingress settings
+  hosts: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     path:
+  #       type: string
+  #     port:
+  #       type: integer
+  #     pathType:
+  #       enum: [ImplementationSpecific, Exact, Prefix]
+  # @schema
+  # -- List of hosts
+  # @section -- Ingress settings
+  paths: [ ]
+  # paths:
+  #   - path: /foo
+  #     port: 8080
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- TLS settings
+  # @section -- Ingress settings
+  tls: [ ]
+  # tls:
+  #   - secretName: chart-example-tls
+  #     hosts:
+  #       - chart-example.local
 
-# ServiceAccount configuration
+# @schema
+# type: object
+# @schema
+# Service account settings
 serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Automatically mount a ServiceAccount's API credentials?
-  automount: true
-  # -- Annotations to add to the service account
-  annotations: {}
+  # @schema
+  # type: string
+  # @schema
   # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
+  # @section -- Service account settings
   name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service account settings
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service account settings
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service account settings
+  annotations: { }
 
-# ServiceMonitor configuration
+# @schema
+# type: object
+# @schema
+# Service Monitor settings
 serviceMonitor:
+  # @schema
+  # type: boolean
+  # @schema
   # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
+  # @section -- Service Monitor settings
   enabled: false
-  # -- Alternative namespace for ServiceMonitor resources
-  namespace: null
-  # -- Namespace selector for ServiceMonitor resources
-  namespaceSelector: {}
-  # -- Optional expressions to match on
-  matchExpressions: []
-  #  - key: prometheus.io/service-monitor
-  #    operator: NotIn
-  #    values:
-  #      - "false"
-  # -- ServiceMonitor annotations
-  annotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Additional ServiceMonitor labels
-  labels: {}
+  # @section -- Service Monitor settings
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- ServiceMonitor annotations
+  # @section -- Service Monitor settings
+  annotations: { }
+  # @schema
+  # type: string
+  # @schema
   # -- ServiceMonitor scrape interval
-  interval: null
+  # @section -- Service Monitor settings
+  interval: ''
+  # @schema
+  # type: string
+  # @schema
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
-  scrapeTimeout: null
-  # -- ServiceMonitor relabel configs to apply to samples before scraping
-  # https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
-  relabelings: []
+  # @section -- Service Monitor settings
+  scrapeTimeout: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor will add labels from the service to the Prometheus metric
+  # @section -- Service Monitor settings
+  targetLabels: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- ServiceMonitor relabel configs to apply to samples before scraping.
+  # @section -- Service Monitor settings
+  relabelings: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint
-  metricRelabelings: []
-  ##ServiceMonitor will add labels from the service to the Prometheus metric
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec
-  targetLabels: []
-  # -- ServiceMonitor will use http by default, but you can pick https as well
-  scheme: http
-  # -- ServiceMonitor will use these tlsConfig settings to make the health check requests
-  tlsConfig: null
+  # @section -- Service Monitor settings
+  metricRelabelings: [ ]
 
-# NetworkPolicy configuration
-networkPolicy:
-  # -- Specifies whether Network Policies should be created
+# @schema
+# type: object
+# @schema
+# Autoscaling settings
+autoscaling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a auto scaling should be enabled
+  # @section -- Autoscaling settings
   enabled: false
-  metrics:
-    # -- Specifies the Pods which are allowed to access the metrics port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespaces which are allowed to access the metrics port
-    namespaceSelector: {}
-    # -- Specifies specific network CIDRs which are allowed to access the metrics port.
-    # In case you use namespaceSelector, you also have to specify your kubelet networks here.
-    # The metrics ports are also used for probes.
-    cidrs: []
+  # @schema
+  # type: integer
+  # @schema
+  # -- Minimum replication number
+  # @section -- Autoscaling settings
+  minReplicas: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Maximum replication number
+  # @section -- Autoscaling settings
+  maxReplicas: 9
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # -- Minimum availablity
+  # @section -- Autoscaling settings
+  minAvailable: ''
+  # @schema
+  # type: [integer, string]
+  # @schema
+  # -- Maximum unavailablity
+  # @section -- Autoscaling settings
+  maxUnavailable: 1
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target CPU utilization
+  # @section -- Autoscaling settings
+  targetCPU: 75
+  # @schema
+  # type: [integer, null]
+  # @schema
+  # -- Target Memory utilization
+  # @section -- Autoscaling settings
+  targetMemory: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional scaling metrics
+  # @section -- Autoscaling settings
+  additionalMetrics: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Autoscaling behavior settings
+  # @section -- Autoscaling settings
+  behavior: { }
+
+# @schema
+# type: object
+# @schema
+# Network Policy settings
+networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether Network Policies should be created
+  # @section -- Network Policy settings
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of rules to apply via labels
+  # @section -- Network Policy settings
+  rules: []
+  # rules:
+  #   - allow-nginx-ingress
+  #   - allow-internet-egress
+  #   - allow-my-service-access
+  # @schema
+  # type: object
+  # @schema
+  # Ingress settings
+  # @section -- Network Policy settings
   ingress:
-    # -- Specifies the Pods which are allowed to access the http port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespaces which are allowed to access the http port
-    namespaceSelector: {}
-  externalStorage:
-    # -- Specify the port used for external storage, e.g. AWS S3
-    ports: []
-    # -- Specifies specific network CIDRs you want to limit access to
-    cidrs: []
-  discovery:
-    # -- Specify the port used for discovery
-    port: null
-    # -- Specifies the Pods labels used for discovery.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespace the discovery Pods are running in
-    namespaceSelector: {}
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether ingress should be enabled
+    # @section -- Network Policy settings
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy settings
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Additional ingress rules
+    # @section -- Network Policy settings
+    additionalRules: []
+  # @schema
+  # type: object
+  # @schema
+  # Egress settings
+  # @section -- Network Policy settings
+  egress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether egress should be enabled
+    # @section -- Network Policy settings
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy settings
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Additional egress rules
+    # @section -- Network Policy settings
+    additionalRules: []
+
+# @schema
+# type: object
+# @schema
+# Graceful settings
+graceful:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether graceful shutdown is enabled
+  # @section -- Graceful settings
+  enabled: false
+  # @schema
+  # type: integer
+  # @schema
+  # -- Seconds to wait for kubernetes to deregister
+  # @section -- Graceful settings
+  delaySeconds: 15
+  # @schema
+  # type: integer
+  # @schema
+  # -- Total seconds for the grace period
+  # @section -- Graceful settings
+  periodSeconds: 45
+
+# @schema
+# type: object
+# @schema
+# Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling settings
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  # @section -- Scheduling settings
+  affinity: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  # @section -- Scheduling settings
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling settings
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Priority class name
+  # @section -- Scheduling settings
+  priorityClass: null
 
 # RBAC configuration
 rbac:
-  # -- Create PodSecurityPolicy.
+  # -- Create PodSecurityPolicy
   enabled: false
