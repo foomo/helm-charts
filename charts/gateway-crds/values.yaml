@@ -1,10 +1,20 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
 # @section -- Overrides
-nameOverride: ""
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
 # @section -- Overrides
-fullnameOverride: ""
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
 # @section -- Overrides
 namespaceOverride: ''
