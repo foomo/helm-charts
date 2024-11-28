@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.7](https://img.shields.io/badge/AppVersion-0.1.7-informational?style=flat-square)
+![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.8](https://img.shields.io/badge/AppVersion-0.1.8-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -12,7 +12,7 @@ Squadron Keel CronJob Chart
 
 ## Values
 
-### CronJob settings
+### CronJob
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -63,7 +63,7 @@ Squadron Keel CronJob Chart
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
 
-### Graceful settings
+### Graceful Shutdown
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -71,7 +71,7 @@ Squadron Keel CronJob Chart
 | graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
 | graceful.periodSeconds | int | `45` | Total seconds for the grace period |
 
-### Image settings
+### Image
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -80,14 +80,14 @@ Squadron Keel CronJob Chart
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
 
-### Log settings
+### Logging
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | log.level | string | `"info"` | Log level |
 | log.mode | string | `"prod"` | Log mode |
 
-### Network Policy settings
+### Network Policy
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -100,7 +100,7 @@ Squadron Keel CronJob Chart
 | networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
 | networkPolicy.rules | list | `[]` | List of rules to apply via labels |
 
-### OpenTelemetry settings
+### OpenTelemetry
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -116,7 +116,7 @@ Squadron Keel CronJob Chart
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
 | otel.ratio | int | `1` | Trace ratio |
 
-### Persistence settings
+### Persistence
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -132,7 +132,7 @@ Squadron Keel CronJob Chart
 |-----|------|---------|-------------|
 | rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 
-### Scheduling settings
+### Scheduling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -142,16 +142,16 @@ Squadron Keel CronJob Chart
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
 
-### Security context
+### Security Context
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| securityContext.fsGroup | int | `10001` | File system group id |
-| securityContext.runAsGroup | int | `10001` | Run as group id |
+| securityContext.fsGroup | int | `1001` | File system group id |
+| securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
-| securityContext.runAsUser | int | `10001` | Run as user id |
+| securityContext.runAsUser | int | `1001` | Run as user id |
 
-### ServiceAccount settings
+### Service Account
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|

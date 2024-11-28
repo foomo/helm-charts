@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.2](https://img.shields.io/badge/AppVersion-1.11.2-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.2](https://img.shields.io/badge/AppVersion-1.11.2-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -13,7 +13,7 @@ Helm chart for the foomo Content Server.
 
 ## Values
 
-### Autoscaling settings
+### Autoscaling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -51,7 +51,7 @@ Helm chart for the foomo Content Server.
 | contentserver.repository.pollInterval | string | `"60s"` | Update poll interval |
 | contentserver.repository.url | string | `"http://contentserverexport:8080"` | Repository server url |
 | contentserver.resources | object | `{}` | Resource request & limits |
-| contentserver.securityContext | object | `{}` | Security context |
+| contentserver.securityContext | object | `{}` | Security Context |
 | contentserver.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":9400}}` | Startup probe settings for pods |
 
 ### Overrides
@@ -62,7 +62,7 @@ Helm chart for the foomo Content Server.
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy |
 
-### Graceful settings
+### Graceful Shutdown
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -70,7 +70,7 @@ Helm chart for the foomo Content Server.
 | graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
 | graceful.periodSeconds | int | `45` | Total seconds for the grace period |
 
-### Ingress settings
+### Ingress
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -82,14 +82,14 @@ Helm chart for the foomo Content Server.
 | ingress.paths | list | `[]` | List of hosts |
 | ingress.tls | list | `[]` | TLS settings |
 
-### Log settings
+### Logging
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | log.level | string | `"info"` | Log level |
 | log.mode | string | `"prod"` | Log mode |
 
-### Network Policy settings
+### Network Policy
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -102,7 +102,7 @@ Helm chart for the foomo Content Server.
 | networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
 | networkPolicy.rules | list | `[]` | List of rules to apply via labels |
 
-### OpenTelemetry settings
+### OpenTelemetry
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -124,6 +124,12 @@ Helm chart for the foomo Content Server.
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class to be used |
 
+### RBAC
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| rbac.enabled | bool | `false` | Create PodSecurityPolicy |
+
 ### General
 
 | Key | Type | Default | Description |
@@ -132,7 +138,7 @@ Helm chart for the foomo Content Server.
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
 
-### Scheduling settings
+### Scheduling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -142,16 +148,16 @@ Helm chart for the foomo Content Server.
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
 
-### Security context
+### Security Context
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| securityContext.fsGroup | int | `10001` | File system group id |
-| securityContext.runAsGroup | int | `10001` | Run as group id |
+| securityContext.fsGroup | int | `1001` | File system group id |
+| securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
-| securityContext.runAsUser | int | `10001` | Run as user id |
+| securityContext.runAsUser | int | `1001` | Run as user id |
 
-### Service settings
+### Service
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -159,7 +165,7 @@ Helm chart for the foomo Content Server.
 | service.annotations | object | `{}` | Service annotations |
 | service.type | string | `"ClusterIP"` | Service type |
 
-### Service account settings
+### Service Account
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -168,7 +174,7 @@ Helm chart for the foomo Content Server.
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
 
-### Service Monitor settings
+### Service Monitor
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -180,9 +186,3 @@ Helm chart for the foomo Content Server.
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| rbac.enabled | bool | `false` | Create PodSecurityPolicy |
