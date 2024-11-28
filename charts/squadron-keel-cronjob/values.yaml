@@ -135,13 +135,13 @@ log:
   # enum: [prod, dev]
   # @schema
   # -- Log mode
-  # @section -- Log settings
+  # @section -- Logging
   mode: prod
   # @schema
   # enum: [error, warn, info, debug]
   # @schema
   # -- Log level
-  # @section -- Log settings
+  # @section -- Logging
   level: info
 
 # @schema
@@ -153,31 +153,31 @@ otel:
   # type: boolean
   # @schema
   # -- Indicates wether to enable it or not
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Trace ratio
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   ratio: 1
   # @schema
   # type: object
   # @schema
   # -- OTLP exporter settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   otlp:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to use insecure connection
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     insecure: true
     # @schema
     # type: string
     # @schema
     # -- Enpoint uri
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     endpoint: 'alloy:4317'
   # @schema
   # type: object
@@ -188,49 +188,49 @@ otel:
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace sql attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     sqlParametersDisabled: true
   # @schema
   # type: object
   # @schema
   # Mongo settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   mongo:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace command attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     commandAttributeDisabled: true
   # @schema
   # type: object
   # @schema
   # GOTSRPC settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   gotsrpc:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace payload attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     payloadAttributeDisabled: true
 
 # @schema
@@ -242,7 +242,7 @@ image:
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
-  # @section -- Image settings
+  # @section -- Image
   pullPolicy: IfNotPresent
   # @schema
   # type: array
@@ -251,21 +251,21 @@ image:
   #   additionalProperties: true
   # @schema
   # -- Image pull secrets
-  # @section -- Image settings
+  # @section -- Image
   pullSecrets: [ ]
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image repository
-  # @section -- Image settings
+  # @section -- Image
   repository: ''
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image tag
-  # @section -- Image settings
+  # @section -- Image
   tag: ''
 
 # @schema
@@ -277,31 +277,31 @@ persistence:
   # type: boolean
   # @schema
   # -- Indicates wether a pv should be attached or not
-  # @section -- Persistence settings
+  # @section -- Persistence
   enabled: false
   # @schema
   # type: string
   # @schema
   # -- Storage mount path
-  # @section -- Persistence settings
+  # @section -- Persistence
   mountPath: /var/lib/cronjob/data
   # @schema
   # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
   # @schema
   # -- Access mode
-  # @section -- Persistence settings
+  # @section -- Persistence
   accessMode: ReadWriteOnce
   # @schema
   # type: string
   # @schema
   # -- Storage size
-  # @section -- Persistence settings
+  # @section -- Persistence
   size: 1Gi
   # @schema
   # type: string
   # @schema
   # -- Storage class name
-  # @section -- Persistence settings
+  # @section -- Persistence
   storageClass: ''
 
 # @schema
@@ -313,25 +313,25 @@ securityContext:
   # type: integer
   # @schema
   # -- Run as user id
-  # @section -- Security context
-  runAsUser: 10001
+  # @section -- Security Context
+  runAsUser: 1001
   # @schema
   # type: integer
   # @schema
   # -- Run as group id
-  # @section -- Security context
-  runAsGroup: 10001
+  # @section -- Security Context
+  runAsGroup: 1001
   # @schema
   # type: integer
   # @schema
   # -- File system group id
-  # @section -- Security context
-  fsGroup: 10001
+  # @section -- Security Context
+  fsGroup: 1001
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether to run as non root user
-  # @section -- Security context
+  # @section -- Security Context
   runAsNonRoot: true
 
 # @schema
@@ -343,60 +343,60 @@ cronjob:
   # enum: [Never, OnFailure]
   # @schema
   # -- Restart policy
-  # @section -- CronJob settings
+  # @section -- CronJob
   restart: Never
   # @schema
   # enum: [Allow, Forbid]
   # @schema
   # -- Concurency policy
-  # @section -- CronJob settings
+  # @section -- CronJob
   concurrency: Forbid
   # @schema
   # type: integer
   # @schema
   # -- Max history item to keep
-  # @section -- CronJob settings
+  # @section -- CronJob
   historyLimit: 1
   # @schema
   # type: integer
   # @schema
   # -- Successful history item to keep
-  # @section -- CronJob settings
+  # @section -- CronJob
   backoffLimit: 0
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional labels
-  # @section -- CronJob settings
+  # @section -- CronJob
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Deployment annotations
-  # @section -- CronJob settings
+  # @section -- CronJob
   annotations: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Job labels
-  # @section -- CronJob settings
+  # @section -- CronJob
   jobLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Pod annotations
-  # @section -- CronJob settings
+  # @section -- CronJob
   jobAnnotations: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Pod annotations
-  # @section -- CronJob settings
+  # @section -- CronJob
   podAnnotations: { }
   # @schema
   # type: array
@@ -410,7 +410,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional environment variables
-  # @section -- CronJob settings
+  # @section -- CronJob
   additionalEnv: [ ]
   # @schema
   # type: array
@@ -419,7 +419,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional env from
-  # @section -- CronJob settings
+  # @section -- CronJob
   additionalEnvFrom: [ ]
   # @schema
   # type: array
@@ -433,7 +433,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional volume mounts
-  # @section -- CronJob settings
+  # @section -- CronJob
   additionalVolumeMounts: [ ]
   # @schema
   # type: array
@@ -442,7 +442,7 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Additional volumes
-  # @section -- CronJob settings
+  # @section -- CronJob
   additionalVolumes: [ ]
   # additionalVolumes:
   #   - name: my-existing-volume-name
@@ -454,21 +454,21 @@ cronjob:
   #   additionalProperties: true
   # @schema
   # -- Host aliases
-  # @section -- CronJob settings
+  # @section -- CronJob
   hostAliases: [ ]
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Resource settings
-  # @section -- CronJob settings
+  # @section -- CronJob
   resources: {}
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Startup probe settings
-  # @section -- CronJob settings
+  # @section -- CronJob
   startupProbe:
     httpGet:
       port: healthz
@@ -478,7 +478,7 @@ cronjob:
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
-  # @section -- CronJob settings
+  # @section -- CronJob
   readinessProbe:
     httpGet:
       port: healthz
@@ -488,7 +488,7 @@ cronjob:
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
-  # @section -- CronJob settings
+  # @section -- CronJob
   livenessProbe:
     httpGet:
       port: healthz
@@ -503,26 +503,26 @@ serviceAccount:
   # type: string
   # @schema
   # -- The name of the service account to use.
-  # @section -- ServiceAccount settings
+  # @section -- Service Account
   name: ""
   # @schema
   # type: boolean
   # @schema
   # -- Specifies whether a service account should be created
-  # @section -- ServiceAccount settings
+  # @section -- Service Account
   create: true
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
-  # @section -- ServiceAccount settings
+  # @section -- Service Account
   automount: true
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Annotations to add to the service account
-  # @section -- ServiceAccount settings
+  # @section -- Service Account
   annotations: { }
 
 # @schema
@@ -534,7 +534,7 @@ networkPolicy:
   # type: boolean
   # @schema
   # -- Specifies whether Network Policies should be created
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   enabled: false
   # @schema
   # type: array
@@ -542,7 +542,7 @@ networkPolicy:
   #   type: string
   # @schema
   # -- List of rules to apply via labels
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   rules: []
   # rules:
   #   - allow-nginx-ingress
@@ -552,19 +552,19 @@ networkPolicy:
   # type: object
   # @schema
   # Ingress settings
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   ingress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether ingress should be enabled
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     allowExternal: true
     # @schema
     # type: array
@@ -573,25 +573,25 @@ networkPolicy:
     #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     additionalRules: []
   # @schema
   # type: object
   # @schema
   # Egress settings
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   egress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether egress should be enabled
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     allowExternal: true
     # @schema
     # type: array
@@ -599,7 +599,7 @@ networkPolicy:
     #   type: string
     # @schema
     # -- Additional egress rules
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     additionalRules: []
 
 # @schema
@@ -611,19 +611,19 @@ graceful:
   # type: boolean
   # @schema
   # -- Indicates wether graceful shutdown is enabled
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Seconds to wait for kubernetes to deregister
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   delaySeconds: 15
   # @schema
   # type: integer
   # @schema
   # -- Total seconds for the grace period
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   periodSeconds: 45
 
 # @schema
@@ -635,21 +635,21 @@ scheduling:
   # type: boolean
   # @schema
   # -- Indicates wether scheduling is enabled or not
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   enabled: false
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Affinity for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   affinity: {}
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Node labels for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   nodeSelector: {}
   # @schema
   # type: array
@@ -658,14 +658,14 @@ scheduling:
   #   additionalProperties: true
   # @schema
   # -- Tolerations for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   tolerations: []
   # @schema
   # type: [string, null]
   # additionalProperties: true
   # @schema
   # -- Priority class name
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   priorityClass: null
 
 # @schema

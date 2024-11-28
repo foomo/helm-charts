@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.1.14](https://img.shields.io/badge/Version-0.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.14](https://img.shields.io/badge/AppVersion-0.1.14-informational?style=flat-square)
+![Version: 0.1.15](https://img.shields.io/badge/Version-0.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.15](https://img.shields.io/badge/AppVersion-0.1.15-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -12,7 +12,7 @@ Squadron Keel Server Chart
 
 ## Values
 
-### Autoscaling settings
+### Autoscaling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -63,7 +63,7 @@ Squadron Keel Server Chart
 | graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
 | graceful.periodSeconds | int | `45` | Total seconds for the grace period |
 
-### Image settings
+### Image
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -73,7 +73,7 @@ Squadron Keel Server Chart
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
 
-### Ingress settings
+### Ingress
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -85,14 +85,14 @@ Squadron Keel Server Chart
 | ingress.paths | list | `[]` | List of hosts |
 | ingress.tls | list | `[]` | TLS settings |
 
-### Log settings
+### Logging
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | log.level | string | `"info"` | Log level |
 | log.mode | string | `"prod"` | Log mode |
 
-### Network Policy settings
+### Network Policy
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -105,7 +105,7 @@ Squadron Keel Server Chart
 | networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
 | networkPolicy.rules | list | `[]` | List of rules to apply via labels |
 
-### OpenTelemetry settings
+### OpenTelemetry
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -121,7 +121,7 @@ Squadron Keel Server Chart
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
 | otel.ratio | int | `1` | Trace ratio |
 
-### Persistence settings
+### Persistence
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -137,7 +137,7 @@ Squadron Keel Server Chart
 |-----|------|---------|-------------|
 | rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 
-### Scheduling settings
+### Scheduling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -147,16 +147,16 @@ Squadron Keel Server Chart
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
 
-### Security context
+### Security Context
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| securityContext.fsGroup | int | `10001` | File system group id |
-| securityContext.runAsGroup | int | `10001` | Run as group id |
+| securityContext.fsGroup | int | `1001` | File system group id |
+| securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
-| securityContext.runAsUser | int | `10001` | Run as user id |
+| securityContext.runAsUser | int | `1001` | Run as user id |
 
-### Server settings
+### Server
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -174,7 +174,7 @@ Squadron Keel Server Chart
 | server.resources | object | `{}` | Resource settings |
 | server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
 
-### Service settings
+### Service
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -182,7 +182,7 @@ Squadron Keel Server Chart
 | service.annotations | object | `{}` | Service annotations |
 | service.type | string | `"ClusterIP"` | Service type |
 
-### Service account settings
+### Service Account
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -191,7 +191,7 @@ Squadron Keel Server Chart
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
 
-### Service Monitor settings
+### Service Monitor
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|

@@ -339,7 +339,7 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "Security context",
+          "description": "Security Context",
           "required": [],
           "title": "securityContext",
           "type": "object"
@@ -562,7 +562,7 @@
     },
     "networkPolicy": {
       "additionalProperties": false,
-      "description": "Network Policy settings",
+      "description": "Network Policy",
       "properties": {
         "egress": {
           "additionalProperties": false,
@@ -762,7 +762,7 @@
     },
     "rbac": {
       "additionalProperties": false,
-      "description": "RBAC configuration",
+      "description": "RBAC settings",
       "properties": {
         "enabled": {
           "default": false,
@@ -772,9 +772,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "enabled"
-      ],
+      "required": [],
       "title": "rbac",
       "type": "object"
     },
@@ -848,14 +846,14 @@
       "description": "Security context",
       "properties": {
         "fsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "File system group id",
           "required": [],
           "title": "fsGroup",
           "type": "integer"
         },
         "runAsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as group id",
           "required": [],
           "title": "runAsGroup",
@@ -869,7 +867,7 @@
           "type": "boolean"
         },
         "runAsUser": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as user id",
           "required": [],
           "title": "runAsUser",
@@ -1036,8 +1034,7 @@
     }
   },
   "required": [
-    "contentserver",
-    "rbac"
+    "contentserver"
   ],
   "type": "object"
 }

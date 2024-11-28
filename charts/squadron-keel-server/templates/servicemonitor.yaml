@@ -14,8 +14,7 @@ metadata:
   namespace: {{ include "keel.server.namespace" . }}
 spec:
   selector:
-    matchLabels:
-      {{- include "keel.server.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "keel.server.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ include "keel.server.namespace" . }}

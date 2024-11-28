@@ -32,7 +32,6 @@ spec:
            {{- end }}
     {{- end }}
   {{- with .Values.ingress.tls }}
-  tls:
-    {{- tpl (toYaml .) $ | nindent 4 }}
+  tls: {{- tpl (toYaml .) $ | nindent 4 }}
   {{- end }}
 {{- end }}

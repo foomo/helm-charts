@@ -12,13 +12,6 @@ spec:
     name: {{ include "keel.server.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 60
-      policies:
-        - type: Percent
-          periodSeconds: 120
-          value: 35
   metrics:
     {{- if .Values.autoscaling.targetCPU }}
     - type: Resource

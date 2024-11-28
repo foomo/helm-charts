@@ -686,7 +686,6 @@
           "type": "object"
         },
         "priorityClass": {
-          "additionalProperties": true,
           "default": "null",
           "description": "Priority class name",
           "required": [],
@@ -753,14 +752,14 @@
       "description": "Security context",
       "properties": {
         "fsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "File system group id",
           "required": [],
           "title": "fsGroup",
           "type": "integer"
         },
         "runAsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as group id",
           "required": [],
           "title": "runAsGroup",
@@ -774,7 +773,7 @@
           "type": "boolean"
         },
         "runAsUser": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as user id",
           "required": [],
           "title": "runAsUser",
