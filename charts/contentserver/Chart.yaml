@@ -13,9 +13,9 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/contentserver
     - name: Image Source
       url: https://github.com/foomo/contentserver
 
-version: 0.0.3-rc.3
-appVersion: 1.11.0-rc.11
+version: 0.1.0
+appVersion: 1.11.2
