@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -51,9 +51,10 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | collect.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | collect.replicaCount | int | `1` | Number of replicas |
 | collect.resources | object | `{}` | Resource request & limits |
-| collect.securityContext | object | `{}` | Security context |
+| collect.securityContext | object | `{}` | Security Context |
 | collect.service.annotations | object | `{}` | Annotations for the service |
 | collect.service.labels | object | `{}` | Labels for service |
+| collect.service.ports | object | `{"ga4":8080,"mpv2":8081}` | Ports of the service |
 | collect.service.type | string | `"ClusterIP"` | Type of the service |
 | collect.startupProbe | object | `{}` | Startup probe settings for pods |
 
@@ -93,9 +94,10 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | ingress.className | string | `""` | Ingress class name |
 | ingress.enabled | bool | `false` | Enable ingress |
 | ingress.hosts | list | `["example.com"]` | Hosts to listen to |
+| ingress.paths | object | `{"preview":[{"path":"/gtm","pathType":"Prefix","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"Exact","port":8080},{"path":"/gtag/js","pathType":"Prefix","port":8080},{"path":"/g/collect","pathType":"Prefix","port":8080}]}` | Path settings |
 | ingress.tls | list | `[]` | Tls setttings |
 
-### Network policy
+### Network Policy
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -122,16 +124,19 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | preview.extraVolumes | list | `[]` | Volumes to add |
 | preview.hostAliases | list | `[]` | Host aliases to add |
 | preview.imagePullSecrets | list | `[]` | Image pull secrets |
+| preview.livenessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
 | preview.podAnnotations | object | `{}` | Annotations for pods |
 | preview.podLabels | object | `{}` | Labels for pods |
 | preview.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| preview.readinessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Readiness probe settings for pods |
 | preview.replicaCount | int | `1` | Number of replicas |
 | preview.resources | object | `{}` | Resource request & limits |
-| preview.securityContext | object | `{}` | Security context |
+| preview.securityContext | object | `{}` | Security Context |
 | preview.service.annotations | object | `{}` | Annotations for the service |
 | preview.service.labels | object | `{}` | Labels for service |
 | preview.service.port | int | `8080` | Port of the service |
 | preview.service.type | string | `"ClusterIP"` | Type of the service |
+| preview.startupProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Startup probe settings for pods |
 
 ### HTTPS Proxy
 
@@ -200,12 +205,14 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | tagging.extraVolumes | list | `[]` | Volumes to add |
 | tagging.hostAliases | list | `[]` | Host aliases to add |
 | tagging.imagePullSecrets | list | `[]` | Image pull secrets |
+| tagging.livenessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
 | tagging.podAnnotations | object | `{}` | Pod annotations |
 | tagging.podLabels | object | `{}` | Labels for pods |
 | tagging.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| tagging.readinessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Readiness probe settings for pods |
 | tagging.replicaCount | int | `1` | Number of replicas |
 | tagging.resources | object | `{}` | Resource request & limits |
-| tagging.securityContext | object | `{}` | Security context |
+| tagging.securityContext | object | `{}` | Security Context |
 | tagging.service.annotations | object | `{}` | Annotations for the service |
 | tagging.service.appProtocol | string | `nil` | Set appProtocol for the service |
 | tagging.service.clusterIP | string | `nil` | ClusterIP of the gateway service |
@@ -213,36 +220,11 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | tagging.service.nodePort | string | `nil` | Node port if service type is NodePort |
 | tagging.service.port | int | `8080` | Port of the service |
 | tagging.service.type | string | `"ClusterIP"` | Type of the service |
+| tagging.startupProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
 
 ### Other Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| collect.service.ports.ga4 | int | `8080` |  |
-| collect.service.ports.mpv2 | int | `8081` |  |
-| ingress.paths.preview[0].path | string | `"/gtm"` |  |
-| ingress.paths.preview[0].pathType | string | `"Prefix"` |  |
-| ingress.paths.preview[0].port | int | `8080` |  |
-| ingress.paths.tagging[0].path | string | `"/gtm.js"` |  |
-| ingress.paths.tagging[0].pathType | string | `"Exact"` |  |
-| ingress.paths.tagging[0].port | int | `8080` |  |
-| ingress.paths.tagging[1].path | string | `"/gtag/js"` |  |
-| ingress.paths.tagging[1].pathType | string | `"Prefix"` |  |
-| ingress.paths.tagging[1].port | int | `8080` |  |
-| ingress.paths.tagging[2].path | string | `"/g/collect"` |  |
-| ingress.paths.tagging[2].pathType | string | `"Prefix"` |  |
-| ingress.paths.tagging[2].port | int | `8080` |  |
-| preview.livenessProbe.httpGet.path | string | `"/healthz"` |  |
-| preview.livenessProbe.httpGet.port | string | `"http"` |  |
-| preview.readinessProbe.httpGet.path | string | `"/healthz"` |  |
-| preview.readinessProbe.httpGet.port | string | `"http"` |  |
-| preview.startupProbe.httpGet.path | string | `"/healthz"` |  |
-| preview.startupProbe.httpGet.port | string | `"http"` |  |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
-| tagging.livenessProbe.httpGet.path | string | `"/healthz"` |  |
-| tagging.livenessProbe.httpGet.port | string | `"http"` |  |
-| tagging.readinessProbe.httpGet.path | string | `"/healthz"` |  |
-| tagging.readinessProbe.httpGet.port | string | `"http"` |  |
-| tagging.startupProbe.httpGet.path | string | `"/healthz"` |  |
-| tagging.startupProbe.httpGet.port | string | `"http"` |  |
 

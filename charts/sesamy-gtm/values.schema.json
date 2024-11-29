@@ -275,7 +275,7 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity context",
+          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity Context",
           "required": [],
           "title": "securityContext",
           "type": "object"
@@ -300,6 +300,7 @@
             },
             "ports": {
               "additionalProperties": true,
+              "description": "Ports of the service",
               "properties": {
                 "ga4": {
                   "default": 8080,
@@ -480,6 +481,7 @@
         },
         "paths": {
           "additionalProperties": true,
+          "description": "Path settings",
           "properties": {
             "preview": {
               "items": {
@@ -868,6 +870,7 @@
         },
         "livenessProbe": {
           "additionalProperties": true,
+          "description": "Liveness probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -922,6 +925,7 @@
         },
         "readinessProbe": {
           "additionalProperties": true,
+          "description": "Readiness probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -969,7 +973,7 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity context",
+          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity Context",
           "required": [],
           "title": "securityContext",
           "type": "object"
@@ -1016,6 +1020,7 @@
         },
         "startupProbe": {
           "additionalProperties": true,
+          "description": "Startup probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -1413,6 +1418,7 @@
         },
         "livenessProbe": {
           "additionalProperties": true,
+          "description": "Liveness probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -1467,6 +1473,7 @@
         },
         "readinessProbe": {
           "additionalProperties": true,
+          "description": "Readiness probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
@@ -1514,7 +1521,7 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext\n  fsGroup: 2000\nSecurity context",
+          "description": "podSecurityContext\n  fsGroup: 2000\nSecurity Context",
           "required": [],
           "title": "securityContext",
           "type": "object"
@@ -1592,6 +1599,7 @@
         },
         "startupProbe": {
           "additionalProperties": true,
+          "description": "Liveness probe settings for pods",
           "properties": {
             "httpGet": {
               "additionalProperties": false,
