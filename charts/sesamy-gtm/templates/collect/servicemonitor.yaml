@@ -16,12 +16,10 @@ metadata:
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   selector:
-    matchLabels:
-      {{- include "sesamy.gtm.collect.selectorLabels" $ | nindent 6 }}
+    matchLabels: {{- include "sesamy.gtm.collect.selectorLabels" $ | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ include "sesamy.gtm.namespace" . }}
-  {{- end }}
   endpoints:
     - port: prometheus
       path: /metrics
@@ -41,5 +39,6 @@ spec:
   targetLabels:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
