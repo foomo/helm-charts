@@ -170,6 +170,7 @@ Squadron Keel Server Chart
 | server.hostAliases | list | `[]` | Host aliases |
 | server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
+| server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
 | server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
