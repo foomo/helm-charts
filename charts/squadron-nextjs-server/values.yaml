@@ -463,7 +463,7 @@ server:
   # -- Pod annotations
   # @section -- Server
   podAnnotations: { }
-    # @schema
+  # @schema
   # type: object
   # additionalProperties: true
   # @schema
