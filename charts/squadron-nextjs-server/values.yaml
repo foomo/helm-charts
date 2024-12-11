@@ -463,6 +463,13 @@ server:
   # -- Pod annotations
   # @section -- Server
   podAnnotations: { }
+    # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod labels
+  # @section -- Server
+  podLabels: { }
   # @schema
   # type: array
   # items:

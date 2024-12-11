@@ -178,6 +178,7 @@ Squadron NextJS Server Chart
 | server.hostAliases | list | `[]` | Host aliases |
 | server.livenessProbe | object | `{"tcpSocket":{"port":3000}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
+| server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"tcpSocket":{"port":3000}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
 | server.startupProbe | object | `{"tcpSocket":{"port":3000}}` | Startup probe settings |
