@@ -959,6 +959,13 @@
           "title": "podAnnotations",
           "type": "object"
         },
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Pod labels",
+          "required": [],
+          "title": "podLabels",
+          "type": "object"
+        },
         "readinessProbe": {
           "additionalProperties": true,
           "description": "Readiness probe settings",

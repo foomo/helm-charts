@@ -25,6 +25,9 @@ spec:
       labels:
         {{- include "keel.server.labels" . | nindent 8 }}
         {{- include "keel.server.networkingLabels" . | nindent 8 }}
+        {{- with .Values.server.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       annotations:
         {{- include "keel.server.annotations.recreatePod" . | nindent 8 }}
         {{- with .Values.server.podAnnotations }}
