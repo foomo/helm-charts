@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.27-alpine'
+    tag: '1.27.3-alpine'
   # @schema
   # type: object
   # @schema

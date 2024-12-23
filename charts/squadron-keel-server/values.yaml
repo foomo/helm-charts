@@ -893,6 +893,45 @@ scheduling:
 # @schema
 # type: object
 # @schema
+# Foomo gateway settings
+gateway:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether the gateway is enabled or not
+  # @section -- Gateway
+  enabled: false
+  # @schema
+  # type: string
+  # @schema
+  # -- Sitemap
+  # @section -- Gateway
+  sitemap: ''
+  # @schema
+  # type: string
+  # @schema
+  # -- Robots.txt
+  # @section -- Gateway
+  addToRobots: ''
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionProperties: true
+  # @schema
+  # -- Expose settings
+  # @section -- Gateway
+  expose: []
+  # expose:
+  #   - stripBasePath: true
+  #     cmsMimetypes:
+  #       - application/x-page
+  #       - application/x-folder
+  #       - application/x-shortcut
+
+# @schema
+# type: object
+# @schema
 # RBAC settings
 rbac:
   # @schema

@@ -100,6 +100,46 @@
       "title": "fullnameOverride",
       "type": "string"
     },
+    "gateway": {
+      "additionalProperties": false,
+      "description": "Foomo gateway settings",
+      "properties": {
+        "addToRobots": {
+          "default": "",
+          "description": "Robots.txt",
+          "required": [],
+          "title": "addToRobots",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether the gateway is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "expose": {
+          "description": "Expose settings",
+          "items": {
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "expose",
+          "type": "array"
+        },
+        "sitemap": {
+          "default": "",
+          "description": "Sitemap",
+          "required": [],
+          "title": "sitemap",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "gateway",
+      "type": "object"
+    },
     "global": {
       "additionalProperties": true,
       "properties": {
