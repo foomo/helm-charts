@@ -1,4 +1,4 @@
-{{- if and (.Capabilities.APIVersions.Has "foomo.org/v1") .Values.gateway.enabled }}
+{{- if .Values.gateway.enabled }}
 apiVersion: foomo.org/v1
 kind: Gateway
 metadata:
