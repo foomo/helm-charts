@@ -4,6 +4,36 @@ entries:
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
+          url: https://github.com/foomo/helm-chartstree/main/charts/beam
+        - name: Pinniped Chart Source
+          url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
+    apiVersion: v2
+    appVersion: 0.5.0
+    created: "2024-12-23T14:18:59.462820241Z"
+    dependencies:
+    - alias: pinniped
+      condition: pinniped.enabled
+      name: pinniped
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.4.1
+    description: Secure infrastructure access
+    digest: 5216499e80323cb748ada51ce3455e18ba8858dc86c78b1b8600b5e4643d8315
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - pinniped
+    - cloudflared
+    name: beam
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/beam-0.5.0/beam-0.5.0.tgz
+    version: 0.5.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
           url: https://github.com/foomo/helm-charts
         - name: Pinniped Chart Source
           url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
@@ -724,6 +754,29 @@ entries:
           url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
     apiVersion: v2
     appVersion: 2.4.0
+    created: "2024-12-23T14:18:59.579354968Z"
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: 40e5ca838e10e6d650343fde16ca5a2e7491a9f061b0e400fe2ce2535a985cb2
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.1.3/sesamy-gtm-0.1.3.tgz
+    version: 0.1.3
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
+        - name: GTM Changelog
+          url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
+    apiVersion: v2
+    appVersion: 2.4.0
     created: "2024-11-29T07:07:41.935204252Z"
     description: Helm chart for the Sesamy GTM tagging & preview service.
     digest: e75bcbb65de59db5ba20344d910e74fafb1e8f8a540acf5702c5da617d04c85c
@@ -1150,6 +1203,28 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.1.1/squadron-keel-cronjob-0.1.1.tgz
     version: 0.1.1
   squadron-keel-server:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-server
+    apiVersion: v2
+    appVersion: 0.2.0
+    created: "2024-12-23T14:18:59.689302947Z"
+    description: Squadron Keel Server Chart
+    digest: 6149e7cb41e1755aaed4d33b074adcc28b76d85691648413ab75760742142374
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.2.0/squadron-keel-server-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -1734,4 +1809,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.1.0/squadron-nextjs-server-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-12T08:04:53.197322447Z"
+generated: "2024-12-23T14:18:59.689591325Z"
