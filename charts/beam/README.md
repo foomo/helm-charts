@@ -185,7 +185,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflaredSplitter.livenessProbe | object | `{}` | Liveness probe settings for pods |
 | cloudflaredSplitter.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |
-| cloudflaredSplitter.securityContext | object | `{}` | Security context |
+| cloudflaredSplitter.securityContext | object | `{}` | Security Context |
 | cloudflaredSplitter.startProbe | object | `{}` | Startup probe settings for pods |
 
 ### Overrides

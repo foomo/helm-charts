@@ -204,7 +204,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2024.11.1",
+              "default": "2024.12.2",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -691,7 +691,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.27.2",
+              "default": "1.27.3",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -728,7 +728,7 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "Security context",
+          "description": "Security Context",
           "required": [],
           "title": "securityContext",
           "type": "object"
