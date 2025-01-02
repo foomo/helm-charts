@@ -27,7 +27,7 @@ spec:
           serviceAccountName: {{ include "backups.serviceAccountName" . }}
           initContainers:
             - name: dump
-              image: postgres:{{ .Values.postgres.postgresVersion }}-alpine
+              image: {{ .Values.postgres.dumpImage }}
               command: {{- include "backups.postgres.pgdumpCommand" . | nindent 16 }}
               env:
                 - name: PGUSER
@@ -62,7 +62,7 @@ spec:
                     value: {{ .Values.upload.s3.secretAccessKey }}
                 {{- end }}
                 {{- end }}
-                {{- with .Values.postgres.dump.extraEnv }}
+                {{- with .Values.postgres.upload.extraEnv }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
               volumeMounts:

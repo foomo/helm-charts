@@ -39,14 +39,14 @@ Helm chart for backing things up.
 |-----|------|---------|-------------|
 | postgres.dump.extraEnv | list | `[]` | Environment variables to add to pg dump container |
 | postgres.enabled | bool | `false` | Enable backup |
-| postgres.host | string | `"postgres-host"` | Postgres host |
+| postgres.host | string | `""` | Postgres host |
+| postgres.image | string | `"postgres:15-alpine"` | Postgres image |
 | postgres.name | string | `"instance-name"` | Postgres instance name |
-| postgres.password | string | `"password"` | Postgres password |
+| postgres.password | string | `""` | Postgres password |
 | postgres.port | string | `"5432"` | Postgres port |
-| postgres.postgresVersion | string | `"15"` | Postgres version |
 | postgres.type | string | `"SelfHosted"` | Set the type of postgres database |
 | postgres.upload.extraEnv | list | `[]` | Environment variables to add to save container |
-| postgres.user | string | `"postgres"` | Postgres user name |
+| postgres.user | string | `""` | Postgres user name |
 
 ### General
 

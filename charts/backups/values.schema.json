@@ -142,10 +142,17 @@
           "type": "boolean"
         },
         "host": {
-          "default": "postgres-host",
+          "default": "",
           "description": "Postgres host",
           "required": [],
           "title": "host",
+          "type": "string"
+        },
+        "image": {
+          "default": "postgres:15-alpine",
+          "description": "Postgres image",
+          "required": [],
+          "title": "image",
           "type": "string"
         },
         "name": {
@@ -156,7 +163,7 @@
           "type": "string"
         },
         "password": {
-          "default": "password",
+          "default": "",
           "description": "Postgres password",
           "required": [],
           "title": "password",
@@ -167,13 +174,6 @@
           "description": "Postgres port",
           "required": [],
           "title": "port",
-          "type": "string"
-        },
-        "postgresVersion": {
-          "default": "15",
-          "description": "Postgres version",
-          "required": [],
-          "title": "postgresVersion",
           "type": "string"
         },
         "type": {
@@ -220,7 +220,7 @@
           "type": "object"
         },
         "user": {
-          "default": "postgres",
+          "default": "",
           "description": "Postgres user name",
           "required": [],
           "title": "user",

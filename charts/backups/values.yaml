@@ -180,15 +180,15 @@ postgres:
   # @schema
   # type: string
   # @schema
-  # -- Postgres version
+  # -- Postgres image
   # @section -- Postgres
-  postgresVersion: "15"
+  image: postgres:15-alpine
   # @schema
   # type: string
   # @schema
   # -- Postgres host
   # @section -- Postgres
-  host: postgres-host
+  host: ""
   # @schema
   # type: string
   # @schema
@@ -200,13 +200,13 @@ postgres:
   # @schema
   # -- Postgres user name
   # @section -- Postgres
-  user: postgres
+  user: ""
   # @schema
   # type: string
   # @schema
   # -- Postgres password
   # @section -- Postgres
-  password: password
+  password: ""
   # @schema
   # type: string
   # @schema
