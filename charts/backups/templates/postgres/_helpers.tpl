@@ -44,9 +44,9 @@ default selector labels
 - "/bin/sh"
 - "-c"
 {{- if eq .Values.upload.type "s3" -}}
-- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.upload.s3.bucket }}/{{ .Values.postgres.bucketPrefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz {{- if .Values.upload.s3.endpoint }} --endpoint {{ .Values.upload.s3.endpoint }}{{- end }}"
+- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.upload.s3.bucket }}/{{ .Values.upload.s3.prefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz {{- if .Values.upload.s3.endpoint }} --endpoint {{ .Values.upload.s3.endpoint }}{{- end }}"
 {{- else if eq .Values.upload.type "gcs" -}}
-- "gcloud storage cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz gs://{{ .Values.upload.gcp.bucket }}/{{ .Values.postgres.bucketPrefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
+- "gcloud storage cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz gs://{{ .Values.upload.gcs.bucket }}/{{ .Values.upload.gcs.prefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
 {{- else if eq .Values.upload.type "azure" -}}
 - "az storage file upload --account-name <account-name> --account-key <account-key> --share-name <share-name> --path logo.png --source image.png"
 {{- else }}

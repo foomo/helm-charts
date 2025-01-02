@@ -27,7 +27,7 @@ spec:
           serviceAccountName: {{ include "backups.serviceAccountName" . }}
           initContainers:
             - name: dump
-              image: {{ .Values.postgres.dumpImage }}
+              image: {{ .Values.postgres.image }}
               command: {{- include "backups.postgres.pgdumpCommand" . | nindent 16 }}
               env:
                 - name: PGUSER
