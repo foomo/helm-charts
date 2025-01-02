@@ -13,16 +13,16 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-chartstree/main/charts/beam
     - name: Pinniped Chart Source
       url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
 dependencies:
   # https://artifacthub.io/packages/helm/bitnami/pinniped
   - name: pinniped
     alias: pinniped
-    version: 2.3.5
+    version: 2.4.1
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: pinniped.enabled
-version: 0.4.3
-appVersion: 0.4.3
+version: 0.5.0
+appVersion: 0.5.0
 

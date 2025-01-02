@@ -100,6 +100,46 @@
       "title": "fullnameOverride",
       "type": "string"
     },
+    "gateway": {
+      "additionalProperties": false,
+      "description": "Foomo gateway settings",
+      "properties": {
+        "addToRobots": {
+          "default": "",
+          "description": "Robots.txt",
+          "required": [],
+          "title": "addToRobots",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether the gateway is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "expose": {
+          "description": "Expose settings",
+          "items": {
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "expose",
+          "type": "array"
+        },
+        "sitemap": {
+          "default": "",
+          "description": "Sitemap",
+          "required": [],
+          "title": "sitemap",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "gateway",
+      "type": "object"
+    },
     "global": {
       "additionalProperties": true,
       "properties": {
@@ -686,7 +726,6 @@
           "type": "object"
         },
         "priorityClass": {
-          "additionalProperties": true,
           "default": "null",
           "description": "Priority class name",
           "required": [],
@@ -753,14 +792,14 @@
       "description": "Security context",
       "properties": {
         "fsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "File system group id",
           "required": [],
           "title": "fsGroup",
           "type": "integer"
         },
         "runAsGroup": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as group id",
           "required": [],
           "title": "runAsGroup",
@@ -774,7 +813,7 @@
           "type": "boolean"
         },
         "runAsUser": {
-          "default": 10001,
+          "default": 1001,
           "description": "Run as user id",
           "required": [],
           "title": "runAsUser",
@@ -931,6 +970,13 @@
           "description": "Pod annotations",
           "required": [],
           "title": "podAnnotations",
+          "type": "object"
+        },
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Pod labels",
+          "required": [],
+          "title": "podLabels",
           "type": "object"
         },
         "readinessProbe": {

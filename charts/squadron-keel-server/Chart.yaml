@@ -13,7 +13,7 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-server
 
-version: 0.1.14
-appVersion: 0.1.14
+version: 0.2.1
+appVersion: 0.2.1

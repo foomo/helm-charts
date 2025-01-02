@@ -25,6 +25,9 @@ spec:
       labels:
         {{- include "nextjs.server.labels" . | nindent 8 }}
         {{- include "nextjs.server.networkingLabels" . | nindent 8 }}
+        {{- with .Values.server.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       annotations:
         {{- include "nextjs.server.annotations.recreatePod" . | nindent 8 }}
         {{- with .Values.server.podAnnotations }}

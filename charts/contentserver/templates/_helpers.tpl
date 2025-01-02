@@ -67,3 +67,37 @@ Create the name of the namespace
 {{- define "contentserver.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride }}
 {{- end }}
+
+{{/*
+Keel standard envs
+{{- include "contentserver.env.log" . | nindent 12 }}
+*/}}
+{{- define "contentserver.env.log" -}}
+- name: LOG_MODE
+  value: "{{ .Values.log.mode }}"
+- name: LOG_LEVEL
+  value: "{{ .Values.log.level }}"
+{{- if eq .Values.log.mode "dev" }}
+- name: LOG_DISABLE_CALLER
+  value: "false"
+- name: LOG_DISABLE_STACKTRACE
+  value: "true"
+{{- end }}
+{{- end -}}
+
+{{/*
+OpenTelemetry standard envs
+{{- include "contentserver.env.opentelemetry" . | nindent 12 }}
+*/}}
+{{- define "contentserver.env.opentelemetry" -}}
+- name: OTEL_ENABLED
+  value: "{{ .Values.otel.enabled }}"
+- name: OTEL_SERVICE_NAME
+  value: {{ include "contentserver.fullname" . | quote }}
+- name: OTEL_TRACE_RATIO
+  value: "{{ .Values.otel.ratio }}"
+- name: OTEL_EXPORTER_OTLP_INSECURE
+  value: "{{ .Values.otel.otlp.insecure }}"
+- name: OTEL_EXPORTER_OTLP_ENDPOINT
+  value: "{{ .Values.otel.otlp.endpoint }}"
+{{- end -}}

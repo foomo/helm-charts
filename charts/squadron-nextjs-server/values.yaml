@@ -135,13 +135,13 @@ log:
   # enum: [prod, dev]
   # @schema
   # -- Log mode
-  # @section -- Log settings
+  # @section -- Logging
   mode: prod
   # @schema
   # enum: [error, warn, info, debug]
   # @schema
   # -- Log level
-  # @section -- Log settings
+  # @section -- Logging
   level: info
 
 # @schema
@@ -153,31 +153,31 @@ otel:
   # type: boolean
   # @schema
   # -- Indicates wether to enable it or not
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Trace ratio
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   ratio: 1
   # @schema
   # type: object
   # @schema
   # -- OTLP exporter settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   otlp:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to use insecure connection
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     insecure: true
     # @schema
     # type: string
     # @schema
     # -- Enpoint uri
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     endpoint: 'alloy:4317'
   # @schema
   # type: object
@@ -188,49 +188,49 @@ otel:
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace sql attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     sqlParametersDisabled: true
   # @schema
   # type: object
   # @schema
   # Mongo settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   mongo:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace command attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     commandAttributeDisabled: true
   # @schema
   # type: object
   # @schema
   # GOTSRPC settings
-  # @section -- OpenTelemetry settings
+  # @section -- OpenTelemetry
   gotsrpc:
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Indicates wether to trace payload attributes
-    # @section -- OpenTelemetry settings
+    # @section -- OpenTelemetry
     payloadAttributeDisabled: true
 
 # @schema
@@ -242,13 +242,13 @@ image:
   # type: boolean
   # @schema
   # -- Force recreation
-  # @section -- Image settings
+  # @section -- Image
   recreate: false
   # @schema
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
-  # @section -- Image settings
+  # @section -- Image
   pullPolicy: IfNotPresent
   # @schema
   # type: array
@@ -257,21 +257,21 @@ image:
   #   additionalProperties: true
   # @schema
   # -- Image pull secrets
-  # @section -- Image settings
+  # @section -- Image
   pullSecrets: [ ]
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image repository
-  # @section -- Image settings
+  # @section -- Image
   repository: ''
   # @schema
   # type: string
   # required: true
   # @schema
   # -- Image tag
-  # @section -- Image settings
+  # @section -- Image
   tag: ''
 
 # @schema
@@ -283,27 +283,27 @@ ingress:
   # type: boolean
   # @schema
   # -- Indicates wether the ingress is enabled or not
-  # @section -- Ingress settings
+  # @section -- Ingress
   enabled: false
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional labels
-  # @section -- Ingress settings
+  # @section -- Ingress
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Ingress annotations
-  # @section -- Ingress settings
+  # @section -- Ingress
   annotations: {}
   # @schema
   # type: string
   # @schema
   # -- Ingress class name
-  # @section -- Ingress settings
+  # @section -- Ingress
   className: ''
   # @schema
   # type: array
@@ -311,7 +311,7 @@ ingress:
   #   type: string
   # @schema
   # -- List of hosts
-  # @section -- Ingress settings
+  # @section -- Ingress
   hosts: [ ]
   # @schema
   # type: array
@@ -326,7 +326,7 @@ ingress:
   #       enum: [ImplementationSpecific, Exact, Prefix]
   # @schema
   # -- List of hosts
-  # @section -- Ingress settings
+  # @section -- Ingress
   paths: [ ]
   # paths:
   #   - path: /foo
@@ -338,7 +338,7 @@ ingress:
   #   additionalProperties: true
   # @schema
   # -- TLS settings
-  # @section -- Ingress settings
+  # @section -- Ingress
   tls: [ ]
   # tls:
   #   - secretName: chart-example-tls
@@ -354,31 +354,31 @@ persistence:
   # type: boolean
   # @schema
   # -- Indicates wether a pv should be attached or not
-  # @section -- Persistence settings
+  # @section -- Persistence
   enabled: false
   # @schema
   # type: string
   # @schema
   # -- Storage mount path
-  # @section -- Persistence settings
+  # @section -- Persistence
   mountPath: /var/lib/server/data
   # @schema
   # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
   # @schema
   # -- Access mode
-  # @section -- Persistence settings
+  # @section -- Persistence
   accessMode: ReadWriteOnce
   # @schema
   # type: string
   # @schema
   # -- Storage size
-  # @section -- Persistence settings
+  # @section -- Persistence
   size: 1Gi
   # @schema
   # type: string
   # @schema
   # -- Storage class name
-  # @section -- Persistence settings
+  # @section -- Persistence
   storageClass: ''
 
 # @schema
@@ -390,21 +390,21 @@ service:
   # type: string
   # @schema
   # -- Service type
-  # @section -- Service settings
+  # @section -- Service
   type: ClusterIP
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional Service labels
-  # @section -- Service settings
+  # @section -- Service
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Service annotations
-  # @section -- Service settings
+  # @section -- Service
   annotations: { }
 
 # @schema
@@ -416,25 +416,25 @@ securityContext:
   # type: integer
   # @schema
   # -- Run as user id
-  # @section -- Security context
-  runAsUser: 10001
+  # @section -- Security Context
+  runAsUser: 1001
   # @schema
   # type: integer
   # @schema
   # -- Run as group id
-  # @section -- Security context
-  runAsGroup: 10001
+  # @section -- Security Context
+  runAsGroup: 1001
   # @schema
   # type: integer
   # @schema
   # -- File system group id
-  # @section -- Security context
-  fsGroup: 10001
+  # @section -- Security Context
+  fsGroup: 1001
   # @schema
   # type: boolean
   # @schema
   # -- Indicates wether to run as non root user
-  # @section -- Security context
+  # @section -- Security Context
   runAsNonRoot: true
 
 # @schema
@@ -447,22 +447,29 @@ server:
   # additionalProperties: true
   # @schema
   # -- Additional labels
-  # @section -- Server settings
+  # @section -- Server
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Deployment annotations
-  # @section -- Server settings
+  # @section -- Server
   annotations: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Pod annotations
-  # @section -- Server settings
+  # @section -- Server
   podAnnotations: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod labels
+  # @section -- Server
+  podLabels: { }
   # @schema
   # type: array
   # items:
@@ -475,7 +482,7 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Additional environment variables
-  # @section -- Server settings
+  # @section -- Server
   additionalEnv: [ ]
   # @schema
   # type: array
@@ -484,7 +491,7 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Additional env from
-  # @section -- Server settings
+  # @section -- Server
   additionalEnvFrom: [ ]
   # @schema
   # type: array
@@ -498,7 +505,7 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Additional volume mounts
-  # @section -- Server settings
+  # @section -- Server
   additionalVolumeMounts: [ ]
   # @schema
   # type: array
@@ -507,7 +514,7 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Additional volumes
-  # @section -- Server settings
+  # @section -- Server
   additionalVolumes: [ ]
   # additionalVolumes:
   #   - name: my-existing-volume-name
@@ -519,7 +526,7 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Host aliases
-  # @section -- Server settings
+  # @section -- Server
   hostAliases: [ ]
   # @schema
   # type: array
@@ -528,21 +535,21 @@ server:
   #   additionalProperties: true
   # @schema
   # -- Additional ports
-  # @section -- Server settings
+  # @section -- Server
   additionalPorts: [ ]
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Resource settings
-  # @section -- Server settings
+  # @section -- Server
   resources: {}
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Startup probe settings
-  # @section -- Server settings
+  # @section -- Server
   startupProbe:
     tcpSocket:
       port: 3000
@@ -551,7 +558,7 @@ server:
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
-  # @section -- Server settings
+  # @section -- Server
   readinessProbe:
     tcpSocket:
       port: 3000
@@ -560,7 +567,7 @@ server:
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
-  # @section -- Server settings
+  # @section -- Server
   livenessProbe:
     tcpSocket:
       port: 3000
@@ -574,57 +581,57 @@ autoscaling:
   # type: boolean
   # @schema
   # -- Specifies whether a auto scaling should be enabled
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Minimum replication number
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   minReplicas: 1
   # @schema
   # type: integer
   # @schema
   # -- Maximum replication number
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   maxReplicas: 9
   # @schema
   # type: [integer, string]
   # @schema
   # -- Minimum availablity
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   minAvailable: ''
   # @schema
   # type: [integer, string]
   # @schema
   # -- Maximum unavailablity
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   maxUnavailable: 1
   # @schema
   # type: [integer, null]
   # @schema
   # -- Target CPU utilization
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   targetCPU: 75
   # @schema
   # type: [integer, null]
   # @schema
   # -- Target Memory utilization
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   targetMemory: null
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional scaling metrics
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   additionalMetrics: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Autoscaling behavior settings
-  # @section -- Autoscaling settings
+  # @section -- Autoscaling
   behavior: { }
 
 # @schema
@@ -636,26 +643,26 @@ serviceAccount:
   # type: string
   # @schema
   # -- The name of the service account to use.
-  # @section -- Service account settings
+  # @section -- Service Account
   name: ""
   # @schema
   # type: boolean
   # @schema
   # -- Specifies whether a service account should be created
-  # @section -- Service account settings
+  # @section -- Service Account
   create: true
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
-  # @section -- Service account settings
+  # @section -- Service Account
   automount: true
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Annotations to add to the service account
-  # @section -- Service account settings
+  # @section -- Service Account
   annotations: { }
 
 # @schema
@@ -667,33 +674,33 @@ serviceMonitor:
   # type: boolean
   # @schema
   # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   enabled: false
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Additional ServiceMonitor labels
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   additionalLabels: { }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- ServiceMonitor annotations
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   annotations: { }
   # @schema
   # type: string
   # @schema
   # -- ServiceMonitor scrape interval
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   interval: ''
   # @schema
   # type: string
   # @schema
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   scrapeTimeout: ''
   # @schema
   # type: array
@@ -702,7 +709,7 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor will add labels from the service to the Prometheus metric
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   targetLabels: [ ]
   # @schema
   # type: array
@@ -711,7 +718,7 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor relabel configs to apply to samples before scraping.
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   relabelings: [ ]
   # @schema
   # type: array
@@ -720,7 +727,7 @@ serviceMonitor:
   #   additionalProperties: true
   # @schema
   # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
-  # @section -- Service Monitor settings
+  # @section -- Service Monitor
   metricRelabelings: [ ]
 
 # @schema
@@ -732,7 +739,7 @@ networkPolicy:
   # type: boolean
   # @schema
   # -- Specifies whether Network Policies should be created
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   enabled: false
   # @schema
   # type: array
@@ -740,7 +747,7 @@ networkPolicy:
   #   type: string
   # @schema
   # -- List of rules to apply via labels
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   rules: []
   # rules:
   #   - allow-nginx-ingress
@@ -750,19 +757,19 @@ networkPolicy:
   # type: object
   # @schema
   # Ingress settings
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   ingress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether ingress should be enabled
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     allowExternal: true
     # @schema
     # type: array
@@ -771,25 +778,25 @@ networkPolicy:
     #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     additionalRules: []
   # @schema
   # type: object
   # @schema
   # Egress settings
-  # @section -- Network Policy settings
+  # @section -- Network Policy
   egress:
     # @schema
     # type: boolean
     # @schema
     # -- Specifies whether egress should be enabled
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     enabled: true
     # @schema
     # type: boolean
     # @schema
     # -- Allow ingress through labels
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     allowExternal: true
     # @schema
     # type: array
@@ -797,7 +804,7 @@ networkPolicy:
     #   type: string
     # @schema
     # -- Additional egress rules
-    # @section -- Network Policy settings
+    # @section -- Network Policy
     additionalRules: []
 
 # @schema
@@ -809,19 +816,19 @@ graceful:
   # type: boolean
   # @schema
   # -- Indicates wether graceful shutdown is enabled
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   enabled: false
   # @schema
   # type: integer
   # @schema
   # -- Seconds to wait for kubernetes to deregister
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   delaySeconds: 15
   # @schema
   # type: integer
   # @schema
   # -- Total seconds for the grace period
-  # @section -- Graceful settings
+  # @section -- Graceful Shutdown
   periodSeconds: 45
 
 # @schema
@@ -833,21 +840,21 @@ scheduling:
   # type: boolean
   # @schema
   # -- Indicates wether scheduling is enabled or not
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   enabled: false
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Affinity for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   affinity: {}
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
   # -- Node labels for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   nodeSelector: {}
   # @schema
   # type: array
@@ -856,14 +863,14 @@ scheduling:
   #   additionalProperties: true
   # @schema
   # -- Tolerations for pod assignment
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   tolerations: []
   # @schema
   # type: [string, null]
   # additionalProperties: true
   # @schema
   # -- Priority class name
-  # @section -- Scheduling settings
+  # @section -- Scheduling
   priorityClass: null
 
 # @schema
@@ -875,19 +882,19 @@ gateway:
   # type: boolean
   # @schema
   # -- Indicates wether the gateway is enabled or not
-  # @section -- Gateway settings
+  # @section -- Gateway
   enabled: false
   # @schema
   # type: string
   # @schema
   # -- Sitemap
-  # @section -- Gateway settings
+  # @section -- Gateway
   sitemap: ''
   # @schema
   # type: string
   # @schema
   # -- Robots.txt
-  # @section -- Gateway settings
+  # @section -- Gateway
   addToRobots: ''
   # @schema
   # type: array
@@ -896,7 +903,7 @@ gateway:
   #   additionProperties: true
   # @schema
   # -- Expose settings
-  # @section -- Gateway settings
+  # @section -- Gateway
   expose: []
   # expose:
   #   - stripBasePath: true

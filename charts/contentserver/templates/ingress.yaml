@@ -1,28 +1,29 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "contentserver.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "contentserver.fullname" . }}
   labels:
     {{- include "contentserver.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
-  annotations:
+    {{- with .Values.ingress.additionalLabels }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.ingress.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
   namespace: {{ include "contentserver.namespace" . }}
 spec:
-  {{- if .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className  }}
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
+    - host: {{ tpl . $ | quote }}
       http:
         paths:
           {{- range $.Values.ingress.paths }}
           - path: {{ .path }}
-            pathType: {{ .pathType }}
+            pathType: {{ default .pathType "ImplementationSpecific" }}
             backend:
               service:
                 name: {{ include "contentserver.fullname" $ }}
@@ -31,7 +32,6 @@ spec:
            {{- end }}
     {{- end }}
   {{- with .Values.ingress.tls }}
-  tls:
-    {{- toYaml . | nindent 4 }}
+  tls: {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}

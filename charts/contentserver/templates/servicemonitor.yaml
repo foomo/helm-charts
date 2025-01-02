@@ -2,22 +2,22 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "keel.server.fullname" . }}
+  name: {{ include "contentserver.fullname" $ }}
   labels:
-    {{- include "keel.server.labels" . | nindent 4 }}
+    {{- include "contentserver.labels" $ | nindent 4 }}
     {{- with .Values.serviceMonitor.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- with .Values.serviceMonitor.annotations }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
-  namespace: {{ include "keel.server.namespace" . }}
+  namespace: {{ include "contentserver.namespace" . }}
 spec:
   selector:
-    matchLabels: {{- include "keel.server.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "contentserver.selectorLabels" $ | nindent 6 }}
   namespaceSelector:
     matchNames:
-      - {{ include "keel.server.namespace" . }}
+      - {{ include "contentserver.namespace" . }}
   endpoints:
     - port: prometheus
       path: /metrics
@@ -36,4 +36,4 @@ spec:
       {{- with .Values.serviceMonitor.metricRelabelings }}
       metricRelabelings: {{- toYaml . | nindent 8 }}
       {{- end }}
-{{ end }}
+{{- end }}

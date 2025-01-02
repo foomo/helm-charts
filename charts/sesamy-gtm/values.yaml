@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.27-alpine'
+    tag: '1.27.3-alpine'
   # @schema
   # type: object
   # @schema
@@ -252,7 +252,7 @@ tagging:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security context
+  # -- Security Context
   # @section -- Tagging
   securityContext: {}
   # securityContext
@@ -322,7 +322,7 @@ tagging:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Liveness probe settings for pods
+  # -- Liveness probe settings for pods
   # @section -- Tagging
   startupProbe:
     httpGet:
@@ -332,7 +332,7 @@ tagging:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Liveness probe settings for pods
+  # -- Liveness probe settings for pods
   # @section -- Tagging
   livenessProbe:
     httpGet:
@@ -342,7 +342,7 @@ tagging:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Readiness probe settings for pods
+  # -- Readiness probe settings for pods
   # @section -- Tagging
   readinessProbe:
     httpGet:
@@ -461,7 +461,7 @@ preview:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security context
+  # -- Security Context
   # @section -- Preview
   securityContext: {}
   # securityContext:
@@ -513,7 +513,7 @@ preview:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Startup probe settings for pods
+  # -- Startup probe settings for pods
   # @section -- Preview
   startupProbe:
     httpGet:
@@ -523,7 +523,7 @@ preview:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Readiness probe settings for pods
+  # -- Readiness probe settings for pods
   # @section -- Preview
   readinessProbe:
     httpGet:
@@ -533,7 +533,7 @@ preview:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Liveness probe settings for pods
+  # -- Liveness probe settings for pods
   # @section -- Preview
   livenessProbe:
     httpGet:
@@ -689,7 +689,7 @@ collect:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security context
+  # -- Security Context
   # @section -- Collect
   securityContext: {}
   # securityContext:
@@ -708,7 +708,7 @@ collect:
     # type: object
     # additionalProperties: true
     # @schema
-    # @default -- Ports of the service
+    # -- Ports of the service
     # @section -- Collect
     ports:
       ga4: 8080
@@ -846,7 +846,7 @@ ingress:
   # type: object
   # additionalProperties: true
   # @schema
-  # @default -- Path settings
+  # -- Path settings
   # @section -- Ingress
   paths:
     preview:
@@ -1094,7 +1094,7 @@ networkPolicy:
   # type: boolean
   # @schema
   # -- Specifies whether Network Policies should be created
-  # @section -- Network policy
+  # @section -- Network Policy
   enabled: false
   # @schema
   # type: object
@@ -1106,14 +1106,14 @@ networkPolicy:
     # additionalProperties: true
     # @schema
     # -- Specifies the Pods which are allowed to access the metrics port
-    # @section -- Network policy
+    # @section -- Network Policy
     podSelector: {}
     # @schema
     # type: object
     # additionalProperties: true
     # @schema
     # -- Specifies the namespaces which are allowed to access the metrics port
-    # @section -- Network policy
+    # @section -- Network Policy
     namespaceSelector: {}
     # @schema
     # type: array
@@ -1121,7 +1121,7 @@ networkPolicy:
     #   type: string
     # @schema
     # -- Specifies specific network CIDRs which are allowed to access the metrics port
-    # @section -- Network policy
+    # @section -- Network Policy
     cidrs: []
   # @schema
   # type: object
@@ -1133,20 +1133,20 @@ networkPolicy:
     # additionalProperties: true
     # @schema
     # -- Specifies the Pods which are allowed to access the http port
-    # @section -- Network policy
+    # @section -- Network Policy
     podSelector: {}
     # @schema
     # type: object
     # additionalProperties: true
     # @schema
     # -- Specifies the namespaces which are allowed to access the http port
-    # @section -- Network policy
+    # @section -- Network Policy
     namespaceSelector: {}
   # @schema
   # type: object
   # @schema
   # External storage settings
-  # @section -- Network policy
+  # @section -- Network Policy
   externalStorage:
     # @schema
     # type: array
@@ -1154,7 +1154,7 @@ networkPolicy:
     #   type: integer
     # @schema
     # -- Specify the port used for external storage, e.g. AWS S3
-    # @section -- Network policy
+    # @section -- Network Policy
     ports: []
     # @schema
     # type: array
@@ -1162,7 +1162,7 @@ networkPolicy:
     #   type: string
     # @schema
     # -- Specifies specific network CIDRs you want to limit access to
-    # @section -- Network policy
+    # @section -- Network Policy
     cidrs: []
   # @schema
   # type: object
@@ -1173,21 +1173,21 @@ networkPolicy:
     # type: [integer, null]
     # @schema
     # -- Specify the port used for discovery
-    # @section -- Network policy
+    # @section -- Network Policy
     port: null
     # @schema
     # type: object
     # additionalProperties: true
     # @schema
     # -- Specifies the Pods labels used for discovery
-    # @section -- Network policy
+    # @section -- Network Policy
     podSelector: {}
     # @schema
     # type: object
     # additionalProperties: true
     # @schema
     # -- Specifies the namespace the discovery Pods are running in
-    # @section -- Network policy
+    # @section -- Network Policy
     namespaceSelector: {}
 
 # @schema
