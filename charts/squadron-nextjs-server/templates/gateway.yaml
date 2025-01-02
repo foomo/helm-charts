@@ -8,12 +8,12 @@ metadata:
 spec:
   service: http://{{ include "nextjs.server.fullname" . }}.{{ include "nextjs.server.namespace" . }}
   {{- with .Values.gateway.addToRobots }}
-  addToRobots: {{ . }}
+  addToRobots: {{ toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.gateway.sitemap }}
   sitemap: {{ . }}
   {{- end }}
   {{- with .Values.gateway.expose }}
-  expose: {{- toYaml . | nindent 4 }}
+  expose: {{ toYaml . | nindent 4 }}
   {{ end }}
 {{- end }}

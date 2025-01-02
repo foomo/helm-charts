@@ -8,7 +8,7 @@ metadata:
 spec:
   service: http://{{ include "keel.server.fullname" . }}.{{ include "keel.server.namespace" . }}
   {{- with .Values.gateway.addToRobots }}
-  addToRobots: {{ . }}
+  addToRobots: {{ toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.gateway.sitemap }}
   sitemap: {{ . }}
