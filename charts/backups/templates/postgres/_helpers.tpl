@@ -49,40 +49,25 @@ default selector labels
 {{- end -}}
 
 {{- define "backups.postgres.uploadCommand" -}}
-{{- if .Values.postgres.storage.s3 -}}
-{{- if .Values.postgres.storage.s3.endpoint -}}
+{{- if eq .Values.upload.type "s3" -}}
+{{- if .Values.upload.s3.endpoint -}}
 - "/bin/sh"
 - "-c"
-- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.postgres.storage.s3.bucket }}/storage.s3.prefix/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz --endpoint={{ .Values.postgres.storage.s3.endpoint }}"
+- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.upload.s3.bucket }}/storage.s3.prefix/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz --endpoint={{ .Values.upload.s3.endpoint }}"
 {{- else }}
 - "/bin/sh"
 - "-c"
-- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.postgres.storage.s3.bucket }}/storage.s3.prefix/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
+- "aws s3 cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz s3://{{ .Values.upload.s3.bucket }}/storage.s3.prefix/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
 {{- end -}}
-{{- else if .Values.postgres.storage.gcp -}}
+{{- else if eq .Values.upload.type "gcs" -}}
 - "/bin/sh"
 - "-c"
-- "gcloud storage cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz gs://{{ .Values.postgres.storage.gcp.bucket }}/{{ .Values.postgres.storage.gcp.prefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
-#TODO upload to azure
-{{- else if .Values.postgres.storage.azure -}}
+- "gcloud storage cp /backup/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz gs://{{ .Values.upload.gcp.bucket }}/{{ .Values.upload.gcp.prefix }}/{{ .Values.postgres.name }}-$(date \"+%Y-%m-%d\").gz"
+{{- else if eq .Values.upload.type "azure" -}}
 - "/bin/sh"
 - "-c"
 - "az storage file upload --account-name <account-name> --account-key <account-key> --share-name <share-name> --path logo.png --source image.png"
 {{- else }}
-{{ fail "Invalid cloud provider" }}
-{{- end -}}
-{{- end -}}
-
-{{- define "backups.postgres.cloudImage" -}}
-{{- if .Values.postgres.storage.s3 -}}
-"amazon/aws-cli:2.17.48"
-{{- else if .Values.postgres.storage.gcp -}}
-"google/cloud-sdk:492.0.0"
-{{- else if .Values.postgres.storage.azure -}}
-"mcr.microsoft.com/azure-cli:2.9.1"
-{{- else if .Values.postgres.storage.do -}}
-"digitalocean/doctl:1.113.0"
-{{- else }}
-{{ fail "Invalid cloud provider: " .Values.cloudProvider }}
+{{ fail "Invalid storage type" }}
 {{- end -}}
 {{- end -}}

@@ -12,32 +12,68 @@ Helm chart for backing things up.
 
 ## Values
 
+### Cronjob
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cronjob.backoffLimit | int | `6` | Set the cronjob parameter backoffLimit |
+| cronjob.concurrency | string | `"Forbid"` | Set the cronjob parameter concurrency |
+| cronjob.failedJobsHistoryLimit | int | `1` | Set the cronjob parameter failedJobsHistoryLimit |
+| cronjob.restart | string | `"Never"` | Set the cronjob parameter restart |
+| cronjob.schedule | string | `"@daily"` | Set the cronjob parameter schedule |
+| cronjob.startingDeadlineSeconds | int | `0` | Set the cronjob parameter startingDeadlineSeconds |
+| cronjob.successfulJobsHistoryLimit | int | `1` | Set the cronjob parameter successfulJobsHistoryLimit |
+| cronjob.ttlSecondsAfterFinished | int | `0` | Set the cronjob parameter ttlSecondsAfterFinished |
+
+### Overrides
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | nameOverride | string | `""` | Overrides the chart's name |
-| namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |
-| postgres.cronjob.backoffLimit | int | `6` | Set the cronjob parameter backoffLimit |
-| postgres.cronjob.concurrencyPolicy | string | `"Forbid"` |  |
-| postgres.cronjob.failedJobsHistoryLimit | int | `1` |  |
-| postgres.cronjob.restartPolicy | string | `"Never"` |  |
-| postgres.cronjob.schedule | string | `"@daily"` | Set the cronjob parameter schedule |
-| postgres.cronjob.startingDeadlineSeconds | string | `""` |  |
-| postgres.cronjob.successfulJobsHistoryLimit | int | `1` |  |
-| postgres.cronjob.ttlSecondsAfterFinished | string | `""` |  |
+| namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Postgres
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | postgres.dump.extraEnv | list | `[]` | Environment variables to add to pg dump container |
-| postgres.enabled | bool | `false` |  |
-| postgres.host | string | `"postgres-host"` |  |
-| postgres.name | string | `"instance-name"` |  |
-| postgres.password | string | `"password"` |  |
-| postgres.port | string | `"5432"` |  |
-| postgres.postgresVersion | string | `"15"` |  |
-| postgres.save.extraEnv | list | `[]` | Environment variables to add to save container |
-| postgres.storage | string | `nil` | Set the storage location for the postgres dump, S3, GCS, Azure bucket |
+| postgres.enabled | bool | `false` | Enable backup |
+| postgres.host | string | `"postgres-host"` | Postgres host |
+| postgres.name | string | `"instance-name"` | Postgres instance name |
+| postgres.password | string | `"password"` | Postgres password |
+| postgres.port | string | `"5432"` | Postgres port |
+| postgres.postgresVersion | string | `"15"` | Postgres version |
 | postgres.type | string | `"SelfHosted"` | Set the type of postgres database |
-| postgres.user | string | `"postgres"` |  |
-| revisionHistoryLimit | int | `10` | Number of revisions to retain to allow rollback |
+| postgres.upload.extraEnv | list | `[]` | Environment variables to add to save container |
+| postgres.user | string | `"postgres"` | Postgres user name |
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+
+### Service Account
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `"system-backups"` | If not set and create is true, a name is generated using the fullname template |
+| serviceAccount.name | string | `""` | The name of the service account to use. |
+
+### Upload
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| upload.gcs.bucket | string | `""` | Bucket name |
+| upload.gcs.image | string | `"google/cloud-sdk:504.0.1"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
+| upload.gcs.prefix | string | `""` | Bucket prefix |
+| upload.s3.accessKey | string | `""` | Bucket access key |
+| upload.s3.bucket | string | `""` | Bucket name |
+| upload.s3.endpoint | string | `""` | Bucket endpoint |
+| upload.s3.image | string | `"amazon/aws-cli:2.22.26"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
+| upload.s3.prefix | string | `""` | Bucket prefix |
+| upload.s3.secretAccessKey | string | `""` | Bucket secret access key |
+| upload.type | string | `"s3"` | Storage type |

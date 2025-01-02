@@ -1,112 +1,381 @@
 {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "fullnameOverride": {
-            "type": "string"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "cronjob": {
+      "additionalProperties": false,
+      "description": "Cronjob settings",
+      "properties": {
+        "backoffLimit": {
+          "default": 6,
+          "description": "Set the cronjob parameter backoffLimit",
+          "required": [],
+          "title": "backoffLimit",
+          "type": "integer"
         },
-        "nameOverride": {
-            "type": "string"
+        "concurrency": {
+          "default": "Forbid",
+          "description": "Set the cronjob parameter concurrency",
+          "enum": [
+            "Allow",
+            "Forbid"
+          ],
+          "required": [],
+          "title": "concurrency"
         },
-        "namespaceOverride": {
-            "type": "string"
+        "failedJobsHistoryLimit": {
+          "default": 1,
+          "description": "Set the cronjob parameter failedJobsHistoryLimit",
+          "required": [],
+          "title": "failedJobsHistoryLimit",
+          "type": "integer"
         },
-        "postgres": {
-            "type": "object",
-            "properties": {
-                "cronjob": {
-                    "type": "object",
-                    "properties": {
-                        "backoffLimit": {
-                            "type": "integer"
-                        },
-                        "concurrencyPolicy": {
-                            "type": "string"
-                        },
-                        "failedJobsHistoryLimit": {
-                            "type": "integer"
-                        },
-                        "restartPolicy": {
-                            "type": "string"
-                        },
-                        "schedule": {
-                            "type": "string"
-                        },
-                        "startingDeadlineSeconds": {
-                            "type": "string"
-                        },
-                        "successfulJobsHistoryLimit": {
-                            "type": "integer"
-                        },
-                        "ttlSecondsAfterFinished": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "dump": {
-                    "type": "object",
-                    "properties": {
-                        "extraEnv": {
-                            "type": "array"
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "host": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "string"
-                },
-                "postgresVersion": {
-                    "type": "string"
-                },
-                "save": {
-                    "type": "object",
-                    "properties": {
-                        "extraEnv": {
-                            "type": "array"
-                        }
-                    }
-                },
-                "storage": {
-                    "type": "null"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "user": {
-                    "type": "string"
-                }
-            }
+        "restart": {
+          "default": "Never",
+          "description": "Set the cronjob parameter restart",
+          "enum": [
+            "Never",
+            "OnFailure"
+          ],
+          "required": [],
+          "title": "restart"
         },
-        "revisionHistoryLimit": {
-            "type": "integer"
+        "schedule": {
+          "default": "@daily",
+          "description": "Set the cronjob parameter schedule",
+          "required": [],
+          "title": "schedule",
+          "type": "string"
         },
-        "serviceAccount": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "automount": {
-                    "type": "boolean"
-                },
-                "create": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
+        "startingDeadlineSeconds": {
+          "default": 0,
+          "description": "Set the cronjob parameter startingDeadlineSeconds",
+          "required": [],
+          "title": "startingDeadlineSeconds",
+          "type": "integer"
+        },
+        "successfulJobsHistoryLimit": {
+          "default": 1,
+          "description": "Set the cronjob parameter successfulJobsHistoryLimit",
+          "required": [],
+          "title": "successfulJobsHistoryLimit",
+          "type": "integer"
+        },
+        "ttlSecondsAfterFinished": {
+          "default": 0,
+          "description": "Set the cronjob parameter ttlSecondsAfterFinished",
+          "required": [],
+          "title": "ttlSecondsAfterFinished",
+          "type": "integer"
         }
+      },
+      "required": [],
+      "title": "cronjob",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "postgres": {
+      "additionalProperties": false,
+      "description": "Postgres settings",
+      "properties": {
+        "dump": {
+          "additionalProperties": false,
+          "description": "Dump settings",
+          "properties": {
+            "extraEnv": {
+              "description": "Environment variables to add to pg dump container",
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "name": {
+                    "required": [],
+                    "type": "string"
+                  },
+                  "value": {
+                    "required": [],
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "extraEnv",
+              "type": "array"
+            }
+          },
+          "required": [],
+          "title": "dump",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable backup",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "host": {
+          "default": "postgres-host",
+          "description": "Postgres host",
+          "required": [],
+          "title": "host",
+          "type": "string"
+        },
+        "name": {
+          "default": "instance-name",
+          "description": "Postgres instance name",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "password": {
+          "default": "password",
+          "description": "Postgres password",
+          "required": [],
+          "title": "password",
+          "type": "string"
+        },
+        "port": {
+          "default": "5432",
+          "description": "Postgres port",
+          "required": [],
+          "title": "port",
+          "type": "string"
+        },
+        "postgresVersion": {
+          "default": "15",
+          "description": "Postgres version",
+          "required": [],
+          "title": "postgresVersion",
+          "type": "string"
+        },
+        "type": {
+          "default": "SelfHosted",
+          "description": "Set the type of postgres database",
+          "enum": [
+            "CloudSQL",
+            "RDS",
+            "DOPostgres",
+            "SelfHosted",
+            "AzurePostgres"
+          ],
+          "required": [],
+          "title": "type"
+        },
+        "upload": {
+          "additionalProperties": false,
+          "description": "Upload settings",
+          "properties": {
+            "extraEnv": {
+              "description": "Environment variables to add to save container",
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "name": {
+                    "required": [],
+                    "type": "string"
+                  },
+                  "value": {
+                    "required": [],
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "extraEnv",
+              "type": "array"
+            }
+          },
+          "required": [],
+          "title": "upload",
+          "type": "object"
+        },
+        "user": {
+          "default": "postgres",
+          "description": "Postgres user name",
+          "required": [],
+          "title": "user",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "postgres",
+      "type": "object"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "Number of revisions to keep",
+      "required": [],
+      "title": "revisionHistoryLimit",
+      "type": "integer"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "Service account settings",
+      "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations to add to the service account",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "required": [],
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use.",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "serviceAccount",
+      "type": "object"
+    },
+    "upload": {
+      "additionalProperties": false,
+      "description": "Upload target settings",
+      "properties": {
+        "gcs": {
+          "additionalProperties": false,
+          "description": "GCS settings",
+          "properties": {
+            "bucket": {
+              "default": "",
+              "description": "Bucket name",
+              "required": [],
+              "title": "bucket",
+              "type": "string"
+            },
+            "image": {
+              "default": "google/cloud-sdk:504.0.1",
+              "description": "Upload image name\nhttps://hub.docker.com/r/google/cloud-sdk/tags",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "prefix": {
+              "default": "",
+              "description": "Bucket prefix",
+              "required": [],
+              "title": "prefix",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "gcs",
+          "type": "object"
+        },
+        "s3": {
+          "additionalProperties": false,
+          "description": "S3 settings",
+          "properties": {
+            "accessKey": {
+              "default": "",
+              "description": "Bucket access key",
+              "required": [],
+              "title": "accessKey",
+              "type": "string"
+            },
+            "bucket": {
+              "default": "",
+              "description": "Bucket name",
+              "required": [],
+              "title": "bucket",
+              "type": "string"
+            },
+            "endpoint": {
+              "default": "",
+              "description": "Bucket endpoint",
+              "required": [],
+              "title": "endpoint",
+              "type": "string"
+            },
+            "image": {
+              "default": "amazon/aws-cli:2.22.26",
+              "description": "Upload image name\nhttps://hub.docker.com/r/amazon/aws-cli/tags",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "prefix": {
+              "default": "",
+              "description": "Bucket prefix",
+              "required": [],
+              "title": "prefix",
+              "type": "string"
+            },
+            "secretAccessKey": {
+              "default": "",
+              "description": "Bucket secret access key",
+              "required": [],
+              "title": "secretAccessKey",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "s3",
+          "type": "object"
+        },
+        "type": {
+          "default": "s3",
+          "description": "Storage type",
+          "enum": [
+            "s3",
+            "gcs"
+          ],
+          "required": [],
+          "title": "type"
+        }
+      },
+      "required": [],
+      "title": "upload",
+      "type": "object"
     }
+  },
+  "required": [],
+  "type": "object"
 }

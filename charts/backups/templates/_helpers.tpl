@@ -67,3 +67,20 @@ Create the name of the namespace
 {{- define "backups.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride }}
 {{- end }}
+
+{{/*
+Retrieve upload image
+*/}}
+{{- define "backups.upload.image" -}}
+{{- if eq .Values.upload.type "s3" -}}
+{{ .Values.upload.s3.image }}
+{{- else if eq .Values.upload.type "gcs" -}}
+{{ .Values.upload.gcs.image }}
+{{- else if eq .Values.upload.type "azure" -}}
+{{ .Values.upload.azure.image }}
+{{- else if eq .Values.upload.type "do" -}}
+{{ .Values.upload.do.image }}
+{{- else }}
+{{ fail "Invalid storage type" }}
+{{- end -}}
+{{- end -}}

@@ -1,78 +1,290 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
-nameOverride: ""
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
-fullnameOverride: ""
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
+# @section -- Overrides
 namespaceOverride: ''
 
-# -- Number of revisions to retain to allow rollback
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
 
+# @schema
+# type: object
+# @schema
+# Cronjob settings
+cronjob:
+  # @schema
+  # type: string
+  # @schema
+  # -- Set the cronjob parameter schedule
+  # @section -- Cronjob
+  schedule: "@daily"
+  # @schema
+  # enum: [Allow, Forbid]
+  # @schema
+  # -- Set the cronjob parameter concurrency
+  # @section -- Cronjob
+  concurrency: Forbid
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter failedJobsHistoryLimit
+  # @section -- Cronjob
+  failedJobsHistoryLimit: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter successfulJobsHistoryLimit
+  # @section -- Cronjob
+  successfulJobsHistoryLimit: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter startingDeadlineSeconds
+  # @section -- Cronjob
+  startingDeadlineSeconds: 0
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter ttlSecondsAfterFinished
+  # @section -- Cronjob
+  ttlSecondsAfterFinished: 0
+  # @schema
+  # enum: [Never, OnFailure]
+  # @schema
+  # -- Set the cronjob parameter restart
+  # @section -- Cronjob
+  restart: Never
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter backoffLimit
+  # @section -- Cronjob
+  backoffLimit: 6
+
+# @schema
+# type: object
+# @schema
+# Upload target settings
 upload:
+  # @schema
+  # enum: [s3, gcs]
+  # @schema
+  # -- Storage type
+  # @section -- Upload
+  type: s3
+  # @schema
+  # type: object
+  # @schema
+  # S3 settings
+  s3:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/amazon/aws-cli/tags
+    # @section -- Upload
+    image: amazon/aws-cli:2.22.26
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket name
+    # @section -- Upload
+    bucket: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket endpoint
+    # @section -- Upload
+    endpoint: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket access key
+    # @section -- Upload
+    accessKey: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket secret access key
+    # @section -- Upload
+    secretAccessKey: ""
+  # @schema
+  # type: object
+  # @schema
+  # GCS settings
+  gcs:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/google/cloud-sdk/tags
+    # @section -- Upload
+    image: google/cloud-sdk:504.0.1
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket name
+    # @section -- Upload
+    bucket: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
+  # TODO azure:
+  #  image: mcr.microsoft.com/azure-cli:2.9.1
+  #  bucket: bucket
+  #  prefix: prefix
+  # TODO do:
+  #  image: digitalocean/doctl:1.113.0
+  #  bucket: bucket
+  #  prefix: prefix
 
-
+# @schema
+# type: object
+# @schema
 # Postgres settings
 postgres:
+  # @schema
+  # type: boolean
+  # @schema
   # -- Enable backup
+  # @section -- Postgres
   enabled: false
+  # @schema
+  # type: string
+  # @schema
   # -- Postgres version
+  # @section -- Postgres
   postgresVersion: "15"
+  # @schema
+  # type: string
+  # @schema
   # -- Postgres host
+  # @section -- Postgres
   host: postgres-host
+  # @schema
+  # type: string
+  # @schema
   # -- Postgres port
+  # @section -- Postgres
   port: "5432"
+  # @schema
+  # type: string
+  # @schema
   # -- Postgres user name
+  # @section -- Postgres
   user: postgres
+  # @schema
+  # type: string
+  # @schema
   # -- Postgres password
+  # @section -- Postgres
   password: password
+  # @schema
+  # type: string
+  # @schema
+  # -- Postgres instance name
+  # @section -- Postgres
   name: instance-name
-  # Cronjob settings
-  cronjob:
-    # -- Set the cronjob parameter schedule
-    schedule: "@daily"
-    # -- Set the cronjob parameter concurrencyPolicy
-    concurrencyPolicy: Forbid
-    # -- Set the cronjob parameter failedJobsHistoryLimit
-    failedJobsHistoryLimit: 1
-    # -- Set the cronjob parameter successfulJobsHistoryLimit
-    successfulJobsHistoryLimit: 1
-    #  -- Set the cronjob parameter startingDeadlineSeconds
-    startingDeadlineSeconds: ""
-    # -- Set the cronjob parameter ttlSecondsAfterFinished
-    ttlSecondsAfterFinished: ""
-    # -- Set the cronjob parameter restartPolicy
-    restartPolicy: Never
-    # -- Set the cronjob parameter backoffLimit
-    backoffLimit: 6
+  # @schema
+  # enum: [CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres]
+  # @schema
   # -- Set the type of postgres database
-  type: SelfHosted # CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres
-  # -- Set the storage location for the postgres dump, S3, GCS, Azure bucket
-  storage: ~
-  #   s3:
-  #     bucket: bucket-name
-  #     prefix: prefix
-  #     endpoint: s3.dualstack.us-east-2.amazonaws.com  # api endpoint
-  #     accesKey: acceskey
-  #     secretAccessKey: secretacceskey
-  #   gcp:
-  #     bucket: bucket
-  #     prefix: prefix
+  # @section -- Postgres
+  type: SelfHosted
+  # @schema
+  # type: object
+  # @schema
+  # Dump settings
   dump:
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   properties:
+    #     name:
+    #       type: string
+    #     value:
+    #       type: string
+    #   additionalProperties: true
+    # @schema
     # -- Environment variables to add to pg dump container
+    # @section -- Postgres
     extraEnv: []
+  # @schema
+  # type: object
+  # @schema
+  # Upload settings
   upload:
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   properties:
+    #     name:
+    #       type: string
+    #     value:
+    #       type: string
+    #   additionalProperties: true
+    # @schema
     # -- Environment variables to add to save container
+    # @section -- Postgres
     extraEnv: []
 
-# ServiceAccount configuration
+# @schema
+# type: object
+# @schema
+# Service account settings
 serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Automatically mount a ServiceAccount's API credentials?
-  automount: true
-  # -- Annotations to add to the service account
-  annotations: {}
+  # @schema
+  # type: string
+  # @schema
   # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
-  name: "system-backups"
+  # @section -- Service Account
+  name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service Account
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service Account
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service Account
+  annotations: {}
