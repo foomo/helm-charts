@@ -32,7 +32,7 @@ proxy:
   resources: {}
   # -- Nginx SSL Reverse Proxy config.
   # The value is templated using `tpl`.
-  # -- See values.yaml
+  # @default -- see values.yaml
   config: |
     server {
       listen              443 ssl;
