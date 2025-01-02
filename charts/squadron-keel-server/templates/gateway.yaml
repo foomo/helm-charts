@@ -1,0 +1,19 @@
+{{- if .Values.gateway.enabled }}
+apiVersion: foomo.org/v1
+kind: Gateway
+metadata:
+  name: {{ include "keel.server.fullname" . }}
+  labels: {{- include "keel.server.labels" . | nindent 4 }}
+  namespace: {{ include "keel.server.namespace" . }}
+spec:
+  service: http://{{ include "keel.server.fullname" . }}.{{ include "keel.server.namespace" . }}
+  {{- with .Values.gateway.addToRobots }}
+  addToRobots: {{ . }}
+  {{- end }}
+  {{- with .Values.gateway.sitemap }}
+  sitemap: {{ . }}
+  {{- end }}
+  {{- with .Values.gateway.expose }}
+  expose: {{- toYaml . | nindent 4 }}
+  {{ end }}
+{{- end }}

@@ -12,6 +12,7 @@
 !.github/
 
 ## Helm
+Chart.lock
 !.helmignore
 
 ## Editorconfig

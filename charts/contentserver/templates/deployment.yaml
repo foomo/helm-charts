@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "contentserver.fullname" . }}
+  labels:
+    {{- include "contentserver.labels" . | nindent 4 }}
+  namespace: {{ include "contentserver.namespace" . }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
+  selector:
+    matchLabels: {{- include "contentserver.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "contentserver.labels" . | nindent 8 }}
+        {{- with .Values.contentserver.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.contentserver.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "contentserver.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+      {{- if .Values.graceful.enabled }}
+      terminationGracePeriodSeconds: {{ .Values.graceful.periodSeconds }}
+      {{- end }}
+      {{- with .Values.contentserver.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.contentserver.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: contentserver
+          {{- with .Values.contentserver.image }}
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: healthz
+              containerPort: 9400
+              protocol: TCP
+            - name: prometheus
+              containerPort: 9200
+              protocol: TCP
+          args:
+            - http
+            - {{ .Values.contentserver.repository.url }}
+            - --address
+            - :8080
+            - --base-path
+            - {{ .Values.contentserver.basePath }}
+            - --graceful-period
+            - {{ sub .Values.graceful.periodSeconds .Values.graceful.delaySeconds }}s
+            - --history-dir
+            - {{ .Values.persistence.path }}
+            {{- if .Values.contentserver.repository.poll }}
+            - --poll
+            - --poll-interval
+            - {{ .Values.contentserver.repository.pollInterval }}
+            {{- end }}
+            - --service-healthz-enabled
+            {{- if .Values.serviceMonitor.enabled }}
+            - --service-prometheus-enabled
+            {{- end }}
+            {{- with .Values.contentserver.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+            {{- include "contentserver.env.log" . | nindent 12 }}
+            {{- include "contentserver.env.opentelemetry" . | nindent 12 }}
+            {{- with .Values.contentserver.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.contentserver.extraEnvFrom }}
+          envFrom: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.contentserver.extraVolumeMounts }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.contentserver.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.contentserver.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.contentserver.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.contentserver.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.graceful.enabled }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
+          {{- end }}
+          {{- with .Values.contentserver.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations:{{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: storage
+          persistentVolumeClaim:
+            claimName: {{ include "contentserver.fullname" . }}
+            readOnly: false
+        {{- end }}
+        {{- with .Values.contentserver.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}

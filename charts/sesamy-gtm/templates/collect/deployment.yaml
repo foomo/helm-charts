@@ -7,10 +7,12 @@ metadata:
     {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
-  {{- if not .Values.collect.autoscaling.enabled }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.collect.replicaCount }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
   selector:
     matchLabels:
       {{- include "sesamy.gtm.collect.selectorLabels" . | nindent 6 }}
@@ -22,8 +24,8 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
-        {{- if .Values.collect.roll }}
-        rollme: {{ randAlphaNum 5 | quote }}
+        {{- if .Values.collect.image.recreate }}
+        helm.sh/chart: {{ include "sesamy.gtm.chart-revision" . }}
         {{- end }}
         {{- with .Values.collect.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -31,16 +33,13 @@ spec:
     spec:
       serviceAccountName: {{ include "sesamy.gtm.serviceAccountName" . }}
       {{- with .Values.collect.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.collect.hostAliases }}
-      hostAliases:
-        {{- toYaml . | nindent 8 }}
+      hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.collect.podSecurityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
+      securityContext: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: gtm-collect
@@ -49,8 +48,7 @@ spec:
           imagePullPolicy: {{ .pullPolicy }}
           {{- end }}
           {{- with .Values.collect.securityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
+          securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
             {{- range $name, $port := $.Values.collect.service.ports }}
@@ -62,51 +60,44 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- with .Values.collect.extraEnv }}
-          env:
-            {{- toYaml . | nindent 12 }}
+          env: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.extraEnvFrom }}
-          envFrom:
-            {{- toYaml . | nindent 12 }}
+          envFrom: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.startupProbe }}
-          startupProbe:
-            {{- toYaml . | nindent 12 }}
+          startupProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.readinessProbe }}
-          readinessProbe:
-            {{- toYaml . | nindent 12 }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.livenessProbe }}
-          livenessProbe:
-            {{- toYaml . | nindent 12 }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
+          resources: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.collect.extraVolumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.collect.extraVolumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.collect.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.collect.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.collect.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
+      volumes: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.collect.dnsConfig }}
-      dnsConfig:
-        {{- toYaml . | nindent 8 }}
+      dnsConfig: {{- toYaml . | nindent 8 }}
       {{- end }}
 {{- end }}

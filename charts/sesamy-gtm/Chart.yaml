@@ -12,14 +12,8 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
     - name: GTM Changelog
       url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
-dependencies:
-  - name: loki
-    alias: loki
-    version: 6.6.1
-    repository: https://grafana.github.io/helm-charts
-    condition: loki.enabled
-version: 0.0.5
-appVersion: 2.3.0
+version: 0.1.3
+appVersion: 2.4.0

@@ -1,448 +1,1040 @@
 {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "config": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "basePath": {
-                    "type": "string"
-                },
-                "repository": {
-                    "type": "object",
-                    "properties": {
-                        "poll": {
-                            "type": "boolean"
-                        },
-                        "pollInterval": {
-                            "type": "string"
-                        },
-                        "url": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "autoscaling": {
+      "additionalProperties": false,
+      "description": "Autoscaling settings",
+      "properties": {
+        "additionalMetrics": {
+          "additionalProperties": true,
+          "description": "Additional scaling metrics",
+          "required": [],
+          "title": "additionalMetrics",
+          "type": "object"
         },
-        "contentserver": {
-            "type": "object",
-            "properties": {
-                "affinity": {
-                    "type": "object"
-                },
-                "autoscaling": {
-                    "type": "object",
-                    "properties": {
-                        "behavior": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "scaleDown": {
-                                    "type": "object"
-                                },
-                                "scaleUp": {
-                                    "type": "object"
-                                }
-                            }
-                        },
-                        "customMetrics": {
-                            "type": "array"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "maxReplicas": {
-                            "type": "integer"
-                        },
-                        "minReplicas": {
-                            "type": "integer"
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer"
-                        },
-                        "targetMemoryUtilizationPercentage": {
-                            "type": "null"
-                        }
-                    }
-                },
-                "dnsConfig": {
-                    "type": "object"
-                },
-                "extraArgs": {
-                    "type": "array"
-                },
-                "extraEnv": {
-                    "type": "array"
-                },
-                "extraEnvFrom": {
-                    "type": "array"
-                },
-                "extraPorts": {
-                    "type": "array"
-                },
-                "extraVolumeMounts": {
-                    "type": "array"
-                },
-                "extraVolumes": {
-                    "type": "array"
-                },
-                "hostAliases": {
-                    "type": "array"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "livenessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
-                "maxUnavailable": {
-                    "type": "null"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podLabels": {
-                    "type": "object"
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "readinessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "roll": {
-                    "type": "boolean"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "labels": {
-                            "type": "object"
-                        },
-                        "port": {
-                            "type": "integer"
-                        },
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "startupProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "tolerations": {
-                    "type": "array"
-                }
-            }
+        "behavior": {
+          "additionalProperties": true,
+          "description": "Autoscaling behavior settings",
+          "required": [],
+          "title": "behavior",
+          "type": "object"
         },
-        "fullnameOverride": {
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether a auto scaling should be enabled",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "maxReplicas": {
+          "default": 9,
+          "description": "Maximum replication number",
+          "required": [],
+          "title": "maxReplicas",
+          "type": "integer"
+        },
+        "maxUnavailable": {
+          "default": 1,
+          "description": "Maximum unavailablity",
+          "required": [],
+          "title": "maxUnavailable",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "minAvailable": {
+          "default": "",
+          "description": "Minimum availablity",
+          "required": [],
+          "title": "minAvailable",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "minReplicas": {
+          "default": 1,
+          "description": "Minimum replication number",
+          "required": [],
+          "title": "minReplicas",
+          "type": "integer"
+        },
+        "targetCPU": {
+          "default": 75,
+          "description": "Target CPU utilization",
+          "required": [],
+          "title": "targetCPU",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "targetMemory": {
+          "default": "null",
+          "description": "Target Memory utilization",
+          "required": [],
+          "title": "targetMemory",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "autoscaling",
+      "type": "object"
+    },
+    "contentserver": {
+      "additionalProperties": false,
+      "description": "Content Server",
+      "properties": {
+        "basePath": {
+          "default": "/contentserver",
+          "description": "Path to export the webserver on",
+          "required": [],
+          "title": "basePath",
+          "type": "string"
+        },
+        "extraArgs": {
+          "description": "Arguements to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraArgs",
+          "type": "array"
+        },
+        "extraEnv": {
+          "description": "Environment variables to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnv",
+          "type": "array"
+        },
+        "extraEnvFrom": {
+          "description": "Environment variables from secrets or configmaps to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnvFrom",
+          "type": "array"
+        },
+        "extraPorts": {
+          "description": "Port definitions to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraPorts",
+          "type": "array"
+        },
+        "extraVolumeMounts": {
+          "description": "Volume mounts to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumeMounts",
+          "type": "array"
+        },
+        "extraVolumes": {
+          "description": "Volumes to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumes",
+          "type": "array"
+        },
+        "hostAliases": {
+          "description": "Host aliases",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hostAliases",
+          "type": "array"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "Your custom collect image",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "Image tag",
+              "enum": [
+                "IfNotPresent",
+                "Always"
+              ],
+              "required": [],
+              "title": "pullPolicy"
+            },
+            "repository": {
+              "default": "foomo/contentserver",
+              "description": "Image repository",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "1.11.2",
+              "description": "Image tag",
+              "required": [],
+              "title": "tag",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repository"
+          ],
+          "title": "image",
+          "type": "object"
+        },
+        "imagePullSecrets": {
+          "description": "Image pull secrets",
+          "items": {
+            "required": []
+          },
+          "required": [],
+          "title": "imagePullSecrets",
+          "type": "array"
+        },
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings for pods",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/liveness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": 9400,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "livenessProbe",
+          "type": "object"
+        },
+        "podAnnotations": {
+          "additionalProperties": false,
+          "description": "Annotations for pods",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
+        },
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Labels for pods",
+          "required": [],
+          "title": "podLabels",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings for pods",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/readiness",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": 9400,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "readinessProbe",
+          "type": "object"
+        },
+        "repository": {
+          "additionalProperties": false,
+          "description": "Repository settings",
+          "properties": {
+            "poll": {
+              "default": false,
+              "description": "If true, the address arg will be used to periodically poll the content url e.g. http://contentserverexport:8080/poll-revision",
+              "required": [],
+              "title": "poll",
+              "type": "boolean"
+            },
+            "pollInterval": {
+              "default": "60s",
+              "description": "Update poll interval",
+              "required": [],
+              "title": "pollInterval",
+              "type": "string"
+            },
+            "url": {
+              "default": "http://contentserverexport:8080",
+              "description": "Repository server url",
+              "required": [],
+              "title": "url",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "repository",
+          "type": "object"
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "Resource request \u0026 limits",
+          "required": [],
+          "title": "resources",
+          "type": "object"
+        },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "Security Context",
+          "required": [],
+          "title": "securityContext",
+          "type": "object"
+        },
+        "startupProbe": {
+          "additionalProperties": true,
+          "description": "Startup probe settings for pods",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/healthz/startup",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": 9400,
+                  "required": [],
+                  "title": "port",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "startupProbe",
+          "type": "object"
+        }
+      },
+      "required": [
+        "imagePullSecrets",
+        "podAnnotations"
+      ],
+      "title": "contentserver",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "graceful": {
+      "additionalProperties": false,
+      "description": "Graceful settings",
+      "properties": {
+        "delaySeconds": {
+          "default": 15,
+          "description": "Seconds to wait for kubernetes to deregister",
+          "required": [],
+          "title": "delaySeconds",
+          "type": "integer"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether graceful shutdown is enabled",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "periodSeconds": {
+          "default": 45,
+          "description": "Total seconds for the grace period",
+          "required": [],
+          "title": "periodSeconds",
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "title": "graceful",
+      "type": "object"
+    },
+    "ingress": {
+      "additionalProperties": false,
+      "description": "Ingress settings",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Ingress annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "className": {
+          "default": "",
+          "description": "Ingress class name",
+          "required": [],
+          "title": "className",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether the ingress is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "hosts": {
+          "description": "List of hosts",
+          "items": {
+            "required": [],
             "type": "string"
+          },
+          "required": [],
+          "title": "hosts",
+          "type": "array"
+        },
+        "paths": {
+          "description": "List of hosts",
+          "items": {
+            "properties": {
+              "path": {
+                "required": [],
+                "type": "string"
+              },
+              "pathType": {
+                "enum": [
+                  "ImplementationSpecific",
+                  "Exact",
+                  "Prefix"
+                ],
+                "required": []
+              },
+              "port": {
+                "required": [],
+                "type": "integer"
+              }
+            },
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "paths",
+          "type": "array"
+        },
+        "tls": {
+          "description": "paths:\n  - path: /foo\n    port: 8080\nTLS settings",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tls",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "ingress",
+      "type": "object"
+    },
+    "log": {
+      "additionalProperties": false,
+      "description": "Log settings",
+      "properties": {
+        "level": {
+          "default": "info",
+          "description": "Log level",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
+          "required": [],
+          "title": "level"
+        },
+        "mode": {
+          "default": "prod",
+          "description": "Log mode",
+          "enum": [
+            "prod",
+            "dev"
+          ],
+          "required": [],
+          "title": "mode"
+        }
+      },
+      "required": [],
+      "title": "log",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "networkPolicy": {
+      "additionalProperties": false,
+      "description": "Network Policy",
+      "properties": {
+        "egress": {
+          "additionalProperties": false,
+          "description": "Egress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional egress rules",
+              "items": {
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether egress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "egress",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether Network Policies should be created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
         },
         "ingress": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "className": {
-                    "type": "string"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "paths": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "path": {
-                                "type": "string"
-                            },
-                            "pathType": {
-                                "type": "string"
-                            },
-                            "port": {
-                                "type": "integer"
-                            }
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "array"
-                }
+          "additionalProperties": false,
+          "description": "rules:\n  - allow-nginx-ingress\n  - allow-internet-egress\n  - allow-my-service-access\nIngress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional ingress rules",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether ingress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
             }
+          },
+          "required": [],
+          "title": "ingress",
+          "type": "object"
         },
-        "nameOverride": {
+        "rules": {
+          "description": "List of rules to apply via labels",
+          "items": {
+            "required": [],
             "type": "string"
-        },
-        "namespaceOverride": {
-            "type": "string"
-        },
-        "networkPolicy": {
-            "type": "object",
-            "properties": {
-                "discovery": {
-                    "type": "object",
-                    "properties": {
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        },
-                        "port": {
-                            "type": "null"
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "externalStorage": {
-                    "type": "object",
-                    "properties": {
-                        "cidrs": {
-                            "type": "array"
-                        },
-                        "ports": {
-                            "type": "array"
-                        }
-                    }
-                },
-                "ingress": {
-                    "type": "object",
-                    "properties": {
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        }
-                    }
-                },
-                "metrics": {
-                    "type": "object",
-                    "properties": {
-                        "cidrs": {
-                            "type": "array"
-                        },
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "otel": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "otlp": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "endpoint": {
-                            "type": "string"
-                        },
-                        "insecure": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "ratio": {
-                    "type": "integer"
-                }
-            }
-        },
-        "persistence": {
-            "type": "object",
-            "properties": {
-                "accessModes": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "annotations": {
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "type": "object"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "string"
-                },
-                "storageClass": {
-                    "type": "string"
-                }
-            }
-        },
-        "rbac": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "revisionHistoryLimit": {
-            "type": "integer"
-        },
-        "serviceAccount": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "automount": {
-                    "type": "boolean"
-                },
-                "create": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "serviceMonitor": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "interval": {
-                    "type": "null"
-                },
-                "labels": {
-                    "type": "object"
-                },
-                "matchExpressions": {
-                    "type": "array"
-                },
-                "metricRelabelings": {
-                    "type": "array"
-                },
-                "namespace": {
-                    "type": "null"
-                },
-                "namespaceSelector": {
-                    "type": "object"
-                },
-                "relabelings": {
-                    "type": "array"
-                },
-                "scheme": {
-                    "type": "string"
-                },
-                "scrapeTimeout": {
-                    "type": "null"
-                },
-                "targetLabels": {
-                    "type": "array"
-                },
-                "tlsConfig": {
-                    "type": "null"
-                }
-            }
+          },
+          "required": [],
+          "title": "rules",
+          "type": "array"
         }
+      },
+      "required": [],
+      "title": "networkPolicy",
+      "type": "object"
+    },
+    "otel": {
+      "additionalProperties": false,
+      "description": "OpenTelemetry settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether to enable it or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "otlp": {
+          "additionalProperties": false,
+          "description": "OTLP exporter settings",
+          "properties": {
+            "endpoint": {
+              "default": "alloy:4317",
+              "description": "Enpoint uri",
+              "required": [],
+              "title": "endpoint",
+              "type": "string"
+            },
+            "insecure": {
+              "default": true,
+              "description": "Indicates wether to use insecure connection",
+              "required": [],
+              "title": "insecure",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "otlp",
+          "type": "object"
+        },
+        "ratio": {
+          "default": 1,
+          "description": "Trace ratio",
+          "required": [],
+          "title": "ratio",
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "title": "otel",
+      "type": "object"
+    },
+    "persistence": {
+      "additionalProperties": false,
+      "description": "Persistence storage settings",
+      "properties": {
+        "accessModes": {
+          "description": "Access modes for the PVC",
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "accessModes",
+          "type": "array"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations for the PVC",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable persistent storage",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "labels": {
+          "additionalProperties": true,
+          "description": "Labels for the PVC",
+          "required": [],
+          "title": "labels",
+          "type": "object"
+        },
+        "path": {
+          "default": "/var/lib/contentserver",
+          "description": "File storage location",
+          "required": [],
+          "title": "path",
+          "type": "string"
+        },
+        "size": {
+          "default": "1Gi",
+          "description": "Storage size",
+          "required": [],
+          "title": "size",
+          "type": "string"
+        },
+        "storageClass": {
+          "default": "",
+          "description": "Storage class to be used",
+          "required": [],
+          "title": "storageClass",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "persistence",
+      "type": "object"
+    },
+    "rbac": {
+      "additionalProperties": false,
+      "description": "RBAC settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Create PodSecurityPolicy",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "title": "rbac",
+      "type": "object"
+    },
+    "replicas": {
+      "default": 1,
+      "description": "Number of replications",
+      "required": [],
+      "title": "replicas",
+      "type": "number"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "Number of revisions to keep",
+      "required": [],
+      "title": "revisionHistoryLimit",
+      "type": "integer"
+    },
+    "scheduling": {
+      "additionalProperties": false,
+      "description": "Scheduling settings",
+      "properties": {
+        "affinity": {
+          "additionalProperties": true,
+          "description": "Affinity for pod assignment",
+          "required": [],
+          "title": "affinity",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether scheduling is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "nodeSelector": {
+          "additionalProperties": true,
+          "description": "Node labels for pod assignment",
+          "required": [],
+          "title": "nodeSelector",
+          "type": "object"
+        },
+        "priorityClass": {
+          "default": "null",
+          "description": "Priority class name",
+          "required": [],
+          "title": "priorityClass",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tolerations": {
+          "description": "Tolerations for pod assignment",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tolerations",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "scheduling",
+      "type": "object"
+    },
+    "securityContext": {
+      "additionalProperties": false,
+      "description": "Security context",
+      "properties": {
+        "fsGroup": {
+          "default": 1001,
+          "description": "File system group id",
+          "required": [],
+          "title": "fsGroup",
+          "type": "integer"
+        },
+        "runAsGroup": {
+          "default": 1001,
+          "description": "Run as group id",
+          "required": [],
+          "title": "runAsGroup",
+          "type": "integer"
+        },
+        "runAsNonRoot": {
+          "default": true,
+          "description": "Indicates wether to run as non root user",
+          "required": [],
+          "title": "runAsNonRoot",
+          "type": "boolean"
+        },
+        "runAsUser": {
+          "default": 1001,
+          "description": "Run as user id",
+          "required": [],
+          "title": "runAsUser",
+          "type": "integer"
+        }
+      },
+      "required": [],
+      "title": "securityContext",
+      "type": "object"
+    },
+    "service": {
+      "additionalProperties": false,
+      "description": "Service settings",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional Service labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Service annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "type": {
+          "default": "ClusterIP",
+          "description": "Service type",
+          "required": [],
+          "title": "type",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "service",
+      "type": "object"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "Service account settings",
+      "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations to add to the service account",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "required": [],
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use.",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "serviceAccount",
+      "type": "object"
+    },
+    "serviceMonitor": {
+      "additionalProperties": false,
+      "description": "Service Monitor settings",
+      "properties": {
+        "additionalLabels": {
+          "additionalProperties": true,
+          "description": "Additional ServiceMonitor labels",
+          "required": [],
+          "title": "additionalLabels",
+          "type": "object"
+        },
+        "annotations": {
+          "additionalProperties": true,
+          "description": "ServiceMonitor annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "interval": {
+          "default": "",
+          "description": "ServiceMonitor scrape interval",
+          "required": [],
+          "title": "interval",
+          "type": "string"
+        },
+        "metricRelabelings": {
+          "description": "ServiceMonitor metric relabel configs to apply to samples before ingestion",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "metricRelabelings",
+          "type": "array"
+        },
+        "relabelings": {
+          "description": "ServiceMonitor relabel configs to apply to samples before scraping.",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "relabelings",
+          "type": "array"
+        },
+        "scrapeTimeout": {
+          "default": "",
+          "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
+          "required": [],
+          "title": "scrapeTimeout",
+          "type": "string"
+        },
+        "targetLabels": {
+          "description": "ServiceMonitor will add labels from the service to the Prometheus metric",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "targetLabels",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "serviceMonitor",
+      "type": "object"
+    },
+    "updateStrategy": {
+      "default": "RollingUpdate",
+      "description": "Deployment update strategy",
+      "enum": [
+        "RollingUpdate",
+        "Recreate"
+      ],
+      "required": [],
+      "title": "updateStrategy"
     }
+  },
+  "required": [
+    "contentserver"
+  ],
+  "type": "object"
 }

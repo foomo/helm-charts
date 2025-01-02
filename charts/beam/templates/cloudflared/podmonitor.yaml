@@ -3,14 +3,37 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: {{ include "beam.cloudflared.fullname" $ }}
-  labels: {{- include "beam.cloudflared.labels" $ | nindent 4 }}
+  labels:
+    {{- include "beam.cloudflared.labels" . | nindent 4 }}
+    {{- with .Values.cloudflared.podMonitor.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.cloudflared.podMonitor.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
   namespace: {{ include "beam.namespace" . }}
 spec:
   selector:
     matchLabels: {{- include "beam.cloudflared.selectorLabels" $ | nindent 6 }}
   namespaceSelector:
-    matchNames: ["{{ include "beam.namespace" . }}"]
+    matchNames:
+      - "{{ include "beam.namespace" . }}"
   podMetricsEndpoints:
     - port: http-metrics
       path: /metrics
+      {{- if .Values.cloudflared.podMonitor.interval }}
+      interval: {{ .Values.cloudflared.podMonitor.interval }}
+      {{- end }}
+      {{- if .Values.cloudflared.podMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.cloudflared.podMonitor.scrapeTimeout }}
+      {{- end }}
+      {{- with .Values.cloudflared.podMonitor.targetLabels }}
+      targetLabels: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cloudflared.podMonitor.relabelings }}
+      relabelings: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cloudflared.podMonitor.metricRelabelings }}
+      metricRelabelings: {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}

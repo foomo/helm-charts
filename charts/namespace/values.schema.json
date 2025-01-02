@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "clusterRoles": {
+      "additionalProperties": true,
+      "description": "Cluster Roles to create",
+      "required": [],
+      "title": "clusterRoles",
+      "type": "object"
+    },
+    "dockerSecrets": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "data": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "description": "tlsSecrets:\n  my-domain.com:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    data:\n      tls.crt: ''\n      tls.key: ''\nDocker config json secrets",
+      "required": [],
+      "title": "dockerSecrets",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "roleBindings": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "kind": {
+            "additionalProperties": true,
+            "type": "string"
+          },
+          "role": {
+            "additionalProperties": true,
+            "type": "string"
+          },
+          "subjects": {
+            "additionalProperties": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "description": "clusterRoles:\n  my-cluster-role:\n    annotations: {}\n    labels: {}\n    rules: {}\nRole Bindings to create",
+      "required": [],
+      "title": "roleBindings",
+      "type": "object"
+    },
+    "secrets": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "stringData": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "roleBindings:\n  my-role-binding:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    group: \"\"\n    role: \"\"\nOpaque secrets",
+      "required": [],
+      "title": "secrets",
+      "type": "object"
+    },
+    "serviceAccounts": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "Service accounts settings",
+      "required": [],
+      "title": "serviceAccounts",
+      "type": "object"
+    },
+    "tlsSecrets": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "secrets:\n  my-secret:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    data: {}\nTLS secrets",
+      "required": [],
+      "title": "tlsSecrets",
+      "type": "object"
+    },
+    "volumeClaims": {
+      "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "Service accounts settings",
+      "required": [],
+      "title": "volumeClaims",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

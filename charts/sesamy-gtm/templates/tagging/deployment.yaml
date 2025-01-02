@@ -6,10 +6,12 @@ metadata:
     {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
-  {{- if not .Values.tagging.autoscaling.enabled }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.tagging.replicaCount }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
   selector:
     matchLabels:
       {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 6 }}
@@ -76,13 +78,17 @@ spec:
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          readinessProbe:
-            {{- toYaml .Values.tagging.readinessProbe | nindent 12 }}
-          livenessProbe:
-            {{- toYaml .Values.tagging.livenessProbe | nindent 12 }}
+          {{- with .Values.tagging.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.tagging.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.tagging.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.tagging.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
+          resources: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumeMounts }}
           volumeMounts:
@@ -95,6 +101,20 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
       {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumes }}
       volumes:
         {{- if .Values.gtm.googleApplicationCredentials }}
@@ -105,18 +125,6 @@ spec:
         {{- with .Values.tagging.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- end }}
-      {{- with .Values.tagging.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tagging.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tagging.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.tagging.dnsConfig }}
       dnsConfig:
