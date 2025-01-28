@@ -13,7 +13,7 @@ global:
     # @schema
     # type: boolean
     # @schema
-    # Enable for backward compatibility
+    # -- Enable for backward compatibility
     # @section -- Global
     withDeprecatedSelectorLabels: false
     # @schema
@@ -344,6 +344,36 @@ ingress:
   #   - secretName: chart-example-tls
   #     hosts:
   #       - chart-example.local
+
+# @schema
+# type: object
+# @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
 
 # @schema
 # type: object

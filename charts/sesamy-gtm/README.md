@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -93,8 +93,8 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | ingress.annotations | object | `{}` | Annotations |
 | ingress.className | string | `""` | Ingress class name |
 | ingress.enabled | bool | `false` | Enable ingress |
-| ingress.hosts | list | `["example.com"]` | Hosts to listen to |
-| ingress.paths | object | `{"preview":[{"path":"/gtm","pathType":"Prefix","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"Exact","port":8080},{"path":"/gtag/js","pathType":"Prefix","port":8080},{"path":"/g/collect","pathType":"Prefix","port":8080}]}` | Path settings |
+| ingress.hosts | list | `[]` | Hosts to listen to |
+| ingress.paths | object | `{"preview":[{"path":"/gtm","pathType":"Prefix","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"Exact","port":8080},{"path":"/_set_cookie","pathType":"Exact","port":8080},{"path":"/gtag/js","pathType":"Prefix","port":8080},{"path":"/g/collect","pathType":"Prefix","port":8080}]}` | Path settings |
 | ingress.tls | list | `[]` | Tls setttings |
 
 ### Network Policy
@@ -163,6 +163,14 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
 
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | object | `{"preview":[{"path":"/gtm","pathType":"PathPrefix","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"Exact","port":8080},{"path":"/_set_cookie","pathType":"Exact","port":8080},{"path":"/gtag/js","pathType":"PathPrefix","port":8080},{"path":"/g/collect","pathType":"PathPrefix","port":8080}]}` | Path matches |
+
 ### Scheduling
 
 | Key | Type | Default | Description |
@@ -192,6 +200,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
 | serviceMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion |
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping |
+| serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
 
 ### Tagging
@@ -221,10 +230,4 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | tagging.service.port | int | `8080` | Port of the service |
 | tagging.service.type | string | `"ClusterIP"` | Type of the service |
 | tagging.startupProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 

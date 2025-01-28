@@ -857,6 +857,9 @@ ingress:
       - path: /gtm.js
         pathType: Exact
         port: 8080
+      - path: /_set_cookie
+        pathType: Exact
+        port: 8080
       - path: /gtag/js
         pathType: Prefix
         port: 8080
@@ -876,8 +879,7 @@ ingress:
   # @schema
   # -- Hosts to listen to
   # @section -- Ingress
-  hosts:
-    - example.com
+  hosts: []
   # @schema
   # type: array
   # items:
@@ -887,6 +889,57 @@ ingress:
   # -- Tls setttings
   # @section -- Ingress
   tls: []
+
+# @schema
+# type: object
+# @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths:
+    preview:
+      - path: /gtm
+        pathType: PathPrefix
+        port: 8080
+    tagging:
+      - path: /gtm.js
+        pathType: Exact
+        port: 8080
+      - path: /_set_cookie
+        pathType: Exact
+        port: 8080
+      - path: /gtag/js
+        pathType: PathPrefix
+        port: 8080
+      # Comment if `collect.enabled=true`
+      - path: /g/collect
+        pathType: PathPrefix
+        port: 8080
+    # Uncomment if `collect.enabled=true`
+    # collect:
+    #   - path: /g/collect
+    #     pathType: Prefix
+    #     port: 8080
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
 
 # ServiceAccount configuration
 serviceAccount:
@@ -952,6 +1005,7 @@ serviceMonitor:
   # type: string
   # @schema
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
+  # @section -- Service Monitor
   scrapeTimeout: ''
   # @schema
   # type: array

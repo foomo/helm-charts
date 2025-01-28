@@ -450,6 +450,36 @@ ingress:
 # @schema
 # type: object
 # @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
+  
+# @schema
+# type: object
+# @schema
 # Service account settings
 serviceAccount:
   # @schema

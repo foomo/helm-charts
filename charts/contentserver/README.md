@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.2](https://img.shields.io/badge/AppVersion-1.11.2-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.2](https://img.shields.io/badge/AppVersion-1.11.2-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -137,6 +137,14 @@ Helm chart for the foomo Content Server.
 | replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
+
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | list | `[]` | Path matches |
 
 ### Scheduling
 

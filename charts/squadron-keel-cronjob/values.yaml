@@ -13,7 +13,7 @@ global:
     # @schema
     # type: boolean
     # @schema
-    # Enable for backward compatibility
+    # -- Enable for backward compatibility
     # @section -- Global
     withDeprecatedSelectorLabels: false
     # @schema
