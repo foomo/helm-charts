@@ -558,6 +558,35 @@
                     "additionalProperties": false,
                     "properties": {
                       "path": {
+                        "default": "/_set_cookie",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Exact",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
                         "default": "/gtag/js",
                         "required": [],
                         "title": "path",
@@ -1164,6 +1193,210 @@
       "required": [],
       "title": "revisionHistoryLimit",
       "type": "integer"
+    },
+    "routing": {
+      "additionalProperties": false,
+      "description": "Routing settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether routing is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "parentRefs": {
+          "description": "Parent references",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "parentRefs",
+          "type": "array"
+        },
+        "paths": {
+          "additionalProperties": true,
+          "description": "Path matches",
+          "properties": {
+            "preview": {
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtm",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "preview",
+              "type": "array"
+            },
+            "tagging": {
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtm.js",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Exact",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_set_cookie",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Exact",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtag/js",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/g/collect",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "tagging",
+              "type": "array"
+            }
+          },
+          "required": [
+            "preview",
+            "tagging"
+          ],
+          "title": "paths",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "routing",
+      "type": "object"
     },
     "scheduling": {
       "additionalProperties": false,

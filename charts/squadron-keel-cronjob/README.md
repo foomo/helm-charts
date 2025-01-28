@@ -62,6 +62,7 @@ Squadron Keel CronJob Chart
 | global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
 
 ### Graceful Shutdown
 
@@ -159,9 +160,3 @@ Squadron Keel CronJob Chart
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

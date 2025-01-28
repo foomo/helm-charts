@@ -1,0 +1,25 @@
+{{- if .Values.routing.enabled }}
+{{- $fullName := include "sesamy.gtm.fullname" . -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}
+  labels: {{- include "sesamy.gtm.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.gtm.namespace" . }}
+spec:
+  {{- with .Values.routing.parentRefs }}
+  parentRefs: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    {{- range $svcName, $paths := $.Values.routing.paths }}
+    {{- range $paths }}
+    - matches:
+        - path:
+            type: {{ default .pathType "PathPrefix" }}
+            value: {{ .path }}
+      backendRefs:
+        - name: {{ include "sesamy.gtm.fullname" $ }}-{{ $svcName }}
+          port: {{ .port }}
+    {{- end }}
+    {{- end }}
+{{- end }}

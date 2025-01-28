@@ -693,6 +693,44 @@
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
+    "routing": {
+      "additionalProperties": false,
+      "description": "Routing settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether routing is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "parentRefs": {
+          "description": "Parent references",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "parentRefs",
+          "type": "array"
+        },
+        "paths": {
+          "description": "Path matches",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "paths",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "routing",
+      "type": "object"
+    },
     "scheduling": {
       "additionalProperties": false,
       "description": "Scheduling settings",

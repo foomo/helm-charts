@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.12](https://img.shields.io/badge/AppVersion-0.1.12-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -62,6 +62,7 @@ Squadron NextJS Server Chart
 | global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
 
 ### Graceful Shutdown
 
@@ -145,6 +146,14 @@ Squadron NextJS Server Chart
 |-----|------|---------|-------------|
 | rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | list | `[]` | Path matches |
+
 ### Scheduling
 
 | Key | Type | Default | Description |
@@ -212,9 +221,3 @@ Squadron NextJS Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

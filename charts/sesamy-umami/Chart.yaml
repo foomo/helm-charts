@@ -12,8 +12,8 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-umami
     - name: Umami Source
       url: https://github.com/umami-software/umami
-version: 0.0.2
-appVersion: 2.11.3
+version: 0.1.0
+appVersion: 2.15.1

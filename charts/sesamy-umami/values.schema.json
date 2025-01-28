@@ -1,492 +1,1049 @@
 {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "fullnameOverride": {
-            "type": "string"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "ingress": {
+      "additionalProperties": false,
+      "description": "Ingress configuration",
+      "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "className": {
+          "default": "",
+          "description": "Ingress class name",
+          "required": [],
+          "title": "className",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable ingress",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "hosts": {
+          "description": "Ingress hosts",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hosts",
+          "type": "array"
+        },
+        "paths": {
+          "additionalProperties": true,
+          "description": "Path settings",
+          "properties": {
+            "umami": {
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Prefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8000,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "umami",
+              "type": "array"
+            }
+          },
+          "required": [
+            "umami"
+          ],
+          "title": "paths",
+          "type": "object"
+        },
+        "tls": {
+          "description": "Ingress tls",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tls",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "ingress",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "networkPolicy": {
+      "additionalProperties": false,
+      "description": "Network Policy settings",
+      "properties": {
+        "egress": {
+          "additionalProperties": false,
+          "description": "Egress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional egress rules",
+              "items": {
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether egress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "egress",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether Network Policies should be created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
         },
         "ingress": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "className": {
-                    "type": "string"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "paths": {
-                    "type": "object",
-                    "properties": {
-                        "umami": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "path": {
-                                        "type": "string"
-                                    },
-                                    "pathType": {
-                                        "type": "string"
-                                    },
-                                    "port": {
-                                        "type": "integer"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "array"
-                }
+          "additionalProperties": false,
+          "description": "rules:\n  - allow-nginx-ingress\n  - allow-internet-egress\n  - allow-my-service-access\nIngress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional ingress rules",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether ingress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
             }
+          },
+          "required": [],
+          "title": "ingress",
+          "type": "object"
         },
-        "nameOverride": {
+        "rules": {
+          "description": "List of rules to apply via labels",
+          "items": {
+            "required": [],
             "type": "string"
-        },
-        "namespaceOverride": {
-            "type": "string"
-        },
-        "networkPolicy": {
-            "type": "object",
-            "properties": {
-                "discovery": {
-                    "type": "object",
-                    "properties": {
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        },
-                        "port": {
-                            "type": "null"
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "externalStorage": {
-                    "type": "object",
-                    "properties": {
-                        "cidrs": {
-                            "type": "array"
-                        },
-                        "ports": {
-                            "type": "array"
-                        }
-                    }
-                },
-                "ingress": {
-                    "type": "object",
-                    "properties": {
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        }
-                    }
-                },
-                "metrics": {
-                    "type": "object",
-                    "properties": {
-                        "cidrs": {
-                            "type": "array"
-                        },
-                        "namespaceSelector": {
-                            "type": "object"
-                        },
-                        "podSelector": {
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "proxy": {
-            "type": "object",
-            "properties": {
-                "config": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "tls": {
-                    "type": "object",
-                    "properties": {
-                        "crt": {
-                            "type": "string"
-                        },
-                        "key": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "rbac": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "revisionHistoryLimit": {
-            "type": "integer"
-        },
-        "serviceAccount": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "automount": {
-                    "type": "boolean"
-                },
-                "create": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "serviceMonitor": {
-            "type": "object",
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "interval": {
-                    "type": "null"
-                },
-                "labels": {
-                    "type": "object"
-                },
-                "matchExpressions": {
-                    "type": "array"
-                },
-                "metricRelabelings": {
-                    "type": "array"
-                },
-                "namespace": {
-                    "type": "null"
-                },
-                "namespaceSelector": {
-                    "type": "object"
-                },
-                "relabelings": {
-                    "type": "array"
-                },
-                "scheme": {
-                    "type": "string"
-                },
-                "scrapeTimeout": {
-                    "type": "null"
-                },
-                "targetLabels": {
-                    "type": "array"
-                },
-                "tlsConfig": {
-                    "type": "null"
-                }
-            }
-        },
-        "umami": {
-            "type": "object",
-            "properties": {
-                "affinity": {
-                    "type": "object"
-                },
-                "autoscaling": {
-                    "type": "object",
-                    "properties": {
-                        "behavior": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "scaleDown": {
-                                    "type": "object"
-                                },
-                                "scaleUp": {
-                                    "type": "object"
-                                }
-                            }
-                        },
-                        "customMetrics": {
-                            "type": "array"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "maxReplicas": {
-                            "type": "integer"
-                        },
-                        "minReplicas": {
-                            "type": "integer"
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer"
-                        },
-                        "targetMemoryUtilizationPercentage": {
-                            "type": "null"
-                        }
-                    }
-                },
-                "config": {
-                    "type": "object",
-                    "properties": {
-                        "appSecret": {
-                            "type": "object",
-                            "properties": {
-                                "existingSecret": {
-                                    "type": "string"
-                                },
-                                "existingSecretKey": {
-                                    "type": "string"
-                                },
-                                "secret": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "clientIpHeader": {
-                            "type": "string"
-                        },
-                        "cloudMode": {
-                            "type": "string"
-                        },
-                        "collectApiEndpoint": {
-                            "type": "string"
-                        },
-                        "corsMaxAge": {
-                            "type": "string"
-                        },
-                        "database": {
-                            "type": "object",
-                            "properties": {
-                                "auth": {
-                                    "type": "object",
-                                    "properties": {
-                                        "database": {
-                                            "type": "string"
-                                        },
-                                        "hostname": {
-                                            "type": "string"
-                                        },
-                                        "password": {
-                                            "type": "string"
-                                        },
-                                        "username": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "existingSecret": {
-                                    "type": "string"
-                                },
-                                "existingSecretKey": {
-                                    "type": "string"
-                                },
-                                "uri": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "disableBotCheck": {
-                            "type": "string"
-                        },
-                        "disableLogin": {
-                            "type": "string"
-                        },
-                        "disableTelemetry": {
-                            "type": "string"
-                        },
-                        "disableUpdates": {
-                            "type": "string"
-                        },
-                        "enableTestConsole": {
-                            "type": "string"
-                        },
-                        "forceSSL": {
-                            "type": "string"
-                        },
-                        "hostname": {
-                            "type": "string"
-                        },
-                        "ignoreHostname": {
-                            "type": "string"
-                        },
-                        "ignoredIpAddresses": {
-                            "type": "string"
-                        },
-                        "logQuery": {
-                            "type": "string"
-                        },
-                        "removeDisableLoginEnv": {
-                            "type": "boolean"
-                        },
-                        "removeTrailingSlash": {
-                            "type": "string"
-                        },
-                        "trackerScriptName": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "dnsConfig": {
-                    "type": "object"
-                },
-                "extraEnv": {
-                    "type": "array"
-                },
-                "extraEnvFrom": {
-                    "type": "array"
-                },
-                "extraPorts": {
-                    "type": "array"
-                },
-                "extraVolumeMounts": {
-                    "type": "array"
-                },
-                "extraVolumes": {
-                    "type": "array"
-                },
-                "hostAliases": {
-                    "type": "array"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "registry": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "livenessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "maxUnavailable": {
-                    "type": "null"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podLabels": {
-                    "type": "object"
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "readinessProbe": {
-                    "type": "object",
-                    "properties": {
-                        "httpGet": {
-                            "type": "object",
-                            "properties": {
-                                "path": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "labels": {
-                            "type": "object"
-                        },
-                        "port": {
-                            "type": "integer"
-                        },
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "startupProbe": {
-                    "type": "object"
-                },
-                "tolerations": {
-                    "type": "array"
-                }
-            }
+          },
+          "required": [],
+          "title": "rules",
+          "type": "array"
         }
+      },
+      "required": [],
+      "title": "networkPolicy",
+      "type": "object"
+    },
+    "proxy": {
+      "additionalProperties": false,
+      "description": "TLS Reverse Proxy settings\nAll urls have to be valid https urls, so proxy https traffic to your containers.\nCreate a self-signed certificate by running\n$ openssl req -x509 -newkey rsa:2048 -keyout tls.key -out tls.crt -nodes -subj '/CN=sesamy'",
+      "properties": {
+        "config": {
+          "default": "server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.umami.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n",
+          "description": "Nginx SSL Reverse Proxy config.",
+          "required": [],
+          "title": "config",
+          "type": "string"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "Docker image",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "Image tag",
+              "enum": [
+                "IfNotPresent",
+                "Always"
+              ],
+              "required": [],
+              "title": "pullPolicy"
+            },
+            "repository": {
+              "default": "nginx",
+              "description": "Image repository",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "1.25-alpine",
+              "description": "Image tag",
+              "required": [],
+              "title": "tag",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "image",
+          "type": "object"
+        },
+        "resources": {
+          "additionalProperties": false,
+          "description": "Resource request \u0026 limits.",
+          "required": [],
+          "title": "resources",
+          "type": "object"
+        },
+        "tls": {
+          "additionalProperties": false,
+          "description": "TLS settings",
+          "properties": {
+            "crt": {
+              "default": "",
+              "description": "Base64 encoded TLS cert",
+              "required": [],
+              "title": "crt",
+              "type": "string"
+            },
+            "key": {
+              "default": "",
+              "description": "Base64 encoded TLS key",
+              "required": [],
+              "title": "key",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "tls",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "proxy",
+      "type": "object"
+    },
+    "rbac": {
+      "additionalProperties": false,
+      "description": "RBAC configuration",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Create PodSecurityPolicy.",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "title": "rbac",
+      "type": "object"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "Number of revisions to keep",
+      "required": [],
+      "title": "revisionHistoryLimit",
+      "type": "integer"
+    },
+    "routing": {
+      "additionalProperties": false,
+      "description": "Routing settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether routing is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "parentRefs": {
+          "description": "Parent references",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "parentRefs",
+          "type": "array"
+        },
+        "paths": {
+          "description": "Path matches",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "paths",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "routing",
+      "type": "object"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "Service account settings",
+      "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Annotations to add to the service account",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "required": [],
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use.",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "serviceAccount",
+      "type": "object"
+    },
+    "umami": {
+      "additionalProperties": false,
+      "description": "Umami settings",
+      "properties": {
+        "affinity": {
+          "additionalProperties": true,
+          "description": "Affinity settings for pods.",
+          "required": [],
+          "title": "affinity",
+          "type": "object"
+        },
+        "autoscaling": {
+          "additionalProperties": false,
+          "description": "Autoscaling settings",
+          "properties": {
+            "behavior": {
+              "additionalProperties": false,
+              "description": "Behavior settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Enable autoscaling behaviours",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                },
+                "scaleDown": {
+                  "additionalProperties": true,
+                  "description": "Scale down policies, must conform to HPAScalingRules",
+                  "required": [],
+                  "title": "scaleDown",
+                  "type": "object"
+                },
+                "scaleUp": {
+                  "additionalProperties": true,
+                  "description": "Scale up policies, must conform to HPAScalingRules",
+                  "required": [],
+                  "title": "scaleUp",
+                  "type": "object"
+                }
+              },
+              "required": [],
+              "title": "behavior",
+              "type": "object"
+            },
+            "customMetrics": {
+              "description": "Custom metrics using the HPA/v2 schema",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "object"
+              },
+              "required": [],
+              "title": "customMetrics",
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Enable autoscaling",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "maxReplicas": {
+              "default": 100,
+              "description": "Maximum autoscaling replicas",
+              "required": [],
+              "title": "maxReplicas",
+              "type": "integer"
+            },
+            "minReplicas": {
+              "default": 1,
+              "description": "Minimum autoscaling replicas",
+              "required": [],
+              "title": "minReplicas",
+              "type": "integer"
+            },
+            "targetCPUUtilizationPercentage": {
+              "default": 80,
+              "description": "Target CPU utilisation percentage",
+              "required": [],
+              "title": "targetCPUUtilizationPercentage",
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "targetMemoryUtilizationPercentage": {
+              "default": "null",
+              "description": "Target memory utilisation percentage",
+              "required": [],
+              "title": "targetMemoryUtilizationPercentage",
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [],
+          "title": "autoscaling",
+          "type": "object"
+        },
+        "config": {
+          "additionalProperties": false,
+          "description": "Umami configurations",
+          "properties": {
+            "appSecret": {
+              "additionalProperties": false,
+              "description": "App secret configurations",
+              "properties": {
+                "existingSecret": {
+                  "default": "",
+                  "description": "Name of an existing secret containing the app secret under the key app-secret.",
+                  "required": [],
+                  "title": "existingSecret",
+                  "type": "string"
+                },
+                "existingSecretKey": {
+                  "default": "",
+                  "description": "Key in the existing secret containing the value (default: app-secret)",
+                  "required": [],
+                  "title": "existingSecretKey",
+                  "type": "string"
+                },
+                "secret": {
+                  "default": "",
+                  "description": "A random string used to generate unique values.",
+                  "required": [],
+                  "title": "secret",
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "title": "appSecret",
+              "type": "object"
+            },
+            "clientIpHeader": {
+              "default": "",
+              "description": "HTTP header to check for the client's IP address. This is useful when you're behind a proxy that uses non-standard headers.",
+              "required": [],
+              "title": "clientIpHeader",
+              "type": "string"
+            },
+            "cloudMode": {
+              "default": "1",
+              "description": "Disables users, teams, and websites settings page.",
+              "required": [],
+              "title": "cloudMode",
+              "type": "string"
+            },
+            "collectApiEndpoint": {
+              "default": "",
+              "description": "Allows you to send metrics to a location different than the default `/api/send`. This is to help you avoid some ad-blockers.",
+              "required": [],
+              "title": "collectApiEndpoint",
+              "type": "string"
+            },
+            "corsMaxAge": {
+              "default": "86400",
+              "description": "How many seconds a CORS preflight should last. Default is 24 hours.",
+              "required": [],
+              "title": "corsMaxAge",
+              "type": "string"
+            },
+            "database": {
+              "additionalProperties": false,
+              "description": "Database configurations",
+              "properties": {
+                "auth": {
+                  "additionalProperties": false,
+                  "description": "Auth settings",
+                  "properties": {
+                    "database": {
+                      "default": "",
+                      "description": "Database name",
+                      "required": [],
+                      "title": "database",
+                      "type": "string"
+                    },
+                    "hostname": {
+                      "default": "",
+                      "description": "Database hostname",
+                      "required": [],
+                      "title": "hostname",
+                      "type": "string"
+                    },
+                    "password": {
+                      "default": "",
+                      "description": "Database password",
+                      "required": [],
+                      "title": "password",
+                      "type": "string"
+                    },
+                    "username": {
+                      "default": "",
+                      "description": "Database username",
+                      "required": [],
+                      "title": "username",
+                      "type": "string"
+                    }
+                  },
+                  "required": [],
+                  "title": "auth",
+                  "type": "object"
+                },
+                "existingSecret": {
+                  "default": "",
+                  "description": "Use an existing secret containing the database uri.",
+                  "required": [],
+                  "title": "existingSecret",
+                  "type": "string"
+                },
+                "existingSecretKey": {
+                  "default": "",
+                  "description": "Key in the existing secret containing value (default: database-url)",
+                  "required": [],
+                  "title": "existingSecretKey",
+                  "type": "string"
+                },
+                "uri": {
+                  "default": "",
+                  "description": "Full connection string",
+                  "required": [],
+                  "title": "uri",
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "title": "database",
+              "type": "object"
+            },
+            "disableBotCheck": {
+              "default": "1",
+              "description": "By default bots are excluded from statistics. This disables checking for bots.",
+              "required": [],
+              "title": "disableBotCheck",
+              "type": "string"
+            },
+            "disableLogin": {
+              "default": "1",
+              "description": "Disables the login page for the application",
+              "required": [],
+              "title": "disableLogin",
+              "type": "string"
+            },
+            "disableTelemetry": {
+              "default": "1",
+              "description": "Umami collects completely anonymous telemetry data in order help improve the application. You can choose to disable this if you don't want to participate.",
+              "required": [],
+              "title": "disableTelemetry",
+              "type": "string"
+            },
+            "disableUpdates": {
+              "default": "1",
+              "description": "Disables the check for new versions of Umami",
+              "required": [],
+              "title": "disableUpdates",
+              "type": "string"
+            },
+            "enableTestConsole": {
+              "default": "1",
+              "description": "Enables the internal test page, {host}/console. Admin access is required. Users can manually fire pageviews and events to their websites.",
+              "required": [],
+              "title": "enableTestConsole",
+              "type": "string"
+            },
+            "forceSSL": {
+              "default": "1",
+              "description": "This will redirect all requests from http to https in the Umami application. Note, this does not apply to the tracking script.",
+              "required": [],
+              "title": "forceSSL",
+              "type": "string"
+            },
+            "hostname": {
+              "default": "0.0.0.0",
+              "description": "hostname under which Umami will be reached",
+              "required": [],
+              "title": "hostname",
+              "type": "string"
+            },
+            "ignoreHostname": {
+              "default": "",
+              "description": "This will do a DNS lookup on a hostname and the resulting IP address will be ignored. This can be a comma delimited list of hostnames.",
+              "required": [],
+              "title": "ignoreHostname",
+              "type": "string"
+            },
+            "ignoredIpAddresses": {
+              "default": "",
+              "description": "You can provide a comma-delimited list of IP address to exclude from data collection.",
+              "required": [],
+              "title": "ignoredIpAddresses",
+              "type": "string"
+            },
+            "logQuery": {
+              "default": "1",
+              "description": "If you are running in development mode, this will log database queries to the console for debugging.",
+              "required": [],
+              "title": "logQuery",
+              "type": "string"
+            },
+            "removeDisableLoginEnv": {
+              "default": true,
+              "description": "setting this to true removes the environment variable DISABLE_LOGIN defined in `umami.disableLogin` from the deployment as this caused errors in some setups",
+              "required": [],
+              "title": "removeDisableLoginEnv",
+              "type": "boolean"
+            },
+            "removeTrailingSlash": {
+              "default": "1",
+              "description": "Removes the trailing slash from all incoming urls.",
+              "required": [],
+              "title": "removeTrailingSlash",
+              "type": "string"
+            },
+            "trackerScriptName": {
+              "default": "umami",
+              "description": "Allows you to assign a custom name to the tracker script different from the default umami. This is to help you avoid some ad-blockers.",
+              "required": [],
+              "title": "trackerScriptName",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "config",
+          "type": "object"
+        },
+        "dnsConfig": {
+          "additionalProperties": true,
+          "description": "DNSConfig settings for pods.",
+          "required": [],
+          "title": "dnsConfig",
+          "type": "object"
+        },
+        "extraEnv": {
+          "description": "Environment variables to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnv",
+          "type": "array"
+        },
+        "extraEnvFrom": {
+          "description": "Environment variables from secrets or configmaps to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraEnvFrom",
+          "type": "array"
+        },
+        "extraPorts": {
+          "description": "Port definitions to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraPorts",
+          "type": "array"
+        },
+        "extraVolumeMounts": {
+          "description": "Volume mounts to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumeMounts",
+          "type": "array"
+        },
+        "extraVolumes": {
+          "description": "Volumes to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "extraVolumes",
+          "type": "array"
+        },
+        "hostAliases": {
+          "description": "Host aliases to add",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "hostAliases",
+          "type": "array"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "Your custom collect image",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "description": "The image pull policy",
+              "enum": [
+                "IfNotPresent",
+                "Always"
+              ],
+              "required": [],
+              "title": "pullPolicy"
+            },
+            "registry": {
+              "default": "ghcr.io",
+              "description": "The image registry",
+              "required": [],
+              "title": "registry",
+              "type": "string"
+            },
+            "repository": {
+              "default": "umami-software/umami",
+              "description": "The image repository",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "postgresql-v2.15.1",
+              "description": "The image tag",
+              "required": [],
+              "title": "tag",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "image",
+          "type": "object"
+        },
+        "imagePullSecrets": {
+          "description": "Image pull secrets",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "imagePullSecrets",
+          "type": "array"
+        },
+        "livenessProbe": {
+          "additionalProperties": true,
+          "description": "Liveness probe settings for pods.",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "http",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "livenessProbe",
+          "type": "object"
+        },
+        "maxUnavailable": {
+          "default": "null",
+          "description": "Pod Disruption Budget maxUnavailable",
+          "required": [],
+          "title": "maxUnavailable",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "nodeSelector": {
+          "additionalProperties": true,
+          "description": "Tolerations settings for pods.",
+          "required": [],
+          "title": "nodeSelector",
+          "type": "object"
+        },
+        "podAnnotations": {
+          "additionalProperties": true,
+          "description": "Annotations for pods",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
+        },
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Labels for pods",
+          "required": [],
+          "title": "podLabels",
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "additionalProperties": true,
+          "description": "The SecurityContext for pods",
+          "required": [],
+          "title": "podSecurityContext",
+          "type": "object"
+        },
+        "readinessProbe": {
+          "additionalProperties": true,
+          "description": "Readiness probe settings for pods.",
+          "properties": {
+            "httpGet": {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "default": "/",
+                  "required": [],
+                  "title": "path",
+                  "type": "string"
+                },
+                "port": {
+                  "default": "http",
+                  "required": [],
+                  "title": "port",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path",
+                "port"
+              ],
+              "title": "httpGet",
+              "type": "object"
+            }
+          },
+          "required": [
+            "httpGet"
+          ],
+          "title": "readinessProbe",
+          "type": "object"
+        },
+        "replicaCount": {
+          "default": 1,
+          "description": "Number of replicas",
+          "required": [],
+          "title": "replicaCount",
+          "type": "integer"
+        },
+        "resources": {
+          "additionalProperties": true,
+          "description": "Resource request \u0026 limits.",
+          "required": [],
+          "title": "resources",
+          "type": "object"
+        },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "Security context",
+          "required": [],
+          "title": "securityContext",
+          "type": "object"
+        },
+        "service": {
+          "additionalProperties": false,
+          "description": "Service settings",
+          "properties": {
+            "annotations": {
+              "additionalProperties": true,
+              "description": "Annotations for the service",
+              "required": [],
+              "title": "annotations",
+              "type": "object"
+            },
+            "labels": {
+              "additionalProperties": true,
+              "description": "Labels for service",
+              "required": [],
+              "title": "labels",
+              "type": "object"
+            },
+            "port": {
+              "default": 8000,
+              "description": "Port of the service",
+              "required": [],
+              "title": "port",
+              "type": "integer"
+            },
+            "type": {
+              "default": "ClusterIP",
+              "description": "Type of the service",
+              "required": [],
+              "title": "type",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "service",
+          "type": "object"
+        },
+        "startupProbe": {
+          "additionalProperties": true,
+          "description": "Startup probe settings for pods.",
+          "required": [],
+          "title": "startupProbe",
+          "type": "object"
+        },
+        "tolerations": {
+          "description": "Tolerations settings for pods.",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "tolerations",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "umami",
+      "type": "object"
     }
+  },
+  "required": [
+    "rbac"
+  ],
+  "type": "object"
 }
