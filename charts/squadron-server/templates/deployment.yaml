@@ -1,0 +1,150 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "squadron.server.fullname" . }}
+  labels:
+    {{- include "squadron.server.labels" . | nindent 4 }}
+    {{- with .Values.server.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.server.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "squadron.server.namespace" . }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: {{ .Values.updateStrategy }}
+  selector:
+    matchLabels: {{- include "squadron.server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "squadron.server.labels" . | nindent 8 }}
+        {{- include "squadron.server.networkingLabels" . | nindent 8 }}
+        {{- with .Values.server.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- include "squadron.server.annotations.recreatePod" . | nindent 8 }}
+        {{- with .Values.server.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "squadron.server.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.command }}
+          command: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.args }}
+          args: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            {{- if .Values.serviceMonitor.enabled }}
+            - name: prometheus
+              containerPort: {{ .Values.serviceMonitor.port }}
+            {{- end }}
+            {{- range $key, $value := .Values.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
+              protocol: TCP
+            {{- end }}
+            {{- with .Values.server.additionalPorts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+            {{- include "squadron.server.env.squadron" . | nindent 12 }}
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ tpl $value $ | quote }}
+            {{- end }}
+            {{- with .Values.server.additionalEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- with .Values.secretEnv }}
+            - secretRef:
+                name: {{ include "squadron.server.fullname" $ }}-env
+            {{- end }}
+            {{- with .Values.server.additionalEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: {{ include "squadron.server.fullname" . }}-data
+              mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- with .Values.server.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- range $key, $value := .Values.secrets }}
+            - name: {{ include "squadron.server.fullname" $ }}-{{ $key }}
+              readOnly: true
+              mountPath: /run/secrets/{{ $key }}
+            {{- end }}
+            {{- range .Values.secretMounts }}
+            - name: {{ . }}
+              readOnly: true
+              mountPath: /run/secrets/{{ . }}
+            {{- end }}
+          {{- with .Values.server.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.startupProbe }}
+          startupProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.livenessProbe }}
+          livenessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.readinessProbe }}
+          readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if .Values.scheduling.enabled }}
+      {{- with .Values.scheduling.priorityClass }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      {{- with .Values.scheduling.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.tolerations }}
+      tolerations:{{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: {{ include "squadron.server.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ include "squadron.server.fullname" . }}-data
+        {{- end }}
+        {{- range $key, $value := .Values.secrets }}
+        - name: {{ include "squadron.server.fullname" $ }}-{{ $key }}
+          secret:
+            secretName: {{ include "squadron.server.fullname" $ }}-{{ $key }}
+        {{- end }}
+        {{- range .Values.secretMounts }}
+        - name: {{ . }}
+          secret:
+            secretName: {{ . }}
+        {{- end }}
+        {{- with .Values.server.additionalVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
