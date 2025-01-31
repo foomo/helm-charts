@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "squadron.server.fullname" . }}
+  labels:
+    {{- include "squadron.server.labels" . | nindent 4 }}
+    {{- with .Values.service.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "squadron.server.namespace" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector: {{- include "squadron.server.selectorLabels" . | nindent 4 }}
+  ports:
+    {{- if .Values.serviceMonitor.enabled }}
+    - name: prometheus
+      port: {{ .Values.serviceMonitor.port }}
+      targetPort: {{ .Values.serviceMonitor.port }}
+    {{- end }}
+    {{- range $key, $value := .Values.ports }}
+    - name: {{ $key }}
+      port: {{ $value }}
+      targetPort: {{ $key }}
+    {{- end }}
