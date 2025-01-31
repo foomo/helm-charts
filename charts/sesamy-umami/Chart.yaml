@@ -15,5 +15,5 @@ annotations:
       url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-umami
     - name: Umami Source
       url: https://github.com/umami-software/umami
-version: 0.1.0
+version: 0.1.1
 appVersion: 2.15.1

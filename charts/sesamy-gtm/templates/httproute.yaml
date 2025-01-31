@@ -17,6 +17,9 @@ spec:
         - path:
             type: {{ default .pathType "PathPrefix" }}
             value: {{ .path }}
+      {{- with .filters }}
+      filters: {{ toYaml . | nindent 8 }}
+      {{- end }}
       backendRefs:
         - name: {{ include "sesamy.gtm.fullname" $ }}-{{ $svcName }}
           port: {{ .port }}
