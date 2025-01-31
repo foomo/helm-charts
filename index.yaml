@@ -384,6 +384,30 @@ entries:
           url: https://github.com/foomo/contentserver
     apiVersion: v2
     appVersion: 1.11.2
+    created: "2025-01-31T16:49:28.457915441Z"
+    description: Helm chart for the foomo Content Server.
+    digest: c42cabe5c4a5d6f836dac55c439c361efba41eb2da8df50f4e41395907c1df2f
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-contentserver
+    name: contentserver
+    sources:
+    - https://github.com/foomo/helm-charts
+    - https://github.com/foomo/contentserver
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/contentserver-0.2.1/contentserver-0.2.1.tgz
+    version: 0.2.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/contentserver
+        - name: Image Source
+          url: https://github.com/foomo/contentserver
+    apiVersion: v2
+    appVersion: 1.11.2
     created: "2025-01-28T20:51:59.278965068Z"
     description: Helm chart for the foomo Content Server.
     digest: 21e76cb6adf2e1d4dd1dc81bd330df6c5dfc7f7d39b26da49280957a284c6129
@@ -860,6 +884,29 @@ entries:
           url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
     apiVersion: v2
     appVersion: 2.4.0
+    created: "2025-01-31T16:49:28.578404327Z"
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: 319c61f37574e423cb007acc6176c58c1c0966e472149b3e11ff1bdc11f5d746
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.2.1/sesamy-gtm-0.2.1.tgz
+    version: 0.2.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
+        - name: GTM Changelog
+          url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
+    apiVersion: v2
+    appVersion: 2.4.0
     created: "2025-01-28T20:51:59.386560139Z"
     description: Helm chart for the Sesamy GTM tagging & preview service.
     digest: aab45d1e1f1e8dd51469ba52335492e1f592b9f56dca1365c19af5c7c2747fd7
@@ -1116,6 +1163,29 @@ entries:
           url: https://github.com/umami-software/umami
     apiVersion: v2
     appVersion: 2.15.1
+    created: "2025-01-31T16:49:28.703833102Z"
+    description: Helm chart for the Sesamy Umami integration.
+    digest: 3588affb16a2731744d57cbd94061b70226e2c8dfa01ff4124aa78bb2bc5751f
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-umami
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.1.1/sesamy-umami-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-umami
+        - name: Umami Source
+          url: https://github.com/umami-software/umami
+    apiVersion: v2
+    appVersion: 2.15.1
     created: "2025-01-28T20:51:59.488300153Z"
     description: Helm chart for the Sesamy Umami integration.
     digest: 611d3da4ecad4a64bbd07f191288fd13d3d3456c970eca252e8da7395cdf7af2
@@ -1355,6 +1425,28 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.1.1/squadron-keel-cronjob-0.1.1.tgz
     version: 0.1.1
   squadron-keel-server:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-server
+    apiVersion: v2
+    appVersion: 0.3.1
+    created: "2025-01-31T16:49:28.822601191Z"
+    description: Squadron Keel Server Chart
+    digest: 9723e1067ad1038f4b74fe449eefa239b1de16be3ca81354e8da8833f0abb37b
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.3.1/squadron-keel-server-0.3.1.tgz
+    version: 0.3.1
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -1801,6 +1893,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-nextjs-server
     apiVersion: v2
+    appVersion: 0.2.1
+    created: "2025-01-31T16:49:28.923887536Z"
+    description: Squadron NextJS Server Chart
+    digest: c94cb1f4b44d246087e28ccee4d0b999ce276e19aab63e4700b1bb8de464753f
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-nextjs-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-nextjs-server-0.2.1/squadron-nextjs-server-0.2.1.tgz
+    version: 0.2.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-nextjs-server
+    apiVersion: v2
     appVersion: 0.2.0
     created: "2025-01-28T20:51:59.828733213Z"
     description: Squadron NextJS Server Chart
@@ -2096,6 +2209,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-server
     apiVersion: v2
+    appVersion: 0.1.1
+    created: "2025-01-31T16:49:29.029225106Z"
+    description: Squadron General Server Chart
+    digest: 261e6de93990a3e1b7533a2f6591fa7ba8d1fd3735dc8f28d0fe781b7767a525
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.1/squadron-server-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-server
+    apiVersion: v2
     appVersion: 0.1.0
     created: "2025-01-31T15:14:08.6216818Z"
     description: Squadron General Server Chart
@@ -2112,4 +2246,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-31T16:00:48.697785611Z"
+generated: "2025-01-31T16:49:29.029512009Z"
