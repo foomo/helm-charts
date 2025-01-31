@@ -1,0 +1,6 @@
+{{- $files := .Files }}
+{{- range $filename, $template := .Values.templates }}
+# Filename: {{ $filename }}
+{{ tpl $template $ }}
+---
+{{- end }}
