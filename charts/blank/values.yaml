@@ -26,3 +26,11 @@ namespaceOverride: ''
 # -- Custom templates to inject
 # @section -- General
 templates: {}
+
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Custom values to inject into templates
+# @section -- General
+templatesValues: {}

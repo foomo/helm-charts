@@ -35,6 +35,13 @@
       "required": [],
       "title": "templates",
       "type": "object"
+    },
+    "templatesValues": {
+      "additionalProperties": true,
+      "description": "Custom values to inject into templates",
+      "required": [],
+      "title": "templatesValues",
+      "type": "object"
     }
   },
   "required": [],
