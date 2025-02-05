@@ -3,8 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "sesamy.gtm.collect.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
