@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "sesamy.gtm.tagging.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -18,8 +17,7 @@ spec:
   template:
     metadata:
       {{- with .Values.tagging.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
+      annotations: {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "sesamy.gtm.tagging.labels" . | nindent 8 }}
@@ -29,16 +27,13 @@ spec:
     spec:
       serviceAccountName: {{ include "sesamy.gtm.serviceAccountName" . }}
       {{- with .Values.tagging.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.tagging.hostAliases }}
-      hostAliases:
-        {{- toYaml . | nindent 8 }}
+      hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.tagging.podSecurityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
+      securityContext: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: gtm-tagging
@@ -125,7 +120,6 @@ spec:
         - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
         {{- end }}
       {{- end }}
-
       {{- end }}
       {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumes }}
       volumes:

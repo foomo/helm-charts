@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.1](https://img.shields.io/badge/AppVersion-0.3.1-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -158,7 +158,7 @@ Squadron NextJS Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/master","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
+| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
 | scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 | scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
 | scheduling.priorityClass | string | `nil` | Priority class name |
