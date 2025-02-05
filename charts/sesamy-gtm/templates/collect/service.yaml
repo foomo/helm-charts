@@ -3,11 +3,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "sesamy.gtm.collect.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
   {{- with .Values.collect.service.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
+  annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:

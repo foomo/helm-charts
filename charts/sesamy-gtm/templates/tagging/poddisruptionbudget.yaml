@@ -3,12 +3,10 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "sesamy.gtm.tagging.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
 spec:
   selector:
-    matchLabels:
-      {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 6 }}
   {{- with .Values.autoscaling.minAvailable }}
   minAvailable: {{ . }}
   {{- end }}

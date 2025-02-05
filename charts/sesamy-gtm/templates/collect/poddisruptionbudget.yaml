@@ -1,21 +1,17 @@
-{{- if .Values.collect.enabled }}
-{{- if gt (int .Values.collect.replicaCount) 1 }}
+{{- if and .Values.collect.enabled .Values.autoscaling.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "sesamy.gtm.collect.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   selector:
-    matchLabels:
-      {{- include "sesamy.gtm.collect.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "sesamy.gtm.collect.selectorLabels" . | nindent 6 }}
   {{- with .Values.autoscaling.minAvailable }}
   minAvailable: {{ . }}
   {{- end }}
   {{- with .Values.autoscaling.maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
-{{- end }}
 {{- end }}

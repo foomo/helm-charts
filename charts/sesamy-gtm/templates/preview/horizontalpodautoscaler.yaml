@@ -3,8 +3,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "sesamy.gtm.preview.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   scaleTargetRef:
