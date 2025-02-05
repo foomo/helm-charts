@@ -745,7 +745,87 @@
         "affinity": {
           "additionalProperties": true,
           "description": "Affinity for pod assignment",
-          "required": [],
+          "properties": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "additionalProperties": false,
+              "properties": {
+                "nodeSelectorTerms": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "matchExpressions": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "key": {
+                                      "default": "node-role.kubernetes.io/master",
+                                      "required": [],
+                                      "title": "key",
+                                      "type": "string"
+                                    },
+                                    "operator": {
+                                      "default": "In",
+                                      "required": [],
+                                      "title": "operator",
+                                      "type": "string"
+                                    },
+                                    "values": {
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "required": [],
+                                            "type": "string"
+                                          }
+                                        ],
+                                        "required": []
+                                      },
+                                      "required": [],
+                                      "title": "values",
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "operator",
+                                    "values"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "required": []
+                            },
+                            "required": [],
+                            "title": "matchExpressions",
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "matchExpressions"
+                        ],
+                        "type": "object"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "nodeSelectorTerms",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "nodeSelectorTerms"
+              ],
+              "title": "requiredDuringSchedulingIgnoredDuringExecution",
+              "type": "object"
+            }
+          },
+          "required": [
+            "requiredDuringSchedulingIgnoredDuringExecution"
+          ],
           "title": "affinity",
           "type": "object"
         },
@@ -782,6 +862,17 @@
           },
           "required": [],
           "title": "tolerations",
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "description": "Tolerations for pod assignment",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "topologySpreadConstraints",
           "type": "array"
         }
       },

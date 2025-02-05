@@ -120,16 +120,24 @@ spec:
       priorityClassName: {{ . }}
       {{- end }}
       {{- with .Values.scheduling.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
+      affinity: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- $labelSelector := dict
+          "labelSelector" (dict
+            "matchLabels" (fromYaml (include "nextjs.server.selectorLabels" $))
+          )
+        }}
+        {{- range . }}
+        - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
+        {{- end }}
       {{- end }}
       {{- end }}
       volumes:

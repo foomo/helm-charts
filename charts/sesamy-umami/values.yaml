@@ -783,6 +783,70 @@ networkPolicy:
     # @section -- Network Policy
     additionalRules: []
 
+# @schema
+# type: object
+# @schema
+# Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  # @section -- Scheduling
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/master
+              operator: In
+              values: [""]
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  # @section -- Scheduling
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Priority class name
+  # @section -- Scheduling
+  priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      matchLabelKeys:
+        - pod-template-hash
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: ScheduleAnyway
+
 # RBAC configuration
 rbac:
   # -- Create PodSecurityPolicy.
