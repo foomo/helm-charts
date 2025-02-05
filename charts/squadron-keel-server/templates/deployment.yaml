@@ -139,7 +139,18 @@ spec:
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.tolerations }}
-      tolerations:{{- toYaml . | nindent 8 }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- $labelSelector := dict
+          "labelSelector" (dict
+            "matchLabels" (fromYaml (include "keel.server.selectorLabels" $))
+          )
+        }}
+        {{- range . }}
+        - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
+        {{- end }}
       {{- end }}
       {{- end }}
       volumes:

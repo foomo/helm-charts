@@ -784,7 +784,13 @@ scheduling:
   # @schema
   # -- Affinity for pod assignment
   # @section -- Scheduling
-  affinity: {}
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/master
+              operator: In
+              values: [""]
   # @schema
   # type: object
   # additionalProperties: true
@@ -807,3 +813,20 @@ scheduling:
   # -- Priority class name
   # @section -- Scheduling
   priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      matchLabelKeys:
+        - pod-template-hash
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: ScheduleAnyway

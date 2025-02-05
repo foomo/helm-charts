@@ -114,6 +114,18 @@ spec:
       {{- with .Values.scheduling.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.scheduling.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{ $labelSelector := dict
+          "labelSelector" (dict
+            "matchLabels" (include "sesamy.gtm.tagging.selectorLabels" $)
+          )
+        }}
+        {{- range . }}
+        - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
+        {{- end }}
+      {{- end }}
+
       {{- end }}
       {{- if or .Values.gtm.googleApplicationCredentials .Values.tagging.extraVolumes }}
       volumes:
