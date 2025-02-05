@@ -755,7 +755,7 @@
                                   "additionalProperties": false,
                                   "properties": {
                                     "key": {
-                                      "default": "node-role.kubernetes.io/master",
+                                      "default": "node-role.kubernetes.io/control-plane",
                                       "required": [],
                                       "title": "key",
                                       "type": "string"
