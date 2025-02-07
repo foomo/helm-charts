@@ -34,7 +34,7 @@ schema: PWD=$(pwd)
 schema:
 	@echo "--- schema ---------------------------------------"
 	helm-schema -n -c charts/beam
-	helm-schema -n -c charts/blank
+	helm-schema -n -c charts/blank -k additionalProperties
 	helm-schema -n -c charts/namespace
 	helm-schema -n -c charts/sesamy-gtm
 	helm-schema -n -c charts/sesamy-umami
