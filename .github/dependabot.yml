@@ -1,6 +1,12 @@
 version: 2
+
 updates:
-  - package-ecosystem: github-actions
+  - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: weekly
+      day: 'sunday'
+      interval: 'weekly'
+    groups:
+      github-actions:
+        patterns:
+          - '*'

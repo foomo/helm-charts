@@ -21,7 +21,7 @@ Chart documentation is available in [foomo directory](https://github.com/foomo/h
 
 ## How to Contribute
 
-Make a pull request...
+Please refer to the [CONTRIBUTING](.gihub/CONTRIBUTING.md) details and follow the [CODE_OF_CONDUCT](.gihub/CODE_OF_CONDUCT.md) and [SECURITY](.github/SECURITY.md) guidelines.
 
 ## License
 
