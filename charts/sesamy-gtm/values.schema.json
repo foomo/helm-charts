@@ -616,6 +616,35 @@
                     "additionalProperties": false,
                     "properties": {
                       "path": {
+                        "default": "/_/service_worker",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Prefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
                         "default": "/g/collect",
                         "required": [],
                         "title": "path",
@@ -1119,7 +1148,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.27.3-alpine",
+              "default": "1.27.4-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "required": [],
               "title": "tag",
@@ -1331,6 +1360,35 @@
                       },
                       "pathType": {
                         "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_/service_worker",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Prefix",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
