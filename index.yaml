@@ -1004,6 +1004,32 @@ entries:
           url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
     apiVersion: v2
     appVersion: 2.4.0
+    created: "2025-03-11T16:44:19.375058196Z"
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: ecdd60a2719fcaa9cac1454a4cd2888a9f6c56083e1216a4aac1a5414882e9d5
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    - google-tag
+    - gtm-server-side
+    - google-tag-manager
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.3.2/sesamy-gtm-0.3.2.tgz
+    version: 0.3.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
+        - name: GTM Changelog
+          url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
+    apiVersion: v2
+    appVersion: 2.4.0
     created: "2025-02-05T12:58:03.54316489Z"
     description: Helm chart for the Sesamy GTM tagging & preview service.
     digest: a165ae8ba631d4d26169960bdcaa677cdab07db2b6e707158f37c0e9d901dd0b
@@ -2630,4 +2656,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-05T08:42:32.844923264Z"
+generated: "2025-03-11T16:44:19.375303463Z"
