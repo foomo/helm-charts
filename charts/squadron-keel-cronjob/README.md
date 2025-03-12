@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -26,14 +26,16 @@ Squadron Keel CronJob Chart
 | cronjob.concurrency | string | `"Forbid"` | Concurency policy |
 | cronjob.historyLimit | int | `1` | Max history item to keep |
 | cronjob.hostAliases | list | `[]` | Host aliases |
+| cronjob.initContainers | list | `[]` | Additional init containers |
 | cronjob.jobAnnotations | object | `{}` | Pod annotations |
 | cronjob.jobLabels | object | `{}` | Job labels |
-| cronjob.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
+| cronjob.livenessProbe | object | `{}` | Liveness probe settings |
 | cronjob.podAnnotations | object | `{}` | Pod annotations |
-| cronjob.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
+| cronjob.readinessProbe | object | `{}` | Readiness probe settings |
 | cronjob.resources | object | `{}` | Resource settings |
 | cronjob.restart | string | `"Never"` | Restart policy |
-| cronjob.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
+| cronjob.sidecarContainers | list | `[]` | Additional sidecar containers |
+| cronjob.startupProbe | object | `{}` | Startup probe settings |
 
 ### General
 

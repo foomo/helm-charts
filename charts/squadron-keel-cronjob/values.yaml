@@ -469,30 +469,39 @@ cronjob:
   # @schema
   # -- Startup probe settings
   # @section -- CronJob
-  startupProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/startup
+  startupProbe: {}
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Readiness probe settings
   # @section -- CronJob
-  readinessProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/readiness
+  readinessProbe: {}
   # @schema
   # type: [object, null]
   # additionalProperties: true
   # @schema
   # -- Liveness probe settings
   # @section -- CronJob
-  livenessProbe:
-    httpGet:
-      port: healthz
-      path: /healthz/liveness
+  livenessProbe: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional init containers
+  # @section -- CronJob
+  initContainers: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional sidecar containers
+  # @section -- CronJob
+  sidecarContainers: []
 
 # @schema
 # type: object

@@ -54,6 +54,9 @@ spec:
           {{- with .Values.cronjob.hostAliases }}
           hostAliases: {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.cronjob.initContainers }}
+          initContainers: {{- toYaml . | nindent 12 }}
+          {{- end }}
           containers:
             - name: cronjob
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -113,6 +116,9 @@ spec:
                   exec:
                     command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
               {{- end }}
+            {{- with .Values.cronjob.sidecarContainers }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- if .Values.scheduling.enabled }}
           {{- with .Values.scheduling.priorityClass }}
           priorityClassName: {{ . }}

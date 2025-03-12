@@ -119,6 +119,17 @@
           "title": "hostAliases",
           "type": "array"
         },
+        "initContainers": {
+          "description": "Additional init containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "initContainers",
+          "type": "array"
+        },
         "jobAnnotations": {
           "additionalProperties": true,
           "description": "Pod annotations",
@@ -136,34 +147,7 @@
         "livenessProbe": {
           "additionalProperties": true,
           "description": "Liveness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/liveness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "livenessProbe",
           "type": [
             "object",
@@ -180,34 +164,7 @@
         "readinessProbe": {
           "additionalProperties": true,
           "description": "Readiness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/readiness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "readinessProbe",
           "type": [
             "object",
@@ -234,37 +191,21 @@
           "required": [],
           "title": "restart"
         },
+        "sidecarContainers": {
+          "description": "Additional sidecar containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "sidecarContainers",
+          "type": "array"
+        },
         "startupProbe": {
           "additionalProperties": true,
           "description": "Startup probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/startup",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "startupProbe",
           "type": [
             "object",

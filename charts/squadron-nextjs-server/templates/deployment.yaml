@@ -49,6 +49,9 @@ spec:
       {{- with .Values.server.hostAliases }}
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.server.initContainers }}
+      initContainers: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: server
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -115,6 +118,9 @@ spec:
               exec:
                 command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
           {{- end }}
+        {{- with .Values.server.sidecarContainers }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- if .Values.scheduling.enabled }}
       {{- with .Values.scheduling.priorityClass }}
       priorityClassName: {{ . }}

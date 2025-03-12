@@ -3,7 +3,7 @@
   "additionalProperties": false,
   "properties": {
     "args": {
-      "description": "Container command args",
+      "description": "Server container command args",
       "items": {
         "required": [],
         "type": "string"
@@ -845,6 +845,17 @@
           "title": "hostAliases",
           "type": "array"
         },
+        "initContainers": {
+          "description": "Additional init containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "initContainers",
+          "type": "array"
+        },
         "livenessProbe": {
           "additionalProperties": true,
           "description": "Liveness probe settings",
@@ -888,6 +899,17 @@
             "object",
             "null"
           ]
+        },
+        "sidecarContainers": {
+          "description": "Additional sidecar containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "sidecarContainers",
+          "type": "array"
         },
         "startupProbe": {
           "additionalProperties": true,

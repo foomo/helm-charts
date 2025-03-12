@@ -92,7 +92,7 @@ command: []
 # items:
 #   type: string
 # @schema
-# -- Container command args
+# -- Server container command args
 # @section -- General
 args: []
 # @schema
@@ -519,6 +519,24 @@ server:
   # -- Liveness probe settings
   # @section -- Server
   livenessProbe: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional init containers
+  # @section -- Server
+  initContainers: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional sidecar containers
+  # @section -- Server
+  sidecarContainers: []
 
 # @schema
 # type: object
