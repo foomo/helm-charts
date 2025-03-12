@@ -619,6 +619,24 @@ server:
     httpGet:
       port: healthz
       path: /healthz/liveness
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional init containers
+  # @section -- Server
+  initContainers: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional sidecar containers
+  # @section -- Server
+  sidecarContainers: []
 
 # @schema
 # type: object

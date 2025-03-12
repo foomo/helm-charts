@@ -1,6 +1,6 @@
 # squadron-server
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
 
 Squadron General Server Chart
 
@@ -16,7 +16,7 @@ Squadron General Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| args | list | `[]` | Container command args |
+| args | list | `[]` | Server container command args |
 | command | list | `[]` | Container command |
 | env | object | `{}` | Map of environment variables to add |
 | ports | object | `{}` | Map of ports to expose |
@@ -143,11 +143,13 @@ Squadron General Server Chart
 | server.additionalVolumes | list | `[]` | Additional volumes |
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
+| server.initContainers | list | `[]` | Additional init containers |
 | server.livenessProbe | object | `{}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{}` | Startup probe settings |
 
 ### Service

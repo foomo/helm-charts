@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.1](https://img.shields.io/badge/AppVersion-0.3.1-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -186,11 +186,13 @@ Squadron NextJS Server Chart
 | server.additionalVolumes | list | `[]` | Additional volumes |
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
+| server.initContainers | list | `[]` | Additional init containers |
 | server.livenessProbe | object | `{"tcpSocket":{"port":3000}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"tcpSocket":{"port":3000}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{"tcpSocket":{"port":3000}}` | Startup probe settings |
 
 ### Service
