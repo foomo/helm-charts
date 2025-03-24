@@ -17,6 +17,12 @@ global:
     # @section -- Global
     withDeprecatedSelectorLabels: false
     # @schema
+    # type: boolean
+    # @schema
+    # -- Enable for backward compatibility
+    # @section -- Global
+    withDeprecatedSelectorLabelsV2: false
+    # @schema
     # type: object
     # @schema
     squadron:
