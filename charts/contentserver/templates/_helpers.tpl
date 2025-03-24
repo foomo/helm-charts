@@ -93,7 +93,7 @@ OpenTelemetry standard envs
 - name: OTEL_ENABLED
   value: "{{ .Values.otel.enabled }}"
 - name: OTEL_SERVICE_NAME
-  value: {{ include "contentserver.fullname" . | quote }}
+  value: {{ .Release.Name | quote }}
 - name: OTEL_TRACE_RATIO
   value: "{{ .Values.otel.ratio }}"
 - name: OTEL_EXPORTER_OTLP_INSECURE

@@ -142,7 +142,7 @@ OpenTelemetry standard envs
 - name: OTEL_ENABLED
   value: "{{ .Values.otel.enabled }}"
 - name: OTEL_SERVICE_NAME
-  value: {{ include "nextjs.server.fullname" . | quote }}
+  value: {{ .Release.Name | quote }}
 - name: OTEL_TRACE_RATIO
   value: "{{ .Values.otel.ratio }}"
 - name: OTEL_GORM_ENABLED
