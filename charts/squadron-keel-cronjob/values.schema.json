@@ -272,6 +272,13 @@
               "required": [],
               "title": "withDeprecatedSelectorLabels",
               "type": "boolean"
+            },
+            "withDeprecatedSelectorLabelsV2": {
+              "default": false,
+              "description": "Enable for backward compatibility",
+              "required": [],
+              "title": "withDeprecatedSelectorLabelsV2",
+              "type": "boolean"
             }
           },
           "required": [],
