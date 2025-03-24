@@ -1,6 +1,6 @@
 # squadron-server
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
 
 Squadron General Server Chart
 
@@ -57,6 +57,7 @@ Squadron General Server Chart
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
 | global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
+| global.foomo.withDeprecatedSelectorLabelsV2 | bool | `false` | Enable for backward compatibility |
 
 ### Image
 
