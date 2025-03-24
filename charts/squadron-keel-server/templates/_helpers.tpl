@@ -45,9 +45,7 @@ Common labels
 {{- define "keel.server.labels" -}}
 helm.sh/chart: {{ include "keel.server.chart" . }}
 {{ include "keel.server.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
+app.kubernetes.io/version: {{ .Values.image.tag | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
@@ -55,12 +53,14 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "keel.server.selectorLabels" -}}
-{{ if .Values.global.foomo.withDeprecatedSelectorLabels }}
+{{- if .Values.global.foomo.withDeprecatedSelectorLabels }}
 app.kubernetes.io/name: {{ include "keel.server.fullname" . }}
 app.kubernetes.io/component: foomo-keel-server
-{{- else }}
+{{- else if .Values.global.foomo.withDeprecatedSelectorLabelsV2 }}
 app.kubernetes.io/name: {{ include "keel.server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- else }}
+app.kubernetes.io/name: {{ .Release.Name }}
 {{- end }}
 {{- end }}
 
