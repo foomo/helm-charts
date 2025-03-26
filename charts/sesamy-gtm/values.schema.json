@@ -496,7 +496,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -535,7 +535,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Exact",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -564,7 +564,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Exact",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -593,7 +593,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -622,7 +622,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -651,7 +651,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"

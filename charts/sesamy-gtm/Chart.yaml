@@ -19,4 +19,4 @@ annotations:
     - name: GTM Changelog
       url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
 version: 0.3.3
-appVersion: 2.4.0
+appVersion: 2.4.1

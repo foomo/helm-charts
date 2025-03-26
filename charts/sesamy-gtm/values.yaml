@@ -851,24 +851,24 @@ ingress:
   paths:
     preview:
       - path: /gtm
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
     tagging:
       - path: /gtm.js
-        pathType: Exact
+        pathType: ImplementationSpecific
         port: 8080
       - path: /_set_cookie
-        pathType: Exact
+        pathType: ImplementationSpecific
         port: 8080
       - path: /gtag/js
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
       - path: /_/service_worker
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
       # Comment if `collect.enabled=true`
       - path: /g/collect
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
     # Uncomment if `collect.enabled=true`
     # collect:
