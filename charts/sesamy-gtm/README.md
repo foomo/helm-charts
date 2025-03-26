@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.3.3](https://img.shields.io/badge/Version-0.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 0.3.3](https://img.shields.io/badge/Version-0.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.1](https://img.shields.io/badge/AppVersion-2.4.1-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -94,7 +94,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | ingress.className | string | `""` | Ingress class name |
 | ingress.enabled | bool | `false` | Enable ingress |
 | ingress.hosts | list | `[]` | Hosts to listen to |
-| ingress.paths | object | `{"preview":[{"path":"/gtm","pathType":"Prefix","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"Exact","port":8080},{"path":"/_set_cookie","pathType":"Exact","port":8080},{"path":"/gtag/js","pathType":"Prefix","port":8080},{"path":"/_/service_worker","pathType":"Prefix","port":8080},{"path":"/g/collect","pathType":"Prefix","port":8080}]}` | Path settings |
+| ingress.paths | object | `{"preview":[{"path":"/gtm","pathType":"ImplementationSpecific","port":8080}],"tagging":[{"path":"/gtm.js","pathType":"ImplementationSpecific","port":8080},{"path":"/_set_cookie","pathType":"ImplementationSpecific","port":8080},{"path":"/gtag/js","pathType":"ImplementationSpecific","port":8080},{"path":"/_/service_worker","pathType":"ImplementationSpecific","port":8080},{"path":"/g/collect","pathType":"ImplementationSpecific","port":8080}]}` | Path settings |
 | ingress.tls | list | `[]` | Tls setttings |
 
 ### Network Policy
