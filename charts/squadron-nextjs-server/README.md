@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.12](https://img.shields.io/badge/AppVersion-0.1.12-informational?style=flat-square)
+![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.1](https://img.shields.io/badge/AppVersion-0.5.1-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -62,6 +62,8 @@ Squadron NextJS Server Chart
 | global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
+| global.foomo.withDeprecatedSelectorLabelsV2 | bool | `false` | Enable for backward compatibility |
 
 ### Graceful Shutdown
 
@@ -145,15 +147,24 @@ Squadron NextJS Server Chart
 |-----|------|---------|-------------|
 | rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | list | `[]` | Path matches |
+
 ### Scheduling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| scheduling.affinity | object | `{}` | Affinity for pod assignment |
+| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
 | scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 | scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
+| scheduling.topologySpreadConstraints | list | `[{"matchLabelKeys":["pod-template-hash"],"maxSkew":1,"topologyKey":"kubernetes.io/hostname","whenUnsatisfiable":"DoNotSchedule"},{"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone","whenUnsatisfiable":"ScheduleAnyway"}]` | Tolerations for pod assignment |
 
 ### Security Context
 
@@ -176,11 +187,13 @@ Squadron NextJS Server Chart
 | server.additionalVolumes | list | `[]` | Additional volumes |
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
+| server.initContainers | list | `[]` | Additional init containers |
 | server.livenessProbe | object | `{"tcpSocket":{"port":3000}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"tcpSocket":{"port":3000}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{"tcpSocket":{"port":3000}}` | Startup probe settings |
 
 ### Service
@@ -212,9 +225,3 @@ Squadron NextJS Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

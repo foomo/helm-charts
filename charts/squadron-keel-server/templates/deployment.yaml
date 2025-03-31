@@ -48,6 +48,9 @@ spec:
       {{- with .Values.securityContext }}
       securityContext: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.server.initContainers }}
+      initContainers: {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: server
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -128,6 +131,9 @@ spec:
               exec:
                 command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
           {{- end }}
+        {{- with .Values.server.sidecarContainers }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- if .Values.scheduling.enabled }}
       {{- with .Values.scheduling.priorityClass }}
       priorityClassName: {{ . }}
@@ -139,7 +145,18 @@ spec:
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.tolerations }}
-      tolerations:{{- toYaml . | nindent 8 }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- $labelSelector := dict
+          "labelSelector" (dict
+            "matchLabels" (fromYaml (include "keel.server.selectorLabels" $))
+          )
+        }}
+        {{- range . }}
+        - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
+        {{- end }}
       {{- end }}
       {{- end }}
       volumes:

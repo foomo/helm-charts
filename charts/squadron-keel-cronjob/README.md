@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.8](https://img.shields.io/badge/AppVersion-0.1.8-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -26,14 +26,16 @@ Squadron Keel CronJob Chart
 | cronjob.concurrency | string | `"Forbid"` | Concurency policy |
 | cronjob.historyLimit | int | `1` | Max history item to keep |
 | cronjob.hostAliases | list | `[]` | Host aliases |
+| cronjob.initContainers | list | `[]` | Additional init containers |
 | cronjob.jobAnnotations | object | `{}` | Pod annotations |
 | cronjob.jobLabels | object | `{}` | Job labels |
-| cronjob.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
+| cronjob.livenessProbe | object | `{}` | Liveness probe settings |
 | cronjob.podAnnotations | object | `{}` | Pod annotations |
-| cronjob.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
+| cronjob.readinessProbe | object | `{}` | Readiness probe settings |
 | cronjob.resources | object | `{}` | Resource settings |
 | cronjob.restart | string | `"Never"` | Restart policy |
-| cronjob.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |
+| cronjob.sidecarContainers | list | `[]` | Additional sidecar containers |
+| cronjob.startupProbe | object | `{}` | Startup probe settings |
 
 ### General
 
@@ -62,6 +64,8 @@ Squadron Keel CronJob Chart
 | global.foomo.squadron.fleet | string | `""` | Will be automatically injected (optional) |
 | global.foomo.squadron.name | string | `""` | Will be automatically injected |
 | global.foomo.squadron.unit | string | `""` | Will be automatically injected |
+| global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
+| global.foomo.withDeprecatedSelectorLabelsV2 | bool | `false` | Enable for backward compatibility |
 
 ### Graceful Shutdown
 
@@ -136,11 +140,12 @@ Squadron Keel CronJob Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| scheduling.affinity | object | `{}` | Affinity for pod assignment |
+| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
 | scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 | scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
+| scheduling.topologySpreadConstraints | list | `[]` | Tolerations for pod assignment |
 
 ### Security Context
 
@@ -159,9 +164,3 @@ Squadron Keel CronJob Chart
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| global.foomo.withDeprecatedSelectorLabels | bool | `false` |  |

@@ -3,8 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "sesamy.gtm.collect.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.collect.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -92,6 +91,17 @@ spec:
       {{- end }}
       {{- with .Values.scheduling.tolerations }}
       tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.scheduling.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{ $labelSelector := dict
+          "labelSelector" (dict
+            "matchLabels" (include "sesamy.gtm.collect.selectorLabels" $)
+          )
+        }}
+        {{- range . }}
+        - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 10 }}
+        {{- end }}
       {{- end }}
       {{- end }}
       {{- with .Values.collect.extraVolumes }}

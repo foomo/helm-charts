@@ -1,0 +1,25 @@
+{{- if .Values.routing.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "sesamy.umami.fullname" . }}
+  labels: {{- include "sesamy.umami.labels" . | nindent 4 }}
+  namespace: {{ include "sesamy.umami.namespace" . }}
+spec:
+  {{- with .Values.routing.parentRefs }}
+  parentRefs: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    {{- range .Values.routing.paths }}
+    - matches:
+        - path:
+            type: {{ default .pathType "PathPrefix" }}
+            value: {{ .path }}
+      {{- with .filters }}
+      filters: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      backendRefs:
+        - name: {{ include "sesamy.umami.fullname" $ }}
+          port: {{ .port }}
+    {{- end }}
+{{- end }}

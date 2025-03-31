@@ -1,0 +1,17 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "squadron.server.fullname" . }}
+  labels: {{- include "squadron.server.labels" . | nindent 4 }}
+  namespace: {{ include "squadron.server.namespace" . }}
+spec:
+  selector:
+    matchLabels: {{- include "squadron.server.selectorLabels" . | nindent 6 }}
+  {{- with .Values.autoscaling.minAvailable }}
+  minAvailable: {{ . }}
+  {{- end }}
+  {{- with .Values.autoscaling.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+{{- end }}

@@ -1,38 +1,90 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's name
-nameOverride: ""
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- Overrides the chart's computed fullname
-fullnameOverride: ""
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
 # -- The name of the Namespace to deploy
-# If not set, `.Release.Namespace` is used
+# @section -- Overrides
 namespaceOverride: ''
 
-# -- Number of revisions to retain to allow rollback
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
 revisionHistoryLimit: 10
 
-# TLS Reverse Proxy configurations
+# @schema
+# type: object
+# @schema
+# TLS Reverse Proxy settings
 # All urls have to be valid https urls, so proxy https traffic to your containers.
 # Create a self-signed certificate by running
 # $ openssl req -x509 -newkey rsa:2048 -keyout tls.key -out tls.crt -nodes -subj '/CN=sesamy'
 proxy:
-  # TLS configuration
+  # @schema
+  # type: object
+  # @schema
+  # TLS settings
   tls:
+    # @schema
+    # type: string
+    # @schema
     # -- Base64 encoded TLS key
+    # @section -- Proxy
     key: ""
+    # @schema
+    # type: string
+    # @schema
     # -- Base64 encoded TLS cert
+    # @section -- Proxy
     crt: ""
+  # @schema
+  # type: object
+  # @schema
   # Docker image
   image:
-    # -- The image repository
-    repository: 'nginx'
-    # -- The image pull policy
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
+    # -- Image tag
+    # @section -- Proxy
     pullPolicy: IfNotPresent
-    # -- The image tag
+    # @schema
+    # type: string
+    # @schema
+    # -- Image repository
+    # @section -- Proxy
+    repository: 'nginx'
+    # @schema
+    # type: string
+    # @schema
+    # -- Image tag
+    # @section -- Proxy
     tag: '1.25-alpine'
+  # @schema
+  # type: object
+  # @schema
   # -- Resource request & limits.
+  # @section -- Proxy
   resources: {}
+  # @schema
+  # type: string
+  # @schema
   # -- Nginx SSL Reverse Proxy config.
-  # The value is templated using `tpl`.
-  # @default -- see values.yaml
+  # @section -- Proxy
   config: |
     server {
       listen              443 ssl;
@@ -55,289 +107,745 @@ proxy:
       }
     }
 
-# Umami
+# @schema
+# type: object
+# @schema
+# Umami settings
 umami:
+  # @schema
+  # type: object
+  # @schema
   # Umami configurations
   config:
+    # @schema
+    # type: string
+    # @schema
     # -- Disables users, teams, and websites settings page.
+    # @section -- Umami
     cloudMode: '1'
+    # @schema
+    # type: string
+    # @schema
     # -- HTTP header to check for the client's IP address. This is useful when you're behind a proxy that uses non-standard headers.
+    # @section -- Umami
     clientIpHeader: ''
+    # @schema
+    # type: string
+    # @schema
     # -- Allows you to send metrics to a location different than the default `/api/send`. This is to help you avoid some ad-blockers.
+    # @section -- Umami
     collectApiEndpoint: ''
+    # @schema
+    # type: string
+    # @schema
     # -- How many seconds a CORS preflight should last. Default is 24 hours.
+    # @section -- Umami
     corsMaxAge: '86400'
+    # @schema
+    # type: string
+    # @schema
     # -- By default bots are excluded from statistics. This disables checking for bots.
+    # @section -- Umami
     disableBotCheck: '1'
+    # @schema
+    # type: string
+    # @schema
     # -- Disables the login page for the application
+    # @section -- Umami
     disableLogin: '1'
+    # @schema
+    # type: boolean
+    # @schema
     # -- setting this to true removes the environment variable DISABLE_LOGIN defined in `umami.disableLogin` from the deployment as this caused errors in some setups
+    # @section -- Umami
     removeDisableLoginEnv: true
+    # @schema
+    # type: string
+    # @schema
     # -- Umami collects completely anonymous telemetry data in order help improve the application. You can choose to disable this if you don't want to participate.
+    # @section -- Umami
     disableTelemetry: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- Disables the check for new versions of Umami
+    # @section -- Umami
     disableUpdates: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- Enables the internal test page, {host}/console. Admin access is required. Users can manually fire pageviews and events to their websites.
+    # @section -- Umami
     enableTestConsole: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- This will redirect all requests from http to https in the Umami application. Note, this does not apply to the tracking script.
+    # @section -- Umami
     forceSSL: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- hostname under which Umami will be reached
+    # @section -- Umami
     hostname: "0.0.0.0"
+    # @schema
+    # type: string
+    # @schema
     # -- This will do a DNS lookup on a hostname and the resulting IP address will be ignored. This can be a comma delimited list of hostnames.
+    # @section -- Umami
     ignoreHostname: ""
+    # @schema
+    # type: string
+    # @schema
     # -- You can provide a comma-delimited list of IP address to exclude from data collection.
+    # @section -- Umami
     ignoredIpAddresses: ""
+    # @schema
+    # type: string
+    # @schema
     # -- If you are running in development mode, this will log database queries to the console for debugging.
+    # @section -- Umami
     logQuery: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- Removes the trailing slash from all incoming urls.
+    # @section -- Umami
     removeTrailingSlash: "1"
+    # @schema
+    # type: string
+    # @schema
     # -- Allows you to assign a custom name to the tracker script different from the default umami. This is to help you avoid some ad-blockers.
+    # @section -- Umami
     trackerScriptName: "umami"
+    # @schema
+    # type: object
+    # @schema
     # App secret configurations
     appSecret:
+      # @schema
+      # type: string
+      # @schema
       # -- A random string used to generate unique values.
+      # @section -- Umami
       secret: ""
+      # @schema
+      # type: string
+      # @schema
       # -- Name of an existing secret containing the app secret under the key app-secret.
+      # @section -- Umami
       existingSecret: ""
+      # @schema
+      # type: string
+      # @schema
       # -- Key in the existing secret containing the value (default: app-secret)
+      # @section -- Umami
       existingSecretKey: ""
+    # @schema
+    # type: object
+    # @schema
     # Database configurations
     database:
+      # @schema
+      # type: string
+      # @schema
       # -- Full connection string
+      # @section -- Umami
       uri: ""
+      # @schema
+      # type: object
+      # @schema
+      # Auth settings
       auth:
+        # @schema
+        # type: string
+        # @schema
         # -- Database name
+        # @section -- Umami
         database: ""
+        # @schema
+        # type: string
+        # @schema
         # -- Database username
+        # @section -- Umami
         username: ""
+        # @schema
+        # type: string
+        # @schema
         # -- Database password
+        # @section -- Umami
         password: ""
+        # @schema
+        # type: string
+        # @schema
         # -- Database hostname
+        # @section -- Umami
         hostname: ""
+      # @schema
+      # type: string
+      # @schema
       # -- Use an existing secret containing the database uri.
+      # @section -- Umami
       existingSecret: ""
+      # @schema
+      # type: string
+      # @schema
       # -- Key in the existing secret containing value (default: database-url)
+      # @section -- Umami
       existingSecretKey: ""
+  # @schema
+  # type: object
+  # @schema
   # Your custom collect image
   image:
+    # @schema
+    # type: string
+    # @schema
     # -- The image registry
+    # @section -- Umami
     registry: ghcr.io
+    # @schema
+    # type: string
+    # @schema
     # -- The image repository
+    # @section -- Umami
     repository: umami-software/umami
+    # @schema
+    # enum: [IfNotPresent, Always]
+    # @schema
     # -- The image pull policy
+    # @section -- Umami
     pullPolicy: IfNotPresent
+    # @schema
+    # type: string
+    # @schema
     # -- The image tag
-    tag: postgresql-v2.11.3
+    # @section -- Umami
+    tag: postgresql-v2.15.1
+  # @schema
+  # type: integer
+  # @schema
   # -- Number of replicas
+  # @section -- Umami
   replicaCount: 1
+  # @schema
+  # type: [integer, null]
+  # @schema
   # -- Pod Disruption Budget maxUnavailable
+  # @section -- Umami
   maxUnavailable: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Host aliases to add
+  # @section -- Umami
   hostAliases: []
-  #  - ip: 1.2.3.4
-  #    hostnames:
-  #      - domain.tld
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Image pull secrets
+  # @section -- Umami
   imagePullSecrets: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Annotations for pods
+  # @section -- Umami
   podAnnotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Labels for pods
+  # @section -- Umami
   podLabels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- The SecurityContext for pods
+  # @section -- Umami
   podSecurityContext: {}
-  #  fsGroup: 2000
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Security context
+  # @section -- Umami
   securityContext: {}
-  #  capabilities:
-  #    drop:
-  #      - ALL
-  #  readOnlyRootFilesystem: true
-  #  runAsNonRoot: true
-  #  runAsUser: 1000
+  # @schema
+  # type: object
+  # @schema
+  # Service settings
   service:
+    # @schema
+    # type: integer
+    # @schema
     # -- Port of the service
+    # @section -- Umami
     port: 8000
+    # @schema
+    # type: string
+    # @schema
     # -- Type of the service
+    # @section -- Umami
     type: ClusterIP
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Annotations for the service
+    # @section -- Umami
     annotations: {}
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
     # -- Labels for service
+    # @section -- Umami
     labels: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Resource request & limits.
+  # @section -- Umami
   resources: {}
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Startup probe settings for pods.
+  # @section -- Umami
   startupProbe: {}
-  #  httpGet:
-  #    path: /healthz
-  #    port: http
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Readiness probe settings for pods.
+  # @section -- Umami
   readinessProbe:
     httpGet:
       path: /
       port: http
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Liveness probe settings for pods.
+  # @section -- Umami
   livenessProbe:
     httpGet:
       path: /
       port: http
+  # @schema
+  # type: object
+  # @schema
+  # Autoscaling settings
   autoscaling:
+    # @schema
+    # type: boolean
+    # @schema
     # -- Enable autoscaling
+    # @section -- Umami
     enabled: false
+    # @schema
+    # type: integer
+    # @schema
     # -- Minimum autoscaling replicas
+    # @section -- Umami
     minReplicas: 1
+    # @schema
+    # type: integer
+    # @schema
     # -- Maximum autoscaling replicas
+    # @section -- Umami
     maxReplicas: 100
+    # @schema
+    # type: [integer, null]
+    # @schema
     # -- Target CPU utilisation percentage
+    # @section -- Umami
     targetCPUUtilizationPercentage: 80
+    # @schema
+    # type: [integer, null]
+    # @schema
     # -- Target memory utilisation percentage
+    # @section -- Umami
     targetMemoryUtilizationPercentage: null
-    # -- Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- Custom metrics using the HPA/v2 schema
+    # @section -- Umami
     customMetrics: []
-    #  - type: Pods
-    #    pods:
-    #      metric:
-    #        name: loki_lines_total
-    #      target:
-    #        type: AverageValue
-    #        averageValue: 10k
+    # @schema
+    # type: object
+    # @schema
+    # Behavior settings
     behavior:
+      # @schema
+      # type: boolean
+      # @schema
       # -- Enable autoscaling behaviours
+      # @section -- Umami
       enabled: false
+      # @schema
+      # type: object
+      # additionalProperties: true
+      # @schema
       # -- Scale down policies, must conform to HPAScalingRules
+      # @section -- Umami
       scaleDown: {}
+      # @schema
+      # type: object
+      # additionalProperties: true
+      # @schema
       # -- Scale up policies, must conform to HPAScalingRules
+      # @section -- Umami
       scaleUp: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables to add
+  # @section -- Umami
   extraEnv: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Port definitions to add
+  # @section -- Umami
   extraPorts: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Environment variables from secrets or configmaps to add
+  # @section -- Umami
   extraEnvFrom: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volume mounts to add
+  # @section -- Umami
   extraVolumeMounts: []
-  #  - name: foo
-  #    mountPath: "/etc/foo"
-  #    readOnly: true
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Volumes to add
+  # @section -- Umami
   extraVolumes: []
-  #  - name: foo
-  #    secret:
-  #      secretName: mysecret
-  #      optional: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Tolerations settings for pods.
+  # @section -- Umami
   nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
   # -- Tolerations settings for pods.
+  # @section -- Umami
   tolerations: []
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Affinity settings for pods.
+  # @section -- Umami
   affinity: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- DNSConfig settings for pods.
+  # @section -- Umami
   dnsConfig: {}
 
+# @schema
+# type: object
+# @schema
 # Ingress configuration
 ingress:
+  # @schema
+  # type: boolean
+  # @schema
   # -- Enable ingress
+  # @section -- Ingress
   enabled: false
+  # @schema
+  # type: string
+  # @schema
   # -- Ingress class name
+  # @section -- Ingress
   className: ""
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations
+  # @section -- Ingress
   annotations: {}
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Path settings
+  # @section -- Ingress
   paths:
     umami:
       - path: /
         pathType: Prefix
         port: 8000
-  hosts:
-    - example.com
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Ingress hosts
+  # @section -- Ingress
+  hosts: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Ingress tls
+  # @section -- Ingress
   tls: []
-  #  - secretName: example-com-tls
-  #    hosts:
-  #      - example.com
 
-# ServiceAccount configuration
+# @schema
+# type: object
+# @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
+
+# @schema
+# type: object
+# @schema
+# Service account settings
 serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Automatically mount a ServiceAccount's API credentials?
-  automount: true
-  # -- Annotations to add to the service account
-  annotations: {}
+  # @schema
+  # type: string
+  # @schema
   # -- The name of the service account to use.
-  # -- If not set and create is true, a name is generated using the fullname template
+  # @section -- Service Account
   name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service Account
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service Account
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service Account
+  annotations: { }
 
-# ServiceMonitor configuration
-serviceMonitor:
-  # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
-  enabled: false
-  # -- Alternative namespace for ServiceMonitor resources
-  namespace: null
-  # -- Namespace selector for ServiceMonitor resources
-  namespaceSelector: {}
-  # -- Optional expressions to match on
-  matchExpressions: []
-  #  - key: prometheus.io/service-monitor
-  #    operator: NotIn
-  #    values:
-  #      - "false"
-  # -- ServiceMonitor annotations
-  annotations: {}
-  # -- Additional ServiceMonitor labels
-  labels: {}
-  # -- ServiceMonitor scrape interval
-  interval: null
-  # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
-  scrapeTimeout: null
-  # -- ServiceMonitor relabel configs to apply to samples before scraping
-  # https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
-  relabelings: []
-  # -- ServiceMonitor metric relabel configs to apply to samples before ingestion
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint
-  metricRelabelings: []
-  ##ServiceMonitor will add labels from the service to the Prometheus metric
-  # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec
-  targetLabels: []
-  # -- ServiceMonitor will use http by default, but you can pick https as well
-  scheme: http
-  # -- ServiceMonitor will use these tlsConfig settings to make the health check requests
-  tlsConfig: null
-
-# NetworkPolicy configuration
+# @schema
+# type: object
+# @schema
+# Network Policy settings
 networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
   # -- Specifies whether Network Policies should be created
+  # @section -- Network Policy
   enabled: false
-  metrics:
-    # -- Specifies the Pods which are allowed to access the metrics port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespaces which are allowed to access the metrics port
-    namespaceSelector: {}
-    # -- Specifies specific network CIDRs which are allowed to access the metrics port.
-    # In case you use namespaceSelector, you also have to specify your kubelet networks here.
-    # The metrics ports are also used for probes.
-    cidrs: []
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of rules to apply via labels
+  # @section -- Network Policy
+  rules: []
+  # rules:
+  #   - allow-nginx-ingress
+  #   - allow-internet-egress
+  #   - allow-my-service-access
+  # @schema
+  # type: object
+  # @schema
+  # Ingress settings
+  # @section -- Network Policy
   ingress:
-    # -- Specifies the Pods which are allowed to access the http port.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespaces which are allowed to access the http port
-    namespaceSelector: {}
-  externalStorage:
-    # -- Specify the port used for external storage, e.g. AWS S3
-    ports: []
-    # -- Specifies specific network CIDRs you want to limit access to
-    cidrs: []
-  discovery:
-    # -- Specify the port used for discovery
-    port: null
-    # -- Specifies the Pods labels used for discovery.
-    # As this is cross-namespace communication, you also need the namespaceSelector.
-    podSelector: {}
-    # -- Specifies the namespace the discovery Pods are running in
-    namespaceSelector: {}
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether ingress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Additional ingress rules
+    # @section -- Network Policy
+    additionalRules: []
+  # @schema
+  # type: object
+  # @schema
+  # Egress settings
+  # @section -- Network Policy
+  egress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether egress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Additional egress rules
+    # @section -- Network Policy
+    additionalRules: []
+
+# @schema
+# type: object
+# @schema
+# Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  # @section -- Scheduling
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: In
+              values: [""]
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  # @section -- Scheduling
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Priority class name
+  # @section -- Scheduling
+  priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      matchLabelKeys:
+        - pod-template-hash
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: ScheduleAnyway
 
 # RBAC configuration
 rbac:

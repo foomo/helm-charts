@@ -496,7 +496,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -535,7 +535,36 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Exact",
+                        "default": "ImplementationSpecific",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_set_cookie",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -564,7 +593,36 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_/service_worker",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -593,7 +651,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "ImplementationSpecific",
                         "required": [],
                         "title": "pathType",
                         "type": "string"
@@ -1090,7 +1148,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.27.3-alpine",
+              "default": "1.27.4-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "required": [],
               "title": "tag",
@@ -1165,6 +1223,239 @@
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
+    "routing": {
+      "additionalProperties": false,
+      "description": "Routing settings",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Indicates wether routing is enabled or not",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "parentRefs": {
+          "description": "Parent references",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "parentRefs",
+          "type": "array"
+        },
+        "paths": {
+          "additionalProperties": true,
+          "description": "Path matches",
+          "properties": {
+            "preview": {
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtm",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "preview",
+              "type": "array"
+            },
+            "tagging": {
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtm.js",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Exact",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_set_cookie",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Exact",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/gtag/js",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/_/service_worker",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "Prefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "default": "/g/collect",
+                        "required": [],
+                        "title": "path",
+                        "type": "string"
+                      },
+                      "pathType": {
+                        "default": "PathPrefix",
+                        "required": [],
+                        "title": "pathType",
+                        "type": "string"
+                      },
+                      "port": {
+                        "default": 8080,
+                        "required": [],
+                        "title": "port",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "pathType",
+                      "port"
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "tagging",
+              "type": "array"
+            }
+          },
+          "required": [
+            "preview",
+            "tagging"
+          ],
+          "title": "paths",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "routing",
+      "type": "object"
+    },
     "scheduling": {
       "additionalProperties": false,
       "description": "Scheduling settings",
@@ -1172,7 +1463,87 @@
         "affinity": {
           "additionalProperties": true,
           "description": "Affinity for pod assignment",
-          "required": [],
+          "properties": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "additionalProperties": false,
+              "properties": {
+                "nodeSelectorTerms": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "matchExpressions": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "key": {
+                                      "default": "node-role.kubernetes.io/control-plane",
+                                      "required": [],
+                                      "title": "key",
+                                      "type": "string"
+                                    },
+                                    "operator": {
+                                      "default": "In",
+                                      "required": [],
+                                      "title": "operator",
+                                      "type": "string"
+                                    },
+                                    "values": {
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "required": [],
+                                            "type": "string"
+                                          }
+                                        ],
+                                        "required": []
+                                      },
+                                      "required": [],
+                                      "title": "values",
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "operator",
+                                    "values"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "required": []
+                            },
+                            "required": [],
+                            "title": "matchExpressions",
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "matchExpressions"
+                        ],
+                        "type": "object"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "nodeSelectorTerms",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "nodeSelectorTerms"
+              ],
+              "title": "requiredDuringSchedulingIgnoredDuringExecution",
+              "type": "object"
+            }
+          },
+          "required": [
+            "requiredDuringSchedulingIgnoredDuringExecution"
+          ],
           "title": "affinity",
           "type": "object"
         },
@@ -1210,6 +1581,17 @@
           },
           "required": [],
           "title": "tolerations",
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "description": "Tolerations for pod assignment",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "topologySpreadConstraints",
           "type": "array"
         }
       },

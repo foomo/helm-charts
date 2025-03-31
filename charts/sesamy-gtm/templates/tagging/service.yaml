@@ -2,11 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "sesamy.gtm.tagging.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
+  labels: {{- include "sesamy.gtm.tagging.labels" . | nindent 4 }}
   {{- with .Values.tagging.service.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
+  annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
@@ -25,5 +23,4 @@ spec:
       {{- with .Values.tagging.service.appProtocol }}
       appProtocol: {{ . }}
       {{- end }}
-  selector:
-    {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 4 }}
+  selector: {{- include "sesamy.gtm.tagging.selectorLabels" . | nindent 4 }}

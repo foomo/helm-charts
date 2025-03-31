@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "templates": {
+      "additionalProperties": true,
+      "description": "Custom templates to inject",
+      "required": [],
+      "title": "templates",
+      "type": "object"
+    },
+    "templatesValues": {
+      "additionalProperties": true,
+      "description": "Custom values to inject into templates",
+      "required": [],
+      "title": "templatesValues",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

@@ -12,7 +12,7 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/namespace
 
-version: 0.2.4
-appVersion: 0.2.4
+version: 0.3.0
+appVersion: 0.3.0

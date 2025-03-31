@@ -13,9 +13,15 @@ global:
     # @schema
     # type: boolean
     # @schema
-    # Enable for backward compatibility
+    # -- Enable for backward compatibility
     # @section -- Global
     withDeprecatedSelectorLabels: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Enable for backward compatibility
+    # @section -- Global
+    withDeprecatedSelectorLabelsV2: false
     # @schema
     # type: object
     # @schema
@@ -357,6 +363,36 @@ ingress:
 # @schema
 # type: object
 # @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
+
+# @schema
+# type: object
+# @schema
 # Persistence settings
 persistence:
   # @schema
@@ -589,6 +625,24 @@ server:
     httpGet:
       port: healthz
       path: /healthz/liveness
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional init containers
+  # @section -- Server
+  initContainers: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional sidecar containers
+  # @section -- Server
+  sidecarContainers: []
 
 # @schema
 # type: object
@@ -866,7 +920,13 @@ scheduling:
   # @schema
   # -- Affinity for pod assignment
   # @section -- Scheduling
-  affinity: {}
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: In
+              values: [""]
   # @schema
   # type: object
   # additionalProperties: true
@@ -889,6 +949,23 @@ scheduling:
   # -- Priority class name
   # @section -- Scheduling
   priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      matchLabelKeys:
+        - pod-template-hash
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: ScheduleAnyway
 
 # @schema
 # type: object

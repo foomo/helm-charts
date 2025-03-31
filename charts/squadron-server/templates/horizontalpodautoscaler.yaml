@@ -2,15 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "sesamy.gtm.preview.fullname" . }}
-  labels:
-    {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
-  namespace: {{ include "sesamy.gtm.namespace" . }}
+  name: {{ include "squadron.server.fullname" . }}
+  labels: {{- include "squadron.server.labels" . | nindent 4 }}
+  namespace: {{ include "squadron.server.namespace" . }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "sesamy.gtm.preview.fullname" . }}
+    name: {{ include "squadron.server.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
@@ -31,8 +30,8 @@ spec:
           averageUtilization: {{ .Values.autoscaling.targetMemory }}
     {{- end }}
     {{- with .Values.autoscaling.additionalMetrics }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
+      {{- toYaml . | nindent 6 }}
+    {{- end}}
   {{- with .Values.autoscaling.behavior }}
   behavior: {{ toYaml . | nindent 4 }}
   {{- end }}

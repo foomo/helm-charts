@@ -119,6 +119,17 @@
           "title": "hostAliases",
           "type": "array"
         },
+        "initContainers": {
+          "description": "Additional init containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "initContainers",
+          "type": "array"
+        },
         "jobAnnotations": {
           "additionalProperties": true,
           "description": "Pod annotations",
@@ -136,34 +147,7 @@
         "livenessProbe": {
           "additionalProperties": true,
           "description": "Liveness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/liveness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "livenessProbe",
           "type": [
             "object",
@@ -180,34 +164,7 @@
         "readinessProbe": {
           "additionalProperties": true,
           "description": "Readiness probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/readiness",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "readinessProbe",
           "type": [
             "object",
@@ -234,37 +191,21 @@
           "required": [],
           "title": "restart"
         },
+        "sidecarContainers": {
+          "description": "Additional sidecar containers",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "sidecarContainers",
+          "type": "array"
+        },
         "startupProbe": {
           "additionalProperties": true,
           "description": "Startup probe settings",
-          "properties": {
-            "httpGet": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "default": "/healthz/startup",
-                  "required": [],
-                  "title": "path",
-                  "type": "string"
-                },
-                "port": {
-                  "default": "healthz",
-                  "required": [],
-                  "title": "port",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "port",
-                "path"
-              ],
-              "title": "httpGet",
-              "type": "object"
-            }
-          },
-          "required": [
-            "httpGet"
-          ],
+          "required": [],
           "title": "startupProbe",
           "type": [
             "object",
@@ -330,6 +271,13 @@
               "description": "Enable for backward compatibility",
               "required": [],
               "title": "withDeprecatedSelectorLabels",
+              "type": "boolean"
+            },
+            "withDeprecatedSelectorLabelsV2": {
+              "default": false,
+              "description": "Enable for backward compatibility",
+              "required": [],
+              "title": "withDeprecatedSelectorLabelsV2",
               "type": "boolean"
             }
           },
@@ -757,7 +705,87 @@
         "affinity": {
           "additionalProperties": true,
           "description": "Affinity for pod assignment",
-          "required": [],
+          "properties": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "additionalProperties": false,
+              "properties": {
+                "nodeSelectorTerms": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "matchExpressions": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "key": {
+                                      "default": "node-role.kubernetes.io/control-plane",
+                                      "required": [],
+                                      "title": "key",
+                                      "type": "string"
+                                    },
+                                    "operator": {
+                                      "default": "In",
+                                      "required": [],
+                                      "title": "operator",
+                                      "type": "string"
+                                    },
+                                    "values": {
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "required": [],
+                                            "type": "string"
+                                          }
+                                        ],
+                                        "required": []
+                                      },
+                                      "required": [],
+                                      "title": "values",
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "operator",
+                                    "values"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "required": []
+                            },
+                            "required": [],
+                            "title": "matchExpressions",
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "matchExpressions"
+                        ],
+                        "type": "object"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "nodeSelectorTerms",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "nodeSelectorTerms"
+              ],
+              "title": "requiredDuringSchedulingIgnoredDuringExecution",
+              "type": "object"
+            }
+          },
+          "required": [
+            "requiredDuringSchedulingIgnoredDuringExecution"
+          ],
           "title": "affinity",
           "type": "object"
         },
@@ -795,6 +823,17 @@
           },
           "required": [],
           "title": "tolerations",
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "description": "Tolerations for pod assignment",
+          "items": {
+            "additionalProperties": true,
+            "required": [],
+            "type": "object"
+          },
+          "required": [],
+          "title": "topologySpreadConstraints",
           "type": "array"
         }
       },

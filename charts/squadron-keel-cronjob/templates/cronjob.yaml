@@ -54,6 +54,9 @@ spec:
           {{- with .Values.cronjob.hostAliases }}
           hostAliases: {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.cronjob.initContainers }}
+          initContainers: {{- toYaml . | nindent 12 }}
+          {{- end }}
           containers:
             - name: cronjob
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -113,21 +116,32 @@ spec:
                   exec:
                     command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
               {{- end }}
+            {{- with .Values.cronjob.sidecarContainers }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- if .Values.scheduling.enabled }}
           {{- with .Values.scheduling.priorityClass }}
           priorityClassName: {{ . }}
           {{- end }}
           {{- with .Values.scheduling.affinity }}
-          affinity:
-            {{- toYaml . | nindent 12 }}
+          affinity: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.scheduling.nodeSelector }}
-          nodeSelector:
-            {{- toYaml . | nindent 12 }}
+          nodeSelector: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.scheduling.tolerations }}
-          tolerations:
-            {{- toYaml . | nindent 12 }}
+          tolerations: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.scheduling.topologySpreadConstraints }}
+          topologySpreadConstraints:
+            {{- $labelSelector := dict
+              "labelSelector" (dict
+                "matchLabels" (fromYaml (include "keel.cronjob.selectorLabels" $))
+              )
+            }}
+            {{- range . }}
+            - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 14 }}
+            {{- end }}
           {{- end }}
           {{- end }}
           volumes:

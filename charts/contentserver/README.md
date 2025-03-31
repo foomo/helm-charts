@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.2](https://img.shields.io/badge/AppVersion-1.11.2-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.3](https://img.shields.io/badge/AppVersion-1.11.3-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -138,15 +138,24 @@ Helm chart for the foomo Content Server.
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | updateStrategy | string | `"RollingUpdate"` | Deployment update strategy |
 
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | list | `[]` | Path matches |
+
 ### Scheduling
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| scheduling.affinity | object | `{}` | Affinity for pod assignment |
+| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
 | scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 | scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
 | scheduling.priorityClass | string | `nil` | Priority class name |
 | scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
+| scheduling.topologySpreadConstraints | list | `[{"matchLabelKeys":["pod-template-hash"],"maxSkew":1,"topologyKey":"kubernetes.io/hostname","whenUnsatisfiable":"DoNotSchedule"},{"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone","whenUnsatisfiable":"ScheduleAnyway"}]` | Tolerations for pod assignment |
 
 ### Security Context
 

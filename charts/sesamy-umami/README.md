@@ -1,6 +1,6 @@
 # sesamy-umami
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.11.3](https://img.shields.io/badge/AppVersion-2.11.3-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.15.1](https://img.shields.io/badge/AppVersion-2.15.1-informational?style=flat-square)
 
 Helm chart for the Sesamy Umami integration.
 
@@ -8,61 +8,93 @@ Helm chart for the Sesamy Umami integration.
 
 ## Values
 
+### Overrides
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| ingress.annotations | object | `{}` |  |
+| nameOverride | string | `""` | Overrides the chart's name |
+| namespaceOverride | string | `""` | The name of the Namespace to deploy |
+
+### Ingress
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ingress.annotations | object | `{}` | Annotations |
 | ingress.className | string | `""` | Ingress class name |
 | ingress.enabled | bool | `false` | Enable ingress |
-| ingress.hosts[0] | string | `"example.com"` |  |
-| ingress.paths.umami[0].path | string | `"/"` |  |
-| ingress.paths.umami[0].pathType | string | `"Prefix"` |  |
-| ingress.paths.umami[0].port | int | `8000` |  |
-| ingress.tls | list | `[]` |  |
-| nameOverride | string | `""` | Overrides the chart's name |
-| namespaceOverride | string | `""` | The name of the Namespace to deploy If not set, `.Release.Namespace` is used |
-| networkPolicy.discovery.namespaceSelector | object | `{}` | Specifies the namespace the discovery Pods are running in |
-| networkPolicy.discovery.podSelector | object | `{}` | Specifies the Pods labels used for discovery. As this is cross-namespace communication, you also need the namespaceSelector. |
-| networkPolicy.discovery.port | string | `nil` | Specify the port used for discovery |
+| ingress.hosts | list | `[]` | Ingress hosts |
+| ingress.paths | object | `{"umami":[{"path":"/","pathType":"Prefix","port":8000}]}` | Path settings |
+| ingress.tls | list | `[]` | Ingress tls |
+
+### Network Policy
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.egress.additionalRules | list | `[]` | Additional egress rules |
+| networkPolicy.egress.allowExternal | bool | `true` | Allow ingress through labels |
+| networkPolicy.egress.enabled | bool | `true` | Specifies whether egress should be enabled |
 | networkPolicy.enabled | bool | `false` | Specifies whether Network Policies should be created |
-| networkPolicy.externalStorage.cidrs | list | `[]` | Specifies specific network CIDRs you want to limit access to |
-| networkPolicy.externalStorage.ports | list | `[]` | Specify the port used for external storage, e.g. AWS S3 |
-| networkPolicy.ingress.namespaceSelector | object | `{}` | Specifies the namespaces which are allowed to access the http port |
-| networkPolicy.ingress.podSelector | object | `{}` | Specifies the Pods which are allowed to access the http port. As this is cross-namespace communication, you also need the namespaceSelector. |
-| networkPolicy.metrics.cidrs | list | `[]` | Specifies specific network CIDRs which are allowed to access the metrics port. In case you use namespaceSelector, you also have to specify your kubelet networks here. The metrics ports are also used for probes. |
-| networkPolicy.metrics.namespaceSelector | object | `{}` | Specifies the namespaces which are allowed to access the metrics port |
-| networkPolicy.metrics.podSelector | object | `{}` | Specifies the Pods which are allowed to access the metrics port. As this is cross-namespace communication, you also need the namespaceSelector. |
-| proxy.config | string | see values.yaml | Nginx SSL Reverse Proxy config. The value is templated using `tpl`. |
-| proxy.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
-| proxy.image.repository | string | `"nginx"` | The image repository |
-| proxy.image.tag | string | `"1.25-alpine"` | The image tag |
+| networkPolicy.ingress.additionalRules | list | `[]` | Additional ingress rules |
+| networkPolicy.ingress.allowExternal | bool | `true` | Allow ingress through labels |
+| networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
+| networkPolicy.rules | list | `[]` | List of rules to apply via labels |
+
+### Proxy
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| proxy.config | string | `"server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.umami.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n"` | Nginx SSL Reverse Proxy config. |
+| proxy.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
+| proxy.image.repository | string | `"nginx"` | Image repository |
+| proxy.image.tag | string | `"1.25-alpine"` | Image tag |
 | proxy.resources | object | `{}` | Resource request & limits. |
 | proxy.tls.crt | string | `""` | Base64 encoded TLS cert |
 | proxy.tls.key | string | `""` | Base64 encoded TLS key |
-| rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
-| revisionHistoryLimit | int | `10` | Number of revisions to retain to allow rollback |
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+
+### Routing
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.parentRefs | list | `[]` | Parent references |
+| routing.paths | list | `[]` | Path matches |
+
+### Scheduling
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| scheduling.affinity | object | `{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]}]}}` | Affinity for pod assignment |
+| scheduling.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
+| scheduling.nodeSelector | object | `{}` | Node labels for pod assignment |
+| scheduling.priorityClass | string | `nil` | Priority class name |
+| scheduling.tolerations | list | `[]` | Tolerations for pod assignment |
+| scheduling.topologySpreadConstraints | list | `[{"matchLabelKeys":["pod-template-hash"],"maxSkew":1,"topologyKey":"kubernetes.io/hostname","whenUnsatisfiable":"DoNotSchedule"},{"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone","whenUnsatisfiable":"ScheduleAnyway"}]` | Tolerations for pod assignment |
+
+### Service Account
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | If not set and create is true, a name is generated using the fullname template |
-| serviceMonitor.annotations | object | `{}` | ServiceMonitor annotations |
-| serviceMonitor.enabled | bool | `false` | If enabled, ServiceMonitor resources for Prometheus Operator are created |
-| serviceMonitor.interval | string | `nil` | ServiceMonitor scrape interval |
-| serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
-| serviceMonitor.matchExpressions | list | `[]` | Optional expressions to match on |
-| serviceMonitor.metricRelabelings | list | `[]` | ServiceMonitor metric relabel configs to apply to samples before ingestion https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint |
-| serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor resources |
-| serviceMonitor.namespaceSelector | object | `{}` | Namespace selector for ServiceMonitor resources |
-| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig |
-| serviceMonitor.scheme | string | `"http"` | ServiceMonitor will use http by default, but you can pick https as well |
-| serviceMonitor.scrapeTimeout | string | `nil` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
-| serviceMonitor.targetLabels | list | `[]` |  |
-| serviceMonitor.tlsConfig | string | `nil` | ServiceMonitor will use these tlsConfig settings to make the health check requests |
+| serviceAccount.name | string | `""` | The name of the service account to use. |
+
+### Umami
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | umami.affinity | object | `{}` | Affinity settings for pods. |
 | umami.autoscaling.behavior.enabled | bool | `false` | Enable autoscaling behaviours |
 | umami.autoscaling.behavior.scaleDown | object | `{}` | Scale down policies, must conform to HPAScalingRules |
 | umami.autoscaling.behavior.scaleUp | object | `{}` | Scale up policies, must conform to HPAScalingRules |
-| umami.autoscaling.customMetrics | list | `[]` | Custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics) |
+| umami.autoscaling.customMetrics | list | `[]` | Custom metrics using the HPA/v2 schema |
 | umami.autoscaling.enabled | bool | `false` | Enable autoscaling |
 | umami.autoscaling.maxReplicas | int | `100` | Maximum autoscaling replicas |
 | umami.autoscaling.minReplicas | int | `1` | Minimum autoscaling replicas |
@@ -105,7 +137,7 @@ Helm chart for the Sesamy Umami integration.
 | umami.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | umami.image.registry | string | `"ghcr.io"` | The image registry |
 | umami.image.repository | string | `"umami-software/umami"` | The image repository |
-| umami.image.tag | string | `"postgresql-v2.11.3"` | The image tag |
+| umami.image.tag | string | `"postgresql-v2.15.1"` | The image tag |
 | umami.imagePullSecrets | list | `[]` | Image pull secrets |
 | umami.livenessProbe | object | `{"httpGet":{"path":"/","port":"http"}}` | Liveness probe settings for pods. |
 | umami.maxUnavailable | string | `nil` | Pod Disruption Budget maxUnavailable |
@@ -116,11 +148,17 @@ Helm chart for the Sesamy Umami integration.
 | umami.readinessProbe | object | `{"httpGet":{"path":"/","port":"http"}}` | Readiness probe settings for pods. |
 | umami.replicaCount | int | `1` | Number of replicas |
 | umami.resources | object | `{}` | Resource request & limits. |
-| umami.securityContext | object | `{}` |  |
+| umami.securityContext | object | `{}` | Security context |
 | umami.service.annotations | object | `{}` | Annotations for the service |
 | umami.service.labels | object | `{}` | Labels for service |
 | umami.service.port | int | `8000` | Port of the service |
 | umami.service.type | string | `"ClusterIP"` | Type of the service |
 | umami.startupProbe | object | `{}` | Startup probe settings for pods. |
 | umami.tolerations | list | `[]` | Tolerations settings for pods. |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| rbac.enabled | bool | `false` | Create PodSecurityPolicy. |
 

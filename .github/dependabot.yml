@@ -1,6 +1,29 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 version: 2
+
 updates:
-  - package-ecosystem: github-actions
+  - package-ecosystem: 'github-actions'
+    open-pull-requests-limit: 1
     directory: '/'
     schedule:
-      interval: weekly
+      day: 'sunday'
+      interval: 'weekly'
+    groups:
+      github-actions:
+        patterns: ['*']
+
+  - package-ecosystem: 'docker'
+    open-pull-requests-limit: 1
+    directories: ['**/*']
+    schedule:
+      day: 'sunday'
+      interval: 'weekly'
+    milestone: 372
+    groups:
+      docker-updates:
+        update-types: ['minor', 'patch']
+        patterns: ['*']
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

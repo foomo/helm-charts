@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.27.3-alpine'
+    tag: '1.27.4-alpine'
   # @schema
   # type: object
   # @schema
@@ -851,18 +851,24 @@ ingress:
   paths:
     preview:
       - path: /gtm
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
     tagging:
       - path: /gtm.js
-        pathType: Exact
+        pathType: ImplementationSpecific
+        port: 8080
+      - path: /_set_cookie
+        pathType: ImplementationSpecific
         port: 8080
       - path: /gtag/js
-        pathType: Prefix
+        pathType: ImplementationSpecific
+        port: 8080
+      - path: /_/service_worker
+        pathType: ImplementationSpecific
         port: 8080
       # Comment if `collect.enabled=true`
       - path: /g/collect
-        pathType: Prefix
+        pathType: ImplementationSpecific
         port: 8080
     # Uncomment if `collect.enabled=true`
     # collect:
@@ -876,8 +882,7 @@ ingress:
   # @schema
   # -- Hosts to listen to
   # @section -- Ingress
-  hosts:
-    - example.com
+  hosts: []
   # @schema
   # type: array
   # items:
@@ -887,6 +892,60 @@ ingress:
   # -- Tls setttings
   # @section -- Ingress
   tls: []
+
+# @schema
+# type: object
+# @schema
+# Routing settings
+routing:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether routing is enabled or not
+  # @section -- Routing
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Path matches
+  # @section -- Routing
+  paths:
+    preview:
+      - path: /gtm
+        pathType: PathPrefix
+        port: 8080
+    tagging:
+      - path: /gtm.js
+        pathType: Exact
+        port: 8080
+      - path: /_set_cookie
+        pathType: Exact
+        port: 8080
+      - path: /gtag/js
+        pathType: PathPrefix
+        port: 8080
+      - path: /_/service_worker
+        pathType: Prefix
+        port: 8080
+      # Comment if `collect.enabled=true`
+      - path: /g/collect
+        pathType: PathPrefix
+        port: 8080
+    # Uncomment if `collect.enabled=true`
+    # collect:
+    #   - path: /g/collect
+    #     pathType: Prefix
+    #     port: 8080
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Parent references
+  # @section -- Routing
+  parentRefs: []
 
 # ServiceAccount configuration
 serviceAccount:
@@ -952,6 +1011,7 @@ serviceMonitor:
   # type: string
   # @schema
   # -- ServiceMonitor scrape timeout in Go duration format (e.g. 15s)
+  # @section -- Service Monitor
   scrapeTimeout: ''
   # @schema
   # type: array
@@ -1060,7 +1120,13 @@ scheduling:
   # @schema
   # -- Affinity for pod assignment
   # @section -- Scheduling
-  affinity: {}
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: In
+              values: [""]
   # @schema
   # type: object
   # additionalProperties: true
@@ -1084,6 +1150,23 @@ scheduling:
   # -- Priority class name
   # @section -- Scheduling
   priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      matchLabelKeys:
+        - pod-template-hash
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: ScheduleAnyway
 
 # @schema
 # type: object

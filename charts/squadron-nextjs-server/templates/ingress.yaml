@@ -29,14 +29,14 @@ spec:
       http:
         paths:
           {{- if $.Values.gateway.enabled }}
-          - pathType: Prefix
+          - pathType: ImplementationSpecific
             path: /static/{{ include "nextjs.server.fullname" $ }}/public/(.*)
             backend:
               service:
                 name: {{ include "nextjs.server.fullname" $ }}
                 port:
                   number: 3000
-          - pathType: Prefix
+          - pathType: ImplementationSpecific
             path: /static/{{ include "nextjs.server.fullname" $ }}/(_next/static/.*)
             backend:
               service:
@@ -45,7 +45,7 @@ spec:
                   number: 3000
           {{- end }}
           {{- range $.Values.ingress.paths }}
-          - pathType: {{ default .pathType "Prefix" }}
+          - pathType: {{ default .pathType "ImplementationSpecific" }}
             path: {{ .path }}
             backend:
               service:

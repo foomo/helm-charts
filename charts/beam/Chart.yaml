@@ -20,9 +20,9 @@ dependencies:
   # https://artifacthub.io/packages/helm/bitnami/pinniped
   - name: pinniped
     alias: pinniped
-    version: 2.4.1
+    version: 2.4.9
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: pinniped.enabled
-version: 0.5.0
-appVersion: 0.5.0
+version: 0.5.3
+appVersion: 0.5.3
 
