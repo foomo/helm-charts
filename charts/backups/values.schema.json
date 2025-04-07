@@ -30,6 +30,20 @@
           "title": "failedJobsHistoryLimit",
           "type": "integer"
         },
+        "podAnnotations": {
+          "additionalProperties": true,
+          "description": "Pod annotations",
+          "required": [],
+          "title": "podAnnotations",
+          "type": "object"
+        },
+        "podLabels": {
+          "additionalProperties": true,
+          "description": "Pod labels",
+          "required": [],
+          "title": "podLabels",
+          "type": "object"
+        },
         "restart": {
           "default": "Never",
           "description": "Set the cronjob parameter restart",
@@ -73,40 +87,42 @@
       "title": "cronjob",
       "type": "object"
     },
-    "fullnameOverride": {
-      "default": "",
-      "description": "Overrides the chart's computed fullname",
-      "required": [],
-      "title": "fullnameOverride",
-      "type": "string"
-    },
-    "global": {
-      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
-      "required": [],
-      "title": "global",
-      "type": "object"
-    },
-    "nameOverride": {
-      "default": "",
-      "description": "Overrides the chart's name",
-      "required": [],
-      "title": "nameOverride",
-      "type": "string"
-    },
-    "namespaceOverride": {
-      "default": "",
-      "description": "The name of the Namespace to deploy",
-      "required": [],
-      "title": "namespaceOverride",
-      "type": "string"
-    },
-    "postgres": {
+    "dump": {
       "additionalProperties": false,
       "description": "Postgres settings",
       "properties": {
+        "contentful": {
+          "additionalProperties": false,
+          "description": "Contentful settings",
+          "properties": {
+            "image": {
+              "default": "testimage",
+              "description": "Postgres image",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "password": {
+              "default": "",
+              "description": "Contentful password",
+              "required": [],
+              "title": "password",
+              "type": "string"
+            },
+            "spaceId": {
+              "default": "",
+              "description": "Contentful space id",
+              "required": [],
+              "title": "spaceId",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "contentful",
+          "type": "object"
+        },
         "dump": {
           "additionalProperties": false,
-          "description": "Dump settings",
           "properties": {
             "extraEnv": {
               "description": "Environment variables to add to pg dump container",
@@ -134,57 +150,86 @@
           "title": "dump",
           "type": "object"
         },
-        "enabled": {
-          "default": false,
-          "description": "Enable backup",
+        "postgres": {
+          "additionalProperties": false,
+          "description": "Postgres settings",
+          "properties": {
+            "host": {
+              "default": "",
+              "description": "Postgres host",
+              "required": [],
+              "title": "host",
+              "type": "string"
+            },
+            "image": {
+              "default": "",
+              "description": "Postgres image",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "instance-name",
+              "description": "Postgres instance name",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "password": {
+              "default": "",
+              "description": "Postgres password",
+              "required": [],
+              "title": "password",
+              "type": "string"
+            },
+            "port": {
+              "default": "5432",
+              "description": "Postgres port",
+              "required": [],
+              "title": "port",
+              "type": "string"
+            },
+            "type": {
+              "default": "SelfHosted",
+              "description": "Set the type of postgres database",
+              "enum": [
+                "CloudSQL",
+                "RDS",
+                "DOPostgres",
+                "SelfHosted",
+                "AzurePostgres"
+              ],
+              "required": [],
+              "title": "type"
+            },
+            "user": {
+              "default": "",
+              "description": "Postgres user name",
+              "required": [],
+              "title": "user",
+              "type": "string"
+            }
+          },
           "required": [],
-          "title": "enabled",
-          "type": "boolean"
+          "title": "postgres",
+          "type": "object"
         },
-        "host": {
-          "default": "",
-          "description": "Postgres host",
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "description": "Image tag",
+          "enum": [
+            "IfNotPresent",
+            "Always"
+          ],
           "required": [],
-          "title": "host",
-          "type": "string"
-        },
-        "image": {
-          "default": "postgres:15-alpine",
-          "description": "Postgres image",
-          "required": [],
-          "title": "image",
-          "type": "string"
-        },
-        "name": {
-          "default": "instance-name",
-          "description": "Postgres instance name",
-          "required": [],
-          "title": "name",
-          "type": "string"
-        },
-        "password": {
-          "default": "",
-          "description": "Postgres password",
-          "required": [],
-          "title": "password",
-          "type": "string"
-        },
-        "port": {
-          "default": "5432",
-          "description": "Postgres port",
-          "required": [],
-          "title": "port",
-          "type": "string"
+          "title": "pullPolicy"
         },
         "type": {
-          "default": "SelfHosted",
-          "description": "Set the type of postgres database",
+          "default": "postgres",
+          "description": "Storage type",
           "enum": [
-            "CloudSQL",
-            "RDS",
-            "DOPostgres",
-            "SelfHosted",
-            "AzurePostgres"
+            "postgres",
+            "contentful"
           ],
           "required": [],
           "title": "type"
@@ -218,17 +263,132 @@
           "required": [],
           "title": "upload",
           "type": "object"
-        },
-        "user": {
-          "default": "",
-          "description": "Postgres user name",
+        }
+      },
+      "required": [
+        "dump"
+      ],
+      "title": "dump",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "Overrides the chart's computed fullname",
+      "required": [],
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "Overrides the chart's name",
+      "required": [],
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "namespaceOverride": {
+      "default": "",
+      "description": "The name of the Namespace to deploy",
+      "required": [],
+      "title": "namespaceOverride",
+      "type": "string"
+    },
+    "networkPolicy": {
+      "additionalProperties": false,
+      "description": "Network Policy settings",
+      "properties": {
+        "egress": {
+          "additionalProperties": false,
+          "description": "Egress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional egress rules",
+              "items": {
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether egress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
           "required": [],
-          "title": "user",
-          "type": "string"
+          "title": "egress",
+          "type": "object"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Specifies whether Network Policies should be created",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "ingress": {
+          "additionalProperties": false,
+          "description": "rules:\n  - allow-nginx-ingress\n  - allow-internet-egress\n  - allow-my-service-access\nIngress settings",
+          "properties": {
+            "additionalRules": {
+              "description": "Additional ingress rules",
+              "items": {
+                "additionalProperties": true,
+                "required": [],
+                "type": "string"
+              },
+              "required": [],
+              "title": "additionalRules",
+              "type": "array"
+            },
+            "allowExternal": {
+              "default": true,
+              "description": "Allow ingress through labels",
+              "required": [],
+              "title": "allowExternal",
+              "type": "boolean"
+            },
+            "enabled": {
+              "default": true,
+              "description": "Specifies whether ingress should be enabled",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "ingress",
+          "type": "object"
+        },
+        "rules": {
+          "description": "List of rules to apply via labels",
+          "items": {
+            "required": [],
+            "type": "string"
+          },
+          "required": [],
+          "title": "rules",
+          "type": "array"
         }
       },
       "required": [],
-      "title": "postgres",
+      "title": "networkPolicy",
       "type": "object"
     },
     "revisionHistoryLimit": {
@@ -279,6 +439,43 @@
       "additionalProperties": false,
       "description": "Upload target settings",
       "properties": {
+        "azure": {
+          "additionalProperties": false,
+          "description": "Azure settings",
+          "properties": {
+            "containerName": {
+              "default": "",
+              "description": "Container name",
+              "required": [],
+              "title": "containerName",
+              "type": "string"
+            },
+            "image": {
+              "default": "mcr.microsoft.com/azure-cli:2.71.0",
+              "description": "Upload image name\nhttps://hub.docker.com/r/microsoft/azure-cli",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "prefix": {
+              "default": "",
+              "description": "Bucket prefix",
+              "required": [],
+              "title": "prefix",
+              "type": "string"
+            },
+            "storageAccount": {
+              "default": "",
+              "description": "Storage Account name",
+              "required": [],
+              "title": "storageAccount",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "azure",
+          "type": "object"
+        },
         "gcs": {
           "additionalProperties": false,
           "description": "GCS settings",
@@ -291,7 +488,7 @@
               "type": "string"
             },
             "image": {
-              "default": "google/cloud-sdk:504.0.1",
+              "default": "google/cloud-sdk:516.0.0",
               "description": "Upload image name\nhttps://hub.docker.com/r/google/cloud-sdk/tags",
               "required": [],
               "title": "image",
@@ -308,6 +505,16 @@
           "required": [],
           "title": "gcs",
           "type": "object"
+        },
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "description": "Image tag",
+          "enum": [
+            "IfNotPresent",
+            "Always"
+          ],
+          "required": [],
+          "title": "pullPolicy"
         },
         "s3": {
           "additionalProperties": false,
@@ -335,7 +542,7 @@
               "type": "string"
             },
             "image": {
-              "default": "amazon/aws-cli:2.22.26",
+              "default": "amazon/aws-cli:2.25.7",
               "description": "Upload image name\nhttps://hub.docker.com/r/amazon/aws-cli/tags",
               "required": [],
               "title": "image",
@@ -365,7 +572,8 @@
           "description": "Storage type",
           "enum": [
             "s3",
-            "gcs"
+            "gcs",
+            "azure"
           ],
           "required": [],
           "title": "type"

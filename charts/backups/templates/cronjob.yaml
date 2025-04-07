@@ -1,9 +1,8 @@
-{{- if .Values.postgres.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "backups.postgres.fullname" . }}
-  labels: {{- include "backups.postgres.labels" . | nindent 4 }}
+  name: {{ include "backups.fullname" . }}
+  labels: {{- include "backups.labels" . | nindent 4 }}
   namespace: {{ include "backups.namespace" . }}
 spec:
   schedule: {{ quote .Values.cronjob.schedule }}
@@ -22,53 +21,51 @@ spec:
       ttlSecondsAfterFinished: {{ .Values.cronjob.ttlSecondsAfterFinished }}
       {{- end }}
       template:
+        metadata:
+          labels:
+            {{- include "backups.labels" . | nindent 12 }}
+            {{- include "backups.cronjob.networkingLabels" . | nindent 8 }}
+            {{- with .Values.cronjob.podLabels }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          annotations:
+            {{- with .Values.cronjob.podAnnotations }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
         spec:
           restartPolicy: {{ .Values.cronjob.restart }}
           serviceAccountName: {{ include "backups.serviceAccountName" . }}
           initContainers:
             - name: dump
-              image: {{ .Values.postgres.image }}
-              command: {{- include "backups.postgres.pgdumpCommand" . | nindent 16 }}
+              image: {{ include "backups.dump.image" . }}
+              imagePullPolicy: {{ .Values.dump.pullPolicy }}
+              command: {{ include "backups.dump.dumpCommand" . | trim | nindent 16 }}
               env:
-                - name: PGUSER
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ include "backups.postgres.fullname" . }}
-                      key: PGUSER
-                - name: PGPASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ include "backups.postgres.fullname" . }}
-                      key: PGPASSWORD
-                {{- with .Values.postgres.dump.extraEnv }}
+                {{- with .Values.dump.dump.extraEnv }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "backups.fullname" . }}-env
               volumeMounts:
                 - name: data
                   mountPath: /backup
           containers:
             - name: upload
               image: {{ include "backups.upload.image" . }}
-              imagePullPolicy: IfNotPresent
-              command: {{ include "backups.postgres.uploadCommand" . | trim | nindent 16 }}
-              env:
-                {{- if eq .Values.upload.type "s3" }}
-                {{- if .Values.upload.s3 }}
-                  - name: AWS_ACCESS_KEY_ID
-                    value: {{ .Values.upload.s3.accessKey }}
-                {{- end }}
-                {{- if .Values.upload.s3.secretAccessKey }}
-                  - name: AWS_SECRET_ACCESS_KEY
-                    value: {{ .Values.upload.s3.secretAccessKey }}
-                {{- end }}
-                {{- end }}
-                {{- with .Values.postgres.upload.extraEnv }}
+              imagePullPolicy: {{ .Values.upload.pullPolicy }}
+              command: {{ include "backups.dump.uploadCommand" . | trim | nindent 16 }}
+              env: 
+                {{- with .Values.dump.upload.extraEnv }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "backups.fullname" . }}-env
               volumeMounts:
                 - name: data
                   mountPath: /backup
           volumes:
             - name: data
               emptyDir: {}
-{{- end }}
+

@@ -79,6 +79,20 @@ cronjob:
   # -- Set the cronjob parameter backoffLimit
   # @section -- Cronjob
   backoffLimit: 6
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod labels
+  # @section -- Cronjob
+  podLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  # @section -- Cronjob
+  podAnnotations: { }
 
 # @schema
 # type: object
@@ -86,11 +100,17 @@ cronjob:
 # Upload target settings
 upload:
   # @schema
-  # enum: [s3, gcs]
+  # enum: [s3, gcs, azure]
   # @schema
   # -- Storage type
   # @section -- Upload
   type: s3
+  # @schema
+  # enum: [IfNotPresent, Always]
+  # @schema
+  # -- Image tag
+  # @section -- Image
+  pullPolicy: IfNotPresent
   # @schema
   # type: object
   # @schema
@@ -102,7 +122,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/amazon/aws-cli/tags
     # @section -- Upload
-    image: amazon/aws-cli:2.22.26
+    image: amazon/aws-cli:2.25.7
     # @schema
     # type: string
     # @schema
@@ -144,7 +164,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/google/cloud-sdk/tags
     # @section -- Upload
-    image: google/cloud-sdk:504.0.1
+    image: google/cloud-sdk:516.0.0
     # @schema
     # type: string
     # @schema
@@ -157,10 +177,36 @@ upload:
     # -- Bucket prefix
     # @section -- Upload
     prefix: ""
-  # TODO azure:
-  #  image: mcr.microsoft.com/azure-cli:2.9.1
-  #  bucket: bucket
-  #  prefix: prefix
+  # @schema
+  # type: object
+  # @schema
+  # Azure settings
+  azure:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/microsoft/azure-cli
+    # @section -- Upload
+    image: mcr.microsoft.com/azure-cli:2.71.0
+    # @schema
+    # type: string
+    # @schema
+    # -- Storage Account name
+    # @section -- Upload
+    storageAccount: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Container name
+    # @section -- Upload
+    containerName: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
   # TODO do:
   #  image: digitalocean/doctl:1.113.0
   #  bucket: bucket
@@ -170,59 +216,93 @@ upload:
 # type: object
 # @schema
 # Postgres settings
-postgres:
+dump:
   # @schema
-  # type: boolean
+  # enum: [postgres, contentful]
   # @schema
-  # -- Enable backup
-  # @section -- Postgres
-  enabled: false
+  # -- Storage type
+  # @section -- Upload
+  type: postgres
   # @schema
-  # type: string
+  # enum: [IfNotPresent, Always]
   # @schema
-  # -- Postgres image
-  # @section -- Postgres
-  image: postgres:15-alpine
-  # @schema
-  # type: string
-  # @schema
-  # -- Postgres host
-  # @section -- Postgres
-  host: ""
-  # @schema
-  # type: string
-  # @schema
-  # -- Postgres port
-  # @section -- Postgres
-  port: "5432"
-  # @schema
-  # type: string
-  # @schema
-  # -- Postgres user name
-  # @section -- Postgres
-  user: ""
-  # @schema
-  # type: string
-  # @schema
-  # -- Postgres password
-  # @section -- Postgres
-  password: ""
-  # @schema
-  # type: string
-  # @schema
-  # -- Postgres instance name
-  # @section -- Postgres
-  name: instance-name
-  # @schema
-  # enum: [CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres]
-  # @schema
-  # -- Set the type of postgres database
-  # @section -- Postgres
-  type: SelfHosted
+  # -- Image tag
+  # @section -- Image
+  pullPolicy: IfNotPresent
   # @schema
   # type: object
   # @schema
-  # Dump settings
+  # Contentful settings
+  contentful:
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres image
+    # @section -- Postgres
+    image: "image"
+    # @schema
+    # type: string
+    # @schema
+    # -- Contentful password
+    # @section -- Postgres
+    password: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Contentful space id
+    # @section -- Postgres
+    spaceId: ""
+  # @schema
+  # type: object
+  # @schema
+  # Postgres settings
+  postgres:
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres image
+    # @section -- Postgres
+    image: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres host
+    # @section -- Postgres
+    host: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres port
+    # @section -- Postgres
+    port: "5432"
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres user name
+    # @section -- Postgres
+    user: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres password
+    # @section -- Postgres
+    password: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres instance name
+    # @section -- Postgres
+    name: instance-name
+    # @schema
+    # enum: [CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres]
+    # @schema
+    # -- Set the type of postgres database
+    # @section -- Postgres
+    type: SelfHosted
+    # @schema
+    # type: object
+    # @schema
+    # Dump settings
   dump:
     # @schema
     # type: array
@@ -288,3 +368,80 @@ serviceAccount:
   # -- Annotations to add to the service account
   # @section -- Service Account
   annotations: {}
+
+# @schema
+# type: object
+# @schema
+# Network Policy settings
+networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether Network Policies should be created
+  # @section -- Network Policy
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of rules to apply via labels
+  # @section -- Network Policy
+  rules: []
+  # rules:
+  #   - allow-nginx-ingress
+  #   - allow-internet-egress
+  #   - allow-my-service-access
+  # @schema
+  # type: object
+  # @schema
+  # Ingress settings
+  # @section -- Network Policy
+  ingress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether ingress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Additional ingress rules
+    # @section -- Network Policy
+    additionalRules: []
+  # @schema
+  # type: object
+  # @schema
+  # Egress settings
+  # @section -- Network Policy
+  egress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether egress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Additional egress rules
+    # @section -- Network Policy
+    additionalRules: []
