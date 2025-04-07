@@ -96,7 +96,7 @@
           "description": "Contentful settings",
           "properties": {
             "image": {
-              "default": "testimage",
+              "default": "image",
               "description": "Postgres image",
               "required": [],
               "title": "image",

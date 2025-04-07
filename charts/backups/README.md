@@ -31,7 +31,7 @@ Helm chart for backing things up.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| dump.contentful.image | string | `"testimage"` | Postgres image |
+| dump.contentful.image | string | `"image"` | Postgres image |
 | dump.contentful.password | string | `""` | Contentful password |
 | dump.contentful.spaceId | string | `""` | Contentful space id |
 | dump.dump.extraEnv | list | `[]` | Environment variables to add to pg dump container |
