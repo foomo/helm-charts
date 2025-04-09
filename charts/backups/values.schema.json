@@ -96,8 +96,8 @@
           "description": "Contentful settings",
           "properties": {
             "image": {
-              "default": "image",
-              "description": "Postgres image",
+              "default": "foomo/contentful-cli:v3.8.5",
+              "description": "Contentful image",
               "required": [],
               "title": "image",
               "type": "string"
