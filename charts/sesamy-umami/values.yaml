@@ -629,8 +629,7 @@ ingress:
   # @schema
   # type: array
   # items:
-  #   type: object
-  #   additionalProperties: true
+  #   type: string
   # @schema
   # -- Ingress hosts
   # @section -- Ingress
