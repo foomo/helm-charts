@@ -1428,6 +1428,29 @@ entries:
           url: https://github.com/umami-software/umami
     apiVersion: v2
     appVersion: 2.15.1
+    created: "2025-04-09T16:18:29.693183344Z"
+    description: Helm chart for the Sesamy Umami integration.
+    digest: 4f3c455265fe8dbee61dfe3fefb950b7649dd08ce3cc2a4be0791d5a32a2a410
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: sesamy-umami
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.2.2/sesamy-umami-0.2.2.tgz
+    version: 0.2.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-umami
+        - name: Umami Source
+          url: https://github.com/umami-software/umami
+    apiVersion: v2
+    appVersion: 2.15.1
     created: "2025-02-05T12:58:03.645309325Z"
     description: Helm chart for the Sesamy Umami integration.
     digest: 8c43a689e0ea69c6ff2c511534d2b827f4448b5b0de4bac2a2d144aa360d28f2
@@ -2987,4 +3010,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-31T13:16:46.905587795Z"
+generated: "2025-04-09T16:18:29.693420967Z"
