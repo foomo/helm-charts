@@ -109,7 +109,7 @@ upload:
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
-  # @section -- Image
+  # @section -- Upload
   pullPolicy: IfNotPresent
   # @schema
   # type: object
@@ -221,13 +221,13 @@ dump:
   # enum: [postgres, contentful]
   # @schema
   # -- Storage type
-  # @section -- Upload
+  # @section -- Dump
   type: postgres
   # @schema
   # enum: [IfNotPresent, Always]
   # @schema
   # -- Image tag
-  # @section -- Image
+  # @section -- Dump
   pullPolicy: IfNotPresent
   # @schema
   # type: object
@@ -237,20 +237,20 @@ dump:
     # @schema
     # type: string
     # @schema
-    # -- Postgres image
-    # @section -- Postgres
-    image: "image"
+    # -- Contentful image
+    # @section -- Contentful
+    image: "foomo/contentful-cli:v3.8.5"
     # @schema
     # type: string
     # @schema
     # -- Contentful password
-    # @section -- Postgres
+    # @section -- Contentful
     password: ""
     # @schema
     # type: string
     # @schema
     # -- Contentful space id
-    # @section -- Postgres
+    # @section -- Contentful
     spaceId: ""
   # @schema
   # type: object
@@ -316,7 +316,7 @@ dump:
     #   additionalProperties: true
     # @schema
     # -- Environment variables to add to pg dump container
-    # @section -- Postgres
+    # @section -- Dump
     extraEnv: []
   # @schema
   # type: object
@@ -335,7 +335,7 @@ dump:
     #   additionalProperties: true
     # @schema
     # -- Environment variables to add to save container
-    # @section -- Postgres
+    # @section -- Dump
     extraEnv: []
 
 # @schema
