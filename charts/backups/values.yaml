@@ -1,0 +1,371 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's name
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's computed fullname
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- The name of the Namespace to deploy
+# @section -- Overrides
+namespaceOverride: ''
+
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
+revisionHistoryLimit: 10
+
+# @schema
+# type: object
+# @schema
+# Cronjob settings
+cronjob:
+  # @schema
+  # type: string
+  # @schema
+  # -- Set the cronjob parameter schedule
+  # @section -- Cronjob
+  schedule: "@daily"
+  # @schema
+  # enum: [Allow, Forbid]
+  # @schema
+  # -- Set the cronjob parameter concurrency
+  # @section -- Cronjob
+  concurrency: Forbid
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter failedJobsHistoryLimit
+  # @section -- Cronjob
+  failedJobsHistoryLimit: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter successfulJobsHistoryLimit
+  # @section -- Cronjob
+  successfulJobsHistoryLimit: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter startingDeadlineSeconds
+  # @section -- Cronjob
+  startingDeadlineSeconds: 0
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter ttlSecondsAfterFinished
+  # @section -- Cronjob
+  ttlSecondsAfterFinished: 0
+  # @schema
+  # enum: [Never, OnFailure]
+  # @schema
+  # -- Set the cronjob parameter restart
+  # @section -- Cronjob
+  restart: Never
+  # @schema
+  # type: integer
+  # @schema
+  # -- Set the cronjob parameter backoffLimit
+  # @section -- Cronjob
+  backoffLimit: 6
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod labels
+  # @section -- Cronjob
+  podLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  # @section -- Cronjob
+  podAnnotations: { }
+
+# @schema
+# type: object
+# @schema
+# Upload target settings
+upload:
+  # @schema
+  # enum: [s3, gcs, azure]
+  # @schema
+  # -- Storage type
+  # @section -- Upload
+  type: s3
+  # @schema
+  # enum: [IfNotPresent, Always]
+  # @schema
+  # -- Image tag
+  # @section -- Upload
+  pullPolicy: IfNotPresent
+  # @schema
+  # type: object
+  # @schema
+  # S3 settings
+  s3:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/amazon/aws-cli/tags
+    # @section -- Upload
+    image: amazon/aws-cli:2.25.7
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket name
+    # @section -- Upload
+    bucket: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket endpoint
+    # @section -- Upload
+    endpoint: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket access key
+    # @section -- Upload
+    accessKey: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket secret access key
+    # @section -- Upload
+    secretAccessKey: ""
+  # @schema
+  # type: object
+  # @schema
+  # GCS settings
+  gcs:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/google/cloud-sdk/tags
+    # @section -- Upload
+    image: google/cloud-sdk:516.0.0
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket name
+    # @section -- Upload
+    bucket: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
+  # @schema
+  # type: object
+  # @schema
+  # Azure settings
+  azure:
+    # @schema
+    # type: string
+    # @schema
+    # -- Upload image name
+    # https://hub.docker.com/r/microsoft/azure-cli
+    # @section -- Upload
+    image: mcr.microsoft.com/azure-cli:2.71.0
+    # @schema
+    # type: string
+    # @schema
+    # -- Storage Account name
+    # @section -- Upload
+    storageAccount: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Container name
+    # @section -- Upload
+    containerName: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Bucket prefix
+    # @section -- Upload
+    prefix: ""
+  # TODO do:
+  #  image: digitalocean/doctl:1.113.0
+  #  bucket: bucket
+  #  prefix: prefix
+
+# @schema
+# type: object
+# @schema
+# Postgres settings
+dump:
+  # @schema
+  # enum: [postgres, contentful]
+  # @schema
+  # -- Storage type
+  # @section -- Dump
+  type: postgres
+  # @schema
+  # enum: [IfNotPresent, Always]
+  # @schema
+  # -- Image tag
+  # @section -- Dump
+  pullPolicy: IfNotPresent
+  # @schema
+  # type: object
+  # @schema
+  # Contentful settings
+  contentful:
+    # @schema
+    # type: string
+    # @schema
+    # -- Contentful image
+    # @section -- Contentful
+    image: "foomo/contentful-cli:v3.8.5"
+    # @schema
+    # type: string
+    # @schema
+    # -- Contentful password
+    # @section -- Contentful
+    password: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Contentful space id
+    # @section -- Contentful
+    spaceId: ""
+  # @schema
+  # type: object
+  # @schema
+  # Postgres settings
+  postgres:
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres image
+    # @section -- Postgres
+    image: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres host
+    # @section -- Postgres
+    host: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres port
+    # @section -- Postgres
+    port: "5432"
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres user name
+    # @section -- Postgres
+    user: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres password
+    # @section -- Postgres
+    password: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Postgres instance name
+    # @section -- Postgres
+    name: instance-name
+    # @schema
+    # enum: [CloudSQL, RDS, DOPostgres, SelfHosted, AzurePostgres]
+    # @schema
+    # -- Set the type of postgres database
+    # @section -- Postgres
+    type: SelfHosted
+    # @schema
+    # type: object
+    # @schema
+    # Dump settings
+  dump:
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   properties:
+    #     name:
+    #       type: string
+    #     value:
+    #       type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Environment variables to add to pg dump container
+    # @section -- Dump
+    extraEnv: []
+  # @schema
+  # type: object
+  # @schema
+  # Upload settings
+  upload:
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   properties:
+    #     name:
+    #       type: string
+    #     value:
+    #       type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Environment variables to add to save container
+    # @section -- Dump
+    extraEnv: []
+
+# @schema
+# type: object
+# @schema
+# Service account settings
+serviceAccount:
+  # @schema
+  # type: string
+  # @schema
+  # -- The name of the service account to use.
+  # @section -- Service Account
+  name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service Account
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service Account
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service Account
+  annotations: {}
+

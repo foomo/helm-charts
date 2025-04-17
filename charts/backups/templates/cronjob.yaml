@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "backups.fullname" . }}
+  labels: {{- include "backups.labels" . | nindent 4 }}
+  namespace: {{ include "backups.namespace" . }}
+spec:
+  schedule: {{ quote .Values.cronjob.schedule }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrency }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  {{- if .Values.cronjob.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{ .Values.cronjob.startingDeadlineSeconds }}
+  {{- end }}
+  jobTemplate:
+    spec:
+      {{- if .Values.cronjob.backoffLimit }}
+      backoffLimit: {{ .Values.cronjob.backoffLimit }}
+      {{- end }}
+      {{- if .Values.cronjob.ttlSecondsAfterFinished }}
+      ttlSecondsAfterFinished: {{ .Values.cronjob.ttlSecondsAfterFinished }}
+      {{- end }}
+      template:
+        metadata:
+          labels:
+            {{- include "backups.labels" . | nindent 12 }}
+            {{- with .Values.cronjob.podLabels }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          annotations:
+            {{- with .Values.cronjob.podAnnotations }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+        spec:
+          restartPolicy: {{ .Values.cronjob.restart }}
+          serviceAccountName: {{ include "backups.serviceAccountName" . }}
+          initContainers:
+            - name: dump
+              image: {{ include "backups.dump.image" . }}
+              imagePullPolicy: {{ .Values.dump.pullPolicy }}
+              command: {{ include "backups.dump.dumpCommand" . | trim | nindent 16 }}
+              env:
+                {{- with .Values.dump.dump.extraEnv }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "backups.fullname" . }}-dump-env
+              volumeMounts:
+                - name: data
+                  mountPath: /backup
+          containers:
+            - name: upload
+              image: {{ include "backups.upload.image" . }}
+              imagePullPolicy: {{ .Values.upload.pullPolicy }}
+              command: {{ include "backups.dump.uploadCommand" . | trim | nindent 16 }}
+              env: 
+                {{- with .Values.dump.upload.extraEnv }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "backups.fullname" . }}-upload-env
+              volumeMounts:
+                - name: data
+                  mountPath: /backup
+          volumes:
+            - name: data
+              emptyDir: {}
+
