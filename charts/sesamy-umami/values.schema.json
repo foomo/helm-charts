@@ -43,9 +43,8 @@
         "hosts": {
           "description": "Ingress hosts",
           "items": {
-            "additionalProperties": true,
             "required": [],
-            "type": "object"
+            "type": "string"
           },
           "required": [],
           "title": "hosts",
