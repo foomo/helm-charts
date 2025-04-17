@@ -24,7 +24,6 @@ spec:
         metadata:
           labels:
             {{- include "backups.labels" . | nindent 12 }}
-            {{- include "backups.cronjob.networkingLabels" . | nindent 8 }}
             {{- with .Values.cronjob.podLabels }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -46,7 +45,7 @@ spec:
                 {{- end }}
               envFrom:
                 - secretRef:
-                    name: {{ include "backups.fullname" . }}-env
+                    name: {{ include "backups.fullname" . }}-dump-env
               volumeMounts:
                 - name: data
                   mountPath: /backup
@@ -61,7 +60,7 @@ spec:
                 {{- end }}
               envFrom:
                 - secretRef:
-                    name: {{ include "backups.fullname" . }}-env
+                    name: {{ include "backups.fullname" . }}-upload-env
               volumeMounts:
                 - name: data
                   mountPath: /backup

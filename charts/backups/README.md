@@ -64,19 +64,6 @@ Helm chart for backing things up.
 | nameOverride | string | `""` | Overrides the chart's name |
 | namespaceOverride | string | `""` | The name of the Namespace to deploy |
 
-### Network Policy
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| networkPolicy.egress.additionalRules | list | `[]` | Additional egress rules |
-| networkPolicy.egress.allowExternal | bool | `true` | Allow ingress through labels |
-| networkPolicy.egress.enabled | bool | `true` | Specifies whether egress should be enabled |
-| networkPolicy.enabled | bool | `false` | Specifies whether Network Policies should be created |
-| networkPolicy.ingress.additionalRules | list | `[]` | Additional ingress rules |
-| networkPolicy.ingress.allowExternal | bool | `true` | Allow ingress through labels |
-| networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
-| networkPolicy.rules | list | `[]` | List of rules to apply via labels |
-
 ### General
 
 | Key | Type | Default | Description |
