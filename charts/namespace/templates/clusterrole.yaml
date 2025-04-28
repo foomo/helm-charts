@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ $key }}
-  labels: 
+  labels:
     {{- include "namespace.labels" $ | nindent 4 }}
     {{- with $value.labels }}
     {{- toYaml . | nindent 4 }}
@@ -11,6 +11,6 @@ metadata:
   {{- with $value.annotations }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
-rules: {{- toYaml .rules | nindent 2 }}
+rules: {{- tpl (toYaml .rules) $ | nindent 2 }}
 ---
 {{- end }}

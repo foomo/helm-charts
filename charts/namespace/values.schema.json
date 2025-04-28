@@ -2,6 +2,37 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
+    "clusterRoleBindings": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "kind": {
+            "additionalProperties": true,
+            "type": "string"
+          },
+          "labels": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "role": {
+            "additionalProperties": true,
+            "type": "string"
+          },
+          "subjects": {
+            "additionalProperties": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "description": "roleBindings:\n  my-role-binding:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    group: \"\"\n    role: \"\"\nRole Bindings to create",
+      "required": [],
+      "title": "clusterRoleBindings",
+      "type": "object"
+    },
     "clusterRoles": {
       "additionalProperties": true,
       "description": "Cluster Roles to create",
@@ -72,6 +103,10 @@
             "additionalProperties": true,
             "type": "string"
           },
+          "labels": {
+            "additionalProperties": true,
+            "type": "object"
+          },
           "role": {
             "additionalProperties": true,
             "type": "string"
@@ -106,7 +141,7 @@
         },
         "type": "object"
       },
-      "description": "roleBindings:\n  my-role-binding:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    group: \"\"\n    role: \"\"\nOpaque secrets",
+      "description": "Opaque secrets",
       "required": [],
       "title": "secrets",
       "type": "object"
