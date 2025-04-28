@@ -1,6 +1,6 @@
 # squadron-server
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.0](https://img.shields.io/badge/AppVersion-0.5.0-informational?style=flat-square)
 
 Squadron General Server Chart
 
@@ -150,6 +150,7 @@ Squadron General Server Chart
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.selectorLabelsOverride | string | `nil` | Selector labels override |
 | server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{}` | Startup probe settings |
 

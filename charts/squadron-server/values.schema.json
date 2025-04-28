@@ -907,6 +907,16 @@
             "null"
           ]
         },
+        "selectorLabelsOverride": {
+          "default": "null",
+          "description": "Selector labels override",
+          "required": [],
+          "title": "selectorLabelsOverride",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "sidecarContainers": {
           "description": "Additional sidecar containers",
           "items": {

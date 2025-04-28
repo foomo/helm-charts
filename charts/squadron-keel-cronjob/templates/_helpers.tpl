@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "keel.cronjob.name" -}}
+{{- define "keel.cronjob.name" }}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "keel.cronjob.fullname" -}}
+{{- define "keel.cronjob.fullname" }}
 {{- if .Values.fullnameOverride -}}
 {{- tpl .Values.fullnameOverride . | trunc 63 | trimSuffix "-" -}}
 {{- else if and .Values.global.foomo.squadron.name .Values.global.foomo.squadron.unit -}}
@@ -21,28 +21,28 @@ If release name contains chart name it will be used as a full name.
 {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-{{- end -}}
+{{- end }}
+{{- end }}
+{{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "keel.cronjob.chart" -}}
+{{- define "keel.cronjob.chart" }}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "keel.cronjob.chart-revision" -}}
+{{- define "keel.cronjob.chart-revision" }}
 {{- printf "%s-%s-%d" .Chart.Name .Chart.Version .Release.Revision | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "keel.cronjob.labels" -}}
+{{- define "keel.cronjob.labels" }}
 helm.sh/chart: {{ include "keel.cronjob.chart" . }}
 {{ include "keel.cronjob.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Values.image.tag | quote }}
@@ -52,8 +52,10 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "keel.cronjob.selectorLabels" -}}
-{{- if .Values.global.foomo.withDeprecatedSelectorLabels }}
+{{- define "keel.cronjob.selectorLabels" }}
+{{- if .Values.cronjob.selectorLabelsOverride }}
+{{ tpl (trim .Values.cronjob.selectorLabelsOverride) . }}
+{{- else if .Values.global.foomo.withDeprecatedSelectorLabels }}
 app.kubernetes.io/name: {{ include "keel.cronjob.fullname" . }}
 app.kubernetes.io/component: foomo-keel-cron
 {{- else if .Values.global.foomo.withDeprecatedSelectorLabelsV2 }}
@@ -67,7 +69,7 @@ app.kubernetes.io/name: {{ .Release.Name }}
 {{/*
 Networking labels
 */}}
-{{- define "keel.cronjob.networkingLabels" -}}
+{{- define "keel.cronjob.networkingLabels" }}
 {{- if .Values.networkPolicy.enabled }}
 {{- range .Values.networkPolicy.rules }}
 networking/{{ . }}: "true"
@@ -83,14 +85,14 @@ kubernetes.io/networking.name: {{ include "keel.cronjob.fullname" . }}
 {{/*
 Create the name of the namespace
 */}}
-{{- define "keel.cronjob.namespace" -}}
+{{- define "keel.cronjob.namespace" }}
 {{- default .Release.Namespace .Values.namespaceOverride }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "keel.cronjob.serviceAccountName" -}}
+{{- define "keel.cronjob.serviceAccountName" }}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "keel.cronjob.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
@@ -102,7 +104,7 @@ Create the name of the service account to use
 Keel standard envs
 {{- include "keel.cronjob.env.log" . | nindent 12 }}
 */}}
-{{- define "keel.cronjob.env.log" -}}
+{{- define "keel.cronjob.env.log" }}
 - name: LOG_MODE
   value: "{{ .Values.log.mode }}"
 - name: LOG_LEVEL
@@ -113,13 +115,13 @@ Keel standard envs
 - name: LOG_DISABLE_STACKTRACE
   value: "true"
 {{- end }}
-{{- end -}}
+{{- end }}
 
 {{/*
 Squadron standard envs
 {{- include "keel.cronjob.env.squadron" . | nindent 12 }}
 */}}
-{{- define "keel.cronjob.env.squadron" -}}
+{{- define "keel.cronjob.env.squadron" }}
 {{- if .Values.global.foomo.squadron.fleet }}
 - name: FLEET
   value: {{ .Values.global.foomo.squadron.fleet | quote }}
@@ -132,13 +134,13 @@ Squadron standard envs
 - name: UNIT
   value: {{ .Values.global.foomo.squadron.unit | quote }}
 {{- end }}
-{{- end -}}
+{{- end }}
 
 {{/*
 OpenTelemetry standard envs
 {{- include "keel.cronjob.env.opentelemetry" . | nindent 12 }}
 */}}
-{{- define "keel.cronjob.env.opentelemetry" -}}
+{{- define "keel.cronjob.env.opentelemetry" }}
 - name: OTEL_ENABLED
   value: "{{ .Values.otel.enabled }}"
 - name: OTEL_SERVICE_NAME
@@ -161,4 +163,4 @@ OpenTelemetry standard envs
   value: "{{ .Values.otel.otlp.insecure }}"
 - name: OTEL_EXPORTER_OTLP_ENDPOINT
   value: "{{ .Values.otel.otlp.endpoint }}"
-{{- end -}}
+{{- end }}

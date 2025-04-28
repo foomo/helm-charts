@@ -625,6 +625,12 @@ server:
   # -- Additional sidecar containers
   # @section -- Server
   sidecarContainers: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Selector labels override
+  # @section -- Server
+  selectorLabelsOverride: null
 
 # @schema
 # type: object
