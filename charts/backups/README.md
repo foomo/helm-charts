@@ -1,6 +1,6 @@
 # backups
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Helm chart for backing things up.
 
@@ -88,13 +88,13 @@ Helm chart for backing things up.
 | upload.azure.prefix | string | `""` | Bucket prefix |
 | upload.azure.storageAccount | string | `""` | Storage Account name |
 | upload.gcs.bucket | string | `""` | Bucket name |
-| upload.gcs.image | string | `"google/cloud-sdk:516.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
+| upload.gcs.image | string | `"google/cloud-sdk:519.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
 | upload.gcs.prefix | string | `""` | Bucket prefix |
 | upload.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | upload.s3.accessKey | string | `""` | Bucket access key |
 | upload.s3.bucket | string | `""` | Bucket name |
 | upload.s3.endpoint | string | `""` | Bucket endpoint |
-| upload.s3.image | string | `"amazon/aws-cli:2.25.7"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
+| upload.s3.image | string | `"amazon/aws-cli:2.27.2"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
 | upload.s3.prefix | string | `""` | Bucket prefix |
 | upload.s3.secretAccessKey | string | `""` | Bucket secret access key |
 | upload.type | string | `"s3"` | Storage type |
