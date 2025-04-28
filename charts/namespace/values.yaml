@@ -24,6 +24,7 @@ namespaceOverride: ''
 # -- Disable suffixes
 # @section -- General
 disableSuffix: false
+
 # @schema
 # type: object
 # additionalProperties: true
@@ -41,6 +42,9 @@ clusterRoles: {}
 # additionalProperties:
 #   type: object
 #   properties:
+#     labels:
+#       type: object
+#       additionalProperties: true
 #     annotations:
 #       type: object
 #       additionalProperties: true
@@ -63,6 +67,38 @@ roleBindings: {}
 #       replicator.v1.mittwald.de/replicate-to: ".*"
 #     group: ""
 #     role: ""
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     labels:
+#       type: object
+#       additionalProperties: true
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     subjects:
+#       type: array
+#       additionalProperties: true
+#     kind:
+#       type: string
+#       additionalProperties: true
+#     role:
+#       type: string
+#       additionalProperties: true
+# @schema
+# -- Role Bindings to create
+# @section -- General
+clusterRoleBindings: {}
+# roleBindings:
+#   my-role-binding:
+#     annotations:
+#       replicator.v1.mittwald.de/replicate-to: ".*"
+#     group: ""
+#     role: ""
+
+
 # @schema
 # type: object
 # additionalProperties:
