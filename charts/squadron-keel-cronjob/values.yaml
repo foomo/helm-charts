@@ -508,6 +508,12 @@ cronjob:
   # -- Additional sidecar containers
   # @section -- CronJob
   sidecarContainers: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Selector labels override
+  # @section -- CronJob
+  selectorLabelsOverride: null
 
 # @schema
 # type: object

@@ -395,7 +395,7 @@
               "type": "string"
             },
             "image": {
-              "default": "google/cloud-sdk:516.0.0",
+              "default": "google/cloud-sdk:519.0.0",
               "description": "Upload image name\nhttps://hub.docker.com/r/google/cloud-sdk/tags",
               "required": [],
               "title": "image",
@@ -449,7 +449,7 @@
               "type": "string"
             },
             "image": {
-              "default": "amazon/aws-cli:2.25.7",
+              "default": "amazon/aws-cli:2.27.2",
               "description": "Upload image name\nhttps://hub.docker.com/r/amazon/aws-cli/tags",
               "required": [],
               "title": "image",

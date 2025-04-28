@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.1](https://img.shields.io/badge/AppVersion-0.5.1-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.0](https://img.shields.io/badge/AppVersion-0.6.0-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -193,6 +193,7 @@ Squadron NextJS Server Chart
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"tcpSocket":{"port":3000}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.selectorLabelsOverride | string | `nil` | Selector labels override |
 | server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{"tcpSocket":{"port":3000}}` | Startup probe settings |
 
