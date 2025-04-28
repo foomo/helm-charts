@@ -19,6 +19,12 @@ fullnameOverride: ''
 # @section -- Overrides
 namespaceOverride: ''
 # @schema
+# type: boolean
+# @schema
+# -- Disable suffixes
+# @section -- General
+disableSuffix: false
+# @schema
 # type: object
 # additionalProperties: true
 # @schema

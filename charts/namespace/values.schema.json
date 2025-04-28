@@ -9,6 +9,13 @@
       "title": "clusterRoles",
       "type": "object"
     },
+    "disableSuffix": {
+      "default": false,
+      "description": "Disable suffixes",
+      "required": [],
+      "title": "disableSuffix",
+      "type": "boolean"
+    },
     "dockerSecrets": {
       "additionalProperties": {
         "properties": {
