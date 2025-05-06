@@ -40,7 +40,7 @@ schema:
 	helm-schema -n -c charts/sesamy-gtm
 	helm-schema -n -c charts/sesamy-umami
 	helm-schema -n -c charts/gateway-crds
-	helm-schema -n -c charts/contentserver
+	helm-schema -n -c charts/contentserver -k additionalProperties
 	helm-schema -n -c charts/squadron-server
 	helm-schema -n -c charts/squadron-keel-server
 	helm-schema -n -c charts/squadron-keel-cronjob
