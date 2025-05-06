@@ -1,9 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": false,
   "properties": {
     "autoscaling": {
-      "additionalProperties": false,
       "description": "Autoscaling settings",
       "properties": {
         "additionalMetrics": {
@@ -87,7 +85,6 @@
       "type": "object"
     },
     "contentserver": {
-      "additionalProperties": false,
       "description": "Content Server",
       "properties": {
         "basePath": {
@@ -175,7 +172,6 @@
           "type": "array"
         },
         "image": {
-          "additionalProperties": false,
           "description": "Your custom collect image",
           "properties": {
             "pullPolicy": {
@@ -223,7 +219,6 @@
           "description": "Liveness probe settings for pods",
           "properties": {
             "httpGet": {
-              "additionalProperties": false,
               "properties": {
                 "path": {
                   "default": "/healthz/liveness",
@@ -253,7 +248,6 @@
           "type": "object"
         },
         "podAnnotations": {
-          "additionalProperties": false,
           "description": "Annotations for pods",
           "required": [],
           "title": "podAnnotations",
@@ -271,7 +265,6 @@
           "description": "Readiness probe settings for pods",
           "properties": {
             "httpGet": {
-              "additionalProperties": false,
               "properties": {
                 "path": {
                   "default": "/healthz/readiness",
@@ -301,7 +294,6 @@
           "type": "object"
         },
         "repository": {
-          "additionalProperties": false,
           "description": "Repository settings",
           "properties": {
             "poll": {
@@ -349,7 +341,6 @@
           "description": "Startup probe settings for pods",
           "properties": {
             "httpGet": {
-              "additionalProperties": false,
               "properties": {
                 "path": {
                   "default": "/healthz/startup",
@@ -400,7 +391,6 @@
       "type": "object"
     },
     "graceful": {
-      "additionalProperties": false,
       "description": "Graceful settings",
       "properties": {
         "delaySeconds": {
@@ -430,7 +420,6 @@
       "type": "object"
     },
     "ingress": {
-      "additionalProperties": false,
       "description": "Ingress settings",
       "properties": {
         "additionalLabels": {
@@ -516,7 +505,6 @@
       "type": "object"
     },
     "log": {
-      "additionalProperties": false,
       "description": "Log settings",
       "properties": {
         "level": {
@@ -561,11 +549,9 @@
       "type": "string"
     },
     "networkPolicy": {
-      "additionalProperties": false,
       "description": "Network Policy",
       "properties": {
         "egress": {
-          "additionalProperties": false,
           "description": "Egress settings",
           "properties": {
             "additionalRules": {
@@ -605,7 +591,6 @@
           "type": "boolean"
         },
         "ingress": {
-          "additionalProperties": false,
           "description": "rules:\n  - allow-nginx-ingress\n  - allow-internet-egress\n  - allow-my-service-access\nIngress settings",
           "properties": {
             "additionalRules": {
@@ -654,7 +639,6 @@
       "type": "object"
     },
     "otel": {
-      "additionalProperties": false,
       "description": "OpenTelemetry settings",
       "properties": {
         "enabled": {
@@ -665,7 +649,6 @@
           "type": "boolean"
         },
         "otlp": {
-          "additionalProperties": false,
           "description": "OTLP exporter settings",
           "properties": {
             "endpoint": {
@@ -700,7 +683,6 @@
       "type": "object"
     },
     "persistence": {
-      "additionalProperties": false,
       "description": "Persistence storage settings",
       "properties": {
         "accessModes": {
@@ -761,7 +743,6 @@
       "type": "object"
     },
     "rbac": {
-      "additionalProperties": false,
       "description": "RBAC settings",
       "properties": {
         "enabled": {
@@ -791,7 +772,6 @@
       "type": "integer"
     },
     "routing": {
-      "additionalProperties": false,
       "description": "Routing settings",
       "properties": {
         "enabled": {
@@ -829,7 +809,6 @@
       "type": "object"
     },
     "scheduling": {
-      "additionalProperties": false,
       "description": "Scheduling settings",
       "properties": {
         "affinity": {
@@ -837,19 +816,16 @@
           "description": "Affinity for pod assignment",
           "properties": {
             "requiredDuringSchedulingIgnoredDuringExecution": {
-              "additionalProperties": false,
               "properties": {
                 "nodeSelectorTerms": {
                   "items": {
                     "anyOf": [
                       {
-                        "additionalProperties": false,
                         "properties": {
                           "matchExpressions": {
                             "items": {
                               "anyOf": [
                                 {
-                                  "additionalProperties": false,
                                   "properties": {
                                     "key": {
                                       "default": "node-role.kubernetes.io/control-plane",
@@ -971,7 +947,6 @@
       "type": "object"
     },
     "securityContext": {
-      "additionalProperties": false,
       "description": "Security context",
       "properties": {
         "fsGroup": {
@@ -1008,7 +983,6 @@
       "type": "object"
     },
     "service": {
-      "additionalProperties": false,
       "description": "Service settings",
       "properties": {
         "additionalLabels": {
@@ -1038,7 +1012,6 @@
       "type": "object"
     },
     "serviceAccount": {
-      "additionalProperties": false,
       "description": "Service account settings",
       "properties": {
         "annotations": {
@@ -1075,7 +1048,6 @@
       "type": "object"
     },
     "serviceMonitor": {
-      "additionalProperties": false,
       "description": "Service Monitor settings",
       "properties": {
         "additionalLabels": {
