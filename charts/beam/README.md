@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.4](https://img.shields.io/badge/AppVersion-0.5.4-informational?style=flat-square)
+![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.5](https://img.shields.io/badge/AppVersion-0.5.5-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -107,7 +107,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.4.9 |
+| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.4.16 |
 
 ## Values
 
@@ -136,7 +136,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflared.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflared.image.pullSecrets | list | `[]` | Image pull secrets |
 | cloudflared.image.repository | string | `"cloudflare/cloudflared"` | Image repository |
-| cloudflared.image.tag | string | `"2025.4.0"` | Image tag |
+| cloudflared.image.tag | string | `"2025.4.2"` | Image tag |
 | cloudflared.ingress | list | `[]` | Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress)) |
 | cloudflared.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/ready","port":2000},"initialDelaySeconds":10,"periodSeconds":10}` | Liveness probe settings for pods. |
 | cloudflared.podAnnotations | object | `{}` | Annotations for pods |
