@@ -678,22 +678,6 @@
       "title": "persistence",
       "type": "object"
     },
-    "rbac": {
-      "additionalProperties": false,
-      "description": "RBAC settings",
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Indicates wether scheduling is enabled or not",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        }
-      },
-      "required": [],
-      "title": "rbac",
-      "type": "object"
-    },
     "revisionHistoryLimit": {
       "default": 10,
       "description": "Number of revisions to keep",

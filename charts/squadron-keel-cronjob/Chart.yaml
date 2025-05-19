@@ -13,7 +13,7 @@ sources:
 annotations:
   "artifacthub.io/links": |
     - name: Chart Source
-      url: https://github.com/foomo/helm-charts
+      url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-cronjob
 
 version: 0.5.0
 appVersion: 0.5.0

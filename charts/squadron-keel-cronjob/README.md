@@ -131,12 +131,6 @@ Squadron Keel CronJob Chart
 | persistence.size | string | `"1Gi"` | Storage size |
 | persistence.storageClass | string | `""` | Storage class name |
 
-### RBAC settings
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
-
 ### Scheduling
 
 | Key | Type | Default | Description |

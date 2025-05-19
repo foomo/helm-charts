@@ -703,15 +703,3 @@ scheduling:
   # -- Tolerations for pod assignment
   # @section -- Scheduling
   topologySpreadConstraints: []
-
-# @schema
-# type: object
-# @schema
-# RBAC settings
-rbac:
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Indicates wether scheduling is enabled or not
-  # @section -- RBAC settings
-  enabled: false
