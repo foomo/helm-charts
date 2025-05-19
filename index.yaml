@@ -1801,6 +1801,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-cronjob
     apiVersion: v2
+    appVersion: 0.1.1
+    created: "2025-05-19T11:34:18.422501024Z"
+    description: Squadron CronJob Chart
+    digest: 1ccd13cf5e24893792585566f4773c305aa2225ed243138d3cb859284cc2e69b
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-cronjob
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-cronjob-0.1.1/squadron-cronjob-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-cronjob
+    apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-19T10:24:31.14847969Z"
     description: Squadron CronJob Chart
@@ -3332,4 +3353,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-19T10:24:31.262839544Z"
+generated: "2025-05-19T11:34:18.422700079Z"
