@@ -59,10 +59,10 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               {{- with .Values.command }}
-              command: {{ toYaml . | nindent 12 }}
+              command: {{ toYaml . | nindent 16 }}
               {{- end }}
               {{- with .Values.args }}
-              args: {{ toYaml . | nindent 12 }}
+              args: {{ toYaml . | nindent 16 }}
               {{- end }}
               env:
                 {{- include "squadron.cronjob.env.squadron" . | nindent 16 }}
