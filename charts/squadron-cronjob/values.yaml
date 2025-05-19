@@ -74,6 +74,22 @@ namespaceOverride: ''
 # @section -- General
 revisionHistoryLimit: 10
 # @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- Container command
+# @section -- General
+command: []
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- Server container command args
+# @section -- General
+args: []
+# @schema
 # type: string
 # @schema
 # -- Cron job schedule
@@ -131,113 +147,6 @@ secrets: { }
 secretMounts: []
 # secretMounts:
 #   - my-secret
-
-# @schema
-# type: object
-# @schema
-# Log settings
-log:
-  # @schema
-  # enum: [prod, dev]
-  # @schema
-  # -- Log mode
-  # @section -- Logging
-  mode: prod
-  # @schema
-  # enum: [error, warn, info, debug]
-  # @schema
-  # -- Log level
-  # @section -- Logging
-  level: info
-
-# @schema
-# type: object
-# @schema
-# OpenTelemetry settings
-otel:
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Indicates wether to enable it or not
-  # @section -- OpenTelemetry
-  enabled: false
-  # @schema
-  # type: integer
-  # @schema
-  # -- Trace ratio
-  # @section -- OpenTelemetry
-  ratio: 1
-  # @schema
-  # type: object
-  # @schema
-  # -- OTLP exporter settings
-  # @section -- OpenTelemetry
-  otlp:
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to use insecure connection
-    # @section -- OpenTelemetry
-    insecure: true
-    # @schema
-    # type: string
-    # @schema
-    # -- Enpoint uri
-    # @section -- OpenTelemetry
-    endpoint: 'alloy:4317'
-  # @schema
-  # type: object
-  # @schema
-  # GORM settings
-  gorm:
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry
-    enabled: true
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to trace sql attributes
-    # @section -- OpenTelemetry
-    sqlParametersDisabled: true
-  # @schema
-  # type: object
-  # @schema
-  # Mongo settings
-  # @section -- OpenTelemetry
-  mongo:
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry
-    enabled: true
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to trace command attributes
-    # @section -- OpenTelemetry
-    commandAttributeDisabled: true
-  # @schema
-  # type: object
-  # @schema
-  # GOTSRPC settings
-  # @section -- OpenTelemetry
-  gotsrpc:
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to enable it or not
-    # @section -- OpenTelemetry
-    enabled: true
-    # @schema
-    # type: boolean
-    # @schema
-    # -- Indicates wether to trace payload attributes
-    # @section -- OpenTelemetry
-    payloadAttributeDisabled: true
 
 # @schema
 # type: object
@@ -622,30 +531,6 @@ networkPolicy:
     # -- Additional egress rules
     # @section -- Network Policy
     additionalRules: []
-
-# @schema
-# type: object
-# @schema
-# Graceful settings
-graceful:
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Indicates wether graceful shutdown is enabled
-  # @section -- Graceful Shutdown
-  enabled: false
-  # @schema
-  # type: integer
-  # @schema
-  # -- Seconds to wait for kubernetes to deregister
-  # @section -- Graceful Shutdown
-  delaySeconds: 15
-  # @schema
-  # type: integer
-  # @schema
-  # -- Total seconds for the grace period
-  # @section -- Graceful Shutdown
-  periodSeconds: 45
 
 # @schema
 # type: object

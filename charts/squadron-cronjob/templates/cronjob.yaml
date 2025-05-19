@@ -1,0 +1,160 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "squadron.cronjob.fullname" . }}
+  labels:
+    {{- include "squadron.cronjob.labels" . | nindent 4 }}
+    {{- with .Values.cronjob.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.cronjob.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "squadron.cronjob.namespace" . }}
+spec:
+  timeZone: {{ .Values.timeZone }}
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: {{ .Values.cronjob.concurrency }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.historyLimit }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.historyLimit }}
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "squadron.cronjob.labels" . | nindent 8 }}
+        {{- with .Values.cronjob.jobLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.cronjob.jobAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      backoffLimit: {{ .Values.cronjob.backoffLimit }}
+      template:
+        metadata:
+          labels:
+            {{- include "squadron.cronjob.labels" . | nindent 12 }}
+            {{- include "squadron.cronjob.networkingLabels" . | nindent 12 }}
+          {{- with .Values.cronjob.podAnnotations }}
+          annotations: {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          restartPolicy: {{ .Values.cronjob.restart }}
+          serviceAccountName: {{ include "squadron.cronjob.serviceAccountName" . }}
+          automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+          {{- with .Values.image.pullSecrets }}
+          imagePullSecrets: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.cronjob.hostAliases }}
+          hostAliases: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.cronjob.initContainers }}
+          initContainers: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: cronjob
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- with .Values.command }}
+              command: {{ toYaml . | nindent 12 }}
+              {{- end }}
+              {{- with .Values.args }}
+              args: {{ toYaml . | nindent 12 }}
+              {{- end }}
+              env:
+                {{- include "squadron.cronjob.env.squadron" . | nindent 16 }}
+                {{- range $key, $value := .Values.env }}
+                - name: {{ $key }}
+                  value: {{ tpl $value $ | quote }}
+                {{- end }}
+                {{- with .Values.cronjob.additionalEnv }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              envFrom:
+                {{- with .Values.secretEnv }}
+                - secretRef:
+                    name: {{ include "squadron.cronjob.fullname" $ }}-env
+                {{- end }}
+                {{- with .Values.cronjob.additionalEnvFrom }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+              volumeMounts:
+                {{- if .Values.persistence.enabled }}
+                - name: {{ include "squadron.cronjob.fullname" . }}-data
+                  mountPath: {{ .Values.persistence.mountPath }}
+                {{- end }}
+                {{- with .Values.cronjob.additionalVolumeMounts }}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
+                {{- range $key, $value := .Values.secrets }}
+                - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
+                  readOnly: true
+                  mountPath: /run/secrets/{{ $key }}
+                {{- end }}
+                {{- range .Values.secretMounts }}
+                - name: {{ . }}
+                  readOnly: true
+                  mountPath: /run/secrets/{{ . }}
+                {{- end }}
+              {{- with .Values.cronjob.resources }}
+              resources: {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.cronjob.startupProbe }}
+              startupProbe: {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.cronjob.livenessProbe }}
+              livenessProbe: {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.cronjob.readinessProbe }}
+              readinessProbe: {{- toYaml . | nindent 16 }}
+              {{- end }}
+            {{- with .Values.cronjob.sidecarContainers }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- if .Values.scheduling.enabled }}
+          {{- with .Values.scheduling.priorityClass }}
+          priorityClassName: {{ . }}
+          {{- end }}
+          {{- with .Values.scheduling.affinity }}
+          affinity: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.scheduling.nodeSelector }}
+          nodeSelector: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.scheduling.tolerations }}
+          tolerations: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.scheduling.topologySpreadConstraints }}
+          topologySpreadConstraints:
+            {{- $labelSelector := dict
+              "labelSelector" (dict
+                "matchLabels" (fromYaml (include "squadron.cronjob.selectorLabels" $))
+              )
+            }}
+            {{- range . }}
+            - {{ toYaml (mergeOverwrite $labelSelector .) | nindent 14 }}
+            {{- end }}
+          {{- end }}
+          {{- end }}
+          volumes:
+            {{- if .Values.persistence.enabled }}
+            - name: {{ include "squadron.cronjob.fullname" . }}-data
+              persistentVolumeClaim:
+                claimName: {{ include "squadron.cronjob.fullname" . }}-data
+            {{- end }}
+            {{- range $key, $value := .Values.secrets }}
+              - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
+                secret:
+                  secretName: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
+            {{- end }}
+            {{- range .Values.secretMounts }}
+            - name: {{ . }}
+              secret:
+                secretName: {{ . }}
+            {{- end }}
+            {{- with .Values.cronjob.additionalVolumes }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}

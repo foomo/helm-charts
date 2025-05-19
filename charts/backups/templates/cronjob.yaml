@@ -54,7 +54,7 @@ spec:
               image: {{ include "backups.upload.image" . }}
               imagePullPolicy: {{ .Values.upload.pullPolicy }}
               command: {{ include "backups.dump.uploadCommand" . | trim | nindent 16 }}
-              env: 
+              env:
                 {{- with .Values.dump.upload.extraEnv }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}

@@ -2,6 +2,26 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
+    "args": {
+      "description": "Server container command args",
+      "items": {
+        "required": [],
+        "type": "string"
+      },
+      "required": [],
+      "title": "args",
+      "type": "array"
+    },
+    "command": {
+      "description": "Container command",
+      "items": {
+        "required": [],
+        "type": "string"
+      },
+      "required": [],
+      "title": "command",
+      "type": "array"
+    },
     "cronjob": {
       "additionalProperties": false,
       "description": "CronJob settings",
@@ -300,36 +320,6 @@
       "title": "global",
       "type": "object"
     },
-    "graceful": {
-      "additionalProperties": false,
-      "description": "Graceful settings",
-      "properties": {
-        "delaySeconds": {
-          "default": 15,
-          "description": "Seconds to wait for kubernetes to deregister",
-          "required": [],
-          "title": "delaySeconds",
-          "type": "integer"
-        },
-        "enabled": {
-          "default": false,
-          "description": "Indicates wether graceful shutdown is enabled",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        },
-        "periodSeconds": {
-          "default": 45,
-          "description": "Total seconds for the grace period",
-          "required": [],
-          "title": "periodSeconds",
-          "type": "integer"
-        }
-      },
-      "required": [],
-      "title": "graceful",
-      "type": "object"
-    },
     "image": {
       "additionalProperties": false,
       "description": "Image settings",
@@ -375,37 +365,6 @@
         "tag"
       ],
       "title": "image",
-      "type": "object"
-    },
-    "log": {
-      "additionalProperties": false,
-      "description": "Log settings",
-      "properties": {
-        "level": {
-          "default": "info",
-          "description": "Log level",
-          "enum": [
-            "error",
-            "warn",
-            "info",
-            "debug"
-          ],
-          "required": [],
-          "title": "level"
-        },
-        "mode": {
-          "default": "prod",
-          "description": "Log mode",
-          "enum": [
-            "prod",
-            "dev"
-          ],
-          "required": [],
-          "title": "mode"
-        }
-      },
-      "required": [],
-      "title": "log",
       "type": "object"
     },
     "nameOverride": {
@@ -513,121 +472,6 @@
       },
       "required": [],
       "title": "networkPolicy",
-      "type": "object"
-    },
-    "otel": {
-      "additionalProperties": false,
-      "description": "OpenTelemetry settings",
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Indicates wether to enable it or not",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        },
-        "gorm": {
-          "additionalProperties": false,
-          "description": "GORM settings",
-          "properties": {
-            "enabled": {
-              "default": true,
-              "description": "Indicates wether to enable it or not",
-              "required": [],
-              "title": "enabled",
-              "type": "boolean"
-            },
-            "sqlParametersDisabled": {
-              "default": true,
-              "description": "Indicates wether to trace sql attributes",
-              "required": [],
-              "title": "sqlParametersDisabled",
-              "type": "boolean"
-            }
-          },
-          "required": [],
-          "title": "gorm",
-          "type": "object"
-        },
-        "gotsrpc": {
-          "additionalProperties": false,
-          "description": "GOTSRPC settings",
-          "properties": {
-            "enabled": {
-              "default": true,
-              "description": "Indicates wether to enable it or not",
-              "required": [],
-              "title": "enabled",
-              "type": "boolean"
-            },
-            "payloadAttributeDisabled": {
-              "default": true,
-              "description": "Indicates wether to trace payload attributes",
-              "required": [],
-              "title": "payloadAttributeDisabled",
-              "type": "boolean"
-            }
-          },
-          "required": [],
-          "title": "gotsrpc",
-          "type": "object"
-        },
-        "mongo": {
-          "additionalProperties": false,
-          "description": "Mongo settings",
-          "properties": {
-            "commandAttributeDisabled": {
-              "default": true,
-              "description": "Indicates wether to trace command attributes",
-              "required": [],
-              "title": "commandAttributeDisabled",
-              "type": "boolean"
-            },
-            "enabled": {
-              "default": true,
-              "description": "Indicates wether to enable it or not",
-              "required": [],
-              "title": "enabled",
-              "type": "boolean"
-            }
-          },
-          "required": [],
-          "title": "mongo",
-          "type": "object"
-        },
-        "otlp": {
-          "additionalProperties": false,
-          "description": "OTLP exporter settings",
-          "properties": {
-            "endpoint": {
-              "default": "alloy:4317",
-              "description": "Enpoint uri",
-              "required": [],
-              "title": "endpoint",
-              "type": "string"
-            },
-            "insecure": {
-              "default": true,
-              "description": "Indicates wether to use insecure connection",
-              "required": [],
-              "title": "insecure",
-              "type": "boolean"
-            }
-          },
-          "required": [],
-          "title": "otlp",
-          "type": "object"
-        },
-        "ratio": {
-          "default": 1,
-          "description": "Trace ratio",
-          "required": [],
-          "title": "ratio",
-          "type": "integer"
-        }
-      },
-      "required": [],
-      "title": "otel",
       "type": "object"
     },
     "persistence": {
