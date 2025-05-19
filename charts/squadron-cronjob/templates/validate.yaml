@@ -1,0 +1,11 @@
+{{- if not .Values.schedule }}
+{{- fail "Required `.Values.schedule` not set" -}}
+{{- end }}
+
+{{- if not .Values.image.repository }}
+{{- fail "Required `.Values.image.repository` not set" -}}
+{{- end }}
+
+{{- if not .Values.image.tag }}
+{{- fail "Required `.Values.image.tag` not set" -}}
+{{- end }}

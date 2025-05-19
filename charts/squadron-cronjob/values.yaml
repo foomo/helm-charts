@@ -1,0 +1,590 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+global:
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  foomo:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Enable for backward compatibility
+    # @section -- Global
+    withDeprecatedSelectorLabels: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Enable for backward compatibility
+    # @section -- Global
+    withDeprecatedSelectorLabelsV2: false
+    # @schema
+    # type: object
+    # @schema
+    squadron:
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron name
+      # -- Will be automatically injected
+      # @section -- Global
+      name: ''
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron unit name
+      # -- Will be automatically injected
+      # @section -- Global
+      unit: ''
+      # @schema
+      # type: string
+      # @schema
+      # -- Squadron fleet name
+      # -- Will be automatically injected (optional)
+      # @section -- Global
+      fleet: ''
+
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's name
+# @section -- Overrides
+nameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- Overrides the chart's computed fullname
+# @section -- Overrides
+fullnameOverride: ''
+# @schema
+# type: string
+# @schema
+# -- The name of the Namespace to deploy
+# @section -- Overrides
+namespaceOverride: ''
+
+# @schema
+# type: integer
+# @schema
+# -- Number of revisions to keep
+# @section -- General
+revisionHistoryLimit: 10
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- Container command
+# @section -- General
+command: []
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- Server container command args
+# @section -- General
+args: []
+# @schema
+# type: string
+# @schema
+# -- Cron job schedule
+# @section -- General
+schedule: ''
+# @schema
+# type: string
+# @schema
+# -- Cron job time zone
+# @section -- General
+timeZone: 'Europe/Berlin'
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add
+# @section -- General
+env: { }
+# env:
+#   FOO: bar
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# -- Map of environment variables to add as a secret
+# @section -- General
+secretEnv: { }
+# secretEnv:
+#   FOO: bar
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     data:
+#       type: object
+#       additionalProperties: true
+#     stringData:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Map of secrets to be mounted
+# @section -- General
+secrets: { }
+# secrets:
+#   my-secret:
+#     data: ...
+# @schema
+# type: array
+# items:
+#   type: string
+# @schema
+# -- List of existing secrets to be mounted
+# @section -- General
+secretMounts: []
+# secretMounts:
+#   - my-secret
+
+# @schema
+# type: object
+# @schema
+# Image settings
+image:
+  # @schema
+  # enum: [IfNotPresent, Always]
+  # @schema
+  # -- Image tag
+  # @section -- Image
+  pullPolicy: IfNotPresent
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Image pull secrets
+  # @section -- Image
+  pullSecrets: [ ]
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  # -- Image repository
+  # @section -- Image
+  repository: ''
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  # -- Image tag
+  # @section -- Image
+  tag: ''
+
+# @schema
+# type: object
+# @schema
+# Persistence settings
+persistence:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether a pv should be attached or not
+  # @section -- Persistence
+  enabled: false
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage mount path
+  # @section -- Persistence
+  mountPath: /var/lib/cronjob/data
+  # @schema
+  # enum: [ReadWriteOnce, ReadOnlyMany, ReadWriteMany]
+  # @schema
+  # -- Access mode
+  # @section -- Persistence
+  accessMode: ReadWriteOnce
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage size
+  # @section -- Persistence
+  size: 1Gi
+  # @schema
+  # type: string
+  # @schema
+  # -- Storage class name
+  # @section -- Persistence
+  storageClass: ''
+
+# @schema
+# type: object
+# @schema
+# Security context
+securityContext:
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as user id
+  # @section -- Security Context
+  runAsUser: 1001
+  # @schema
+  # type: integer
+  # @schema
+  # -- Run as group id
+  # @section -- Security Context
+  runAsGroup: 1001
+  # @schema
+  # type: integer
+  # @schema
+  # -- File system group id
+  # @section -- Security Context
+  fsGroup: 1001
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether to run as non root user
+  # @section -- Security Context
+  runAsNonRoot: true
+
+# @schema
+# type: object
+# @schema
+# CronJob settings
+cronjob:
+  # @schema
+  # enum: [Never, OnFailure]
+  # @schema
+  # -- Restart policy
+  # @section -- CronJob
+  restart: Never
+  # @schema
+  # enum: [Allow, Forbid]
+  # @schema
+  # -- Concurency policy
+  # @section -- CronJob
+  concurrency: Forbid
+  # @schema
+  # type: integer
+  # @schema
+  # -- Max history item to keep
+  # @section -- CronJob
+  historyLimit: 1
+  # @schema
+  # type: integer
+  # @schema
+  # -- Successful history item to keep
+  # @section -- CronJob
+  backoffLimit: 0
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Additional labels
+  # @section -- CronJob
+  additionalLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Deployment annotations
+  # @section -- CronJob
+  annotations: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Job labels
+  # @section -- CronJob
+  jobLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  # @section -- CronJob
+  jobAnnotations: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Pod annotations
+  # @section -- CronJob
+  podAnnotations: { }
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     name:
+  #       type: string
+  #     value:
+  #       type: string
+  #   additionalProperties: true
+  # @schema
+  # -- Additional environment variables
+  # @section -- CronJob
+  additionalEnv: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional env from
+  # @section -- CronJob
+  additionalEnvFrom: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   properties:
+  #     name:
+  #       type: string
+  #     mountPath:
+  #       type: string
+  #   additionalProperties: true
+  # @schema
+  # -- Additional volume mounts
+  # @section -- CronJob
+  additionalVolumeMounts: [ ]
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional volumes
+  # @section -- CronJob
+  additionalVolumes: [ ]
+  # additionalVolumes:
+  #   - name: my-existing-volume-name
+  #     storageClass: local-path
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Host aliases
+  # @section -- CronJob
+  hostAliases: [ ]
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Resource settings
+  # @section -- CronJob
+  resources: {}
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Startup probe settings
+  # @section -- CronJob
+  startupProbe: {}
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Readiness probe settings
+  # @section -- CronJob
+  readinessProbe: {}
+  # @schema
+  # type: [object, null]
+  # additionalProperties: true
+  # @schema
+  # -- Liveness probe settings
+  # @section -- CronJob
+  livenessProbe: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional init containers
+  # @section -- CronJob
+  initContainers: []
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Additional sidecar containers
+  # @section -- CronJob
+  sidecarContainers: []
+  # @schema
+  # type: [string, null]
+  # @schema
+  # -- Selector labels override
+  # @section -- CronJob
+  selectorLabelsOverride: null
+
+# @schema
+# type: object
+# @schema
+# ServiceAccount settings
+serviceAccount:
+  # @schema
+  # type: string
+  # @schema
+  # -- The name of the service account to use.
+  # @section -- Service Account
+  name: ""
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether a service account should be created
+  # @section -- Service Account
+  create: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Automatically mount a ServiceAccount's API credentials?
+  # @section -- Service Account
+  automount: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Annotations to add to the service account
+  # @section -- Service Account
+  annotations: { }
+
+# @schema
+# type: object
+# @schema
+# Network Policy settings
+networkPolicy:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Specifies whether Network Policies should be created
+  # @section -- Network Policy
+  enabled: false
+  # @schema
+  # type: array
+  # items:
+  #   type: string
+  # @schema
+  # -- List of rules to apply via labels
+  # @section -- Network Policy
+  rules: []
+  # rules:
+  #   - allow-nginx-ingress
+  #   - allow-internet-egress
+  #   - allow-my-service-access
+  # @schema
+  # type: object
+  # @schema
+  # Ingress settings
+  # @section -- Network Policy
+  ingress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether ingress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    #   additionalProperties: true
+    # @schema
+    # -- Additional ingress rules
+    # @section -- Network Policy
+    additionalRules: []
+  # @schema
+  # type: object
+  # @schema
+  # Egress settings
+  # @section -- Network Policy
+  egress:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Specifies whether egress should be enabled
+    # @section -- Network Policy
+    enabled: true
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Allow ingress through labels
+    # @section -- Network Policy
+    allowExternal: true
+    # @schema
+    # type: array
+    # items:
+    #   type: string
+    # @schema
+    # -- Additional egress rules
+    # @section -- Network Policy
+    additionalRules: []
+
+# @schema
+# type: object
+# @schema
+# Scheduling settings
+scheduling:
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Indicates wether scheduling is enabled or not
+  # @section -- Scheduling
+  enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Affinity for pod assignment
+  # @section -- Scheduling
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: In
+              values: [""]
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Node labels for pod assignment
+  # @section -- Scheduling
+  nodeSelector: {}
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  tolerations: []
+  # @schema
+  # type: [string, null]
+  # additionalProperties: true
+  # @schema
+  # -- Priority class name
+  # @section -- Scheduling
+  priorityClass: null
+  # @schema
+  # type: array
+  # items:
+  #   type: object
+  #   additionalProperties: true
+  # @schema
+  # -- Tolerations for pod assignment
+  # @section -- Scheduling
+  topologySpreadConstraints: []
