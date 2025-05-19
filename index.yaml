@@ -1795,6 +1795,28 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/sesamy-umami-0.0.1/sesamy-umami-0.0.1.tgz
     version: 0.0.1
+  squadron-cronjob:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-cronjob
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-19T10:24:31.14847969Z"
+    description: Squadron CronJob Chart
+    digest: 3db5f3f7ba5b7792a0bb9f29f471cc261bdc3de03ed3d0d31fccf8294e6ae9f9
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-cronjob
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-cronjob-0.1.0/squadron-cronjob-0.1.0.tgz
+    version: 0.1.0
   squadron-keel-cronjob:
   - annotations:
       artifacthub.io/links: |
@@ -3310,4 +3332,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-19T08:49:44.136549845Z"
+generated: "2025-05-19T10:24:31.262839544Z"
