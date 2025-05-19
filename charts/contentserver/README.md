@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.11.3](https://img.shields.io/badge/AppVersion-1.11.3-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.12.0](https://img.shields.io/badge/AppVersion-1.12.0-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -41,7 +41,7 @@ Helm chart for the foomo Content Server.
 | contentserver.hostAliases | list | `[]` | Host aliases |
 | contentserver.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | contentserver.image.repository | string | `"foomo/contentserver"` | Image repository |
-| contentserver.image.tag | string | `"1.11.2"` | Image tag |
+| contentserver.image.tag | string | `"1.12.0"` | Image tag |
 | contentserver.imagePullSecrets | list | `[]` | Image pull secrets |
 | contentserver.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":9400}}` | Liveness probe settings for pods |
 | contentserver.podAnnotations | object | `{}` | Annotations for pods |
