@@ -312,8 +312,9 @@ persistence:
 
 # @schema
 # type: object
+# additionalProperties: true
 # @schema
-# Security context
+# Pod Security context
 securityContext:
   # @schema
   # type: integer
@@ -339,18 +340,6 @@ securityContext:
   # -- Indicates wether to run as non root user
   # @section -- Security Context
   runAsNonRoot: true
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Controls whether a process can gain more privileges than its parent process
-  # @section -- Security Context
-  allowPrivilegeEscalation: false
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Mounts the container's root filesystem as read-only
-  # @section -- Security Context
-  readOnlyRootFilesystem: true
 
 # @schema
 # type: object
@@ -526,6 +515,24 @@ cronjob:
   # -- Selector labels override
   # @section -- CronJob
   selectorLabelsOverride: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- CronJob
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- CronJob
+    readOnlyRootFilesystem: true
 
 # @schema
 # type: object

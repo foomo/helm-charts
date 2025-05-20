@@ -93,6 +93,10 @@ spec:
             - name: {{ include "squadron.server.fullname" . }}-data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- end }}
+            {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            {{- end }}
             {{- with .Values.server.additionalVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -117,6 +121,9 @@ spec:
           {{- end }}
           {{- with .Values.server.readinessProbe }}
           readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
         {{- with .Values.server.sidecarContainers }}
         {{- toYaml . | nindent 8 }}
@@ -147,7 +154,7 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
-        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
         - name: tmp
           emptyDir: {}
         {{- end }}

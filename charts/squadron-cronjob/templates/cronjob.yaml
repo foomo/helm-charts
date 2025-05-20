@@ -86,6 +86,10 @@ spec:
                 - name: {{ include "squadron.cronjob.fullname" . }}-data
                   mountPath: {{ .Values.persistence.mountPath }}
                 {{- end }}
+                {{- if .Values.cronjob.securityContext.readOnlyRootFilesystem }}
+                - name: tmp
+                  mountPath: /tmp
+                {{- end }}
                 {{- with .Values.cronjob.additionalVolumeMounts }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
@@ -110,6 +114,9 @@ spec:
               {{- end }}
               {{- with .Values.cronjob.readinessProbe }}
               readinessProbe: {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.cronjob.securityContext }}
+              securityContext: {{- toYaml . | nindent 16 }}
               {{- end }}
             {{- with .Values.cronjob.sidecarContainers }}
             {{- toYaml . | nindent 12 }}

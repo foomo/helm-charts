@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.12.0](https://img.shields.io/badge/AppVersion-1.12.0-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.12.0](https://img.shields.io/badge/AppVersion-1.12.0-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -31,10 +31,12 @@ Helm chart for the foomo Content Server.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| contentserver.annotations | object | `{}` | Content Server annotations |
 | contentserver.basePath | string | `"/contentserver"` | Path to export the webserver on |
 | contentserver.extraArgs | list | `[]` | Arguements to add |
 | contentserver.extraEnv | list | `[]` | Environment variables to add |
 | contentserver.extraEnvFrom | list | `[]` | Environment variables from secrets or configmaps to add |
+| contentserver.extraLabels | object | `{}` | Additional Content Server labels |
 | contentserver.extraPorts | list | `[]` | Port definitions to add |
 | contentserver.extraVolumeMounts | list | `[]` | Volume mounts to add |
 | contentserver.extraVolumes | list | `[]` | Volumes to add |
@@ -51,7 +53,8 @@ Helm chart for the foomo Content Server.
 | contentserver.repository.pollInterval | string | `"60s"` | Update poll interval |
 | contentserver.repository.url | string | `"http://contentserverexport:8080"` | Repository server url |
 | contentserver.resources | object | `{}` | Resource request & limits |
-| contentserver.securityContext | object | `{}` | Security Context |
+| contentserver.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| contentserver.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | contentserver.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":9400}}` | Startup probe settings for pods |
 
 ### Overrides
@@ -179,8 +182,8 @@ Helm chart for the foomo Content Server.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
-| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
+| serviceAccount.automount | bool | `false` | Automatically mount a ServiceAccount's API credentials? |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |
 
 ### Service Monitor
