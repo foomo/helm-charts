@@ -152,7 +152,7 @@ spec:
           {{- end }}
           {{- end }}
           volumes:
-            {{- if .Values.securityContext.readOnlyRootFilesystem }}
+            {{- if .Values.cronjob.securityContext.readOnlyRootFilesystem }}
             - name: tmp
               emptyDir: {}
             {{- end }}

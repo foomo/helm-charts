@@ -1,9 +1,15 @@
 -include .makerc
 .DEFAULT_GOAL:=help
+PATH := bin:$(PATH)
 
 # --- Targets -----------------------------------------------------------------
 
 ## === Tasks ===
+
+.PHONY: ownbrew
+## Install dependencies
+ownbrew:
+	@ownbrew install
 
 .PHONY: check
 ## Lint, Schema & docs
