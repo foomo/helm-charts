@@ -921,12 +921,26 @@
       "additionalProperties": false,
       "description": "Security context",
       "properties": {
+        "allowPrivilegeEscalation": {
+          "default": false,
+          "description": "Controls whether a process can gain more privileges than its parent process",
+          "required": [],
+          "title": "allowPrivilegeEscalation",
+          "type": "boolean"
+        },
         "fsGroup": {
           "default": 1001,
           "description": "File system group id",
           "required": [],
           "title": "fsGroup",
           "type": "integer"
+        },
+        "readOnlyRootFilesystem": {
+          "default": true,
+          "description": "Mounts the container's root filesystem as read-only",
+          "required": [],
+          "title": "readOnlyRootFilesystem",
+          "type": "boolean"
         },
         "runAsGroup": {
           "default": 1001,
@@ -1251,14 +1265,14 @@
           "type": "object"
         },
         "automount": {
-          "default": true,
+          "default": false,
           "description": "Automatically mount a ServiceAccount's API credentials?",
           "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
-          "default": true,
+          "default": false,
           "description": "Specifies whether a service account should be created",
           "required": [],
           "title": "create",

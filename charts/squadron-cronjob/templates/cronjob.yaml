@@ -140,6 +140,10 @@ spec:
           {{- end }}
           {{- end }}
           volumes:
+            {{- if .Values.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              emptyDir: {}
+            {{- end }}
             {{- if .Values.persistence.enabled }}
             - name: {{ include "squadron.cronjob.fullname" . }}-data
               persistentVolumeClaim:

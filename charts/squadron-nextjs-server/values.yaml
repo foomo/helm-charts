@@ -472,6 +472,18 @@ securityContext:
   # -- Indicates wether to run as non root user
   # @section -- Security Context
   runAsNonRoot: true
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Controls whether a process can gain more privileges than its parent process
+  # @section -- Security Context
+  allowPrivilegeEscalation: false
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Mounts the container's root filesystem as read-only
+  # @section -- Security Context
+  readOnlyRootFilesystem: true
 
 # @schema
 # type: object
@@ -710,13 +722,13 @@ serviceAccount:
   # @schema
   # -- Specifies whether a service account should be created
   # @section -- Service Account
-  create: true
+  create: false
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
   # @section -- Service Account
-  automount: true
+  automount: false
   # @schema
   # type: object
   # additionalProperties: true
