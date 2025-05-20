@@ -1,6 +1,6 @@
 # squadron-cronjob
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
 
 Squadron CronJob Chart
 
@@ -117,7 +117,9 @@ Squadron CronJob Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
 | securityContext.fsGroup | int | `1001` | File system group id |
+| securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
 | securityContext.runAsUser | int | `1001` | Run as user id |
@@ -127,6 +129,6 @@ Squadron CronJob Chart
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
-| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
+| serviceAccount.automount | bool | `false` | Automatically mount a ServiceAccount's API credentials? |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. |

@@ -160,6 +160,10 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
+        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        - name: tmp
+          emptyDir: {}
+        {{- end }}
         {{- if .Values.persistence.enabled }}
         - name: {{ include "keel.server.fullname" . }}-data
           persistentVolumeClaim:
