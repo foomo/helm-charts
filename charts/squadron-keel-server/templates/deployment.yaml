@@ -167,7 +167,7 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
-        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
         - name: tmp
           emptyDir: {}
         {{- end }}

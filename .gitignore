@@ -17,3 +17,7 @@ Chart.lock
 
 ## Editorconfig
 !.editorconfig
+
+## Ownbrew
+/bin/
+!.ownbrew.yaml
