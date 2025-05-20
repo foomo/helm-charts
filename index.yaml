@@ -1825,6 +1825,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-cronjob
     apiVersion: v2
+    appVersion: 0.2.2
+    created: "2025-05-20T20:37:36.608410975Z"
+    description: Squadron CronJob Chart
+    digest: fc455bee12e5890ebda39940833e94f931f99e8fea040b1546a4279d87cec8f3
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-squadron
+    name: squadron-cronjob
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-cronjob-0.2.2/squadron-cronjob-0.2.2.tgz
+    version: 0.2.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-cronjob
+    apiVersion: v2
     appVersion: 0.2.1
     created: "2025-05-20T15:49:49.531626543Z"
     description: Squadron CronJob Chart
@@ -1905,6 +1926,28 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/squadron-cronjob-0.1.0/squadron-cronjob-0.1.0.tgz
     version: 0.1.0
   squadron-keel-cronjob:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-cronjob
+    apiVersion: v2
+    appVersion: 0.6.2
+    created: "2025-05-20T20:37:36.73618189Z"
+    description: Squadron Keel CronJob Chart
+    digest: fa070d847daf887c7d0f316996365b463151418dbd0f912068fc35e781aa15f6
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-cronjob
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.6.2/squadron-keel-cronjob-0.6.2.tgz
+    version: 0.6.2
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -2258,6 +2301,28 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/squadron-keel-cronjob-0.1.1/squadron-keel-cronjob-0.1.1.tgz
     version: 0.1.1
   squadron-keel-server:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-server
+    apiVersion: v2
+    appVersion: 0.8.2
+    created: "2025-05-20T20:37:36.851111224Z"
+    description: Squadron Keel Server Chart
+    digest: 90aafa23f4aaa7440b036896c915b151ad6cef66f954f1ea737bce489ba5b552
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-keel
+    - foomo-squadron
+    name: squadron-keel-server
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/squadron-keel-server-0.8.2/squadron-keel-server-0.8.2.tgz
+    version: 0.8.2
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -3591,4 +3656,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-20T15:49:49.958662323Z"
+generated: "2025-05-20T20:37:36.85149387Z"
