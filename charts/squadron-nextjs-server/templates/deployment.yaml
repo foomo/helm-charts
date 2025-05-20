@@ -87,13 +87,17 @@ spec:
             - name: {{ include "nextjs.server.fullname" . }}-data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- end }}
+            {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            {{- end }}
+            {{- with .Values.server.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
             {{- range $key, $value := .Values.secrets }}
             - name: {{ include "nextjs.server.fullname" $ }}-{{ $key }}
               readOnly: true
               mountPath: /run/secrets/{{ $key }}
-            {{- end }}
-            {{- with .Values.server.additionalVolumeMounts }}
-            {{- toYaml . | nindent 12 }}
             {{- end }}
             {{- range .Values.secretMounts }}
             - name: {{ . }}
@@ -111,6 +115,9 @@ spec:
           {{- end }}
           {{- with .Values.server.readinessProbe }}
           readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.server.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if .Values.graceful.enabled }}
           lifecycle:
@@ -147,7 +154,7 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
-        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
         - name: tmp
           emptyDir: {}
         {{- end }}

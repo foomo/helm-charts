@@ -191,6 +191,29 @@
           "required": [],
           "title": "restart"
         },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "readOnlyRootFilesystem": {
+              "default": true,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "securityContext",
+          "type": "object"
+        },
         "selectorLabelsOverride": {
           "default": "null",
           "description": "Selector labels override",
@@ -872,29 +895,15 @@
       "type": "object"
     },
     "securityContext": {
-      "additionalProperties": false,
-      "description": "Security context",
+      "additionalProperties": true,
+      "description": "Pod Security context",
       "properties": {
-        "allowPrivilegeEscalation": {
-          "default": false,
-          "description": "Controls whether a process can gain more privileges than its parent process",
-          "required": [],
-          "title": "allowPrivilegeEscalation",
-          "type": "boolean"
-        },
         "fsGroup": {
           "default": 1001,
           "description": "File system group id",
           "required": [],
           "title": "fsGroup",
           "type": "integer"
-        },
-        "readOnlyRootFilesystem": {
-          "default": true,
-          "description": "Mounts the container's root filesystem as read-only",
-          "required": [],
-          "title": "readOnlyRootFilesystem",
-          "type": "boolean"
         },
         "runAsGroup": {
           "default": 1001,

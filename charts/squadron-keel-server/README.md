@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.0](https://img.shields.io/badge/AppVersion-0.8.0-informational?style=flat-square)
+![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.1](https://img.shields.io/badge/AppVersion-0.8.1-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -171,9 +171,7 @@ Squadron Keel Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
 | securityContext.fsGroup | int | `1001` | File system group id |
-| securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
 | securityContext.runAsUser | int | `1001` | Run as user id |
@@ -196,6 +194,8 @@ Squadron Keel Server Chart
 | server.podLabels | object | `{}` | Pod labels |
 | server.readinessProbe | object | `{"httpGet":{"path":"/healthz/readiness","port":"healthz"}}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
+| server.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| server.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | server.selectorLabelsOverride | string | `nil` | Selector labels override |
 | server.sidecarContainers | list | `[]` | Additional sidecar containers |
 | server.startupProbe | object | `{"httpGet":{"path":"/healthz/startup","port":"healthz"}}` | Startup probe settings |

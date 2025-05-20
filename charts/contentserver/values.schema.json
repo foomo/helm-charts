@@ -87,6 +87,13 @@
     "contentserver": {
       "description": "Content Server",
       "properties": {
+        "annotations": {
+          "additionalProperties": true,
+          "description": "Content Server annotations",
+          "required": [],
+          "title": "annotations",
+          "type": "object"
+        },
         "basePath": {
           "default": "/contentserver",
           "description": "Path to export the webserver on",
@@ -126,6 +133,13 @@
           "required": [],
           "title": "extraEnvFrom",
           "type": "array"
+        },
+        "extraLabels": {
+          "additionalProperties": true,
+          "description": "Additional Content Server labels",
+          "required": [],
+          "title": "extraLabels",
+          "type": "object"
         },
         "extraPorts": {
           "description": "Port definitions to add",
@@ -331,7 +345,23 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "Security Context",
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "readOnlyRootFilesystem": {
+              "default": true,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
           "required": [],
           "title": "securityContext",
           "type": "object"
@@ -947,7 +977,8 @@
       "type": "object"
     },
     "securityContext": {
-      "description": "Security context",
+      "additionalProperties": true,
+      "description": "Pod Security context",
       "properties": {
         "fsGroup": {
           "default": 1001,
@@ -1022,14 +1053,14 @@
           "type": "object"
         },
         "automount": {
-          "default": true,
+          "default": false,
           "description": "Automatically mount a ServiceAccount's API credentials?",
           "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
-          "default": true,
+          "default": false,
           "description": "Specifies whether a service account should be created",
           "required": [],
           "title": "create",

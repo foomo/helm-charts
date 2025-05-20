@@ -4,13 +4,19 @@ metadata:
   name: {{ include "contentserver.fullname" . }}
   labels:
     {{- include "contentserver.labels" . | nindent 4 }}
+    {{- with .Values.contentserver.extraLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.contentserver.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
   namespace: {{ include "contentserver.namespace" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicas }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
-  strategy:
+  updateStrategy:
     type: {{ .Values.updateStrategy }}
   selector:
     matchLabels: {{- include "contentserver.selectorLabels" . | nindent 6 }}
@@ -87,11 +93,17 @@ spec:
           {{- with .Values.contentserver.extraEnvFrom }}
           envFrom: {{- toYaml . | nindent 12 }}
           {{- end }}
+          volumeMounts:
           {{- if .Values.persistence.enabled }}
-          volumeMounts: 
           - name: storage
             mountPath: {{ .Values.persistence.path }}
+          {{- end }}
+          {{- if .Values.contentserver.securityContext.readOnlyRootFilesystem }}
+          - name: tmp
+            mountPath: /tmp
+          {{- end }}
           {{- with .Values.contentserver.extraVolumeMounts }}
+          {{- toYaml . | nindent 10 }}
           {{- end }}
           {{- with .Values.contentserver.resources }}
           resources: {{- toYaml . | nindent 12 }}
@@ -105,14 +117,14 @@ spec:
           {{- with .Values.contentserver.readinessProbe }}
           readinessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.contentserver.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if .Values.graceful.enabled }}
           lifecycle:
             preStop:
               exec:
                 command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
-          {{- end }}
-          {{- with .Values.contentserver.securityContext }}
-          securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- if .Values.scheduling.enabled }}
       {{- with .Values.scheduling.priorityClass }}
@@ -125,7 +137,7 @@ spec:
       nodeSelector: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.tolerations }}
-      tolerations:{{- toYaml . | nindent 8 }}
+      tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.scheduling.topologySpreadConstraints }}
       topologySpreadConstraints:
@@ -140,6 +152,10 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
+        {{- if .Values.contentserver.securityContext.readOnlyRootFilesystem }}
+        - name: tmp
+          emptyDir: {}
+        {{- end }}
         {{- with .Values.contentserver.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -153,5 +169,4 @@ spec:
       resources:
         requests:
           storage: {{ .Values.persistence.size }}
-  {{- end }}
   {{- end }}
