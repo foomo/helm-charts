@@ -15,5 +15,5 @@ annotations:
     - name: Chart Source
       url: https://github.com/foomo/helm-charts/tree/main/charts/squadron-keel-server
 
-version: 0.8.2
-appVersion: 0.8.2
+version: 0.8.3
+appVersion: 0.8.3
