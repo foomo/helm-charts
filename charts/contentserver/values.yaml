@@ -343,6 +343,13 @@ contentserver:
     # -- Mounts the container's root filesystem as read-only
     # @section -- Content Server
     readOnlyRootFilesystem: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- Content Server
+    capabilities: { drop: [ ALL ] }
 
 # @schema
 # type: object
@@ -400,6 +407,13 @@ securityContext:
   # -- Indicates wether to run as non root user
   # @section -- Security Context
   runAsNonRoot: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Restrict a Container's Syscalls with seccomp
+  # @section -- Security Context
+  seccompProfile: { type: RuntimeDefault }
 
 # @schema
 # type: object

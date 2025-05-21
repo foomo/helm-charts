@@ -1,6 +1,6 @@
 # squadron-server
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.1](https://img.shields.io/badge/AppVersion-0.6.1-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.2](https://img.shields.io/badge/AppVersion-0.6.2-informational?style=flat-square)
 
 Squadron General Server Chart
 
@@ -130,6 +130,12 @@ Squadron General Server Chart
 | securityContext.fsGroup | int | `1001` | File system group id |
 | securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
+| securityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict a Container's Syscalls with seccomp |
+
+### Security context
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | securityContext.runAsUser | int | `1001` | Run as user id |
 
 ### Server
@@ -151,6 +157,7 @@ Squadron General Server Chart
 | server.readinessProbe | object | `{}` | Readiness probe settings |
 | server.resources | object | `{}` | Resource settings |
 | server.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| server.securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
 | server.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | server.selectorLabelsOverride | string | `nil` | Selector labels override |
 | server.sidecarContainers | list | `[]` | Additional sidecar containers |

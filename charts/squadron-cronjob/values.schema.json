@@ -222,6 +222,31 @@
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
+            "capabilities": {
+              "additionalProperties": true,
+              "description": "Grant certain privileges to a process without granting all the privileges of the root user",
+              "properties": {
+                "drop": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [],
+                        "type": "string"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "drop",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "drop"
+              ],
+              "title": "capabilities",
+              "type": "object"
+            },
             "readOnlyRootFilesystem": {
               "default": true,
               "description": "Mounts the container's root filesystem as read-only",
@@ -769,6 +794,23 @@
           "required": [],
           "title": "runAsUser",
           "type": "integer"
+        },
+        "seccompProfile": {
+          "additionalProperties": true,
+          "description": "Restrict a Container's Syscalls with seccomp",
+          "properties": {
+            "type": {
+              "default": "RuntimeDefault",
+              "required": [],
+              "title": "type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "title": "seccompProfile",
+          "type": "object"
         }
       },
       "required": [],

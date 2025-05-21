@@ -1,6 +1,6 @@
 # squadron-cronjob
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.3](https://img.shields.io/badge/AppVersion-0.2.3-informational?style=flat-square)
 
 Squadron CronJob Chart
 
@@ -49,6 +49,7 @@ Squadron CronJob Chart
 | cronjob.resources | object | `{}` | Resource settings |
 | cronjob.restart | string | `"Never"` | Restart policy |
 | cronjob.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| cronjob.securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
 | cronjob.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | cronjob.selectorLabelsOverride | string | `nil` | Selector labels override |
 | cronjob.sidecarContainers | list | `[]` | Additional sidecar containers |
@@ -123,6 +124,7 @@ Squadron CronJob Chart
 | securityContext.runAsGroup | int | `1001` | Run as group id |
 | securityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
 | securityContext.runAsUser | int | `1001` | Run as user id |
+| securityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict a Container's Syscalls with seccomp |
 
 ### Service Account
 
