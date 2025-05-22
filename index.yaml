@@ -559,6 +559,30 @@ entries:
           url: https://github.com/foomo/contentserver
     apiVersion: v2
     appVersion: 1.12.0
+    created: "2025-05-22T15:37:25.543146656Z"
+    description: Helm chart for the foomo Content Server.
+    digest: 12bb2a83032f1895fc0442157824dcbe0dff80ba2eafd77fc9e89daaeff02c79
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-contentserver
+    name: contentserver
+    sources:
+    - https://github.com/foomo/helm-charts
+    - https://github.com/foomo/contentserver
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/contentserver-0.6.2/contentserver-0.6.2.tgz
+    version: 0.6.2
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/contentserver
+        - name: Image Source
+          url: https://github.com/foomo/contentserver
+    apiVersion: v2
+    appVersion: 1.12.0
     created: "2025-05-21T07:44:35.313384303Z"
     description: Helm chart for the foomo Content Server.
     digest: d580ca47885425750cb6552696fdf9d1921776fd096e2ebd6e5cdaf86d148303
@@ -3787,4 +3811,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-21T07:44:36.349297341Z"
+generated: "2025-05-22T15:37:25.543471562Z"
