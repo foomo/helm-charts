@@ -94,7 +94,7 @@ spec:
           envFrom: {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-          {{- if .Values.persistence.enabled }}
+          {{- if or (.Values.contentserver.securityContext.readOnlyRootFilesystem) (.Values.persistence.enabled) }}
           - name: storage
             mountPath: {{ .Values.persistence.path }}
           {{- end }}
@@ -152,6 +152,10 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
+        {{- if and (.Values.contentserver.securityContext.readOnlyRootFilesystem) (not .Values.persistence.enabled) }}
+        - name: storage
+          emptyDir: {}
+        {{- end }}
         {{- if .Values.contentserver.securityContext.readOnlyRootFilesystem }}
         - name: tmp
           emptyDir: {}
