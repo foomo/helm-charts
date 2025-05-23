@@ -108,7 +108,7 @@ gtm:
     # @schema
     # -- The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)
     # @section -- Google Tag Manager
-    tag: "2.4.0"
+    tag: "3.0.0"
 
 # @schema
 # type: object
@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.27.4-alpine'
+    tag: '1.27.5-alpine'
   # @schema
   # type: object
   # @schema
@@ -184,6 +184,31 @@ proxy:
     # -- Base64 encoded TLS cert
     # @section -- HTTPS Proxy
     crt: ''
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- HTTPS Proxy
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- HTTPS Proxy
+    readOnlyRootFilesystem: false
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- HTTPS Proxy
+    capabilities: { }
   # @schema
   # type: object
   # additionalProperties: true
@@ -243,74 +268,89 @@ tagging:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- The SecurityContext for pods
-  # @section -- Tagging
-  podSecurityContext: {}
-  # podSecurityContext
-  #   fsGroup: 2000
+  # The SecurityContext for pods
+  podSecurityContext:
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Restrict a Container's Syscalls with seccomp
+    # @section -- Tagging
+    seccompProfile: { type: RuntimeDefault }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security Context
-  # @section -- Tagging
-  securityContext: {}
-  # securityContext
-  #   capabilities:
-  #     drop:
-  #       - ALL
-  #   readOnlyRootFilesystem: true
-  #   runAsNonRoot: true
-  #   runAsUser: 1000
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- Tagging
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- Tagging
+    readOnlyRootFilesystem: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- Tagging
+    capabilities: { drop: [ ALL ] }
   # @schema
   # type: object
   # @schema
   # Service settings
   service:
-      # @schema
-      # type: integer
-      # @schema
-      # -- Port of the service
-      # @section -- Tagging
-      port: 8080
-      # @schema
-      # enum: [ClusterIP, NodePort, LoadBalancer]
-      # @schema
-      # -- Type of the service
-      # @section -- Tagging
-      type: ClusterIP
-      # @schema
-      # type: object
-      # additionalProperties: true
-      # @schema
-      # -- Annotations for the service
-      # @section -- Tagging
-      annotations: {}
-      # @schema
-      # type: [integer, null]
-      # @schema
-      # -- ClusterIP of the gateway service
-      # @section -- Tagging
-      clusterIP: null
-      # @schema
-      # type: [integer, null]
-      # @schema
-      # -- Node port if service type is NodePort
-      # @section -- Tagging
-      nodePort: null
-      # @schema
-      # type: [string, null]
-      # @schema
-      # -- Set appProtocol for the service
-      # @section -- Tagging
-      appProtocol: null
-      # @schema
-      # type: object
-      # additionalProperties: true
-      # @schema
-      # -- Labels for service
-      # @section -- Tagging
-      labels: {}
+    # @schema
+    # type: integer
+    # @schema
+    # -- Port of the service
+    # @section -- Tagging
+    port: 8080
+    # @schema
+    # enum: [ClusterIP, NodePort, LoadBalancer]
+    # @schema
+    # -- Type of the service
+    # @section -- Tagging
+    type: ClusterIP
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Annotations for the service
+    # @section -- Tagging
+    annotations: {}
+    # @schema
+    # type: [integer, null]
+    # @schema
+    # -- ClusterIP of the gateway service
+    # @section -- Tagging
+    clusterIP: null
+    # @schema
+    # type: [integer, null]
+    # @schema
+    # -- Node port if service type is NodePort
+    # @section -- Tagging
+    nodePort: null
+    # @schema
+    # type: [string, null]
+    # @schema
+    # -- Set appProtocol for the service
+    # @section -- Tagging
+    appProtocol: null
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Labels for service
+    # @section -- Tagging
+    labels: {}
   # @schema
   # type: object
   # additionalProperties: true
@@ -452,25 +492,51 @@ preview:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- The SecurityContext for pods
-  # @section -- Preview
-  podSecurityContext: {}
-  # podSecurityContext:
-  #   fsGroup: 2000
+  # The SecurityContext for pods
+  podSecurityContext:
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Restrict a Container's Syscalls with seccomp
+    # @section -- Preview
+    seccompProfile: { type: RuntimeDefault }
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   additionalProperties: true
+    # @schema
+    # -- Restrict a Container's Syscalls with seccomp
+    # @section -- Preview
+    #sysctls:
+    #  - name: "net.ipv4.ip_unprivileged_port_start"
+    #    value: "0"
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security Context
-  # @section -- Preview
-  securityContext: {}
-  # securityContext:
-  #   capabilities:
-  #     drop:
-  #       - ALL
-  #   readOnlyRootFilesystem: true
-  #   runAsNonRoot: true
-  #   runAsUser: 1000
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- Preview
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- Preview
+    readOnlyRootFilesystem: false
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- Preview
+    capabilities: { drop: [ ALL ] }
   # @schema
   # type: object
   # @schema
@@ -680,25 +746,64 @@ collect:
   # type: object
   # additionalProperties: true
   # @schema
-  # -- The SecurityContext for pods
-  # @section -- Collect
-  podSecurityContext: {}
-  # podSecurityContext:
-  #   fsGroup: 2000
+  # Pod Security context
+  podSecurityContext:
+    # @schema
+    # type: integer
+    # @schema
+    # -- Run as user id
+    # @section -- Collect
+    runAsUser: 1001
+    # @schema
+    # type: integer
+    # @schema
+    # -- Run as group id
+    # @section -- Collect
+    runAsGroup: 1001
+    # @schema
+    # type: integer
+    # @schema
+    # -- File system group id
+    # @section -- Collect
+    fsGroup: 1001
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Indicates wether to run as non root user
+    # @section -- Collect
+    runAsNonRoot: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Restrict a Container's Syscalls with seccomp
+    # @section -- Collect
+    seccompProfile: { type: RuntimeDefault }
   # @schema
   # type: object
   # additionalProperties: true
   # @schema
-  # -- Security Context
-  # @section -- Collect
-  securityContext: {}
-  # securityContext:
-  #   capabilities:
-  #     drop:
-  #       - ALL
-  #   readOnlyRootFilesystem: true
-  #   runAsNonRoot: true
-  #   runAsUser: 1000
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- Collect
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- Collect
+    readOnlyRootFilesystem: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- Collect
+    capabilities: { drop: [ ALL ] }
   # @schema
   # type: object
   # @schema
@@ -711,7 +816,7 @@ collect:
     # -- Ports of the service
     # @section -- Collect
     ports:
-      ga4: 8080
+      gtag: 8080
       mpv2: 8081
     # -- Type of the service
     # @section -- Collect
@@ -875,6 +980,9 @@ ingress:
     #   - path: /g/collect
     #     pathType: Prefix
     #     port: 8080
+    #   - path: /mp/collect
+    #     pathType: ImplementationSpecific
+    #     port: 8081
   # @schema
   # type: array
   # items:
@@ -954,13 +1062,13 @@ serviceAccount:
   # @schema
   # -- Specifies whether a service account should be created
   # @section -- Service Account
-  create: true
+  create: false
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
   # @section -- Service Account
-  automount: true
+  automount: false
   # @schema
   # type: object
   # additionalProperties: true
@@ -1272,15 +1380,3 @@ networkPolicy:
     # -- Specifies the namespace the discovery Pods are running in
     # @section -- Network Policy
     namespaceSelector: {}
-
-# @schema
-# type: object
-# @schema
-# RBAC settings
-rbac:
-  # @schema
-  # type: boolean
-  # @schema
-  # -- Indicates wether scheduling is enabled or not
-  # @section -- RBAC settings
-  enabled: false
