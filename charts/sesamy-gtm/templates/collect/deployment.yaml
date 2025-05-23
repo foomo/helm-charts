@@ -76,9 +76,14 @@ spec:
           {{- with .Values.collect.resources }}
           resources: {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.collect.extraVolumeMounts }}
-          volumeMounts: {{- toYaml . | nindent 12 }}
-          {{- end }}
+          volumeMounts:
+            {{- if .Values.collect.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            {{- end }}
+            {{- with .Values.collect.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       {{- if .Values.scheduling.enabled }}
       {{- with .Values.scheduling.priorityClass }}
       priorityClassName: {{ . }}
@@ -104,9 +109,14 @@ spec:
         {{- end }}
       {{- end }}
       {{- end }}
-      {{- with .Values.collect.extraVolumes }}
-      volumes: {{- toYaml . | nindent 8 }}
-      {{- end }}
+      volumes:
+        {{- if .Values.collect.securityContext.readOnlyRootFilesystem }}
+        - name: tmp
+          emptyDir: {}
+        {{- end }}
+        {{- with .Values.collect.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.collect.dnsConfig }}
       dnsConfig: {{- toYaml . | nindent 8 }}
       {{- end }}
