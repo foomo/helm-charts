@@ -369,6 +369,120 @@
       "title": "ingress",
       "type": "object"
     },
+    "keel": {
+      "additionalProperties": false,
+      "description": "Keel settings",
+      "properties": {
+        "service": {
+          "additionalProperties": false,
+          "description": "Keel services settings",
+          "properties": {
+            "healthz": {
+              "additionalProperties": false,
+              "description": "Healthz service settings",
+              "properties": {
+                "enabled": {
+                  "default": true,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "healthz",
+              "type": "object"
+            },
+            "pprof": {
+              "additionalProperties": false,
+              "description": "PProf service settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "pprof",
+              "type": "object"
+            },
+            "prometheus": {
+              "additionalProperties": false,
+              "description": "Prometheus service settings",
+              "properties": {
+                "enabled": {
+                  "default": true,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "prometheus",
+              "type": "object"
+            },
+            "readme": {
+              "additionalProperties": false,
+              "description": "Readme service settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "readme",
+              "type": "object"
+            },
+            "viper": {
+              "additionalProperties": false,
+              "description": "Viper service settings",
+              "properties": {
+                "enabled": {
+                  "default": true,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "viper",
+              "type": "object"
+            },
+            "zap": {
+              "additionalProperties": false,
+              "description": "Zap service settings",
+              "properties": {
+                "enabled": {
+                  "default": true,
+                  "description": "Enable service",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "zap",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "service",
+          "type": "object"
+        }
+      },
+      "required": [],
+      "title": "keel",
+      "type": "object"
+    },
     "log": {
       "additionalProperties": false,
       "description": "Log settings",

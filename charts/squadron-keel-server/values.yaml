@@ -493,6 +493,83 @@ securityContext:
 # @schema
 # type: object
 # @schema
+# Keel settings
+keel:
+  # @schema
+  # type: object
+  # @schema
+  # Keel services settings
+  service:
+    # @schema
+    # type: object
+    # @schema
+    # Healthz service settings
+    healthz:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: true
+    # @schema
+    # type: object
+    # @schema
+    # Prometheus service settings
+    prometheus:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: true
+    # @schema
+    # type: object
+    # @schema
+    # PProf service settings
+    pprof:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: false
+    # @schema
+    # type: object
+    # @schema
+    # Readme service settings
+    readme:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: false
+    # @schema
+    # type: object
+    # @schema
+    # Viper service settings
+    viper:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: true
+    # @schema
+    # type: object
+    # @schema
+    # Zap service settings
+    zap:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable service
+      # @section -- Keel
+      enabled: true
+
+# @schema
+# type: object
+# @schema
 # Server settings
 server:
   # @schema

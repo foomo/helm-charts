@@ -56,18 +56,30 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: readme
-              containerPort: 9001
-            - name: zap
-              containerPort: 9100
-            - name: pprof
-              containerPort: 6060
-            - name: viper
-              containerPort: 9300
+            {{- if .Values.keel.service.healthz.enabled }}
             - name: healthz
               containerPort: 9400
+            {{- end }}
+            {{- if .Values.keel.service.prometheus.enabled }}
             - name: prometheus
               containerPort: 9200
+            {{- end }}
+            {{- if .Values.keel.service.pprof.enabled }}
+            - name: pprof
+              containerPort: 6060
+            {{- end }}
+            {{- if .Values.keel.service.readme.enabled }}
+            - name: readme
+              containerPort: 9001
+            {{- end }}
+            {{- if .Values.keel.service.zap.enabled }}
+            - name: zap
+              containerPort: 9100
+            {{- end }}
+            {{- if .Values.keel.service.viper.enabled }}
+            - name: viper
+              containerPort: 9300
+            {{- end }}
             {{- range $key, $value := .Values.ports }}
             - name: {{ $key }}
               containerPort: {{ $value }}
@@ -78,6 +90,7 @@ spec:
             {{- end }}
           env:
             {{- include "keel.server.env.log" . | nindent 12 }}
+            {{- include "keel.server.env.keel" . | nindent 12 }}
             {{- include "keel.server.env.squadron" . | nindent 12 }}
             {{- include "keel.server.env.opentelemetry" . | nindent 12 }}
             {{- range $key, $value := .Values.env }}

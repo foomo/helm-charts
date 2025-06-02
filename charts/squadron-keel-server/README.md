@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.3](https://img.shields.io/badge/AppVersion-0.8.3-informational?style=flat-square)
+![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -95,6 +95,17 @@ Squadron Keel Server Chart
 | ingress.hosts | list | `[]` | List of hosts |
 | ingress.paths | list | `[]` | List of hosts |
 | ingress.tls | list | `[]` | TLS settings |
+
+### Keel
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| keel.service.healthz.enabled | bool | `true` | Enable service |
+| keel.service.pprof.enabled | bool | `false` | Enable service |
+| keel.service.prometheus.enabled | bool | `true` | Enable service |
+| keel.service.readme.enabled | bool | `false` | Enable service |
+| keel.service.viper.enabled | bool | `true` | Enable service |
+| keel.service.zap.enabled | bool | `true` | Enable service |
 
 ### Logging
 
