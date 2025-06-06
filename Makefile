@@ -1,9 +1,15 @@
 -include .makerc
 .DEFAULT_GOAL:=help
+PATH := bin:$(PATH)
 
 # --- Targets -----------------------------------------------------------------
 
 ## === Tasks ===
+
+.PHONY: ownbrew
+## Install dependencies
+ownbrew:
+	@ownbrew install
 
 .PHONY: check
 ## Lint, Schema & docs
@@ -42,6 +48,7 @@ schema:
 	helm-schema -n -c charts/gateway-crds
 	helm-schema -n -c charts/contentserver -k additionalProperties
 	helm-schema -n -c charts/squadron-server
+	helm-schema -n -c charts/squadron-cronjob
 	helm-schema -n -c charts/squadron-keel-server
 	helm-schema -n -c charts/squadron-keel-cronjob
 	helm-schema -n -c charts/squadron-nextjs-server

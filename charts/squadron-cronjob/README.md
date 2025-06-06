@@ -1,8 +1,8 @@
-# squadron-keel-cronjob
+# squadron-cronjob
 
-![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.3](https://img.shields.io/badge/AppVersion-0.6.3-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.3](https://img.shields.io/badge/AppVersion-0.2.3-informational?style=flat-square)
 
-Squadron Keel CronJob Chart
+Squadron CronJob Chart
 
 **Homepage:** <https://www.foomo.org>
 
@@ -11,6 +11,20 @@ Squadron Keel CronJob Chart
 * <https://github.com/foomo/helm-charts>
 
 ## Values
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| args | list | `[]` | Server container command args |
+| command | list | `[]` | Container command |
+| env | object | `{}` | Map of environment variables to add |
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+| schedule | string | `""` | Cron job schedule |
+| secretEnv | object | `{}` | Map of environment variables to add as a secret |
+| secretMounts | list | `[]` | List of existing secrets to be mounted |
+| secrets | object | `{}` | Map of secrets to be mounted |
+| timeZone | string | `"Europe/Berlin"` | Cron job time zone |
 
 ### CronJob
 
@@ -41,18 +55,6 @@ Squadron Keel CronJob Chart
 | cronjob.sidecarContainers | list | `[]` | Additional sidecar containers |
 | cronjob.startupProbe | object | `{}` | Startup probe settings |
 
-### General
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| env | object | `{}` | Map of environment variables to add |
-| revisionHistoryLimit | int | `10` | Number of revisions to keep |
-| schedule | string | `""` | Cron job schedule |
-| secretEnv | object | `{}` | Map of environment variables to add as a secret |
-| secretMounts | list | `[]` | List of existing secrets to be mounted |
-| secrets | object | `{}` | Map of secrets to be mounted |
-| timeZone | string | `"Europe/Berlin"` | Cron job time zone |
-
 ### Overrides
 
 | Key | Type | Default | Description |
@@ -71,14 +73,6 @@ Squadron Keel CronJob Chart
 | global.foomo.withDeprecatedSelectorLabels | bool | `false` | Enable for backward compatibility |
 | global.foomo.withDeprecatedSelectorLabelsV2 | bool | `false` | Enable for backward compatibility |
 
-### Graceful Shutdown
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| graceful.delaySeconds | int | `15` | Seconds to wait for kubernetes to deregister |
-| graceful.enabled | bool | `false` | Indicates wether graceful shutdown is enabled |
-| graceful.periodSeconds | int | `45` | Total seconds for the grace period |
-
 ### Image
 
 | Key | Type | Default | Description |
@@ -87,13 +81,6 @@ Squadron Keel CronJob Chart
 | image.pullSecrets | list | `[]` | Image pull secrets |
 | image.repository | string | `""` | Image repository |
 | image.tag | string | `""` | Image tag |
-
-### Logging
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| log.level | string | `"info"` | Log level |
-| log.mode | string | `"prod"` | Log mode |
 
 ### Network Policy
 
@@ -107,22 +94,6 @@ Squadron Keel CronJob Chart
 | networkPolicy.ingress.allowExternal | bool | `true` | Allow ingress through labels |
 | networkPolicy.ingress.enabled | bool | `true` | Specifies whether ingress should be enabled |
 | networkPolicy.rules | list | `[]` | List of rules to apply via labels |
-
-### OpenTelemetry
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| otel.enabled | bool | `false` | Indicates wether to enable it or not |
-| otel.gorm.enabled | bool | `true` | Indicates wether to enable it or not |
-| otel.gorm.sqlParametersDisabled | bool | `true` | Indicates wether to trace sql attributes |
-| otel.gotsrpc.enabled | bool | `true` | Indicates wether to enable it or not |
-| otel.gotsrpc.payloadAttributeDisabled | bool | `true` | Indicates wether to trace payload attributes |
-| otel.mongo.commandAttributeDisabled | bool | `true` | Indicates wether to trace command attributes |
-| otel.mongo.enabled | bool | `true` | Indicates wether to enable it or not |
-| otel.otlp | object | `{"endpoint":"alloy:4317","insecure":true}` | OTLP exporter settings |
-| otel.otlp.endpoint | string | `"alloy:4317"` | Enpoint uri |
-| otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
-| otel.ratio | int | `1` | Trace ratio |
 
 ### Persistence
 

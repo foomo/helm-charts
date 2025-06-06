@@ -124,7 +124,7 @@ cloudflared:
     # @schema
     # -- Image tag
     # @section -- Cloudflared settings
-    tag: '2025.4.0' # https://github.com/cloudflare/cloudflared/releases
+    tag: '2025.5.0' # https://github.com/cloudflare/cloudflared/releases
   # @schema
   # type: object
   # @schema

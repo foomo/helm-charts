@@ -1,16 +1,16 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "keel.cronjob.fullname" . }}
+  name: {{ include "squadron.cronjob.fullname" . }}
   labels:
-    {{- include "keel.cronjob.labels" . | nindent 4 }}
+    {{- include "squadron.cronjob.labels" . | nindent 4 }}
     {{- with .Values.cronjob.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- with .Values.cronjob.annotations }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
-  namespace: {{ include "keel.cronjob.namespace" . }}
+  namespace: {{ include "squadron.cronjob.namespace" . }}
 spec:
   timeZone: {{ .Values.timeZone }}
   schedule: "{{ .Values.schedule }}"
@@ -20,7 +20,7 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        {{- include "keel.cronjob.labels" . | nindent 8 }}
+        {{- include "squadron.cronjob.labels" . | nindent 8 }}
         {{- with .Values.cronjob.jobLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -32,18 +32,15 @@ spec:
       template:
         metadata:
           labels:
-            {{- include "keel.cronjob.labels" . | nindent 12 }}
-            {{- include "keel.cronjob.networkingLabels" . | nindent 12 }}
+            {{- include "squadron.cronjob.labels" . | nindent 12 }}
+            {{- include "squadron.cronjob.networkingLabels" . | nindent 12 }}
           {{- with .Values.cronjob.podAnnotations }}
           annotations: {{- toYaml . | nindent 12 }}
           {{- end }}
         spec:
           restartPolicy: {{ .Values.cronjob.restart }}
-          serviceAccountName: {{ include "keel.cronjob.serviceAccountName" . }}
+          serviceAccountName: {{ include "squadron.cronjob.serviceAccountName" . }}
           automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
-          {{- if .Values.graceful.enabled }}
-          terminationGracePeriodSeconds: {{ .Values.graceful.periodSeconds }}
-          {{- end }}
           {{- with .Values.image.pullSecrets }}
           imagePullSecrets: {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -61,10 +58,14 @@ spec:
             - name: cronjob
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- with .Values.command }}
+              command: {{ toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.args }}
+              args: {{ toYaml . | nindent 16 }}
+              {{- end }}
               env:
-                {{- include "keel.cronjob.env.log" . | nindent 16 }}
-                {{- include "keel.cronjob.env.squadron" . | nindent 16 }}
-                {{- include "keel.cronjob.env.opentelemetry" . | nindent 16 }}
+                {{- include "squadron.cronjob.env.squadron" . | nindent 16 }}
                 {{- range $key, $value := .Values.env }}
                 - name: {{ $key }}
                   value: {{ tpl $value $ | quote }}
@@ -75,14 +76,14 @@ spec:
               envFrom:
                 {{- with .Values.secretEnv }}
                 - secretRef:
-                    name: {{ include "keel.cronjob.fullname" $ }}-env
+                    name: {{ include "squadron.cronjob.fullname" $ }}-env
                 {{- end }}
                 {{- with .Values.cronjob.additionalEnvFrom }}
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
               volumeMounts:
                 {{- if .Values.persistence.enabled }}
-                - name: {{ include "keel.cronjob.fullname" . }}-data
+                - name: {{ include "squadron.cronjob.fullname" . }}-data
                   mountPath: {{ .Values.persistence.mountPath }}
                 {{- end }}
                 {{- if .Values.cronjob.securityContext.readOnlyRootFilesystem }}
@@ -93,7 +94,7 @@ spec:
                 {{- toYaml . | nindent 16 }}
                 {{- end }}
                 {{- range $key, $value := .Values.secrets }}
-                - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+                - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
                   readOnly: true
                   mountPath: /run/secrets/{{ $key }}
                 {{- end }}
@@ -117,12 +118,6 @@ spec:
               {{- with .Values.cronjob.securityContext }}
               securityContext: {{- toYaml . | nindent 16 }}
               {{- end }}
-              {{- if .Values.graceful.enabled }}
-              lifecycle:
-                preStop:
-                  exec:
-                    command: [ 'sh', '-c', 'sleep {{ .Values.graceful.delaySeconds }}' ]
-              {{- end }}
             {{- with .Values.cronjob.sidecarContainers }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -143,7 +138,7 @@ spec:
           topologySpreadConstraints:
             {{- $labelSelector := dict
               "labelSelector" (dict
-                "matchLabels" (fromYaml (include "keel.cronjob.selectorLabels" $))
+                "matchLabels" (fromYaml (include "squadron.cronjob.selectorLabels" $))
               )
             }}
             {{- range . }}
@@ -157,14 +152,14 @@ spec:
               emptyDir: {}
             {{- end }}
             {{- if .Values.persistence.enabled }}
-            - name: {{ include "keel.cronjob.fullname" . }}-data
+            - name: {{ include "squadron.cronjob.fullname" . }}-data
               persistentVolumeClaim:
-                claimName: {{ include "keel.cronjob.fullname" . }}-data
+                claimName: {{ include "squadron.cronjob.fullname" . }}-data
             {{- end }}
             {{- range $key, $value := .Values.secrets }}
-              - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+              - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
                 secret:
-                  secretName: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+                  secretName: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
             {{- end }}
             {{- range .Values.secretMounts }}
             - name: {{ . }}

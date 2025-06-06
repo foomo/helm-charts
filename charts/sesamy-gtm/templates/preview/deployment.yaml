@@ -5,9 +5,7 @@ metadata:
   labels: {{- include "sesamy.gtm.preview.labels" . | nindent 4 }}
   namespace: {{ include "sesamy.gtm.namespace" . }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.preview.replicaCount }}
-  {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
     type: {{ .Values.updateStrategy }}
@@ -37,30 +35,6 @@ spec:
       securityContext: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: gtm-preview-proxy
-          {{- with .Values.proxy.image }}
-          image: {{ .repository }}:{{ .tag }}
-          imagePullPolicy: {{ .pullPolicy }}
-          {{- end }}
-          ports:
-            - name: https
-              containerPort: 443
-          readinessProbe:
-            tcpSocket:
-              port: 443
-          livenessProbe:
-            tcpSocket:
-              port: 443
-          {{- with .Values.proxy.resources }}
-          resources: {{- toYaml . | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-            - name: gtm-preview-proxy-config
-              mountPath: /etc/nginx/conf.d
-              readOnly: true
-            - name: gtm-preview-proxy-certs
-              mountPath: /etc/nginx/ssl
-              readOnly: true
         - name: gtm-preview
           {{- with .Values.gtm.image }}
           image: "{{ .repository }}:{{ .tag }}"
@@ -101,6 +75,37 @@ spec:
           {{- with .Values.preview.extraVolumeMounts }}
           volumeMounts: {{- toYaml . | nindent 12 }}
           {{- end }}
+        - name: gtm-preview-proxy
+          {{- with .Values.proxy.image }}
+          image: {{ .repository }}:{{ .tag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          {{- with .Values.proxy.securityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: https
+              containerPort: 443
+          readinessProbe:
+            tcpSocket:
+              port: 443
+          livenessProbe:
+            tcpSocket:
+              port: 443
+          {{- with .Values.proxy.resources }}
+          resources: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            {{- if .Values.proxy.securityContext.readOnlyRootFilesystem }}
+            - name: gtm-preview-proxy-cache
+              mountPath: /var/cache/nginx
+            {{- end }}
+            - name: gtm-preview-proxy-config
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+            - name: gtm-preview-proxy-certs
+              mountPath: /etc/nginx/ssl
+              readOnly: true
       {{- if .Values.scheduling.enabled }}
       {{- with .Values.scheduling.priorityClass }}
       priorityClassName: {{ . }}
@@ -127,6 +132,10 @@ spec:
       {{- end }}
       {{- end }}
       volumes:
+        {{- if .Values.proxy.securityContext.readOnlyRootFilesystem }}
+        - name: gtm-preview-proxy-cache
+          emptyDir: {}
+        {{- end }}
         - name: gtm-preview-proxy-config
           configMap:
             name: {{ include "sesamy.gtm.proxy.fullname" . }}

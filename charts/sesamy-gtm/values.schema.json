@@ -247,7 +247,54 @@
         },
         "podSecurityContext": {
           "additionalProperties": true,
-          "description": "The SecurityContext for pods",
+          "description": "Pod Security context",
+          "properties": {
+            "fsGroup": {
+              "default": 1001,
+              "description": "File system group id",
+              "required": [],
+              "title": "fsGroup",
+              "type": "integer"
+            },
+            "runAsGroup": {
+              "default": 1001,
+              "description": "Run as group id",
+              "required": [],
+              "title": "runAsGroup",
+              "type": "integer"
+            },
+            "runAsNonRoot": {
+              "default": true,
+              "description": "Indicates wether to run as non root user",
+              "required": [],
+              "title": "runAsNonRoot",
+              "type": "boolean"
+            },
+            "runAsUser": {
+              "default": 1001,
+              "description": "Run as user id",
+              "required": [],
+              "title": "runAsUser",
+              "type": "integer"
+            },
+            "seccompProfile": {
+              "additionalProperties": true,
+              "description": "Restrict a Container's Syscalls with seccomp",
+              "properties": {
+                "type": {
+                  "default": "RuntimeDefault",
+                  "required": [],
+                  "title": "type",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "seccompProfile",
+              "type": "object"
+            }
+          },
           "required": [],
           "title": "podSecurityContext",
           "type": "object"
@@ -275,14 +322,55 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity Context",
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "capabilities": {
+              "additionalProperties": true,
+              "description": "Grant certain privileges to a process without granting all the privileges of the root user",
+              "properties": {
+                "drop": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [],
+                        "type": "string"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "drop",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "drop"
+              ],
+              "title": "capabilities",
+              "type": "object"
+            },
+            "readOnlyRootFilesystem": {
+              "default": true,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
           "required": [],
           "title": "securityContext",
           "type": "object"
         },
         "service": {
           "additionalProperties": false,
-          "description": "securityContext:\n  capabilities:\n    drop:\n      - ALL\n  readOnlyRootFilesystem: true\n  runAsNonRoot: true\n  runAsUser: 1000\nService settings",
+          "description": "Service settings",
           "properties": {
             "annotations": {
               "additionalProperties": true,
@@ -302,10 +390,10 @@
               "additionalProperties": true,
               "description": "Ports of the service",
               "properties": {
-                "ga4": {
+                "gtag": {
                   "default": 8080,
                   "required": [],
-                  "title": "ga4",
+                  "title": "gtag",
                   "type": "integer"
                 },
                 "mpv2": {
@@ -316,7 +404,7 @@
                 }
               },
               "required": [
-                "ga4",
+                "gtag",
                 "mpv2"
               ],
               "title": "ports",
@@ -423,7 +511,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2.4.0",
+              "default": "3.0.0",
               "description": "The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)",
               "required": [],
               "title": "tag",
@@ -977,6 +1065,25 @@
         "podSecurityContext": {
           "additionalProperties": true,
           "description": "The SecurityContext for pods",
+          "properties": {
+            "seccompProfile": {
+              "additionalProperties": true,
+              "description": "Restrict a Container's Syscalls with seccomp",
+              "properties": {
+                "type": {
+                  "default": "RuntimeDefault",
+                  "required": [],
+                  "title": "type",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "seccompProfile",
+              "type": "object"
+            }
+          },
           "required": [],
           "title": "podSecurityContext",
           "type": "object"
@@ -1031,14 +1138,55 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext:\n  fsGroup: 2000\nSecurity Context",
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "capabilities": {
+              "additionalProperties": true,
+              "description": "Grant certain privileges to a process without granting all the privileges of the root user",
+              "properties": {
+                "drop": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [],
+                        "type": "string"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "drop",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "drop"
+              ],
+              "title": "capabilities",
+              "type": "object"
+            },
+            "readOnlyRootFilesystem": {
+              "default": false,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
           "required": [],
           "title": "securityContext",
           "type": "object"
         },
         "service": {
           "additionalProperties": false,
-          "description": "securityContext:\n  capabilities:\n    drop:\n      - ALL\n  readOnlyRootFilesystem: true\n  runAsNonRoot: true\n  runAsUser: 1000\nService settings",
+          "description": "Service settings",
           "properties": {
             "annotations": {
               "additionalProperties": true,
@@ -1148,7 +1296,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.27.4-alpine",
+              "default": "1.27.5-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "required": [],
               "title": "tag",
@@ -1168,6 +1316,36 @@
           "description": "Resource request \u0026 limits",
           "required": [],
           "title": "resources",
+          "type": "object"
+        },
+        "securityContext": {
+          "additionalProperties": true,
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "capabilities": {
+              "additionalProperties": true,
+              "description": "Grant certain privileges to a process without granting all the privileges of the root user",
+              "required": [],
+              "title": "capabilities",
+              "type": "object"
+            },
+            "readOnlyRootFilesystem": {
+              "default": false,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "securityContext",
           "type": "object"
         },
         "tls": {
@@ -1198,22 +1376,6 @@
         "image"
       ],
       "title": "proxy",
-      "type": "object"
-    },
-    "rbac": {
-      "additionalProperties": false,
-      "description": "RBAC settings",
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Indicates wether scheduling is enabled or not",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        }
-      },
-      "required": [],
-      "title": "rbac",
       "type": "object"
     },
     "revisionHistoryLimit": {
@@ -1611,14 +1773,14 @@
           "type": "object"
         },
         "automount": {
-          "default": true,
+          "default": false,
           "description": "Automatically mount a ServiceAccount's API credentials?",
           "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
-          "default": true,
+          "default": false,
           "description": "Specifies whether a service account should be created",
           "required": [],
           "title": "create",
@@ -1849,6 +2011,25 @@
         "podSecurityContext": {
           "additionalProperties": true,
           "description": "The SecurityContext for pods",
+          "properties": {
+            "seccompProfile": {
+              "additionalProperties": true,
+              "description": "Restrict a Container's Syscalls with seccomp",
+              "properties": {
+                "type": {
+                  "default": "RuntimeDefault",
+                  "required": [],
+                  "title": "type",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "seccompProfile",
+              "type": "object"
+            }
+          },
           "required": [],
           "title": "podSecurityContext",
           "type": "object"
@@ -1903,14 +2084,55 @@
         },
         "securityContext": {
           "additionalProperties": true,
-          "description": "podSecurityContext\n  fsGroup: 2000\nSecurity Context",
+          "description": "Container Security context",
+          "properties": {
+            "allowPrivilegeEscalation": {
+              "default": false,
+              "description": "Controls whether a process can gain more privileges than its parent process",
+              "required": [],
+              "title": "allowPrivilegeEscalation",
+              "type": "boolean"
+            },
+            "capabilities": {
+              "additionalProperties": true,
+              "description": "Grant certain privileges to a process without granting all the privileges of the root user",
+              "properties": {
+                "drop": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [],
+                        "type": "string"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "drop",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "drop"
+              ],
+              "title": "capabilities",
+              "type": "object"
+            },
+            "readOnlyRootFilesystem": {
+              "default": true,
+              "description": "Mounts the container's root filesystem as read-only",
+              "required": [],
+              "title": "readOnlyRootFilesystem",
+              "type": "boolean"
+            }
+          },
           "required": [],
           "title": "securityContext",
           "type": "object"
         },
         "service": {
           "additionalProperties": false,
-          "description": "securityContext\n  capabilities:\n    drop:\n      - ALL\n  readOnlyRootFilesystem: true\n  runAsNonRoot: true\n  runAsUser: 1000\nService settings",
+          "description": "Service settings",
           "properties": {
             "annotations": {
               "additionalProperties": true,

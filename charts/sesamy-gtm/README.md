@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0](https://img.shields.io/badge/AppVersion-2.4.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.0.0](https://img.shields.io/badge/AppVersion-3.0.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -47,14 +47,20 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | collect.livenessProbe | object | `{}` | Liveness probe settings for pods |
 | collect.podAnnotations | object | `{}` | Annotations for pods |
 | collect.podLabels | object | `{}` | Labels for pods |
-| collect.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| collect.podSecurityContext.fsGroup | int | `1001` | File system group id |
+| collect.podSecurityContext.runAsGroup | int | `1001` | Run as group id |
+| collect.podSecurityContext.runAsNonRoot | bool | `true` | Indicates wether to run as non root user |
+| collect.podSecurityContext.runAsUser | int | `1001` | Run as user id |
+| collect.podSecurityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict a Container's Syscalls with seccomp |
 | collect.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | collect.replicaCount | int | `1` | Number of replicas |
 | collect.resources | object | `{}` | Resource request & limits |
-| collect.securityContext | object | `{}` | Security Context |
+| collect.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| collect.securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
+| collect.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | collect.service.annotations | object | `{}` | Annotations for the service |
 | collect.service.labels | object | `{}` | Labels for service |
-| collect.service.ports | object | `{"ga4":8080,"mpv2":8081}` | Ports of the service |
+| collect.service.ports | object | `{"gtag":8080,"mpv2":8081}` | Ports of the service |
 | collect.service.type | string | `"ClusterIP"` | Type of the service |
 | collect.startupProbe | object | `{}` | Startup probe settings for pods |
 
@@ -84,7 +90,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | gtm.googleCloudProject | Optional | `""` | Google Cloud project ID |
 | gtm.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | gtm.image.repository | string | `"gcr.io/cloud-tagging-10302018/gtm-cloud-image"` | The image repository |
-| gtm.image.tag | string | `"2.4.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
+| gtm.image.tag | string | `"3.0.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
 
 ### Ingress
 
@@ -127,11 +133,13 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | preview.livenessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
 | preview.podAnnotations | object | `{}` | Annotations for pods |
 | preview.podLabels | object | `{}` | Labels for pods |
-| preview.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| preview.podSecurityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict a Container's Syscalls with seccomp |
 | preview.readinessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Readiness probe settings for pods |
 | preview.replicaCount | int | `1` | Number of replicas |
 | preview.resources | object | `{}` | Resource request & limits |
-| preview.securityContext | object | `{}` | Security Context |
+| preview.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| preview.securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
+| preview.securityContext.readOnlyRootFilesystem | bool | `false` | Mounts the container's root filesystem as read-only |
 | preview.service.annotations | object | `{}` | Annotations for the service |
 | preview.service.labels | object | `{}` | Labels for service |
 | preview.service.port | int | `8080` | Port of the service |
@@ -145,16 +153,13 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | proxy.config | string | `"server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.tagging.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n"` | Nginx SSL Reverse Proxy config |
 | proxy.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | proxy.image.repository | string | `"nginx"` | The image repository |
-| proxy.image.tag | string | `"1.27.4-alpine"` | The image [tag](https://hub.docker.com/_/nginx) |
+| proxy.image.tag | string | `"1.27.5-alpine"` | The image [tag](https://hub.docker.com/_/nginx) |
 | proxy.resources | object | `{}` | Resource request & limits |
+| proxy.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| proxy.securityContext.capabilities | object | `{}` | Grant certain privileges to a process without granting all the privileges of the root user |
+| proxy.securityContext.readOnlyRootFilesystem | bool | `false` | Mounts the container's root filesystem as read-only |
 | proxy.tls.crt | string | `""` | Base64 encoded TLS cert |
 | proxy.tls.key | string | `""` | Base64 encoded TLS key |
-
-### RBAC settings
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| rbac.enabled | bool | `false` | Indicates wether scheduling is enabled or not |
 
 ### General
 
@@ -187,8 +192,8 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
-| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
+| serviceAccount.automount | bool | `false` | Automatically mount a ServiceAccount's API credentials? |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use |
 
 ### Service Monitor
@@ -218,11 +223,13 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | tagging.livenessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Liveness probe settings for pods |
 | tagging.podAnnotations | object | `{}` | Pod annotations |
 | tagging.podLabels | object | `{}` | Labels for pods |
-| tagging.podSecurityContext | object | `{}` | The SecurityContext for pods |
+| tagging.podSecurityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict a Container's Syscalls with seccomp |
 | tagging.readinessProbe | object | `{"httpGet":{"path":"/healthz","port":"http"}}` | Readiness probe settings for pods |
 | tagging.replicaCount | int | `1` | Number of replicas |
 | tagging.resources | object | `{}` | Resource request & limits |
-| tagging.securityContext | object | `{}` | Security Context |
+| tagging.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| tagging.securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
+| tagging.securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | tagging.service.annotations | object | `{}` | Annotations for the service |
 | tagging.service.appProtocol | string | `nil` | Set appProtocol for the service |
 | tagging.service.clusterIP | string | `nil` | ClusterIP of the gateway service |

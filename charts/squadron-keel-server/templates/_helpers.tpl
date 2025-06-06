@@ -118,6 +118,25 @@ Keel standard envs
 {{- end }}
 
 {{/*
+Foomo keel envs
+{{- include "keel.server.env.keel" . | nindent 12 }}
+*/}}
+{{- define "keel.server.env.keel" }}
+- name: SERVICE_HEALTHZ_ENABLED
+  value: "{{ .Values.keel.service.pprof.enabled }}"
+- name: SERVICE_PPROF_ENABLED
+  value: "{{ .Values.keel.service.pprof.enabled }}"
+- name: SERVICE_VIPER_ENABLED
+  value: "{{ .Values.keel.service.viper.enabled }}"
+- name: SERVICE_ZAP_ENABLED
+  value: "{{ .Values.keel.service.zap.enabled }}"
+- name: SERVICE_README_ENABLED
+  value: "{{ .Values.keel.service.readme.enabled }}"
+- name: SERVICE_PROMETHEUS_ENABLED
+  value: "{{ .Values.keel.service.prometheus.enabled }}"
+{{- end }}
+
+{{/*
 Squadron standard envs
 {{- include "keel.server.env.squadron" . | nindent 12 }}
 */}}

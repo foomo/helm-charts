@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/foomo/ownbrew/v0.1.1/ownbrew.schema.json
+version: '1.1'
+
+binDir: "bin"
+tapDir: ".ownbrew/tap"
+tempDir: ".ownbrew/tmp"
+cellarDir: ".ownbrew/bin"
+packages:
+  # https://github.com/dadav/helm-schema/releases
+  - name: helm-schema
+    tap: foomo/tap/dadav/helm-schema
+    version: 0.18.1

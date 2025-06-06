@@ -445,8 +445,9 @@ service:
 
 # @schema
 # type: object
+# additionalProperties: true
 # @schema
-# Security context
+# Pod Security context
 securityContext:
   # @schema
   # type: integer
@@ -472,6 +473,13 @@ securityContext:
   # -- Indicates wether to run as non root user
   # @section -- Security Context
   runAsNonRoot: true
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # -- Restrict a Container's Syscalls with seccomp
+  # @section -- Security Context
+  seccompProfile: { type: RuntimeDefault }
 
 # @schema
 # type: object
@@ -631,6 +639,31 @@ server:
   # -- Selector labels override
   # @section -- Server
   selectorLabelsOverride: null
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # Container Security context
+  securityContext:
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Controls whether a process can gain more privileges than its parent process
+    # @section -- Server
+    allowPrivilegeEscalation: false
+    # @schema
+    # type: boolean
+    # @schema
+    # -- Mounts the container's root filesystem as read-only
+    # @section -- Server
+    readOnlyRootFilesystem: true
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Grant certain privileges to a process without granting all the privileges of the root user
+    # @section -- Server
+    capabilities: { drop: [ ALL ] }
 
 # @schema
 # type: object
@@ -710,13 +743,13 @@ serviceAccount:
   # @schema
   # -- Specifies whether a service account should be created
   # @section -- Service Account
-  create: true
+  create: false
   # @schema
   # type: boolean
   # @schema
   # -- Automatically mount a ServiceAccount's API credentials?
   # @section -- Service Account
-  automount: true
+  automount: false
   # @schema
   # type: object
   # additionalProperties: true
