@@ -111,6 +111,13 @@
           "title": "addToRobots",
           "type": "string"
         },
+        "apiVersion": {
+          "default": "foomo.org/v1",
+          "description": "api version",
+          "required": [],
+          "title": "apiVersion",
+          "type": "string"
+        },
         "enabled": {
           "default": false,
           "description": "Indicates wether the gateway is enabled or not",
