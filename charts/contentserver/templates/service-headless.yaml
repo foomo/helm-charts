@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "contentserver.fullname" . }}-headless
+  labels:
+    variant: headless
+    {{- include "contentserver.labels" . | nindent 4 }}
+    {{- with .Values.service.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  namespace: {{ include "contentserver.namespace" . }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector: {{- include "contentserver.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: prometheus
+      port: 9200
+      targetPort: 9200
+    - name: http
+      port: 8080
+      targetPort: 8080
