@@ -43,10 +43,14 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "keel.cronjob.labels" }}
-helm.sh/chart: {{ include "keel.cronjob.chart" . }}
+{{- if .Values.cronjob.labelsOverride }}
+{{ tpl (trim .Values.cronjob.labelsOverride) . }}
+{{- else }}
 {{ include "keel.cronjob.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Values.image.tag | quote }}
+{{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+helm.sh/chart: {{ include "keel.cronjob.chart" . }}
 {{- end }}
 
 {{/*

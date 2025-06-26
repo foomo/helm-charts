@@ -428,6 +428,12 @@ cronjob:
   # @schema
   # type: [string, null]
   # @schema
+  # -- Labels override
+  # @section -- Server
+  labelsOverride: null
+  # @schema
+  # type: [string, null]
+  # @schema
   # -- Selector labels override
   # @section -- CronJob
   selectorLabelsOverride: null

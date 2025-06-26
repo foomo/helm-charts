@@ -731,6 +731,12 @@ server:
   # @schema
   # type: [string, null]
   # @schema
+  # -- Labels override
+  # @section -- Server
+  labelsOverride: null
+  # @schema
+  # type: [string, null]
+  # @schema
   # -- Selector labels override
   # @section -- Server
   selectorLabelsOverride: null

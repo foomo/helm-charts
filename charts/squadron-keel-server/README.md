@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.1](https://img.shields.io/badge/AppVersion-0.9.1-informational?style=flat-square)
+![Version: 0.9.2](https://img.shields.io/badge/Version-0.9.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.2](https://img.shields.io/badge/AppVersion-0.9.2-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -202,6 +202,7 @@ Squadron Keel Server Chart
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
 | server.initContainers | list | `[]` | Additional init containers |
+| server.labelsOverride | string | `nil` | Labels override |
 | server.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":"healthz"}}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.podLabels | object | `{}` | Pod labels |

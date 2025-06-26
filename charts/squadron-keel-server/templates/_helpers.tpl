@@ -43,8 +43,12 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "keel.server.labels" }}
+{{- if .Values.server.labelsOverride }}
+{{ tpl (trim .Values.server.labelsOverride) . }}
+{{- else }}
 {{ include "keel.server.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Values.image.tag | quote }}
+{{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "keel.server.chart" . }}
 {{- end }}

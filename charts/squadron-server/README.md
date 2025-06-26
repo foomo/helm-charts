@@ -1,6 +1,6 @@
 # squadron-server
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.2](https://img.shields.io/badge/AppVersion-0.6.2-informational?style=flat-square)
+![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.3](https://img.shields.io/badge/AppVersion-0.6.3-informational?style=flat-square)
 
 Squadron General Server Chart
 
@@ -151,6 +151,7 @@ Squadron General Server Chart
 | server.annotations | object | `{}` | Deployment annotations |
 | server.hostAliases | list | `[]` | Host aliases |
 | server.initContainers | list | `[]` | Additional init containers |
+| server.labelsOverride | string | `nil` | Labels override |
 | server.livenessProbe | object | `{}` | Liveness probe settings |
 | server.podAnnotations | object | `{}` | Pod annotations |
 | server.podLabels | object | `{}` | Pod labels |
