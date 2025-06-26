@@ -1,6 +1,6 @@
 # squadron-cronjob
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.3](https://img.shields.io/badge/AppVersion-0.2.3-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.4](https://img.shields.io/badge/AppVersion-0.2.4-informational?style=flat-square)
 
 Squadron CronJob Chart
 
@@ -54,6 +54,12 @@ Squadron CronJob Chart
 | cronjob.selectorLabelsOverride | string | `nil` | Selector labels override |
 | cronjob.sidecarContainers | list | `[]` | Additional sidecar containers |
 | cronjob.startupProbe | object | `{}` | Startup probe settings |
+
+### Server
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cronjob.labelsOverride | string | `nil` | Labels override |
 
 ### Overrides
 

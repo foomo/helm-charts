@@ -1213,6 +1213,16 @@
           "title": "initContainers",
           "type": "array"
         },
+        "labelsOverride": {
+          "default": "null",
+          "description": "Labels override",
+          "required": [],
+          "title": "labelsOverride",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "livenessProbe": {
           "additionalProperties": true,
           "description": "Liveness probe settings",
