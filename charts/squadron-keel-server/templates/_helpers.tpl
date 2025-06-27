@@ -127,7 +127,7 @@ Foomo keel envs
 */}}
 {{- define "keel.server.env.keel" }}
 - name: SERVICE_HEALTHZ_ENABLED
-  value: "{{ .Values.keel.service.pprof.enabled }}"
+  value: "{{ .Values.keel.service.healthz.enabled }}"
 - name: SERVICE_PPROF_ENABLED
   value: "{{ .Values.keel.service.pprof.enabled }}"
 - name: SERVICE_VIPER_ENABLED
