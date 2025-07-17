@@ -23,8 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "squadron.server.labels" . | nindent 8 }}
-        {{- include "squadron.server.networkingLabels" . | nindent 8 }}
+        {{- include "squadron.server.podLabels" . | nindent 8 }}
         {{- with .Values.server.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

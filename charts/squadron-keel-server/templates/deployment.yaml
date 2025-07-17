@@ -23,8 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "keel.server.labels" . | nindent 8 }}
-        {{- include "keel.server.networkingLabels" . | nindent 8 }}
+        {{- include "keel.server.podLabels" . | nindent 8 }}
         {{- with .Values.server.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

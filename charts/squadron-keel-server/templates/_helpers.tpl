@@ -54,6 +54,18 @@ helm.sh/chart: {{ include "keel.server.chart" . }}
 {{- end }}
 
 {{/*
+Pod labels
+*/}}
+{{- define "keel.server.podLabels" }}
+{{- if .Values.server.selectorLabelsOverride }}
+{{ tpl (trim .Values.server.selectorLabelsOverride) . }}
+{{- else }}
+{{ include "keel.server.labels" . }}
+{{ include "keel.server.networkingLabels" . }}
+{{- end }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "keel.server.selectorLabels" }}
@@ -69,6 +81,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/name: {{ .Release.Name }}
 {{- end }}
 {{- end }}
+
 
 {{/*
 Networking labels
