@@ -54,6 +54,18 @@ helm.sh/chart: {{ include "nextjs.server.chart" . }}
 {{- end }}
 
 {{/*
+Pod labels
+*/}}
+{{- define "nextjs.server.podLabels" }}
+{{- if .Values.server.selectorLabelsOverride }}
+{{ tpl (trim .Values.server.selectorLabelsOverride) . }}
+{{- else }}
+{{ include "nextjs.server.labels" . }}
+{{ include "nextjs.server.networkingLabels" . }}
+{{- end }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{ define "nextjs.server.selectorLabels" -}}

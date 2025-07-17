@@ -54,6 +54,18 @@ helm.sh/chart: {{ include "squadron.server.chart" . }}
 {{- end }}
 
 {{/*
+Pod labels
+*/}}
+{{- define "squadron.server.podLabels" }}
+{{- if .Values.server.selectorLabelsOverride }}
+{{ tpl (trim .Values.server.selectorLabelsOverride) . }}
+{{- else }}
+{{ include "squadron.server.labels" . }}
+{{ include "squadron.server.networkingLabels" . }}
+{{- end }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{ define "squadron.server.selectorLabels" -}}

@@ -54,6 +54,18 @@ helm.sh/chart: {{ include "squadron.cronjob.chart" . }}
 {{- end }}
 
 {{/*
+Pod labels
+*/}}
+{{- define "squadron.cronjob.podLabels" }}
+{{- if .Values.cronjob.selectorLabelsOverride }}
+{{ tpl (trim .Values.cronjob.selectorLabelsOverride) . }}
+{{- else }}
+{{ include "squadron.cronjob.labels" . }}
+{{ include "squadron.cronjob.networkingLabels" . }}
+{{- end }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "squadron.cronjob.selectorLabels" }}

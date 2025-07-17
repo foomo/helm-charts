@@ -32,8 +32,7 @@ spec:
       template:
         metadata:
           labels:
-            {{- include "keel.cronjob.labels" . | nindent 12 }}
-            {{- include "keel.cronjob.networkingLabels" . | nindent 12 }}
+            {{- include "keel.cronjob.podLabels" . | nindent 12 }}
           {{- with .Values.cronjob.podAnnotations }}
           annotations: {{- toYaml . | nindent 12 }}
           {{- end }}
