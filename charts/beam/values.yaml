@@ -589,13 +589,13 @@ pinniped:
     # additionalProperties: true
     # @schema
     # -- Security parameters.
-    # @section -- Repository settings
+    # @section -- Global settings
     security:
       # @schema
       # type: boolean
       # @schema
       # -- Enable concierge
-      # @section -- Pinniped settings
+      # @section -- Global settings
       allowInsecureImages: false
   # @schema
   # type: object

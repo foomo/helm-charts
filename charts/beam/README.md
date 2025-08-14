@@ -206,16 +206,21 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | pinniped.concierge.teams | object | `{}` | ClusterRoleBinding to create in the cluster for teams (groups) |
 | pinniped.concierge.users | object | `{}` | ClusterRoleBinding to create in the cluster for users |
 | pinniped.enabled | bool | `false` | Enable pinniped |
-| pinniped.global.security.allowInsecureImages | bool | `false` | Enable concierge |
 | pinniped.supervisor.enabled | bool | `false` | Enable supervisor |
 | pinniped.supervisor.federationDomains | object | `{}` | Federation Domains to create in the supervisor cluster |
 | pinniped.supervisor.githubProviders | object | `{}` | GitHub Providers to create in the supervisor cluster |
+
+### Global settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| pinniped.global.security | object | `{"allowInsecureImages":false}` | Security parameters. |
+| pinniped.global.security.allowInsecureImages | bool | `false` | Enable concierge |
 
 ### Repository settings
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| pinniped.global.security | object | `{"allowInsecureImages":false}` | Security parameters. |
 | pinniped.image.repository | string | `"bitnami/pinniped"` | Repository to use. |
 
 ### General
