@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.5.7](https://img.shields.io/badge/Version-0.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.7](https://img.shields.io/badge/AppVersion-0.5.7-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.0](https://img.shields.io/badge/AppVersion-0.6.0-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -107,7 +107,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.4.20 |
+| oci://registry-1.docker.io/bitnamicharts | pinniped(pinniped) | 2.4.23 |
 
 ## Values
 
@@ -136,7 +136,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflared.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflared.image.pullSecrets | list | `[]` | Image pull secrets |
 | cloudflared.image.repository | string | `"cloudflare/cloudflared"` | Image repository |
-| cloudflared.image.tag | string | `"2025.7.0"` | Image tag |
+| cloudflared.image.tag | string | `"2025.8.0"` | Image tag |
 | cloudflared.ingress | list | `[]` | Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress)) |
 | cloudflared.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/ready","port":2000},"initialDelaySeconds":10,"periodSeconds":10}` | Liveness probe settings for pods. |
 | cloudflared.podAnnotations | object | `{}` | Annotations for pods |
@@ -181,7 +181,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflaredSplitter.extraVolumeMounts | list | `[]` | Volume mounts to add |
 | cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflaredSplitter.image.repository | string | `"nginx"` | Image repository |
-| cloudflaredSplitter.image.tag | string | `"1.29.0"` | Image tag |
+| cloudflaredSplitter.image.tag | string | `"1.29.1"` | Image tag |
 | cloudflaredSplitter.livenessProbe | object | `{}` | Liveness probe settings for pods |
 | cloudflaredSplitter.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |
@@ -206,9 +206,17 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | pinniped.concierge.teams | object | `{}` | ClusterRoleBinding to create in the cluster for teams (groups) |
 | pinniped.concierge.users | object | `{}` | ClusterRoleBinding to create in the cluster for users |
 | pinniped.enabled | bool | `false` | Enable pinniped |
+| pinniped.global.security.allowInsecureImages | bool | `false` | Enable concierge |
 | pinniped.supervisor.enabled | bool | `false` | Enable supervisor |
 | pinniped.supervisor.federationDomains | object | `{}` | Federation Domains to create in the supervisor cluster |
 | pinniped.supervisor.githubProviders | object | `{}` | GitHub Providers to create in the supervisor cluster |
+
+### Repository settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| pinniped.global.security | object | `{"allowInsecureImages":false}` | Security parameters. |
+| pinniped.image.repository | string | `"bitnami/pinniped"` | Repository to use. |
 
 ### General
 
