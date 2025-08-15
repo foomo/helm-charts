@@ -204,7 +204,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2025.7.0",
+              "default": "2025.8.0",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -691,7 +691,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.29.0",
+              "default": "1.29.1",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -826,6 +826,47 @@
           "required": [],
           "title": "enabled",
           "type": "boolean"
+        },
+        "global": {
+          "additionalProperties": true,
+          "description": "Bitnami pinniped global settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L15))",
+          "properties": {
+            "security": {
+              "additionalProperties": true,
+              "description": "Security parameters.",
+              "properties": {
+                "allowInsecureImages": {
+                  "default": false,
+                  "description": "Enable concierge",
+                  "required": [],
+                  "title": "allowInsecureImages",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "security",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "global",
+          "type": "object"
+        },
+        "image": {
+          "additionalProperties": true,
+          "description": "Bitnami pinniped image settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L74))",
+          "properties": {
+            "repository": {
+              "default": "bitnami/pinniped",
+              "description": "Repository to use.",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "image",
+          "type": "object"
         },
         "supervisor": {
           "additionalProperties": true,

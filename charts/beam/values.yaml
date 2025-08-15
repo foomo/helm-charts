@@ -124,7 +124,7 @@ cloudflared:
     # @schema
     # -- Image tag
     # @section -- Cloudflared settings
-    tag: '2025.7.0' # https://github.com/cloudflare/cloudflared/releases
+    tag: '2025.8.0' # https://github.com/cloudflare/cloudflared/releases
   # @schema
   # type: object
   # @schema
@@ -481,7 +481,7 @@ cloudflaredSplitter:
     # @schema
     # -- Image tag
     # @section -- Cloudflared Splitter settings
-    tag: '1.29.0' # https://github.com/nginx/nginx/releases
+    tag: '1.29.1' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # additionalProperties: true
@@ -578,6 +578,37 @@ pinniped:
   # -- Enable pinniped
   # @section -- Pinniped settings
   enabled: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # Bitnami pinniped global settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L15))
+  global:
+    # @schema
+    # type: object
+    # additionalProperties: true
+    # @schema
+    # -- Security parameters.
+    # @section -- Global settings
+    security:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable concierge
+      # @section -- Global settings
+      allowInsecureImages: false
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
+  # Bitnami pinniped image settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L74))
+  image:
+    # @schema
+    # type: string
+    # @schema
+    # -- Repository to use.
+    # @section -- Repository settings
+    repository: 'bitnami/pinniped'
   # @schema
   # type: object
   # additionalProperties: true
