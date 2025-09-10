@@ -108,7 +108,7 @@ gtm:
     # @schema
     # -- The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)
     # @section -- Google Tag Manager
-    tag: "3.0.0"
+    tag: "3.2.0"
 
 # @schema
 # type: object
@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.27.5-alpine'
+    tag: '1.29.1-alpine'
   # @schema
   # type: object
   # @schema
@@ -947,6 +947,14 @@ ingress:
   # -- Annotations
   # @section -- Ingress
   annotations: {}
+  # annotations
+  #   nginx.ingress.kubernetes.io/configuration-snippet: |
+  #     if ($request_uri ~ ^/gtm\.js\?(.+)$) {
+  #       more_set_headers "Cache-Control: private, max-age=900, must-revalidate";
+  #     }
+  #     if ($request_uri ~ ^/gtag\/js\?(.+)$) {
+  #       more_set_headers "Cache-Control: private, max-age=900, must-revalidate";
+  #     }
   # @schema
   # type: object
   # additionalProperties: true
@@ -962,7 +970,7 @@ ingress:
       - path: /gtm.js
         pathType: ImplementationSpecific
         port: 8080
-      - path: /_set_cookie
+      - path: /_/set_cookie
         pathType: ImplementationSpecific
         port: 8080
       - path: /gtag/js
