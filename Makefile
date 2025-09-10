@@ -4,7 +4,7 @@ PATH := bin:$(PATH)
 
 # --- Targets -----------------------------------------------------------------
 
-## === Tasks ===
+### Tasks
 
 .PHONY: ownbrew
 ## Install dependencies
@@ -16,8 +16,7 @@ ownbrew:
 check: lint docs
 
 .PHONY: lint
-## Lint Helm charts
-## https://github.com/helm/chart-testing
+## Lint Helm charts (https://github.com/helm/chart-testing)
 lint: schema
 	@echo "--- lint ------------------------------------------"
 	@set -e; for dir in ./charts/* ; do \
@@ -25,8 +24,7 @@ lint: schema
 	done
 
 .PHONY: docs
-## Generate README
-## https://github.com/norwoodj/helm-docs
+## Generate README (https://github.com/norwoodj/helm-docs)
 docs:
 	@echo "--- docs ------------------------------------------"
 	@set -e; for dir in ./charts/* ; do \
@@ -34,8 +32,7 @@ docs:
 	done
 
 .PHONY: schema
-## Generate values JSON schema
-## https://github.com/knechtionscoding/helm-schema-gen
+## Generate values JSON schema (https://github.com/knechtionscoding/helm-schema-gen)
 schema: PWD=$(pwd)
 schema:
 	@echo "--- schema ---------------------------------------"
@@ -57,7 +54,7 @@ schema:
 	#	helm-schema -n -c $${dir} ;\
 	#done
 
-## === K3d ===
+### K3d
 
 export KUBECONFIG=$(shell pwd)/tmp/kubeconfig.yaml
 
@@ -80,37 +77,22 @@ k3d.up:
 k3d.down:
 	@k3d cluster delete ${NAME}
 
-## === Utils ===
+### Utils
 
 .PHONY: help
 ## Show help text
 help:
+	@echo "\033[1;36mSquadron Helm Charts\033[0m"
 	@awk '{ \
-		if ($$0 ~ /^.PHONY: [a-zA-Z\-\_0-9]+$$/) { \
-			helpCommand = substr($$0, index($$0, ":") + 2); \
-			if (helpMessage) { \
-				printf "\033[36m%-23s\033[0m %s\n", \
-					helpCommand, helpMessage; \
-				helpMessage = ""; \
-			} \
-		} else if ($$0 ~ /^[a-zA-Z\-\_0-9.]+:/) { \
-			helpCommand = substr($$0, 0, index($$0, ":")); \
-			if (helpMessage) { \
-				printf "\033[36m%-23s\033[0m %s\n", \
-					helpCommand, helpMessage"\n"; \
-				helpMessage = ""; \
-			} \
-		} else if ($$0 ~ /^##/) { \
-			if (helpMessage) { \
-				helpMessage = helpMessage"\n                        "substr($$0, 3); \
-			} else { \
-				helpMessage = substr($$0, 3); \
-			} \
-		} else { \
-			if (helpMessage) { \
-				print "\n                        "helpMessage"\n" \
-			} \
-			helpMessage = ""; \
+		if($$0 ~ /^### /){ \
+			if(help) printf "\033[36m%-23s\033[0m %s\n\n", cmd, help; help=""; \
+			printf "\n\033[1;36m%s\033[0m:\n", substr($$0,5); \
+		} else if($$0 ~ /^[a-zA-Z0-9._-]+:/){ \
+			cmd = substr($$0, 1, index($$0, ":")-1); \
+			if(help) printf "  \033[36m%-23s\033[0m %s\n", cmd, help; help=""; \
+		} else if($$0 ~ /^##/){ \
+			help = help ? help "\n                        " substr($$0,3) : substr($$0,3); \
+		} else if(help){ \
+			print "\n                        " help "\n"; help=""; \
 		} \
-	}' \
-	$(MAKEFILE_LIST)
+	}' $(MAKEFILE_LIST)

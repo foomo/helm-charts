@@ -511,7 +511,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "3.0.0",
+              "default": "3.2.0",
               "description": "The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)",
               "required": [],
               "title": "tag",
@@ -569,7 +569,7 @@
         },
         "paths": {
           "additionalProperties": true,
-          "description": "Path settings",
+          "description": "annotations\n  nginx.ingress.kubernetes.io/configuration-snippet: |\n    if ($request_uri ~ ^/gtm\\.js\\?(.+)$) {\n      more_set_headers \"Cache-Control: private, max-age=900, must-revalidate\";\n    }\n    if ($request_uri ~ ^/gtag\\/js\\?(.+)$) {\n      more_set_headers \"Cache-Control: private, max-age=900, must-revalidate\";\n    }\nPath settings",
           "properties": {
             "preview": {
               "items": {
@@ -646,7 +646,7 @@
                     "additionalProperties": false,
                     "properties": {
                       "path": {
-                        "default": "/_set_cookie",
+                        "default": "/_/set_cookie",
                         "required": [],
                         "title": "path",
                         "type": "string"
@@ -1296,7 +1296,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.27.5-alpine",
+              "default": "1.29.1-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "required": [],
               "title": "tag",
