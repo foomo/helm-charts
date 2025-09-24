@@ -1,15 +1,35 @@
 -include .makerc
 .DEFAULT_GOAL:=help
-PATH := bin:$(PATH)
+
+# --- Config -----------------------------------------------------------------
+
+# Newline hack for error output
+define br
+
+
+endef
 
 # --- Targets -----------------------------------------------------------------
 
-### Tasks
+# This allows us to accept extra arguments
+%: .mise .husky
+	@:
 
-.PHONY: ownbrew
-## Install dependencies
-ownbrew:
-	@ownbrew install
+.PHONY: .mise
+# Install dependencies
+.mise: msg := $(br)$(br)Please ensure you have 'mise' installed and activated!$(br)$(br)$$ brew update$(br)$$ brew install mise$(br)$(br)See the documentation: https://mise.jdx.dev/getting-started.html$(br)$(br)
+.mise:
+ifeq (, $(shell command -v mise))
+	$(error ${msg})
+endif
+	@mise install
+
+.PHONY: .husky
+# Configure git hooks for husky
+.husky:
+	@git config core.hooksPath .husky
+
+### Tasks
 
 .PHONY: check
 ## Lint, Schema & docs
@@ -31,28 +51,26 @@ docs:
 		docker run --rm --volume "$$(pwd)/$${dir}:/helm-docs/$${dir}" jnorwood/helm-docs:v1.14.2 --template-files "$${dir}/README.md.gotmpl"  ;\
 	done
 
+# (https://github.com/knechtionscoding/helm-schema-gen)
 .PHONY: schema
-## Generate values JSON schema (https://github.com/knechtionscoding/helm-schema-gen)
+## Generate values JSON schema
 schema: PWD=$(pwd)
 schema:
 	@echo "--- schema ---------------------------------------"
-	helm-schema -n -c charts/beam
-	helm-schema -n -c charts/backups
-	helm-schema -n -c charts/blank -k additionalProperties
-	helm-schema -n -c charts/namespace
-	helm-schema -n -c charts/sesamy-gtm
-	helm-schema -n -c charts/sesamy-umami
-	helm-schema -n -c charts/gateway-crds
-	helm-schema -n -c charts/contentserver -k additionalProperties
-	helm-schema -n -c charts/squadron-server
-	helm-schema -n -c charts/squadron-cronjob
-	helm-schema -n -c charts/squadron-keel-server
-	helm-schema -n -c charts/squadron-keel-cronjob
-	helm-schema -n -c charts/squadron-nextjs-server
-	helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
-	#@set -e; for dir in ./charts/* ; do \
-	#	helm-schema -n -c $${dir} ;\
-	#done
+	@helm-schema -n -c charts/beam
+	@helm-schema -n -c charts/backups
+	@helm-schema -n -c charts/blank -k additionalProperties
+	@helm-schema -n -c charts/namespace
+	@helm-schema -n -c charts/sesamy-gtm
+	@helm-schema -n -c charts/sesamy-umami
+	@helm-schema -n -c charts/gateway-crds
+	@helm-schema -n -c charts/contentserver -k additionalProperties
+	@helm-schema -n -c charts/squadron-server
+	@helm-schema -n -c charts/squadron-cronjob
+	@helm-schema -n -c charts/squadron-keel-server
+	@helm-schema -n -c charts/squadron-keel-cronjob
+	@helm-schema -n -c charts/squadron-nextjs-server
+	@helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
 
 ### K3d
 
@@ -82,14 +100,15 @@ k3d.down:
 .PHONY: help
 ## Show help text
 help:
-	@echo "\033[1;36mSquadron Helm Charts\033[0m"
+	@echo "Squadron Helm Charts\n"
+	@echo "Usage:\n  make [task]"
 	@awk '{ \
 		if($$0 ~ /^### /){ \
-			if(help) printf "\033[36m%-23s\033[0m %s\n\n", cmd, help; help=""; \
-			printf "\n\033[1;36m%s\033[0m:\n", substr($$0,5); \
+			if(help) printf "%-23s %s\n\n", cmd, help; help=""; \
+			printf "\n%s:\n", substr($$0,5); \
 		} else if($$0 ~ /^[a-zA-Z0-9._-]+:/){ \
 			cmd = substr($$0, 1, index($$0, ":")-1); \
-			if(help) printf "  \033[36m%-23s\033[0m %s\n", cmd, help; help=""; \
+			if(help) printf "  %-23s %s\n", cmd, help; help=""; \
 		} else if($$0 ~ /^##/){ \
 			help = help ? help "\n                        " substr($$0,3) : substr($$0,3); \
 		} else if(help){ \

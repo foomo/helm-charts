@@ -13,16 +13,14 @@ concurrency:
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-go@v5
-
-      - name: Install helm-schema
-        run: go install github.com/dadav/helm-schema/cmd/helm-schema@latest
+      - uses: jdx/mise-action@v3
 
       - uses: azure/setup-helm@v4
 
@@ -31,8 +29,7 @@ jobs:
           helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
 
       - name: Run Helm lint
-        run: |
-          make lint
+        run: make lint
 
       - name: Run Helm docs
         run: |
