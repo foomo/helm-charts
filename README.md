@@ -1,7 +1,7 @@
 # Foomo Helm Charts
 
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/foomo)](https://artifacthub.io/packages/search?repo=foomo)
-![Build Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/main.yml?branch=main&logo=github&label=Build%20Status)
+![Build Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/test.yaml?branch=main&logo=github&label=Build%20Status)
 
 ## Usage
 
