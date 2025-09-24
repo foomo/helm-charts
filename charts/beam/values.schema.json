@@ -204,7 +204,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2025.8.0",
+              "default": "2025.9.1",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -857,7 +857,7 @@
           "description": "Bitnami pinniped image settings ([read more](https://github.com/bitnami/charts/blob/main/bitnami/pinniped/values.yaml#L74))",
           "properties": {
             "repository": {
-              "default": "bitnami/pinniped",
+              "default": "bitnamilegacy/pinniped",
               "description": "Repository to use.",
               "required": [],
               "title": "repository",
