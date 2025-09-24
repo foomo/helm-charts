@@ -23,6 +23,6 @@ dependencies:
     version: 2.4.23
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: pinniped.enabled
-version: 0.6.0
-appVersion: 0.6.0
+version: 0.6.1
+appVersion: 0.6.1
 
