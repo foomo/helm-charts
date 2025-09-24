@@ -51,6 +51,36 @@ entries:
         - name: Pinniped Chart Source
           url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
     apiVersion: v2
+    appVersion: 0.6.1
+    created: "2025-09-24T07:05:59.712224066Z"
+    dependencies:
+    - alias: pinniped
+      condition: pinniped.enabled
+      name: pinniped
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.4.23
+    description: Secure infrastructure access
+    digest: e583a4816e70d9b0fbed0f2f3ccd2fe510dff8fb6a6647447dcef4a4ce7c0e17
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - pinniped
+    - cloudflared
+    name: beam
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/beam-0.6.1/beam-0.6.1.tgz
+    version: 0.6.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-chartstree/main/charts/beam
+        - name: Pinniped Chart Source
+          url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
+    apiVersion: v2
     appVersion: 0.6.0
     created: "2025-08-15T13:29:14.421979255Z"
     dependencies:
@@ -4323,4 +4353,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-10T06:52:38.533994827Z"
+generated: "2025-09-24T07:05:59.712564855Z"
