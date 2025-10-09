@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.8.2](https://img.shields.io/badge/Version-0.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.2](https://img.shields.io/badge/AppVersion-0.8.2-informational?style=flat-square)
+![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.3](https://img.shields.io/badge/AppVersion-0.8.3-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -100,6 +100,7 @@ Squadron NextJS Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| log.disableCaller | bool | `false` | Log caller |
 | log.level | string | `"info"` | Log level |
 | log.mode | string | `"prod"` | Log mode |
 
@@ -127,9 +128,15 @@ Squadron NextJS Server Chart
 | otel.gotsrpc.payloadAttributeDisabled | bool | `true` | Indicates wether to trace payload attributes |
 | otel.mongo.commandAttributeDisabled | bool | `true` | Indicates wether to trace command attributes |
 | otel.mongo.enabled | bool | `true` | Indicates wether to enable it or not |
-| otel.otlp | object | `{"endpoint":"alloy:4317","insecure":true}` | OTLP exporter settings |
-| otel.otlp.endpoint | string | `"alloy:4317"` | Enpoint uri |
+| otel.otlp | object | `{"endpoint":"http://alloy:4317","insecure":true}` | OTLP exporter settings |
+| otel.otlp.endpoint | string | `"http://alloy:4317"` | Enpoint uri |
 | otel.otlp.insecure | bool | `true` | Indicates wether to use insecure connection |
+| otel.profile | object | `{"block":{"enabled":false},"endpoint":"http://pyroscope:4040","mutex":{"enabled":false}}` | OTLP profile settings |
+| otel.profile.block | object | `{"enabled":false}` | OTLP profile block settings |
+| otel.profile.block.enabled | bool | `false` | Indicates wether to enable it or not |
+| otel.profile.endpoint | string | `"http://pyroscope:4040"` | Enpoint uri |
+| otel.profile.mutex | object | `{"enabled":false}` | OTLP profile mutex settings |
+| otel.profile.mutex.enabled | bool | `false` | Indicates wether to enable it or not |
 | otel.ratio | int | `1` | Trace ratio |
 
 ### Persistence
