@@ -158,6 +158,12 @@ log:
   # -- Log level
   # @section -- Logging
   level: info
+  # @schema
+  # type: boolean
+  # @schema
+  # -- Log caller
+  # @section -- Logging
+  disableCaller: false
 
 # @schema
 # type: object
@@ -193,7 +199,43 @@ otel:
     # @schema
     # -- Enpoint uri
     # @section -- OpenTelemetry
-    endpoint: 'alloy:4317'
+    endpoint: 'http://alloy:4317'
+  # @schema
+  # type: object
+  # @schema
+  # -- OTLP profile settings
+  # @section -- OpenTelemetry
+  profile:
+    # @schema
+    # type: string
+    # @schema
+    # -- Enpoint uri
+    # @section -- OpenTelemetry
+    endpoint: 'http://pyroscope:4040'
+    # @schema
+    # type: object
+    # @schema
+    # -- OTLP profile block settings
+    # @section -- OpenTelemetry
+    block:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Indicates wether to enable it or not
+      # @section -- OpenTelemetry
+      enabled: false
+    # @schema
+    # type: object
+    # @schema
+    # -- OTLP profile mutex settings
+    # @section -- OpenTelemetry
+    mutex:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Indicates wether to enable it or not
+      # @section -- OpenTelemetry
+      enabled: false
   # @schema
   # type: object
   # @schema

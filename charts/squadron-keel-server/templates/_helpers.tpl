@@ -126,9 +126,9 @@ Keel standard envs
   value: "{{ .Values.log.mode }}"
 - name: LOG_LEVEL
   value: "{{ .Values.log.level }}"
-{{- if eq .Values.log.mode "dev" }}
 - name: LOG_DISABLE_CALLER
-  value: "false"
+  value: "{{ .Values.log.disableCaller }}"
+{{- if eq .Values.log.mode "dev" }}
 - name: LOG_DISABLE_STACKTRACE
   value: "true"
 {{- end }}
@@ -181,6 +181,8 @@ OpenTelemetry standard envs
   value: "{{ .Values.otel.enabled }}"
 - name: OTEL_SERVICE_NAME
   value: {{ .Release.Name | quote }}
+- name: OTEL_SERVICE_NAMESPACE
+  value: {{ .Release.Namespace | quote }}
 - name: OTEL_TRACE_RATIO
   value: "{{ .Values.otel.ratio }}"
 - name: OTEL_GORM_ENABLED
@@ -199,6 +201,12 @@ OpenTelemetry standard envs
   value: "{{ .Values.otel.otlp.insecure }}"
 - name: OTEL_EXPORTER_OTLP_ENDPOINT
   value: "{{ .Values.otel.otlp.endpoint }}"
+- name: OTEL_PROFILE_BLOCK_ENABLED
+  value: "{{ index .Values "otel" "profile" "block" "enabled" }}"
+- name: OTEL_PROFILE_MUTEX_ENABLED
+  value: "{{ .Values.otel.profile.mutex.enabled }}"
+- name: PYROSCOPE_ADHOC_SERVER_ADDRESS
+  value: "{{ .Values.otel.profile.endpoint }}"
 {{- end }}
 
 {{/*

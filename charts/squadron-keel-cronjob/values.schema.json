@@ -439,6 +439,13 @@
       "additionalProperties": false,
       "description": "Log settings",
       "properties": {
+        "disableCaller": {
+          "default": false,
+          "description": "Log caller",
+          "required": [],
+          "title": "disableCaller",
+          "type": "boolean"
+        },
         "level": {
           "default": "info",
           "description": "Log level",
@@ -658,7 +665,7 @@
           "description": "OTLP exporter settings",
           "properties": {
             "endpoint": {
-              "default": "alloy:4317",
+              "default": "http://alloy:4317",
               "description": "Enpoint uri",
               "required": [],
               "title": "endpoint",
@@ -674,6 +681,54 @@
           },
           "required": [],
           "title": "otlp",
+          "type": "object"
+        },
+        "profile": {
+          "additionalProperties": false,
+          "description": "OTLP profile settings",
+          "properties": {
+            "block": {
+              "additionalProperties": false,
+              "description": "OTLP profile block settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Indicates wether to enable it or not",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "block",
+              "type": "object"
+            },
+            "endpoint": {
+              "default": "http://pyroscope:4040",
+              "description": "Enpoint uri",
+              "required": [],
+              "title": "endpoint",
+              "type": "string"
+            },
+            "mutex": {
+              "additionalProperties": false,
+              "description": "OTLP profile mutex settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Indicates wether to enable it or not",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "mutex",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "profile",
           "type": "object"
         },
         "ratio": {
