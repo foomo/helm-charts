@@ -73,7 +73,7 @@ proxy:
     # @schema
     # -- Image tag
     # @section -- Proxy
-    tag: '1.25-alpine'
+    tag: '1.29.2-alpine' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # @schema
@@ -322,7 +322,7 @@ umami:
     # @schema
     # -- The image tag
     # @section -- Umami
-    tag: postgresql-v2.15.1
+    tag: postgresql-v2.19.0 # https://github.com/umami-software/umami/releases
   # @schema
   # type: integer
   # @schema
