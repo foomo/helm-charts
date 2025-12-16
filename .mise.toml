@@ -1,3 +1,6 @@
 [tools]
 # https://github.com/dadav/helm-schema/releases
 "github:dadav/helm-schema" = "0.18.1"
+# https://github.com/helm/helm/releases
+"github:helm/helm" = "3.19.4"
+"github:knechtionscoding/helm-schema-gen" = "0.0.10"
