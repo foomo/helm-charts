@@ -108,7 +108,7 @@ gtm:
     # @schema
     # -- The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)
     # @section -- Google Tag Manager
-    tag: "3.2.0"
+    tag: "4.0.0"
 
 # @schema
 # type: object
@@ -166,7 +166,7 @@ proxy:
     # @schema
     # -- The image [tag](https://hub.docker.com/_/nginx)
     # @section -- HTTPS Proxy
-    tag: '1.29.1-alpine'
+    tag: '1.29.4-alpine'
   # @schema
   # type: object
   # @schema
