@@ -21,6 +21,9 @@ jobs:
 
       - uses: jdx/mise-action@v3
 
+      - name: Install dependencies
+        run: make deps
+
       - name: Run Helm lint
         run: make lint
 

@@ -3,5 +3,3 @@
 helm = "4.0.2"
 # https://github.com/dadav/helm-schema/releases
 "github:dadav/helm-schema" = "0.18.1"
-# https://github.com/KnechtionsCoding/helm-schema-gen/releases
-"github:knechtionscoding/helm-schema-gen" = "0.0.10"

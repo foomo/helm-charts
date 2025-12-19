@@ -97,6 +97,11 @@ k3d.down:
 
 ### Utils
 
+.PHONY: deps
+## Install helm plugins
+deps:
+	@helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
+
 .PHONY: help
 ## Show help text
 help:
