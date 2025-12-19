@@ -1,3 +1,5 @@
 [tools]
+# https://github.com/helm/helm/releases
+helm = "4.0.2"
 # https://github.com/dadav/helm-schema/releases
 "github:dadav/helm-schema" = "0.18.1"
