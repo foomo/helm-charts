@@ -15,17 +15,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - uses: jdx/mise-action@v3
 
-      - uses: azure/setup-helm@v4
-
-      - name: Run Helm plugin install
-        run: |
-          helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
+      - name: Install dependencies
+        run: make deps
 
       - name: Run Helm lint
         run: make lint
