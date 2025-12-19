@@ -256,7 +256,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.29.2-alpine",
+              "default": "1.29.4-alpine",
               "description": "Image tag",
               "required": [],
               "title": "tag",
@@ -973,7 +973,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "postgresql-v2.19.0",
+              "default": "postgresql-v2.20.2",
               "description": "The image tag",
               "required": [],
               "title": "tag",
