@@ -122,7 +122,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/amazon/aws-cli/tags
     # @section -- Upload
-    image: amazon/aws-cli:2.32.20
+    image: amazon/aws-cli:2.33.15
     # @schema
     # type: string
     # @schema
@@ -164,7 +164,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/google/cloud-sdk/tags
     # @section -- Upload
-    image: google/cloud-sdk:519.0.0
+    image: google/cloud-sdk:555.0.0
     # @schema
     # type: string
     # @schema
@@ -188,7 +188,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/microsoft/azure-cli
     # @section -- Upload
-    image: mcr.microsoft.com/azure-cli:2.71.0
+    image: mcr.microsoft.com/azure-cli:2.83.0
     # @schema
     # type: string
     # @schema
@@ -238,8 +238,9 @@ dump:
     # type: string
     # @schema
     # -- Contentful image
+    # https://hub.docker.com/r/foomo/contentful-cli/tags
     # @section -- Contentful
-    image: "foomo/contentful-cli:v3.8.5"
+    image: "foomo/contentful-cli:v3.10.2"
     # @schema
     # type: string
     # @schema
