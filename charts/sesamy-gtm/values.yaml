@@ -108,7 +108,7 @@ gtm:
     # @schema
     # -- The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)
     # @section -- Google Tag Manager
-    tag: "4.0.0"
+    tag: "4.1.0"
 
 # @schema
 # type: object
