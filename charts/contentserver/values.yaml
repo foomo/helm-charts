@@ -239,7 +239,7 @@ contentserver:
     # @schema
     # -- Image tag
     # @section -- Content Server
-    tag: 1.12.1
+    tag: 1.18.1
   # @schema
   # type: object
   # additionalProperties: true
