@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.0](https://img.shields.io/badge/AppVersion-4.0.0-informational?style=flat-square)
+![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.0](https://img.shields.io/badge/AppVersion-4.1.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -90,7 +90,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | gtm.googleCloudProject | Optional | `""` | Google Cloud project ID |
 | gtm.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | gtm.image.repository | string | `"gcr.io/cloud-tagging-10302018/gtm-cloud-image"` | The image repository |
-| gtm.image.tag | string | `"4.0.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
+| gtm.image.tag | string | `"4.1.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
 
 ### Ingress
 
