@@ -511,7 +511,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "4.0.0",
+              "default": "4.1.0",
               "description": "The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)",
               "required": [],
               "title": "tag",
