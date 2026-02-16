@@ -141,7 +141,7 @@ PGPORT: {{ .Values.dump.postgres.port }}
 {{- if eq .Values.dump.type "contentful" }}
 - "/bin/sh"
 - "-c"
-- "/usr/local/bin/contentful space export --use-verbose-renderer --management-token=\"$TOKEN\" --space-id=\"$SPACE_ID\" --export-dir=/backup --max-allowed-limit=100 --download-assets"
+- "/usr/local/bin/contentful space export --use-verbose-renderer --management-token=\"$TOKEN\" --space-id=\"$SPACE_ID\" --export-dir=/backup --max-allowed-limit=100 --download-assets --include-archived --include-drafts"
 {{- else if eq .Values.dump.type "postgres" }}
 - "/bin/sh"
 - "-c"

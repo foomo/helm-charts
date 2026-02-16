@@ -96,7 +96,7 @@
           "description": "Contentful settings",
           "properties": {
             "image": {
-              "default": "foomo/contentful-cli:v3.8.5",
+              "default": "foomo/contentful-cli:v3.10.2",
               "description": "Contentful image",
               "required": [],
               "title": "image",
@@ -358,7 +358,7 @@
               "type": "string"
             },
             "image": {
-              "default": "mcr.microsoft.com/azure-cli:2.71.0",
+              "default": "mcr.microsoft.com/azure-cli:2.83.0",
               "description": "Upload image name\nhttps://hub.docker.com/r/microsoft/azure-cli",
               "required": [],
               "title": "image",
@@ -449,7 +449,7 @@
               "type": "string"
             },
             "image": {
-              "default": "amazon/aws-cli:2.27.2",
+              "default": "amazon/aws-cli:2.30.7",
               "description": "Upload image name\nhttps://hub.docker.com/r/amazon/aws-cli/tags",
               "required": [],
               "title": "image",

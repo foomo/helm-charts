@@ -1,6 +1,6 @@
 # backups
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.2](https://img.shields.io/badge/AppVersion-0.1.2-informational?style=flat-square)
 
 Helm chart for backing things up.
 
@@ -31,7 +31,7 @@ Helm chart for backing things up.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| dump.contentful.image | string | `"foomo/contentful-cli:v3.8.5"` | Contentful image |
+| dump.contentful.image | string | `"foomo/contentful-cli:v3.10.2"` | Contentful image |
 | dump.contentful.password | string | `""` | Contentful password |
 | dump.contentful.spaceId | string | `""` | Contentful space id |
 
@@ -84,7 +84,7 @@ Helm chart for backing things up.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | upload.azure.containerName | string | `""` | Container name |
-| upload.azure.image | string | `"mcr.microsoft.com/azure-cli:2.71.0"` | Upload image name https://hub.docker.com/r/microsoft/azure-cli |
+| upload.azure.image | string | `"mcr.microsoft.com/azure-cli:2.83.0"` | Upload image name https://hub.docker.com/r/microsoft/azure-cli |
 | upload.azure.prefix | string | `""` | Bucket prefix |
 | upload.azure.storageAccount | string | `""` | Storage Account name |
 | upload.gcs.bucket | string | `""` | Bucket name |
@@ -94,7 +94,7 @@ Helm chart for backing things up.
 | upload.s3.accessKey | string | `""` | Bucket access key |
 | upload.s3.bucket | string | `""` | Bucket name |
 | upload.s3.endpoint | string | `""` | Bucket endpoint |
-| upload.s3.image | string | `"amazon/aws-cli:2.27.2"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
+| upload.s3.image | string | `"amazon/aws-cli:2.30.7"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
 | upload.s3.prefix | string | `""` | Bucket prefix |
 | upload.s3.secretAccessKey | string | `""` | Bucket secret access key |
 | upload.type | string | `"s3"` | Storage type |
