@@ -144,6 +144,12 @@ upload:
     # @schema
     # type: string
     # @schema
+    # -- Bucket region
+    # @section -- Upload
+    region: ""
+    # @schema
+    # type: string
+    # @schema
     # -- Bucket access key
     # @section -- Upload
     accessKey: ""
@@ -177,6 +183,12 @@ upload:
     # -- Bucket prefix
     # @section -- Upload
     prefix: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- GCP Project ID
+    # @section -- Upload
+    projectId: ""
   # @schema
   # type: object
   # @schema
@@ -207,6 +219,18 @@ upload:
     # -- Bucket prefix
     # @section -- Upload
     prefix: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Azure Tenant ID
+    # @section -- Upload
+    tenantId: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- Azure Client ID
+    # @section -- Upload
+    clientId: ""
   # TODO do:
   #  image: digitalocean/doctl:1.150.0
   #  bucket: bucket
@@ -218,7 +242,7 @@ upload:
 # Postgres settings
 dump:
   # @schema
-  # enum: [postgres, contentful]
+  # enum: [postgres, contentful, mongodb]
   # @schema
   # -- Storage type
   # @section -- Dump
@@ -252,6 +276,47 @@ dump:
     # -- Contentful space id
     # @section -- Contentful
     spaceId: ""
+  # @schema
+  # type: object
+  # @schema
+  # MongoDB settings
+  mongodb:
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB image
+    # @section -- MongoDB
+    image: mongo:8.2.5
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB host
+    # @section -- MongoDB
+    host: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB port
+    # @section -- MongoDB
+    port: "27017"
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB user name
+    # @section -- MongoDB
+    user: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB password
+    # @section -- MongoDB
+    password: ""
+    # @schema
+    # type: string
+    # @schema
+    # -- MongoDB instance name
+    # @section -- MongoDB
+    name: instance-name
   # @schema
   # type: object
   # @schema
