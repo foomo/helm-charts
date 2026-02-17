@@ -97,7 +97,7 @@
           "properties": {
             "image": {
               "default": "foomo/contentful-cli:v3.10.2",
-              "description": "Contentful image",
+              "description": "Contentful image\nhttps://hub.docker.com/r/foomo/contentful-cli/tags",
               "required": [],
               "title": "image",
               "type": "string"
@@ -461,7 +461,7 @@
               "type": "string"
             },
             "image": {
-              "default": "google/cloud-sdk:519.0.0",
+              "default": "google/cloud-sdk:555.0.0",
               "description": "Upload image name\nhttps://hub.docker.com/r/google/cloud-sdk/tags",
               "required": [],
               "title": "image",
@@ -522,7 +522,7 @@
               "type": "string"
             },
             "image": {
-              "default": "amazon/aws-cli:2.30.7",
+              "default": "amazon/aws-cli:2.33.15",
               "description": "Upload image name\nhttps://hub.docker.com/r/amazon/aws-cli/tags",
               "required": [],
               "title": "image",

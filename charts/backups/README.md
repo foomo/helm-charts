@@ -31,7 +31,7 @@ Helm chart for backing things up.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| dump.contentful.image | string | `"foomo/contentful-cli:v3.10.2"` | Contentful image |
+| dump.contentful.image | string | `"foomo/contentful-cli:v3.10.2"` | Contentful image https://hub.docker.com/r/foomo/contentful-cli/tags |
 | dump.contentful.password | string | `""` | Contentful password |
 | dump.contentful.spaceId | string | `""` | Contentful space id |
 
@@ -101,14 +101,14 @@ Helm chart for backing things up.
 | upload.azure.storageAccount | string | `""` | Storage Account name |
 | upload.azure.tenantId | string | `""` | Azure Tenant ID |
 | upload.gcs.bucket | string | `""` | Bucket name |
-| upload.gcs.image | string | `"google/cloud-sdk:519.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
+| upload.gcs.image | string | `"google/cloud-sdk:555.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
 | upload.gcs.prefix | string | `""` | Bucket prefix |
 | upload.gcs.projectId | string | `""` | GCP Project ID |
 | upload.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | upload.s3.accessKey | string | `""` | Bucket access key |
 | upload.s3.bucket | string | `""` | Bucket name |
 | upload.s3.endpoint | string | `""` | Bucket endpoint |
-| upload.s3.image | string | `"amazon/aws-cli:2.30.7"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
+| upload.s3.image | string | `"amazon/aws-cli:2.33.15"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
 | upload.s3.prefix | string | `""` | Bucket prefix |
 | upload.s3.region | string | `""` | Bucket region |
 | upload.s3.secretAccessKey | string | `""` | Bucket secret access key |

@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.2](https://img.shields.io/badge/AppVersion-0.6.2-informational?style=flat-square)
+![Version: 0.6.4](https://img.shields.io/badge/Version-0.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.4](https://img.shields.io/badge/AppVersion-0.6.4-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -136,7 +136,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflared.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflared.image.pullSecrets | list | `[]` | Image pull secrets |
 | cloudflared.image.repository | string | `"cloudflare/cloudflared"` | Image repository |
-| cloudflared.image.tag | string | `"2025.10.0"` | Image tag |
+| cloudflared.image.tag | string | `"2026.1.2"` | Image tag |
 | cloudflared.ingress | list | `[]` | Define ingress rules for the tunnel ([read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress)) |
 | cloudflared.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/ready","port":2000},"initialDelaySeconds":10,"periodSeconds":10}` | Liveness probe settings for pods. |
 | cloudflared.podAnnotations | object | `{}` | Annotations for pods |
@@ -181,7 +181,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflaredSplitter.extraVolumeMounts | list | `[]` | Volume mounts to add |
 | cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflaredSplitter.image.repository | string | `"nginx"` | Image repository |
-| cloudflaredSplitter.image.tag | string | `"1.29.2"` | Image tag |
+| cloudflaredSplitter.image.tag | string | `"1.29.5"` | Image tag |
 | cloudflaredSplitter.livenessProbe | object | `{}` | Liveness probe settings for pods |
 | cloudflaredSplitter.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |

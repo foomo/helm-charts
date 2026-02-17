@@ -1,6 +1,6 @@
 # sesamy-gtm
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.0](https://img.shields.io/badge/AppVersion-4.0.0-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.0](https://img.shields.io/badge/AppVersion-4.2.0-informational?style=flat-square)
 
 Helm chart for the Sesamy GTM tagging & preview service.
 
@@ -90,7 +90,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | gtm.googleCloudProject | Optional | `""` | Google Cloud project ID |
 | gtm.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | gtm.image.repository | string | `"gcr.io/cloud-tagging-10302018/gtm-cloud-image"` | The image repository |
-| gtm.image.tag | string | `"4.0.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
+| gtm.image.tag | string | `"4.2.0"` | The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1) |
 
 ### Ingress
 
@@ -153,7 +153,7 @@ Helm chart for the Sesamy GTM tagging & preview service.
 | proxy.config | string | `"server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.tagging.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n"` | Nginx SSL Reverse Proxy config |
 | proxy.image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | proxy.image.repository | string | `"nginx"` | The image repository |
-| proxy.image.tag | string | `"1.29.4-alpine"` | The image [tag](https://hub.docker.com/_/nginx) |
+| proxy.image.tag | string | `"1.29.5-alpine"` | The image [tag](https://hub.docker.com/_/nginx) |
 | proxy.resources | object | `{}` | Resource request & limits |
 | proxy.securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
 | proxy.securityContext.capabilities | object | `{}` | Grant certain privileges to a process without granting all the privileges of the root user |
