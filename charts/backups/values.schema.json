@@ -150,6 +150,57 @@
           "title": "dump",
           "type": "object"
         },
+        "mongodb": {
+          "additionalProperties": false,
+          "description": "MongoDB settings",
+          "properties": {
+            "host": {
+              "default": "",
+              "description": "MongoDB host",
+              "required": [],
+              "title": "host",
+              "type": "string"
+            },
+            "image": {
+              "default": "mongo:8.2.5",
+              "description": "MongoDB image",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "instance-name",
+              "description": "MongoDB instance name",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "password": {
+              "default": "",
+              "description": "MongoDB password",
+              "required": [],
+              "title": "password",
+              "type": "string"
+            },
+            "port": {
+              "default": "27017",
+              "description": "MongoDB port",
+              "required": [],
+              "title": "port",
+              "type": "string"
+            },
+            "user": {
+              "default": "",
+              "description": "MongoDB user name",
+              "required": [],
+              "title": "user",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "mongodb",
+          "type": "object"
+        },
         "postgres": {
           "additionalProperties": false,
           "description": "Postgres settings",
@@ -229,7 +280,8 @@
           "description": "Storage type",
           "enum": [
             "postgres",
-            "contentful"
+            "contentful",
+            "mongodb"
           ],
           "required": [],
           "title": "type"
@@ -350,6 +402,13 @@
           "additionalProperties": false,
           "description": "Azure settings",
           "properties": {
+            "clientId": {
+              "default": "",
+              "description": "Azure Client ID",
+              "required": [],
+              "title": "clientId",
+              "type": "string"
+            },
             "containerName": {
               "default": "",
               "description": "Container name",
@@ -376,6 +435,13 @@
               "description": "Storage Account name",
               "required": [],
               "title": "storageAccount",
+              "type": "string"
+            },
+            "tenantId": {
+              "default": "",
+              "description": "Azure Tenant ID",
+              "required": [],
+              "title": "tenantId",
               "type": "string"
             }
           },
@@ -406,6 +472,13 @@
               "description": "Bucket prefix",
               "required": [],
               "title": "prefix",
+              "type": "string"
+            },
+            "projectId": {
+              "default": "",
+              "description": "GCP Project ID",
+              "required": [],
+              "title": "projectId",
               "type": "string"
             }
           },
@@ -460,6 +533,13 @@
               "description": "Bucket prefix",
               "required": [],
               "title": "prefix",
+              "type": "string"
+            },
+            "region": {
+              "default": "",
+              "description": "Bucket region",
+              "required": [],
+              "title": "region",
               "type": "string"
             },
             "secretAccessKey": {
