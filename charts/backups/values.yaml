@@ -231,6 +231,17 @@ upload:
     # -- Azure Client ID
     # @section -- Upload
     clientId: ""
+    # @schema
+    # type: object
+    # @schema
+    # Workload Identity settings
+    workloadIdentity:
+      # @schema
+      # type: boolean
+      # @schema
+      # -- Enable Azure Workload Identity
+      # @section -- Upload
+      enabled: false
   # TODO do:
   #  image: digitalocean/doctl:1.150.0
   #  bucket: bucket

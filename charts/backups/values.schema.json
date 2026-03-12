@@ -443,6 +443,22 @@
               "required": [],
               "title": "tenantId",
               "type": "string"
+            },
+            "workloadIdentity": {
+              "additionalProperties": false,
+              "description": "Workload Identity settings",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Enable Azure Workload Identity",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "workloadIdentity",
+              "type": "object"
             }
           },
           "required": [],

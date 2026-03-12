@@ -100,6 +100,7 @@ Helm chart for backing things up.
 | upload.azure.prefix | string | `""` | Bucket prefix |
 | upload.azure.storageAccount | string | `""` | Storage Account name |
 | upload.azure.tenantId | string | `""` | Azure Tenant ID |
+| upload.azure.workloadIdentity.enabled | bool | `false` | Enable Azure Workload Identity |
 | upload.gcs.bucket | string | `""` | Bucket name |
 | upload.gcs.image | string | `"google/cloud-sdk:555.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
 | upload.gcs.prefix | string | `""` | Bucket prefix |

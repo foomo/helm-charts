@@ -183,7 +183,7 @@ AZURE_CLIENT_ID: {{ .Values.upload.azure.clientId | quote }}
 {{- if eq .Values.dump.type "contentful" }}
 - "/bin/sh"
 - "-c"
-- "/usr/local/bin/contentful space export --use-verbose-renderer --management-token=\"$TOKEN\" --space-id=\"$SPACE_ID\" --export-dir=/backup/export --max-allowed-limit=100 --download-assets --include-archived --include-drafts && tar -czf /backup/{{ $instanceName }}-$(date \"+%Y-%m-%d\").gz -C /backup/export ."
+- "/usr/local/bin/contentful space export --use-verbose-renderer --management-token=\"$TOKEN\" --space-id=\"$SPACE_ID\" --export-dir=/tmp/export --max-allowed-limit=100 --download-assets --include-archived --include-drafts && tar -czf /backup/{{ $instanceName }}-$(date \"+%Y-%m-%d\").gz -C /tmp/export ."
 {{- else if eq .Values.dump.type "postgres" }}
 - "/bin/sh"
 - "-c"
@@ -217,9 +217,8 @@ AZURE_CLIENT_ID: {{ .Values.upload.azure.clientId | quote }}
 {{ else if eq .Values.upload.type "gcs" -}}
 - "gcloud storage cp /backup/{{ include "backups.dump.instanceName" . }}-$(date \"+%Y-%m-%d\").gz gs://{{ .Values.upload.gcs.bucket }}/{{ .Values.upload.gcs.prefix }}/{{ include "backups.dump.instanceName" . }}-$(date \"+%Y-%m-%d\").gz"
 {{ else if eq .Values.upload.type "azure" -}}
-{{- if and .Values.upload.azure.tenantId .Values.upload.azure.clientId }}
-- "az login --service-principal -u ${AZURE_CLIENT_ID} -t ${AZURE_TENANT_ID} --federated-token \"$(cat ${AZURE_FEDERATED_TOKEN_FILE})\" && \
-   az storage blob upload-batch --account-name {{ .Values.upload.azure.storageAccount }} -s /backup -d {{ .Values.upload.azure.containerName }}/{{ .Values.upload.azure.prefix }}-$(date \"+%Y-%m-%d\") --auth-mode login"
+{{- if or .Values.upload.azure.workloadIdentity.enabled (and .Values.upload.azure.tenantId .Values.upload.azure.clientId) }}
+- "az login --federated-token \"$(cat $AZURE_FEDERATED_TOKEN_FILE)\" --service-principal -u $AZURE_CLIENT_ID -t $AZURE_TENANT_ID; az storage blob upload-batch --account-name {{ .Values.upload.azure.storageAccount }} -s /backup -d {{ .Values.upload.azure.containerName }}/{{ .Values.upload.azure.prefix }}-$(date \"+%Y-%m-%d\") --auth-mode login"
 {{- else }}
 - "az storage blob upload-batch --account-name {{ .Values.upload.azure.storageAccount }} -s /backup -d {{ .Values.upload.azure.containerName }}/{{ .Values.upload.azure.prefix }}-$(date \"+%Y-%m-%d\")"
 {{- end }}
