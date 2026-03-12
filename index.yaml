@@ -6,6 +6,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts/main/charts/backups
     apiVersion: v2
+    appVersion: 0.2.0
+    created: "2026-03-12T07:34:36.778008317Z"
+    description: Helm chart for backing things up.
+    digest: c82485c37d25a705f4e4df52189215c2c4280fd4e827d6efce6ccde564bcfc73
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - backups
+    name: backups
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/backups-0.2.0/backups-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/main/charts/backups
+    apiVersion: v2
     appVersion: 0.1.2
     created: "2026-02-05T07:21:27.7449965Z"
     description: Helm chart for backing things up.
@@ -4677,4 +4698,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-05T07:21:27.745306096Z"
+generated: "2026-03-12T07:34:36.778329118Z"
