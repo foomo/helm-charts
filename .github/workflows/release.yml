@@ -13,14 +13,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: jdx/mise-action@v3
+      - uses: jdx/mise-action@v4
 
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
 
       - name: Install deps
         run: helm repo add grafana https://grafana.github.io/helm-charts
