@@ -481,7 +481,7 @@ cloudflaredSplitter:
     # @schema
     # -- Image tag
     # @section -- Cloudflared Splitter settings
-    tag: '1.29.6' # https://github.com/nginx/nginx/releases
+    tag: '1.29.8' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # additionalProperties: true

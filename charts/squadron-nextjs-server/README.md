@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.3](https://img.shields.io/badge/AppVersion-0.8.3-informational?style=flat-square)
+![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -30,6 +30,7 @@ Squadron NextJS Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| configMap | object | `{}` | Config map to be mounted |
 | env | object | `{}` | Map of environment variables to add |
 | replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |

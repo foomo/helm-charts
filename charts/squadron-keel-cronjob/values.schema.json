@@ -2,6 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
+    "configMap": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "secretMounts:\n  - my-secret\nConfig map to be mounted",
+      "required": [],
+      "title": "configMap",
+      "type": "object"
+    },
     "cronjob": {
       "additionalProperties": false,
       "description": "CronJob settings",

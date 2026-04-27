@@ -1,6 +1,6 @@
 # beam
 
-![Version: 0.6.5](https://img.shields.io/badge/Version-0.6.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.5](https://img.shields.io/badge/AppVersion-0.6.5-informational?style=flat-square)
+![Version: 0.6.6](https://img.shields.io/badge/Version-0.6.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.6](https://img.shields.io/badge/AppVersion-0.6.6-informational?style=flat-square)
 
 Secure infrastructure access
 
@@ -181,7 +181,7 @@ HTTPS_PROXY=socks5://127.0.0.1:1234 kubectl get namespaces --kubeconfig "beam-ku
 | cloudflaredSplitter.extraVolumeMounts | list | `[]` | Volume mounts to add |
 | cloudflaredSplitter.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | cloudflaredSplitter.image.repository | string | `"nginx"` | Image repository |
-| cloudflaredSplitter.image.tag | string | `"1.29.6"` | Image tag |
+| cloudflaredSplitter.image.tag | string | `"1.29.8"` | Image tag |
 | cloudflaredSplitter.livenessProbe | object | `{}` | Liveness probe settings for pods |
 | cloudflaredSplitter.readinessProbe | object | `{}` | Readiness probe settings for pods |
 | cloudflaredSplitter.resources | object | `{}` | Resource request & limits. |

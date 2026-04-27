@@ -1,0 +1,9 @@
+{{- if .Values.configMap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nextjs.server.fullname" . }}
+  labels: {{- include "nextjs.server.labels" . | nindent 4 }}
+  namespace: {{ include "nextjs.server.namespace" . }}
+data: {{- toYaml .Values.configMap  | nindent 2 }}
+{{- end }}
