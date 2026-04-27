@@ -131,6 +131,17 @@ secrets: { }
 secretMounts: []
 # secretMounts:
 #   - my-secret
+# @schema
+# type: object
+# additionalProperties:
+#   type: string
+# @schema
+# -- Config map to be mounted
+# @section -- General
+configMap: { }
+# configMap:
+#   app.yaml: |
+#     logLevel: debug
 
 # @schema
 # type: object

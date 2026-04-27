@@ -1296,7 +1296,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.29.5-alpine",
+              "default": "1.29.8-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "required": [],
               "title": "tag",

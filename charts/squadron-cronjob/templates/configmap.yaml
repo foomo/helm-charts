@@ -1,0 +1,9 @@
+{{- if .Values.configMap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "squadron.cronjob.fullname" . }}
+  labels: {{- include "squadron.cronjob.labels" . | nindent 4 }}
+  namespace: {{ include "squadron.cronjob.namespace" . }}
+data: {{- toYaml .Values.configMap  | nindent 2 }}
+{{- end }}

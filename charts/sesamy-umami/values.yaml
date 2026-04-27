@@ -73,7 +73,7 @@ proxy:
     # @schema
     # -- Image tag
     # @section -- Proxy
-    tag: '1.29.4-alpine' # https://github.com/nginx/nginx/releases
+    tag: '1.29.8-alpine' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # @schema

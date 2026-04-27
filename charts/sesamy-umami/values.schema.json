@@ -256,7 +256,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.29.4-alpine",
+              "default": "1.29.8-alpine",
               "description": "Image tag",
               "required": [],
               "title": "tag",

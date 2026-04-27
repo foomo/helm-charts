@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.9.5](https://img.shields.io/badge/Version-0.9.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.5](https://img.shields.io/badge/AppVersion-0.9.5-informational?style=flat-square)
+![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.10.0](https://img.shields.io/badge/AppVersion-0.10.0-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -30,6 +30,7 @@ Squadron Keel Server Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| configMap | object | `{}` | Config map to be mounted |
 | env | object | `{}` | Map of environment variables to add |
 | ports | object | `{}` | Map of ports to expose |
 | replicas | int | `1` | Number of replications |

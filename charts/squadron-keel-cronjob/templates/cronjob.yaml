@@ -7,9 +7,13 @@ metadata:
     {{- with .Values.cronjob.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
-  {{- with .Values.cronjob.annotations }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
+  annotations:
+    {{- with .Values.cronjob.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if .Values.configMap }}
+    checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum | trunc 7 }}
+    {{- end }}
   namespace: {{ include "keel.cronjob.namespace" . }}
 spec:
   timeZone: {{ .Values.timeZone }}
@@ -83,6 +87,11 @@ spec:
                 {{- if .Values.persistence.enabled }}
                 - name: {{ include "keel.cronjob.fullname" . }}-data
                   mountPath: {{ .Values.persistence.mountPath }}
+                {{- end }}
+                {{- if .Values.configMap }}
+                - name: {{ include "keel.cronjob.fullname" . }}-config
+                  readOnly: true
+                  mountPath: /etc/server/config
                 {{- end }}
                 {{- if .Values.cronjob.securityContext.readOnlyRootFilesystem }}
                 - name: tmp
@@ -159,6 +168,11 @@ spec:
             - name: {{ include "keel.cronjob.fullname" . }}-data
               persistentVolumeClaim:
                 claimName: {{ include "keel.cronjob.fullname" . }}-data
+            {{- end }}
+            {{- if .Values.configMap }}
+              - name: {{ include "keel.cronjob.fullname" . }}-config
+                configMap:
+                  name: {{ include "keel.cronjob.fullname" . }}
             {{- end }}
             {{- range $key, $value := .Values.secrets }}
               - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}

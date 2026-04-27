@@ -7,9 +7,13 @@ metadata:
     {{- with .Values.server.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
-  {{- with .Values.server.annotations }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
+  annotations:
+    {{- with .Values.server.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if .Values.configMap }}
+    checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum | trunc 7 }}
+    {{- end }}
   namespace: {{ include "squadron.server.namespace" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -92,6 +96,11 @@ spec:
             - name: {{ include "squadron.server.fullname" . }}-data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- end }}
+            {{- if .Values.configMap }}
+            - name: {{ include "squadron.server.fullname" . }}-config
+              readOnly: true
+              mountPath: /etc/server/config
+            {{- end }}
             {{- if .Values.server.securityContext.readOnlyRootFilesystem }}
             - name: tmp
               mountPath: /tmp
@@ -161,6 +170,11 @@ spec:
         - name: {{ include "squadron.server.fullname" . }}-data
           persistentVolumeClaim:
             claimName: {{ include "squadron.server.fullname" . }}-data
+        {{- end }}
+        {{- if .Values.configMap }}
+          - name: {{ include "squadron.server.fullname" . }}-config
+            configMap:
+              name: {{ include "squadron.server.fullname" . }}
         {{- end }}
         {{- range $key, $value := .Values.secrets }}
         - name: {{ include "squadron.server.fullname" $ }}-{{ $key }}

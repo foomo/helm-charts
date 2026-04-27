@@ -106,6 +106,15 @@
       "title": "command",
       "type": "array"
     },
+    "configMap": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "secretMounts:\n  - my-secret\nConfig map to be mounted",
+      "required": [],
+      "title": "configMap",
+      "type": "object"
+    },
     "env": {
       "additionalProperties": true,
       "description": "ports:\n  http: 8080\nMap of environment variables to add",

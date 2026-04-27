@@ -22,6 +22,15 @@
       "title": "command",
       "type": "array"
     },
+    "configMap": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "secretMounts:\n  - my-secret\nConfig map to be mounted",
+      "required": [],
+      "title": "configMap",
+      "type": "object"
+    },
     "cronjob": {
       "additionalProperties": false,
       "description": "CronJob settings",

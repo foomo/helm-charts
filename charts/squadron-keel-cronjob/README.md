@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.6.6](https://img.shields.io/badge/Version-0.6.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.6](https://img.shields.io/badge/AppVersion-0.6.6-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.0](https://img.shields.io/badge/AppVersion-0.7.0-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -11,6 +11,19 @@ Squadron Keel CronJob Chart
 * <https://github.com/foomo/helm-charts>
 
 ## Values
+
+### General
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| configMap | object | `{}` | Config map to be mounted |
+| env | object | `{}` | Map of environment variables to add |
+| revisionHistoryLimit | int | `10` | Number of revisions to keep |
+| schedule | string | `""` | Cron job schedule |
+| secretEnv | object | `{}` | Map of environment variables to add as a secret |
+| secretMounts | list | `[]` | List of existing secrets to be mounted |
+| secrets | object | `{}` | Map of secrets to be mounted |
+| timeZone | string | `"Europe/Berlin"` | Cron job time zone |
 
 ### CronJob
 
@@ -46,18 +59,6 @@ Squadron Keel CronJob Chart
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cronjob.labelsOverride | string | `nil` | Labels override |
-
-### General
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| env | object | `{}` | Map of environment variables to add |
-| revisionHistoryLimit | int | `10` | Number of revisions to keep |
-| schedule | string | `""` | Cron job schedule |
-| secretEnv | object | `{}` | Map of environment variables to add as a secret |
-| secretMounts | list | `[]` | List of existing secrets to be mounted |
-| secrets | object | `{}` | Map of secrets to be mounted |
-| timeZone | string | `"Europe/Berlin"` | Cron job time zone |
 
 ### Overrides
 
