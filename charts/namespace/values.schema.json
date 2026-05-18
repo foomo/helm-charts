@@ -40,6 +40,39 @@
       "title": "clusterRoles",
       "type": "object"
     },
+    "clusterSecretStores": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "conditions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "controller": {
+            "type": "string"
+          },
+          "labels": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "provider": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "Cluster Secret Stores to create (requires external-secrets.io/v1 CRD)",
+      "required": [],
+      "title": "clusterSecretStores",
+      "type": "object"
+    },
     "disableSuffix": {
       "default": false,
       "description": "Disable suffixes",
@@ -63,6 +96,98 @@
       "description": "tlsSecrets:\n  my-domain.com:\n    annotations:\n      replicator.v1.mittwald.de/replicate-to: \".*\"\n    data:\n      tls.crt: ''\n      tls.key: ''\nDocker config json secrets",
       "required": [],
       "title": "dockerSecrets",
+      "type": "object"
+    },
+    "externalSecrets": {
+      "additionalProperties": {
+        "properties": {
+          "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "data": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "dataFrom": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "labels": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "refreshInterval": {
+            "type": "string"
+          },
+          "refreshPolicy": {
+            "enum": [
+              "Periodic",
+              "CreatedOnce",
+              "OnChange"
+            ],
+            "type": "string"
+          },
+          "secretStoreRef": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "SecretStore",
+                  "ClusterSecretStore"
+                ],
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "kind"
+            ],
+            "type": "object"
+          },
+          "target": {
+            "properties": {
+              "creationPolicy": {
+                "enum": [
+                  "Owner",
+                  "Merge",
+                  "Orphan",
+                  "None"
+                ],
+                "type": "string"
+              },
+              "deletionPolicy": {
+                "enum": [
+                  "Retain",
+                  "Delete",
+                  "Merge"
+                ],
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "template": {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "description": "External Secrets to create (requires external-secrets.io/v1 CRD)",
+      "required": [],
+      "title": "externalSecrets",
       "type": "object"
     },
     "fullnameOverride": {
@@ -150,6 +275,10 @@
       "additionalProperties": {
         "properties": {
           "annotations": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "labels": {
             "additionalProperties": true,
             "type": "object"
           }
