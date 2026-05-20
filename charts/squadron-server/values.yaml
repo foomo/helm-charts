@@ -815,7 +815,6 @@ networkPolicy:
     # type: array
     # items:
     #   type: string
-    #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
     # @section -- Network Policy

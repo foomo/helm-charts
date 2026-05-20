@@ -12,15 +12,14 @@ endef
 # --- Targets -----------------------------------------------------------------
 
 # This allows us to accept extra arguments
-%: .mise .husky
+%: .mise .lefthook
 	@:
 
 .PHONY: .mise
 # Install dependencies
-.mise: msg := $(br)$(br)Please ensure you have 'mise' installed and activated!$(br)$(br)$$ brew update$(br)$$ brew install mise$(br)$(br)See the documentation: https://mise.jdx.dev/getting-started.html$(br)$(br)
 .mise:
 ifeq (, $(shell command -v mise))
-	$(error ${msg})
+	$(error $(br)$(br)Please ensure you have 'mise' installed and activated!$(br)$(br)  $$ brew update$(br)  $$ brew install mise$(br)$(br)See the documentation: https://mise.jdx.dev/getting-started.html)
 endif
 	@mise install
 
@@ -57,19 +56,19 @@ docs:
 schema: PWD=$(pwd)
 schema:
 	@echo "--- schema ---------------------------------------"
-	@helm-schema -n -c charts/beam
-	@helm-schema -n -c charts/backups
-	@helm-schema -n -c charts/blank -k additionalProperties
-	@helm-schema -n -c charts/namespace
-	@helm-schema -n -c charts/sesamy-gtm
-	@helm-schema -n -c charts/sesamy-umami
-	@helm-schema -n -c charts/gateway-crds
-	@helm-schema -n -c charts/contentserver -k additionalProperties
-	@helm-schema -n -c charts/squadron-server
-	@helm-schema -n -c charts/squadron-cronjob
-	@helm-schema -n -c charts/squadron-keel-server
-	@helm-schema -n -c charts/squadron-keel-cronjob
-	@helm-schema -n -c charts/squadron-nextjs-server
+	@helm-schema -ran -c charts/beam
+	@helm-schema -ran -c charts/backups
+	@helm-schema -ran -c charts/blank -k additionalProperties
+	@helm-schema -ran -c charts/namespace
+	@helm-schema -ran -c charts/sesamy-gtm
+	@helm-schema -ran -c charts/sesamy-umami
+	@helm-schema -ran -c charts/gateway-crds
+	@helm-schema -ran -c charts/contentserver -k additionalProperties
+	@helm-schema -ran -c charts/squadron-server
+	@helm-schema -ran -c charts/squadron-cronjob
+	@helm-schema -ran -c charts/squadron-keel-server
+	@helm-schema -ran -c charts/squadron-keel-cronjob
+	@helm-schema -ran -c charts/squadron-nextjs-server
 	@helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
 
 ### K3d
@@ -103,20 +102,32 @@ deps:
 	@helm plugin install --verify=false https://github.com/KnechtionsCoding/helm-schema-gen.git
 
 .PHONY: help
+# https://patorjk.com/software/taag/#p=display&f=Tmplr&t=helm+charts&x=none&v=4&h=4&w=80&we=false
 ## Show help text
+help: g=\033[0;32m
+help: b=\033[0;34m
+help: w=\033[0;90m
+help: e=\033[0m
 help:
-	@echo "Squadron Helm Charts\n"
-	@echo "Usage:\n  make [task]"
+	@echo "$(g)"
+	@echo "┓   ┓      ┓"
+	@echo "┣┓┏┓┃┏┳┓  ┏┣┓┏┓┏┓╋┏"
+	@echo "┛┗┗ ┗┛┗┗  ┗┛┗┗┻┛ ┗┛"
+	@echo "with ❤ foomo by bestbytes"
+	@echo "$(e)"
+	@echo "$(b)Usage:$(e)\n  make [task]"
 	@awk '{ \
 		if($$0 ~ /^### /){ \
-			if(help) printf "%-23s %s\n\n", cmd, help; help=""; \
-			printf "\n%s:\n", substr($$0,5); \
+			if(help) printf "  %-21s $(w)%s$(e)\n\n", cmd, help; help=""; \
+			printf "$(b)\n%s:$(e)\n", substr($$0,5); \
 		} else if($$0 ~ /^[a-zA-Z0-9._-]+:/){ \
 			cmd = substr($$0, 1, index($$0, ":")-1); \
-			if(help) printf "  %-23s %s\n", cmd, help; help=""; \
+			if(help) printf "  %-21s $(w)%s$(e)\n", cmd, help; help=""; \
 		} else if($$0 ~ /^##/){ \
 			help = help ? help "\n                        " substr($$0,3) : substr($$0,3); \
 		} else if(help){ \
-			print "\n                        " help "\n"; help=""; \
+			print "\n                        $(w)" help "$(e)\n"; help=""; \
 		} \
 	}' $(MAKEFILE_LIST)
+	@echo ""
+

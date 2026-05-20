@@ -550,7 +550,6 @@ networkPolicy:
     # type: array
     # items:
     #   type: string
-    #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
     # @section -- Network Policy
@@ -624,7 +623,6 @@ scheduling:
   tolerations: []
   # @schema
   # type: [string, null]
-  # additionalProperties: true
   # @schema
   # -- Priority class name
   # @section -- Scheduling
