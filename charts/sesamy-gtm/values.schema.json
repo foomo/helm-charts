@@ -23,14 +23,12 @@
         "enabled": {
           "default": false,
           "description": "Enable autoscaling",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "maxReplicas": {
           "default": 9,
           "description": "Maximum replication number",
-          "required": [],
           "title": "maxReplicas",
           "type": "integer"
         },
@@ -57,7 +55,6 @@
         "minReplicas": {
           "default": 1,
           "description": "Minimum replication number",
-          "required": [],
           "title": "minReplicas",
           "type": "integer"
         },
@@ -100,7 +97,6 @@
         "enabled": {
           "default": false,
           "description": "Enable collect",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -111,7 +107,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnv",
           "type": "array"
         },
@@ -122,7 +117,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnvFrom",
           "type": "array"
         },
@@ -133,7 +127,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraPorts",
           "type": "array"
         },
@@ -144,7 +137,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumeMounts",
           "type": "array"
         },
@@ -155,7 +147,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumes",
           "type": "array"
         },
@@ -166,7 +157,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "hostAliases",
           "type": "array"
         },
@@ -187,21 +177,18 @@
             "recreate": {
               "default": false,
               "description": "Force recreation",
-              "required": [],
               "title": "recreate",
               "type": "boolean"
             },
             "repository": {
               "default": "",
               "description": "The image repository",
-              "required": [],
               "title": "repository",
               "type": "string"
             },
             "tag": {
               "default": "",
               "description": "The image tag",
-              "required": [],
               "title": "tag",
               "type": "string"
             }
@@ -220,7 +207,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "imagePullSecrets",
           "type": "array"
         },
@@ -252,28 +238,24 @@
             "fsGroup": {
               "default": 1001,
               "description": "File system group id",
-              "required": [],
               "title": "fsGroup",
               "type": "integer"
             },
             "runAsGroup": {
               "default": 1001,
               "description": "Run as group id",
-              "required": [],
               "title": "runAsGroup",
               "type": "integer"
             },
             "runAsNonRoot": {
               "default": true,
               "description": "Indicates wether to run as non root user",
-              "required": [],
               "title": "runAsNonRoot",
               "type": "boolean"
             },
             "runAsUser": {
               "default": 1001,
               "description": "Run as user id",
-              "required": [],
               "title": "runAsUser",
               "type": "integer"
             },
@@ -283,7 +265,6 @@
               "properties": {
                 "type": {
                   "default": "RuntimeDefault",
-                  "required": [],
                   "title": "type",
                   "type": "string"
                 }
@@ -309,7 +290,6 @@
         "replicaCount": {
           "default": 1,
           "description": "Number of replicas",
-          "required": [],
           "title": "replicaCount",
           "type": "integer"
         },
@@ -327,7 +307,6 @@
             "allowPrivilegeEscalation": {
               "default": false,
               "description": "Controls whether a process can gain more privileges than its parent process",
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -339,13 +318,11 @@
                   "items": {
                     "anyOf": [
                       {
-                        "required": [],
                         "type": "string"
                       }
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "drop",
                   "type": "array"
                 }
@@ -359,7 +336,6 @@
             "readOnlyRootFilesystem": {
               "default": true,
               "description": "Mounts the container's root filesystem as read-only",
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -392,13 +368,11 @@
               "properties": {
                 "gtag": {
                   "default": 8080,
-                  "required": [],
                   "title": "gtag",
                   "type": "integer"
                 },
                 "mpv2": {
                   "default": 8081,
-                  "required": [],
                   "title": "mpv2",
                   "type": "integer"
                 }
@@ -413,7 +387,6 @@
             "type": {
               "default": "ClusterIP",
               "description": "Type of the service",
-              "required": [],
               "title": "type",
               "type": "string"
             }
@@ -440,14 +413,12 @@
       "default": "",
       "deprecated": true,
       "description": "Squadron fleet name",
-      "required": [],
       "title": "fleet",
       "type": "string"
     },
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
-      "required": [],
       "title": "fullnameOverride",
       "type": "string"
     },
@@ -464,28 +435,24 @@
         "containerConfig": {
           "default": "",
           "description": "Base64-encoded container parameters in the URL query string format",
-          "required": [],
           "title": "containerConfig",
           "type": "string"
         },
         "containerRefreshSeconds": {
           "default": 60,
           "description": "Interval between container refreshes",
-          "required": [],
           "title": "containerRefreshSeconds",
           "type": "integer"
         },
         "googleApplicationCredentials": {
           "default": "",
           "description": "(Optional) Base64-encoded service account credential that is authorized to access resources",
-          "required": [],
           "title": "googleApplicationCredentials",
           "type": "string"
         },
         "googleCloudProject": {
           "default": "",
           "description": "(Optional) Google Cloud project ID",
-          "required": [],
           "title": "googleCloudProject",
           "type": "string"
         },
@@ -506,14 +473,12 @@
             "repository": {
               "default": "gcr.io/cloud-tagging-10302018/gtm-cloud-image",
               "description": "The image repository",
-              "required": [],
               "title": "repository",
               "type": "string"
             },
             "tag": {
-              "default": "4.2.0",
+              "default": "4.3.0",
               "description": "The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)",
-              "required": [],
               "title": "tag",
               "type": "string"
             }
@@ -546,24 +511,20 @@
         "className": {
           "default": "",
           "description": "Ingress class name",
-          "required": [],
           "title": "className",
           "type": "string"
         },
         "enabled": {
           "default": false,
           "description": "Enable ingress",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "hosts": {
           "description": "Hosts to listen to",
           "items": {
-            "required": [],
             "type": "string"
           },
-          "required": [],
           "title": "hosts",
           "type": "array"
         },
@@ -579,19 +540,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtm",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -606,7 +564,6 @@
                 ],
                 "required": []
               },
-              "required": [],
               "title": "preview",
               "type": "array"
             },
@@ -618,19 +575,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtm.js",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -647,19 +601,16 @@
                     "properties": {
                       "path": {
                         "default": "/_/set_cookie",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -676,19 +627,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtag/js",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -705,19 +653,16 @@
                     "properties": {
                       "path": {
                         "default": "/_/service_worker",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -734,19 +679,16 @@
                     "properties": {
                       "path": {
                         "default": "/g/collect",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "ImplementationSpecific",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -761,7 +703,6 @@
                 ],
                 "required": []
               },
-              "required": [],
               "title": "tagging",
               "type": "array"
             }
@@ -780,7 +721,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "tls",
           "type": "array"
         }
@@ -792,14 +732,12 @@
     "nameOverride": {
       "default": "",
       "description": "Overrides the chart's name",
-      "required": [],
       "title": "nameOverride",
       "type": "string"
     },
     "namespaceOverride": {
       "default": "",
       "description": "The name of the Namespace to deploy",
-      "required": [],
       "title": "namespaceOverride",
       "type": "string"
     },
@@ -843,7 +781,6 @@
         "enabled": {
           "default": false,
           "description": "Specifies whether Network Policies should be created",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -854,20 +791,16 @@
             "cidrs": {
               "description": "Specifies specific network CIDRs you want to limit access to",
               "items": {
-                "required": [],
                 "type": "string"
               },
-              "required": [],
               "title": "cidrs",
               "type": "array"
             },
             "ports": {
               "description": "Specify the port used for external storage, e.g. AWS S3",
               "items": {
-                "required": [],
                 "type": "integer"
               },
-              "required": [],
               "title": "ports",
               "type": "array"
             }
@@ -906,10 +839,8 @@
             "cidrs": {
               "description": "Specifies specific network CIDRs which are allowed to access the metrics port",
               "items": {
-                "required": [],
                 "type": "string"
               },
-              "required": [],
               "title": "cidrs",
               "type": "array"
             },
@@ -955,7 +886,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnv",
           "type": "array"
         },
@@ -966,7 +896,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnvFrom",
           "type": "array"
         },
@@ -977,7 +906,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumeMounts",
           "type": "array"
         },
@@ -988,7 +916,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumes",
           "type": "array"
         },
@@ -999,7 +926,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "hostAliases",
           "type": "array"
         },
@@ -1010,7 +936,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "imagePullSecrets",
           "type": "array"
         },
@@ -1023,13 +948,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -1072,7 +995,6 @@
               "properties": {
                 "type": {
                   "default": "RuntimeDefault",
-                  "required": [],
                   "title": "type",
                   "type": "string"
                 }
@@ -1097,13 +1019,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -1125,7 +1045,6 @@
         "replicaCount": {
           "default": 1,
           "description": "Number of replicas",
-          "required": [],
           "title": "replicaCount",
           "type": "integer"
         },
@@ -1143,7 +1062,6 @@
             "allowPrivilegeEscalation": {
               "default": false,
               "description": "Controls whether a process can gain more privileges than its parent process",
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -1155,13 +1073,11 @@
                   "items": {
                     "anyOf": [
                       {
-                        "required": [],
                         "type": "string"
                       }
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "drop",
                   "type": "array"
                 }
@@ -1175,7 +1091,6 @@
             "readOnlyRootFilesystem": {
               "default": false,
               "description": "Mounts the container's root filesystem as read-only",
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -1205,7 +1120,6 @@
             "port": {
               "default": 8080,
               "description": "Port of the service",
-              "required": [],
               "title": "port",
               "type": "integer"
             },
@@ -1233,13 +1147,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -1270,7 +1182,6 @@
         "config": {
           "default": "server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.tagging.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n",
           "description": "Nginx SSL Reverse Proxy config",
-          "required": [],
           "title": "config",
           "type": "string"
         },
@@ -1291,14 +1202,12 @@
             "repository": {
               "default": "nginx",
               "description": "The image repository",
-              "required": [],
               "title": "repository",
               "type": "string"
             },
             "tag": {
-              "default": "1.29.8-alpine",
+              "default": "1.31.0-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
-              "required": [],
               "title": "tag",
               "type": "string"
             }
@@ -1325,7 +1234,6 @@
             "allowPrivilegeEscalation": {
               "default": false,
               "description": "Controls whether a process can gain more privileges than its parent process",
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -1339,7 +1247,6 @@
             "readOnlyRootFilesystem": {
               "default": false,
               "description": "Mounts the container's root filesystem as read-only",
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -1355,14 +1262,12 @@
             "crt": {
               "default": "",
               "description": "Base64 encoded TLS cert",
-              "required": [],
               "title": "crt",
               "type": "string"
             },
             "key": {
               "default": "",
               "description": "Base64 encoded TLS key",
-              "required": [],
               "title": "key",
               "type": "string"
             }
@@ -1381,7 +1286,6 @@
     "revisionHistoryLimit": {
       "default": 10,
       "description": "Number of revisions to keep",
-      "required": [],
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
@@ -1392,7 +1296,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether routing is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -1403,7 +1306,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "parentRefs",
           "type": "array"
         },
@@ -1419,19 +1321,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtm",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "PathPrefix",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1446,7 +1345,6 @@
                 ],
                 "required": []
               },
-              "required": [],
               "title": "preview",
               "type": "array"
             },
@@ -1458,19 +1356,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtm.js",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "Exact",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1487,19 +1382,16 @@
                     "properties": {
                       "path": {
                         "default": "/_set_cookie",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "Exact",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1516,19 +1408,16 @@
                     "properties": {
                       "path": {
                         "default": "/gtag/js",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "PathPrefix",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1545,19 +1434,16 @@
                     "properties": {
                       "path": {
                         "default": "/_/service_worker",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "Prefix",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1574,19 +1460,16 @@
                     "properties": {
                       "path": {
                         "default": "/g/collect",
-                        "required": [],
                         "title": "path",
                         "type": "string"
                       },
                       "pathType": {
                         "default": "PathPrefix",
-                        "required": [],
                         "title": "pathType",
                         "type": "string"
                       },
                       "port": {
                         "default": 8080,
-                        "required": [],
                         "title": "port",
                         "type": "integer"
                       }
@@ -1601,7 +1484,6 @@
                 ],
                 "required": []
               },
-              "required": [],
               "title": "tagging",
               "type": "array"
             }
@@ -1643,13 +1525,11 @@
                                   "properties": {
                                     "key": {
                                       "default": "node-role.kubernetes.io/control-plane",
-                                      "required": [],
                                       "title": "key",
                                       "type": "string"
                                     },
                                     "operator": {
                                       "default": "In",
-                                      "required": [],
                                       "title": "operator",
                                       "type": "string"
                                     },
@@ -1657,13 +1537,11 @@
                                       "items": {
                                         "anyOf": [
                                           {
-                                            "required": [],
                                             "type": "string"
                                           }
                                         ],
                                         "required": []
                                       },
-                                      "required": [],
                                       "title": "values",
                                       "type": "array"
                                     }
@@ -1678,7 +1556,6 @@
                               ],
                               "required": []
                             },
-                            "required": [],
                             "title": "matchExpressions",
                             "type": "array"
                           }
@@ -1691,7 +1568,6 @@
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "nodeSelectorTerms",
                   "type": "array"
                 }
@@ -1712,7 +1588,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether scheduling is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -1724,7 +1599,6 @@
           "type": "object"
         },
         "priorityClass": {
-          "additionalProperties": true,
           "default": "null",
           "description": "Priority class name",
           "required": [],
@@ -1741,7 +1615,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "tolerations",
           "type": "array"
         },
@@ -1752,7 +1625,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "topologySpreadConstraints",
           "type": "array"
         }
@@ -1775,21 +1647,18 @@
         "automount": {
           "default": false,
           "description": "Automatically mount a ServiceAccount's API credentials?",
-          "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
           "default": false,
           "description": "Specifies whether a service account should be created",
-          "required": [],
           "title": "create",
           "type": "boolean"
         },
         "name": {
           "default": "",
           "description": "The name of the service account to use",
-          "required": [],
           "title": "name",
           "type": "string"
         }
@@ -1812,14 +1681,12 @@
         "enabled": {
           "default": false,
           "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "interval": {
           "default": "",
           "description": "ServiceMonitor scrape interval",
-          "required": [],
           "title": "interval",
           "type": "string"
         },
@@ -1837,7 +1704,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "metricRelabelings",
           "type": "array"
         },
@@ -1848,14 +1714,12 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "relabelings",
           "type": "array"
         },
         "scrapeTimeout": {
           "default": "",
           "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
-          "required": [],
           "title": "scrapeTimeout",
           "type": "string"
         },
@@ -1866,7 +1730,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "targetLabels",
           "type": "array"
         }
@@ -1879,7 +1742,6 @@
       "default": "",
       "deprecated": true,
       "description": "Squadron name",
-      "required": [],
       "title": "squadron",
       "type": "string"
     },
@@ -1901,7 +1763,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnv",
           "type": "array"
         },
@@ -1912,7 +1773,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnvFrom",
           "type": "array"
         },
@@ -1923,7 +1783,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumeMounts",
           "type": "array"
         },
@@ -1934,7 +1793,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumes",
           "type": "array"
         },
@@ -1945,7 +1803,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "hostAliases",
           "type": "array"
         },
@@ -1956,7 +1813,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "imagePullSecrets",
           "type": "array"
         },
@@ -1969,13 +1825,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -2018,7 +1872,6 @@
               "properties": {
                 "type": {
                   "default": "RuntimeDefault",
-                  "required": [],
                   "title": "type",
                   "type": "string"
                 }
@@ -2043,13 +1896,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -2071,7 +1922,6 @@
         "replicaCount": {
           "default": 1,
           "description": "Number of replicas",
-          "required": [],
           "title": "replicaCount",
           "type": "integer"
         },
@@ -2089,7 +1939,6 @@
             "allowPrivilegeEscalation": {
               "default": false,
               "description": "Controls whether a process can gain more privileges than its parent process",
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -2101,13 +1950,11 @@
                   "items": {
                     "anyOf": [
                       {
-                        "required": [],
                         "type": "string"
                       }
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "drop",
                   "type": "array"
                 }
@@ -2121,7 +1968,6 @@
             "readOnlyRootFilesystem": {
               "default": true,
               "description": "Mounts the container's root filesystem as read-only",
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -2181,7 +2027,6 @@
             "port": {
               "default": 8080,
               "description": "Port of the service",
-              "required": [],
               "title": "port",
               "type": "integer"
             },
@@ -2210,13 +2055,11 @@
               "properties": {
                 "path": {
                   "default": "/healthz",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": "http",
-                  "required": [],
                   "title": "port",
                   "type": "string"
                 }
@@ -2244,7 +2087,6 @@
       "default": "",
       "deprecated": true,
       "description": "Squadron unit name",
-      "required": [],
       "title": "unit",
       "type": "string"
     },

@@ -9,7 +9,6 @@
         "account": {
           "default": "",
           "description": "Your Cloudflare account number.",
-          "required": [],
           "title": "account",
           "type": "string"
         },
@@ -34,14 +33,12 @@
             "enabled": {
               "default": false,
               "description": "Specifies whether a auto scaling should be enabled",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
             "maxReplicas": {
               "default": 9,
               "description": "Maximum replication number",
-              "required": [],
               "title": "maxReplicas",
               "type": "integer"
             },
@@ -68,7 +65,6 @@
             "minReplicas": {
               "default": 1,
               "description": "Minimum replication number",
-              "required": [],
               "title": "minReplicas",
               "type": "integer"
             },
@@ -107,14 +103,12 @@
         "enableWarp": {
           "default": false,
           "description": "If true, turn on WARP routing for TCP",
-          "required": [],
           "title": "enableWarp",
           "type": "boolean"
         },
         "enabled": {
           "default": false,
           "description": "Indicates wether to enable it or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -125,7 +119,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnv",
           "type": "array"
         },
@@ -136,7 +129,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnvFrom",
           "type": "array"
         },
@@ -147,7 +139,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumeMounts",
           "type": "array"
         },
@@ -156,7 +147,6 @@
           "items": {
             "required": []
           },
-          "required": [],
           "title": "extraVolumes",
           "type": "array"
         },
@@ -167,7 +157,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "hostAliases",
           "type": "array"
         },
@@ -192,21 +181,18 @@
                 "required": [],
                 "type": "object"
               },
-              "required": [],
               "title": "pullSecrets",
               "type": "array"
             },
             "repository": {
               "default": "cloudflare/cloudflared",
               "description": "Image repository",
-              "required": [],
               "title": "repository",
               "type": "string"
             },
             "tag": {
-              "default": "2026.3.0",
+              "default": "2026.5.0",
               "description": "Image tag",
-              "required": [],
               "title": "tag",
               "type": "string"
             }
@@ -225,7 +211,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "ingress",
           "type": "array"
         },
@@ -235,7 +220,6 @@
           "properties": {
             "failureThreshold": {
               "default": 1,
-              "required": [],
               "title": "failureThreshold",
               "type": "integer"
             },
@@ -244,13 +228,11 @@
               "properties": {
                 "path": {
                   "default": "/ready",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": 2000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -264,13 +246,11 @@
             },
             "initialDelaySeconds": {
               "default": 10,
-              "required": [],
               "title": "initialDelaySeconds",
               "type": "integer"
             },
             "periodSeconds": {
               "default": 10,
-              "required": [],
               "title": "periodSeconds",
               "type": "integer"
             }
@@ -322,14 +302,12 @@
             "enabled": {
               "default": false,
               "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
             "interval": {
               "default": "",
               "description": "ServiceMonitor scrape interval",
-              "required": [],
               "title": "interval",
               "type": "string"
             },
@@ -340,7 +318,6 @@
                 "required": [],
                 "type": "object"
               },
-              "required": [],
               "title": "metricRelabelings",
               "type": "array"
             },
@@ -351,14 +328,12 @@
                 "required": [],
                 "type": "object"
               },
-              "required": [],
               "title": "relabelings",
               "type": "array"
             },
             "scrapeTimeout": {
               "default": "",
               "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
-              "required": [],
               "title": "scrapeTimeout",
               "type": "string"
             },
@@ -369,7 +344,6 @@
                 "required": [],
                 "type": "object"
               },
-              "required": [],
               "title": "targetLabels",
               "type": "array"
             }
@@ -394,13 +368,11 @@
               "properties": {
                 "path": {
                   "default": "/ready",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": 2000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -425,7 +397,6 @@
         "replicas": {
           "default": 2,
           "description": "ingress:\nThe first rule proxies traffic to the httpbin sample service named web-server at port 80\n- hostname: tunnel.example.com\n  service: http://web-service:80\nThis rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity\nissues. If hello.example.com resolves and tunnel.example.com does not, then the problem is\nin the connection from cloudflared to your local service, not from the internet to cloudflared.\n- hostname: hello.example.com\n  service: hello_world\nNumber of replications",
-          "required": [],
           "title": "replicas",
           "type": "number"
         },
@@ -453,7 +424,6 @@
             "enabled": {
               "default": true,
               "description": "Indicates wether scheduling is enabled or not",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
@@ -465,7 +435,6 @@
               "type": "object"
             },
             "priorityClass": {
-              "additionalProperties": true,
               "default": "null",
               "description": "Priority class name",
               "required": [],
@@ -482,7 +451,6 @@
                 "required": [],
                 "type": "object"
               },
-              "required": [],
               "title": "tolerations",
               "type": "array"
             }
@@ -494,7 +462,6 @@
         "secret": {
           "default": "",
           "description": "The secret for the tunnel.",
-          "required": [],
           "title": "secret",
           "type": "string"
         },
@@ -504,7 +471,6 @@
           "properties": {
             "allowPrivilegeEscalation": {
               "default": false,
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -515,13 +481,11 @@
                   "items": {
                     "anyOf": [
                       {
-                        "required": [],
                         "type": "string"
                       }
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "drop",
                   "type": "array"
                 }
@@ -534,7 +498,6 @@
             },
             "readOnlyRootFilesystem": {
               "default": true,
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -556,13 +519,11 @@
               "properties": {
                 "path": {
                   "default": "/ready",
-                  "required": [],
                   "title": "path",
                   "type": "string"
                 },
                 "port": {
                   "default": 2000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -587,14 +548,12 @@
         "tunnelId": {
           "default": "",
           "description": "The ID of the above tunnel.",
-          "required": [],
           "title": "tunnelId",
           "type": "string"
         },
         "tunnelName": {
           "default": "",
           "description": "The name of the tunnel this instance will serve",
-          "required": [],
           "title": "tunnelName",
           "type": "string"
         }
@@ -612,7 +571,6 @@
         "required": [],
         "type": "object"
       },
-      "required": [],
       "title": "cloudflaredSidecars",
       "type": "array"
     },
@@ -632,7 +590,6 @@
         "enabled": {
           "default": false,
           "description": "Enable cloudflared splitter",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -643,7 +600,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnv",
           "type": "array"
         },
@@ -654,7 +610,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraEnvFrom",
           "type": "array"
         },
@@ -665,7 +620,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "extraVolumeMounts",
           "type": "array"
         },
@@ -686,14 +640,12 @@
             "repository": {
               "default": "nginx",
               "description": "Image repository",
-              "required": [],
               "title": "repository",
               "type": "string"
             },
             "tag": {
-              "default": "1.29.8",
+              "default": "1.31.0",
               "description": "Image tag",
-              "required": [],
               "title": "tag",
               "type": "string"
             }
@@ -748,7 +700,6 @@
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
-      "required": [],
       "title": "fullnameOverride",
       "type": "string"
     },
@@ -761,14 +712,12 @@
     "nameOverride": {
       "default": "",
       "description": "Overrides the chart's name",
-      "required": [],
       "title": "nameOverride",
       "type": "string"
     },
     "namespaceOverride": {
       "default": "",
       "description": "The name of the Namespace to deploy",
-      "required": [],
       "title": "namespaceOverride",
       "type": "string"
     },
@@ -783,14 +732,12 @@
             "credentialIssuerConfig": {
               "default": "impersonationProxy:\n  mode: enabled\n  service:\n    type: ClusterIP\n  externalEndpoint: {{ .Release.Name }}-pinniped-concierge-impersonation-proxy-cluster-ip.{{ .Release.Namespace }}:443\n",
               "description": "jwtAuths:\n  your-org:\n    issuer: https://beam.your-domain.com/issuer-path\n    audience: arbitrary-but-unique-audience\nOverride dependency",
-              "required": [],
               "title": "credentialIssuerConfig",
               "type": "string"
             },
             "enabled": {
               "default": false,
               "description": "Enable concierge",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
@@ -823,7 +770,6 @@
         "enabled": {
           "default": false,
           "description": "Enable pinniped",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -838,7 +784,6 @@
                 "allowInsecureImages": {
                   "default": false,
                   "description": "Enable concierge",
-                  "required": [],
                   "title": "allowInsecureImages",
                   "type": "boolean"
                 }
@@ -859,7 +804,6 @@
             "repository": {
               "default": "bitnamilegacy/pinniped",
               "description": "Repository to use.",
-              "required": [],
               "title": "repository",
               "type": "string"
             }
@@ -875,7 +819,6 @@
             "enabled": {
               "default": false,
               "description": "Enable supervisor",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
@@ -906,7 +849,6 @@
     "revisionHistoryLimit": {
       "default": 10,
       "description": "Number of revisions to keep",
-      "required": [],
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
@@ -926,21 +868,18 @@
         "automount": {
           "default": true,
           "description": "Automatically mount a ServiceAccount's API credentials?",
-          "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
           "default": true,
           "description": "Specifies whether a service account should be created",
-          "required": [],
           "title": "create",
           "type": "boolean"
         },
         "name": {
           "default": "",
           "description": "The name of the service account to use.",
-          "required": [],
           "title": "name",
           "type": "string"
         }

@@ -50,13 +50,10 @@ clusterRoles: {}
 #       additionalProperties: true
 #     subjects:
 #       type: array
-#       additionalProperties: true
 #     kind:
 #       type: string
-#       additionalProperties: true
 #     role:
 #       type: string
-#       additionalProperties: true
 # @schema
 # -- Role Bindings to create
 # @section -- General
@@ -80,13 +77,10 @@ roleBindings: {}
 #       additionalProperties: true
 #     subjects:
 #       type: array
-#       additionalProperties: true
 #     kind:
 #       type: string
-#       additionalProperties: true
 #     role:
 #       type: string
-#       additionalProperties: true
 # @schema
 # -- Role Bindings to create
 # @section -- General

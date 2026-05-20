@@ -17,5 +17,5 @@ annotations:
     - name: Image Source
       url: https://github.com/foomo/contentserver
 
-version: 0.6.6
-appVersion: 1.18.1
+version: 0.6.7
+appVersion: 1.20.0

@@ -73,7 +73,7 @@ proxy:
     # @schema
     # -- Image tag
     # @section -- Proxy
-    tag: '1.29.8-alpine' # https://github.com/nginx/nginx/releases
+    tag: '1.31.0-alpine' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # @schema
@@ -322,7 +322,7 @@ umami:
     # @schema
     # -- The image tag
     # @section -- Umami
-    tag: postgresql-v2.20.2 # https://github.com/umami-software/umami/releases
+    tag: 3.1.0 # https://github.com/umami-software/umami/pkgs/container/umami
   # @schema
   # type: integer
   # @schema
@@ -750,7 +750,6 @@ networkPolicy:
     # type: array
     # items:
     #   type: string
-    #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
     # @section -- Network Policy

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=values.schema.json
 # @schema
 # type: string
 # @schema
@@ -239,7 +240,7 @@ contentserver:
     # @schema
     # -- Image [tag](https://hub.docker.com/r/foomo/contentserver)
     # @section -- Content Server
-    tag: 1.18.1
+    tag: 1.20.0
   # @schema
   # type: object
   # additionalProperties: true
@@ -761,7 +762,6 @@ networkPolicy:
     # type: array
     # items:
     #   type: string
-    #   additionalProperties: true
     # @schema
     # -- Additional ingress rules
     # @section -- Network Policy

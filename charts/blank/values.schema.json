@@ -4,7 +4,6 @@
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
-      "required": [],
       "title": "fullnameOverride",
       "type": "string"
     },
@@ -17,14 +16,12 @@
     "nameOverride": {
       "default": "",
       "description": "Overrides the chart's name",
-      "required": [],
       "title": "nameOverride",
       "type": "string"
     },
     "namespaceOverride": {
       "default": "",
       "description": "The name of the Namespace to deploy",
-      "required": [],
       "title": "namespaceOverride",
       "type": "string"
     },

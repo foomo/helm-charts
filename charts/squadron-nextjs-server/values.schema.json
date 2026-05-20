@@ -23,14 +23,12 @@
         "enabled": {
           "default": false,
           "description": "Specifies whether a auto scaling should be enabled",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "maxReplicas": {
           "default": 9,
           "description": "Maximum replication number",
-          "required": [],
           "title": "maxReplicas",
           "type": "integer"
         },
@@ -57,7 +55,6 @@
         "minReplicas": {
           "default": 1,
           "description": "Minimum replication number",
-          "required": [],
           "title": "minReplicas",
           "type": "integer"
         },
@@ -105,7 +102,6 @@
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",
-      "required": [],
       "title": "fullnameOverride",
       "type": "string"
     },
@@ -116,21 +112,18 @@
         "addToRobots": {
           "default": "",
           "description": "Robots.txt",
-          "required": [],
           "title": "addToRobots",
           "type": "string"
         },
         "apiVersion": {
           "default": "foomo.org/v1",
           "description": "api version",
-          "required": [],
           "title": "apiVersion",
           "type": "string"
         },
         "enabled": {
           "default": false,
           "description": "Indicates wether the gateway is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -140,14 +133,12 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "expose",
           "type": "array"
         },
         "sitemap": {
           "default": "",
           "description": "Sitemap",
-          "required": [],
           "title": "sitemap",
           "type": "string"
         }
@@ -168,21 +159,18 @@
                 "fleet": {
                   "default": "",
                   "description": "Squadron fleet name\nWill be automatically injected (optional)",
-                  "required": [],
                   "title": "fleet",
                   "type": "string"
                 },
                 "name": {
                   "default": "",
                   "description": "Squadron name\nWill be automatically injected",
-                  "required": [],
                   "title": "name",
                   "type": "string"
                 },
                 "unit": {
                   "default": "",
                   "description": "Squadron unit name\nWill be automatically injected",
-                  "required": [],
                   "title": "unit",
                   "type": "string"
                 }
@@ -194,14 +182,12 @@
             "withDeprecatedSelectorLabels": {
               "default": false,
               "description": "Enable for backward compatibility",
-              "required": [],
               "title": "withDeprecatedSelectorLabels",
               "type": "boolean"
             },
             "withDeprecatedSelectorLabelsV2": {
               "default": false,
               "description": "Enable for backward compatibility",
-              "required": [],
               "title": "withDeprecatedSelectorLabelsV2",
               "type": "boolean"
             }
@@ -222,21 +208,18 @@
         "delaySeconds": {
           "default": 15,
           "description": "Seconds to wait for kubernetes to deregister",
-          "required": [],
           "title": "delaySeconds",
           "type": "integer"
         },
         "enabled": {
           "default": false,
           "description": "Indicates wether graceful shutdown is enabled",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "periodSeconds": {
           "default": 45,
           "description": "Total seconds for the grace period",
-          "required": [],
           "title": "periodSeconds",
           "type": "integer"
         }
@@ -266,28 +249,24 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "pullSecrets",
           "type": "array"
         },
         "recreate": {
           "default": false,
           "description": "Force recreation",
-          "required": [],
           "title": "recreate",
           "type": "boolean"
         },
         "repository": {
           "default": "",
           "description": "Image repository",
-          "required": [],
           "title": "repository",
           "type": "string"
         },
         "tag": {
           "default": "",
           "description": "Image tag",
-          "required": [],
           "title": "tag",
           "type": "string"
         }
@@ -320,24 +299,20 @@
         "className": {
           "default": "",
           "description": "Ingress class name",
-          "required": [],
           "title": "className",
           "type": "string"
         },
         "enabled": {
           "default": false,
           "description": "Indicates wether the ingress is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "hosts": {
           "description": "List of hosts",
           "items": {
-            "required": [],
             "type": "string"
           },
-          "required": [],
           "title": "hosts",
           "type": "array"
         },
@@ -346,7 +321,6 @@
           "items": {
             "properties": {
               "path": {
-                "required": [],
                 "type": "string"
               },
               "pathType": {
@@ -358,14 +332,12 @@
                 "required": []
               },
               "port": {
-                "required": [],
                 "type": "integer"
               }
             },
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "paths",
           "type": "array"
         },
@@ -376,7 +348,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "tls",
           "type": "array"
         }
@@ -392,7 +363,6 @@
         "disableCaller": {
           "default": false,
           "description": "Log caller",
-          "required": [],
           "title": "disableCaller",
           "type": "boolean"
         },
@@ -426,14 +396,12 @@
     "nameOverride": {
       "default": "",
       "description": "Overrides the chart's name",
-      "required": [],
       "title": "nameOverride",
       "type": "string"
     },
     "namespaceOverride": {
       "default": "",
       "description": "The name of the Namespace to deploy",
-      "required": [],
       "title": "namespaceOverride",
       "type": "string"
     },
@@ -448,24 +416,20 @@
             "additionalRules": {
               "description": "Additional egress rules",
               "items": {
-                "required": [],
                 "type": "string"
               },
-              "required": [],
               "title": "additionalRules",
               "type": "array"
             },
             "allowExternal": {
               "default": true,
               "description": "Allow ingress through labels",
-              "required": [],
               "title": "allowExternal",
               "type": "boolean"
             },
             "enabled": {
               "default": true,
               "description": "Specifies whether egress should be enabled",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             }
@@ -477,7 +441,6 @@
         "enabled": {
           "default": false,
           "description": "Specifies whether Network Policies should be created",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -488,25 +451,20 @@
             "additionalRules": {
               "description": "Additional ingress rules",
               "items": {
-                "additionalProperties": true,
-                "required": [],
                 "type": "string"
               },
-              "required": [],
               "title": "additionalRules",
               "type": "array"
             },
             "allowExternal": {
               "default": true,
               "description": "Allow ingress through labels",
-              "required": [],
               "title": "allowExternal",
               "type": "boolean"
             },
             "enabled": {
               "default": true,
               "description": "Specifies whether ingress should be enabled",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             }
@@ -518,10 +476,8 @@
         "rules": {
           "description": "List of rules to apply via labels",
           "items": {
-            "required": [],
             "type": "string"
           },
-          "required": [],
           "title": "rules",
           "type": "array"
         }
@@ -537,7 +493,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether to enable it or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -548,14 +503,12 @@
             "enabled": {
               "default": true,
               "description": "Indicates wether to enable it or not",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
             "sqlParametersDisabled": {
               "default": true,
               "description": "Indicates wether to trace sql attributes",
-              "required": [],
               "title": "sqlParametersDisabled",
               "type": "boolean"
             }
@@ -571,14 +524,12 @@
             "enabled": {
               "default": true,
               "description": "Indicates wether to enable it or not",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             },
             "payloadAttributeDisabled": {
               "default": true,
               "description": "Indicates wether to trace payload attributes",
-              "required": [],
               "title": "payloadAttributeDisabled",
               "type": "boolean"
             }
@@ -594,14 +545,12 @@
             "commandAttributeDisabled": {
               "default": true,
               "description": "Indicates wether to trace command attributes",
-              "required": [],
               "title": "commandAttributeDisabled",
               "type": "boolean"
             },
             "enabled": {
               "default": true,
               "description": "Indicates wether to enable it or not",
-              "required": [],
               "title": "enabled",
               "type": "boolean"
             }
@@ -617,14 +566,12 @@
             "endpoint": {
               "default": "http://alloy:4317",
               "description": "Enpoint uri",
-              "required": [],
               "title": "endpoint",
               "type": "string"
             },
             "insecure": {
               "default": true,
               "description": "Indicates wether to use insecure connection",
-              "required": [],
               "title": "insecure",
               "type": "boolean"
             }
@@ -644,7 +591,6 @@
                 "enabled": {
                   "default": false,
                   "description": "Indicates wether to enable it or not",
-                  "required": [],
                   "title": "enabled",
                   "type": "boolean"
                 }
@@ -656,7 +602,6 @@
             "endpoint": {
               "default": "http://pyroscope:4040",
               "description": "Enpoint uri",
-              "required": [],
               "title": "endpoint",
               "type": "string"
             },
@@ -667,7 +612,6 @@
                 "enabled": {
                   "default": false,
                   "description": "Indicates wether to enable it or not",
-                  "required": [],
                   "title": "enabled",
                   "type": "boolean"
                 }
@@ -684,7 +628,6 @@
         "ratio": {
           "default": 1,
           "description": "Trace ratio",
-          "required": [],
           "title": "ratio",
           "type": "integer"
         }
@@ -711,28 +654,24 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether a pv should be attached or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "mountPath": {
           "default": "/var/lib/server/data",
           "description": "Storage mount path",
-          "required": [],
           "title": "mountPath",
           "type": "string"
         },
         "size": {
           "default": "1Gi",
           "description": "Storage size",
-          "required": [],
           "title": "size",
           "type": "string"
         },
         "storageClass": {
           "default": "",
           "description": "Storage class name",
-          "required": [],
           "title": "storageClass",
           "type": "string"
         }
@@ -748,7 +687,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether scheduling is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         }
@@ -760,14 +698,12 @@
     "replicas": {
       "default": 1,
       "description": "Number of replications",
-      "required": [],
       "title": "replicas",
       "type": "number"
     },
     "revisionHistoryLimit": {
       "default": 10,
       "description": "Number of revisions to keep",
-      "required": [],
       "title": "revisionHistoryLimit",
       "type": "integer"
     },
@@ -778,7 +714,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether routing is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -789,7 +724,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "parentRefs",
           "type": "array"
         },
@@ -800,7 +734,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "paths",
           "type": "array"
         }
@@ -834,13 +767,11 @@
                                   "properties": {
                                     "key": {
                                       "default": "node-role.kubernetes.io/control-plane",
-                                      "required": [],
                                       "title": "key",
                                       "type": "string"
                                     },
                                     "operator": {
                                       "default": "In",
-                                      "required": [],
                                       "title": "operator",
                                       "type": "string"
                                     },
@@ -848,13 +779,11 @@
                                       "items": {
                                         "anyOf": [
                                           {
-                                            "required": [],
                                             "type": "string"
                                           }
                                         ],
                                         "required": []
                                       },
-                                      "required": [],
                                       "title": "values",
                                       "type": "array"
                                     }
@@ -869,7 +798,6 @@
                               ],
                               "required": []
                             },
-                            "required": [],
                             "title": "matchExpressions",
                             "type": "array"
                           }
@@ -882,7 +810,6 @@
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "nodeSelectorTerms",
                   "type": "array"
                 }
@@ -903,7 +830,6 @@
         "enabled": {
           "default": false,
           "description": "Indicates wether scheduling is enabled or not",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
@@ -915,7 +841,6 @@
           "type": "object"
         },
         "priorityClass": {
-          "additionalProperties": true,
           "default": "null",
           "description": "Priority class name",
           "required": [],
@@ -932,7 +857,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "tolerations",
           "type": "array"
         },
@@ -943,7 +867,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "topologySpreadConstraints",
           "type": "array"
         }
@@ -962,10 +885,8 @@
     "secretMounts": {
       "description": "secrets:\n  my-secret:\n    data: ...\nList of existing secrets to be mounted",
       "items": {
-        "required": [],
         "type": "string"
       },
-      "required": [],
       "title": "secretMounts",
       "type": "array"
     },
@@ -995,28 +916,24 @@
         "fsGroup": {
           "default": 1001,
           "description": "File system group id",
-          "required": [],
           "title": "fsGroup",
           "type": "integer"
         },
         "runAsGroup": {
           "default": 1001,
           "description": "Run as group id",
-          "required": [],
           "title": "runAsGroup",
           "type": "integer"
         },
         "runAsNonRoot": {
           "default": true,
           "description": "Indicates wether to run as non root user",
-          "required": [],
           "title": "runAsNonRoot",
           "type": "boolean"
         },
         "runAsUser": {
           "default": 1001,
           "description": "Run as user id",
-          "required": [],
           "title": "runAsUser",
           "type": "integer"
         },
@@ -1026,7 +943,6 @@
           "properties": {
             "type": {
               "default": "RuntimeDefault",
-              "required": [],
               "title": "type",
               "type": "string"
             }
@@ -1052,18 +968,15 @@
             "additionalProperties": true,
             "properties": {
               "name": {
-                "required": [],
                 "type": "string"
               },
               "value": {
-                "required": [],
                 "type": "string"
               }
             },
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "additionalEnv",
           "type": "array"
         },
@@ -1074,7 +987,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "additionalEnvFrom",
           "type": "array"
         },
@@ -1092,7 +1004,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "additionalPorts",
           "type": "array"
         },
@@ -1102,18 +1013,15 @@
             "additionalProperties": true,
             "properties": {
               "mountPath": {
-                "required": [],
                 "type": "string"
               },
               "name": {
-                "required": [],
                 "type": "string"
               }
             },
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "additionalVolumeMounts",
           "type": "array"
         },
@@ -1124,7 +1032,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "additionalVolumes",
           "type": "array"
         },
@@ -1142,7 +1049,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "hostAliases",
           "type": "array"
         },
@@ -1153,7 +1059,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "initContainers",
           "type": "array"
         },
@@ -1176,7 +1081,6 @@
               "properties": {
                 "port": {
                   "default": 3000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -1220,7 +1124,6 @@
               "properties": {
                 "port": {
                   "default": 3000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -1258,7 +1161,6 @@
             "allowPrivilegeEscalation": {
               "default": false,
               "description": "Controls whether a process can gain more privileges than its parent process",
-              "required": [],
               "title": "allowPrivilegeEscalation",
               "type": "boolean"
             },
@@ -1270,13 +1172,11 @@
                   "items": {
                     "anyOf": [
                       {
-                        "required": [],
                         "type": "string"
                       }
                     ],
                     "required": []
                   },
-                  "required": [],
                   "title": "drop",
                   "type": "array"
                 }
@@ -1290,7 +1190,6 @@
             "readOnlyRootFilesystem": {
               "default": true,
               "description": "Mounts the container's root filesystem as read-only",
-              "required": [],
               "title": "readOnlyRootFilesystem",
               "type": "boolean"
             }
@@ -1316,7 +1215,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "sidecarContainers",
           "type": "array"
         },
@@ -1329,7 +1227,6 @@
               "properties": {
                 "port": {
                   "default": 3000,
-                  "required": [],
                   "title": "port",
                   "type": "integer"
                 }
@@ -1376,7 +1273,6 @@
         "type": {
           "default": "ClusterIP",
           "description": "Service type",
-          "required": [],
           "title": "type",
           "type": "string"
         }
@@ -1399,21 +1295,18 @@
         "automount": {
           "default": false,
           "description": "Automatically mount a ServiceAccount's API credentials?",
-          "required": [],
           "title": "automount",
           "type": "boolean"
         },
         "create": {
           "default": false,
           "description": "Specifies whether a service account should be created",
-          "required": [],
           "title": "create",
           "type": "boolean"
         },
         "name": {
           "default": "",
           "description": "The name of the service account to use.",
-          "required": [],
           "title": "name",
           "type": "string"
         }
@@ -1443,14 +1336,12 @@
         "enabled": {
           "default": false,
           "description": "If enabled, ServiceMonitor resources for Prometheus Operator are created",
-          "required": [],
           "title": "enabled",
           "type": "boolean"
         },
         "interval": {
           "default": "",
           "description": "ServiceMonitor scrape interval",
-          "required": [],
           "title": "interval",
           "type": "string"
         },
@@ -1461,7 +1352,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "metricRelabelings",
           "type": "array"
         },
@@ -1472,14 +1362,12 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "relabelings",
           "type": "array"
         },
         "scrapeTimeout": {
           "default": "",
           "description": "ServiceMonitor scrape timeout in Go duration format (e.g. 15s)",
-          "required": [],
           "title": "scrapeTimeout",
           "type": "string"
         },
@@ -1490,7 +1378,6 @@
             "required": [],
             "type": "object"
           },
-          "required": [],
           "title": "targetLabels",
           "type": "array"
         }
