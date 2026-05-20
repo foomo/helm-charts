@@ -1,13 +1,18 @@
 .*
 *.log
-*.zip
+*.pid
+*.retry
+*.out
 *.tgz
-/tmp/
-/bin/
+*.zip
+*.pem
+bin/
+tmp/
 
 ## Git
 !.gitkeep
 !.gitignore
+!.gitattributes
 
 ## GitHub
 !.github/
@@ -16,8 +21,17 @@
 Chart.lock
 !.helmignore
 
+## VSCode
+!.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.default.json
+
 ## Editorconfig
 !.editorconfig
 
 ## Mise
 !.mise.toml
+
+## Lefthook
+!.lefthook.yaml
