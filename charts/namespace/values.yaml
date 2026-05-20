@@ -166,12 +166,144 @@ dockerSecrets: {}
 #     annotations:
 #       type: object
 #       additionalProperties: true
+#     labels:
+#       type: object
+#       additionalProperties: true
 # @schema
 # -- Service accounts settings
 # @section -- General
 serviceAccounts: {}
 #  my-service-account:
 #    annotations: {}
+#    labels: {}
+
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     labels:
+#       type: object
+#       additionalProperties: true
+#     refreshInterval:
+#       type: string
+#     refreshPolicy:
+#       type: string
+#       enum: [Periodic, CreatedOnce, OnChange]
+#     secretStoreRef:
+#       type: object
+#       required: [name, kind]
+#       properties:
+#         name:
+#           type: string
+#         kind:
+#           type: string
+#           enum: [SecretStore, ClusterSecretStore]
+#     target:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         creationPolicy:
+#           type: string
+#           enum: [Owner, Merge, Orphan, None]
+#         deletionPolicy:
+#           type: string
+#           enum: [Retain, Delete, Merge]
+#         template:
+#           type: object
+#           additionalProperties: true
+#     data:
+#       type: array
+#       items:
+#         type: object
+#         additionalProperties: true
+#     dataFrom:
+#       type: array
+#       items:
+#         type: object
+#         additionalProperties: true
+# @schema
+# -- External Secrets to create (requires external-secrets.io/v1 CRD)
+# @section -- General
+externalSecrets: {}
+# externalSecrets:
+#   my-secret:
+#     annotations: {}
+#     labels: {}
+#     refreshInterval: 1h
+#     refreshPolicy: Periodic
+#     secretStoreRef:
+#       name: my-cluster-secret-store
+#       kind: ClusterSecretStore
+#     target:
+#       name: my-k8s-secret   # defaults to the key name (my-secret)
+#       creationPolicy: Owner
+#       deletionPolicy: Retain
+#       template:
+#         type: Opaque
+#         metadata:
+#           annotations: {}
+#           labels: {}
+#         data:
+#           my-key: "{{ .my-key | b64dec }}"
+#     data:
+#       - secretKey: my-key
+#         remoteRef:
+#           key: /path/to/secret
+#           property: my-property
+#     dataFrom:
+#       - extract:
+#           key: /path/to/secret
+
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     labels:
+#       type: object
+#       additionalProperties: true
+#     controller:
+#       type: string
+#     conditions:
+#       type: array
+#       items:
+#         type: object
+#         additionalProperties: true
+#     provider:
+#       type: object
+#       additionalProperties: true
+# @schema
+# -- Cluster Secret Stores to create (requires external-secrets.io/v1 CRD)
+# @section -- General
+clusterSecretStores: {}
+# clusterSecretStores:
+#   my-cluster-secret-store:
+#     annotations: {}
+#     labels: {}
+#     controller: ""
+#     conditions:
+#       - namespaceSelector:
+#           matchLabels:
+#             kubernetes.io/metadata.name: my-namespace
+#       - namespaces:
+#           - my-namespace
+#     provider:
+#       aws:
+#         service: SecretsManager
+#         region: eu-central-1
+#         auth:
+#           jwt:
+#             serviceAccountRef:
+#               name: my-service-account
+#               namespace: my-namespace
 
 # @schema
 # type: object
