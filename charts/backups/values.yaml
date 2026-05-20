@@ -298,7 +298,7 @@ dump:
     # @schema
     # -- MongoDB image
     # @section -- MongoDB
-    image: mongo:8.2.5
+    image: mongo:8.2.9
     # @schema
     # type: string
     # @schema
