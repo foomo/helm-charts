@@ -455,6 +455,13 @@ cronjob:
   # type: object
   # additionalProperties: true
   # @schema
+  # -- Pod labels
+  # @section -- CronJob
+  podLabels: { }
+  # @schema
+  # type: object
+  # additionalProperties: true
+  # @schema
   # -- Pod annotations
   # @section -- CronJob
   jobAnnotations: { }
