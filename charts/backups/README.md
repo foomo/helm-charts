@@ -1,6 +1,6 @@
 # backups
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
 
 Helm chart for backing things up.
 
@@ -49,7 +49,7 @@ Helm chart for backing things up.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | dump.mongodb.host | string | `""` | MongoDB host |
-| dump.mongodb.image | string | `"mongo:8.2.5"` | MongoDB image |
+| dump.mongodb.image | string | `"mongo:8.3.2"` | MongoDB image https://hub.docker.com/_/mongo |
 | dump.mongodb.name | string | `"instance-name"` | MongoDB instance name |
 | dump.mongodb.password | string | `""` | MongoDB password |
 | dump.mongodb.port | string | `"27017"` | MongoDB port |
@@ -96,20 +96,20 @@ Helm chart for backing things up.
 |-----|------|---------|-------------|
 | upload.azure.clientId | string | `""` | Azure Client ID |
 | upload.azure.containerName | string | `""` | Container name |
-| upload.azure.image | string | `"mcr.microsoft.com/azure-cli:2.83.0"` | Upload image name https://hub.docker.com/r/microsoft/azure-cli |
+| upload.azure.image | string | `"mcr.microsoft.com/azure-cli:2.87.0"` | Upload image name https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli?view=azure-cli-latest |
 | upload.azure.prefix | string | `""` | Bucket prefix |
 | upload.azure.storageAccount | string | `""` | Storage Account name |
 | upload.azure.tenantId | string | `""` | Azure Tenant ID |
 | upload.azure.workloadIdentity.enabled | bool | `false` | Enable Azure Workload Identity |
 | upload.gcs.bucket | string | `""` | Bucket name |
-| upload.gcs.image | string | `"google/cloud-sdk:555.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
+| upload.gcs.image | string | `"google/cloud-sdk:571.0.0"` | Upload image name https://hub.docker.com/r/google/cloud-sdk/tags |
 | upload.gcs.prefix | string | `""` | Bucket prefix |
 | upload.gcs.projectId | string | `""` | GCP Project ID |
 | upload.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | upload.s3.accessKey | string | `""` | Bucket access key |
 | upload.s3.bucket | string | `""` | Bucket name |
 | upload.s3.endpoint | string | `""` | Bucket endpoint |
-| upload.s3.image | string | `"amazon/aws-cli:2.33.15"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
+| upload.s3.image | string | `"amazon/aws-cli:2.34.63"` | Upload image name https://hub.docker.com/r/amazon/aws-cli/tags |
 | upload.s3.prefix | string | `""` | Bucket prefix |
 | upload.s3.region | string | `""` | Bucket region |
 | upload.s3.secretAccessKey | string | `""` | Bucket secret access key |

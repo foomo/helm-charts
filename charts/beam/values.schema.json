@@ -191,7 +191,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2026.5.0",
+              "default": "2026.5.2",
               "description": "Image tag",
               "title": "tag",
               "type": "string"
@@ -644,7 +644,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.31.0",
+              "default": "1.31.1",
               "description": "Image tag",
               "title": "tag",
               "type": "string"
