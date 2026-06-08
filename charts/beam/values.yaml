@@ -124,7 +124,7 @@ cloudflared:
     # @schema
     # -- Image tag
     # @section -- Cloudflared settings
-    tag: '2026.5.0' # https://github.com/cloudflare/cloudflared/releases
+    tag: '2026.5.2' # https://github.com/cloudflare/cloudflared/releases
   # @schema
   # type: object
   # @schema
@@ -480,7 +480,7 @@ cloudflaredSplitter:
     # @schema
     # -- Image tag
     # @section -- Cloudflared Splitter settings
-    tag: '1.31.0' # https://github.com/nginx/nginx/releases
+    tag: '1.31.1' # https://github.com/nginx/nginx/releases
   # @schema
   # type: object
   # additionalProperties: true

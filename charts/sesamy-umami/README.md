@@ -1,6 +1,6 @@
 # sesamy-umami
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.1.0](https://img.shields.io/badge/AppVersion-3.1.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.1.0](https://img.shields.io/badge/AppVersion-3.1.0-informational?style=flat-square)
 
 Helm chart for the Sesamy Umami integration.
 
@@ -47,7 +47,7 @@ Helm chart for the Sesamy Umami integration.
 | proxy.config | string | `"server {\n  listen              443 ssl;\n\n  ssl_certificate     /etc/nginx/ssl/tls.crt;\n  ssl_certificate_key /etc/nginx/ssl/tls.key;\n  ssl_session_cache   shared:SSL:10m;\n  ssl_session_timeout 1h;\n  ssl_buffer_size     8k;\n\n  location / {\n      proxy_pass         http://0.0.0.0:{{ .Values.umami.service.port }};\n      proxy_set_header   Host $host;\n      proxy_set_header   X-Real-IP $remote_addr;\n      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;\n      proxy_set_header   X-Forwarded-Host $server_name;\n      proxy_set_header   Upgrade $http_upgrade;\n      proxy_set_header   Connection 'upgrade';\n      proxy_cache_bypass $http_upgrade;\n  }\n}\n"` | Nginx SSL Reverse Proxy config. |
 | proxy.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | proxy.image.repository | string | `"nginx"` | Image repository |
-| proxy.image.tag | string | `"1.31.0-alpine"` | Image tag |
+| proxy.image.tag | string | `"1.31.1-alpine"` | Image tag |
 | proxy.resources | object | `{}` | Resource request & limits. |
 | proxy.tls.crt | string | `""` | Base64 encoded TLS cert |
 | proxy.tls.key | string | `""` | Base64 encoded TLS key |
