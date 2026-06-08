@@ -6,7 +6,10 @@ metadata:
   labels: {{- include "nextjs.server.labels" . | nindent 4 }}
   namespace: {{ include "nextjs.server.namespace" . }}
 spec:
-  service: http://{{ include "nextjs.server.fullname" . }}.{{ include "nextjs.server.namespace" . }}
+  service: http://{{ include "nextjs.server.fullname" . }}.{{ include "nextjs.server.namespace" . }}:{{ .Values.gateway.servicePort }}
+  {{- if .Values.gateway.errorFrontend }}
+  errorFrontend: true
+  {{- end }}
   {{- with .Values.gateway.addToRobots }}
   addToRobots: {{ toYaml . | nindent 4 }}
   {{- end }}
