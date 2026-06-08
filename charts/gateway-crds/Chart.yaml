@@ -11,8 +11,10 @@ sources:
   - https://github.com/foomo/helm-charts
 annotations:
   "artifacthub.io/links": |
+    - name: CRD Source
+      url: https://github.com/foomo/gateway
     - name: Chart Source
       url: https://github.com/foomo/helm-charts/tree/main/charts/gateway-crds
 
-version: 0.1.2
-appVersion: 0.1.2
+version: 1.0.0
+appVersion: 0.1.1
