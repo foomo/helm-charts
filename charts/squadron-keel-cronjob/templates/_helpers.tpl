@@ -62,6 +62,9 @@ Pod labels
 {{- else }}
 {{ include "keel.cronjob.labels" . }}
 {{ include "keel.cronjob.networkingLabels" . }}
+{{- with .Values.cronjob.podLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 {{- end }}
 

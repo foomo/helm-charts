@@ -127,6 +127,12 @@
           "title": "enabled",
           "type": "boolean"
         },
+        "errorFrontend": {
+          "default": false,
+          "description": "Handles 404 / 500",
+          "title": "errorFrontend",
+          "type": "boolean"
+        },
         "expose": {
           "description": "Expose settings",
           "items": {
@@ -135,6 +141,12 @@
           },
           "title": "expose",
           "type": "array"
+        },
+        "servicePort": {
+          "default": 80,
+          "description": "Service port (default: 80 for backward compatibility)",
+          "title": "servicePort",
+          "type": "number"
         },
         "sitemap": {
           "default": "",

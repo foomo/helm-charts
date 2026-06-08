@@ -1,6 +1,6 @@
 # squadron-keel-cronjob
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.1](https://img.shields.io/badge/AppVersion-0.7.1-informational?style=flat-square)
+![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.2](https://img.shields.io/badge/AppVersion-0.7.2-informational?style=flat-square)
 
 Squadron Keel CronJob Chart
 
@@ -44,6 +44,7 @@ Squadron Keel CronJob Chart
 | cronjob.jobLabels | object | `{}` | Job labels |
 | cronjob.livenessProbe | object | `{}` | Liveness probe settings |
 | cronjob.podAnnotations | object | `{}` | Pod annotations |
+| cronjob.podLabels | object | `{}` | Pod labels |
 | cronjob.readinessProbe | object | `{}` | Readiness probe settings |
 | cronjob.resources | object | `{}` | Resource settings |
 | cronjob.restart | string | `"Never"` | Restart policy |

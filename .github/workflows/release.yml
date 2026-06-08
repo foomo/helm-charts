@@ -5,27 +5,36 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v6
+      # https://github.com/actions/checkout/releases
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           fetch-depth: 0
 
-      - uses: jdx/mise-action@v4
+      # https://github.com/jdx/mise-action/releases
+      - uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
 
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: azure/setup-helm@v5
+      # https://github.com/azure/setup-helm/releases
+      - uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5.0.0
 
       - name: Install deps
         run: helm repo add grafana https://grafana.github.io/helm-charts
 
-      - uses: helm/chart-releaser-action@v1
+      # https://github.com/helm/chart-releaser-action/releases
+      - uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_SKIP_EXISTING: "true"

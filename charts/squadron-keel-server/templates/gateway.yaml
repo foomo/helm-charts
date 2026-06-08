@@ -6,7 +6,10 @@ metadata:
   labels: {{- include "keel.server.labels" . | nindent 4 }}
   namespace: {{ include "keel.server.namespace" . }}
 spec:
-  service: http://{{ include "keel.server.fullname" . }}.{{ include "keel.server.namespace" . }}
+  service: http://{{ include "keel.server.fullname" . }}.{{ include "keel.server.namespace" . }}:{{ .Values.gateway.servicePort }}
+  {{- if .Values.gateway.errorFrontend }}
+  errorFrontend: true
+  {{- end }}
   {{- with .Values.gateway.addToRobots }}
   addToRobots: {{ toYaml . | nindent 4 }}
   {{- end }}
