@@ -122,7 +122,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/amazon/aws-cli/tags
     # @section -- Upload
-    image: amazon/aws-cli:2.34.63
+    image: amazon/aws-cli:2.35.0
     # @schema
     # type: string
     # @schema
