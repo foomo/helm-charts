@@ -170,9 +170,9 @@ spec:
                 name: {{ include "squadron.cronjob.fullname" . }}
             {{- end }}
             {{- range $key, $value := .Values.secrets }}
-              - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
-                secret:
-                  secretName: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
+            - name: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
+              secret:
+                secretName: {{ include "squadron.cronjob.fullname" $ }}-{{ $key }}
             {{- end }}
             {{- range .Values.secretMounts }}
             - name: {{ . }}
