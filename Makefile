@@ -44,10 +44,11 @@ lint: schema
 
 .PHONY: docs
 ## Generate README (https://github.com/norwoodj/helm-docs)
+docs: root=$(shell pwd)
 docs:
 	@echo "--- docs ------------------------------------------"
-	@set -e; for dir in ./charts/* ; do \
-		docker run --rm --volume "$$(pwd)/$${dir}:/helm-docs/$${dir}" jnorwood/helm-docs:v1.14.2 --template-files "$${dir}/README.md.gotmpl"  ;\
+	@for dir in ./charts/* ; do \
+		( cd "$${dir}" && helm-docs --template-files "README.md.gotmpl" ); \
 	done
 
 # (https://github.com/knechtionscoding/helm-schema-gen)
