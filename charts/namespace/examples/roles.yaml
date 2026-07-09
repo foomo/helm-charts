@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=./../values.schema.json
+roles:
+  my-role:
+    rules:
+      - apiGroups:
+          - ''
+        resources:
+          - secrets
+        verbs:
+          - get
+      - apiGroups:
+          - ''
+        resources:
+          - pods
+        verbs:
+          - patch
+          - delete
+          - get

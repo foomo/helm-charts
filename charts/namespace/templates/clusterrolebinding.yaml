@@ -14,7 +14,7 @@ metadata:
   namespace: {{ include "namespace.namespace" $ }}
 subjects: {{- tpl (toYaml $value.subjects) $ | nindent 2 }}
 roleRef:
-  kind: {{ $value.kind }}
+  kind: {{ default "ClusterRole" $value.kind }}
   name: {{ $value.role }}
   apiGroup: rbac.authorization.k8s.io
 ---

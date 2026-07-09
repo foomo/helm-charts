@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=./../values.schema.json
+volumeClaims:
+  my-volume:
+    name: my-existing-volume
+    annotations: {}
+    storageClass: local-path
+    size: 1Gi

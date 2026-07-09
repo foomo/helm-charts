@@ -27,16 +27,36 @@ disableSuffix: false
 
 # @schema
 # type: object
+# additionalProperties:
+#   type: object
+#   properties:
+#     labels:
+#       type: object
+#       additionalProperties: true
+#     annotations:
+#       type: object
+#       additionalProperties: true
+#     kind:
+#       type: string
+#       enum: [Role, ClusterRole]
+#     role:
+#       type: string
+#     subjects:
+#       type: array
+#       items:
+#         type: object
+#         additionalProperties: true
+# @schema
+# -- Roles to create
+# @section -- General
+roles: {}
+# @schema
+# type: object
 # additionalProperties: true
 # @schema
 # -- Cluster Roles to create
 # @section -- General
 clusterRoles: {}
-# clusterRoles:
-#   my-cluster-role:
-#     annotations: {}
-#     labels: {}
-#     rules: {}
 # @schema
 # type: object
 # additionalProperties:
@@ -48,12 +68,16 @@ clusterRoles: {}
 #     annotations:
 #       type: object
 #       additionalProperties: true
-#     subjects:
-#       type: array
 #     kind:
 #       type: string
+#       enum: [ClusterRole]
 #     role:
 #       type: string
+#     subjects:
+#       type: array
+#       items:
+#         type: object
+#         additionalProperties: true
 # @schema
 # -- Role Bindings to create
 # @section -- General
@@ -85,13 +109,6 @@ roleBindings: {}
 # -- Role Bindings to create
 # @section -- General
 clusterRoleBindings: {}
-# roleBindings:
-#   my-role-binding:
-#     annotations:
-#       replicator.v1.mittwald.de/replicate-to: ".*"
-#     group: ""
-#     role: ""
-
 
 # @schema
 # type: object
@@ -111,11 +128,6 @@ clusterRoleBindings: {}
 # -- Opaque secrets
 # @section -- General
 secrets: {}
-# secrets:
-#   my-secret:
-#     annotations:
-#       replicator.v1.mittwald.de/replicate-to: ".*"
-#     data: {}
 # @schema
 # type: object
 # additionalProperties:
@@ -131,13 +143,6 @@ secrets: {}
 # -- TLS secrets
 # @section -- General
 tlsSecrets: {}
-# tlsSecrets:
-#   my-domain.com:
-#     annotations:
-#       replicator.v1.mittwald.de/replicate-to: ".*"
-#     data:
-#       tls.crt: ''
-#       tls.key: ''
 # @schema
 # type: object
 # additionalProperties:
@@ -152,11 +157,6 @@ tlsSecrets: {}
 # -- Docker config json secrets
 # @section -- General
 dockerSecrets: {}
-# dockerSecrets:
-#   hub.docker.com:
-#     annotations:
-#       replicator.v1.mittwald.de/replicate-to: ".*"
-#     data: '{...}'
 
 # @schema
 # type: object
@@ -173,9 +173,6 @@ dockerSecrets: {}
 # -- Service accounts settings
 # @section -- General
 serviceAccounts: {}
-#  my-service-account:
-#    annotations: {}
-#    labels: {}
 
 # @schema
 # type: object
@@ -230,34 +227,6 @@ serviceAccounts: {}
 # -- External Secrets to create (requires external-secrets.io/v1 CRD)
 # @section -- General
 externalSecrets: {}
-# externalSecrets:
-#   my-secret:
-#     annotations: {}
-#     labels: {}
-#     refreshInterval: 1h
-#     refreshPolicy: Periodic
-#     secretStoreRef:
-#       name: my-cluster-secret-store
-#       kind: ClusterSecretStore
-#     target:
-#       name: my-k8s-secret   # defaults to the key name (my-secret)
-#       creationPolicy: Owner
-#       deletionPolicy: Retain
-#       template:
-#         type: Opaque
-#         metadata:
-#           annotations: {}
-#           labels: {}
-#         data:
-#           my-key: "{{ .my-key | b64dec }}"
-#     data:
-#       - secretKey: my-key
-#         remoteRef:
-#           key: /path/to/secret
-#           property: my-property
-#     dataFrom:
-#       - extract:
-#           key: /path/to/secret
 
 # @schema
 # type: object
@@ -284,26 +253,6 @@ externalSecrets: {}
 # -- Cluster Secret Stores to create (requires external-secrets.io/v1 CRD)
 # @section -- General
 clusterSecretStores: {}
-# clusterSecretStores:
-#   my-cluster-secret-store:
-#     annotations: {}
-#     labels: {}
-#     controller: ""
-#     conditions:
-#       - namespaceSelector:
-#           matchLabels:
-#             kubernetes.io/metadata.name: my-namespace
-#       - namespaces:
-#           - my-namespace
-#     provider:
-#       aws:
-#         service: SecretsManager
-#         region: eu-central-1
-#         auth:
-#           jwt:
-#             serviceAccountRef:
-#               name: my-service-account
-#               namespace: my-namespace
 
 # @schema
 # type: object
@@ -318,11 +267,14 @@ clusterSecretStores: {}
 # -- Service accounts settings
 # @section -- General
 volumeClaims: {}
-# volumeClaims:
-#   my-volume:
-#     name: my-existing-volume
-#     annotations: {}
-#     storageClass: local-path
-#     size: 1Gi
 
+# @schema
+# type: object
+# additionalProperties:
+#   type: object
+#   additionalProperties: true
+# @schema
+# -- Service accounts settings
+# @section -- General
+resources: {}
 

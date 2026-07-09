@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=./../values.schema.json
+cluserRoleBindings:
+  my-role-binding:
+    annotations:
+      replicator.v1.mittwald.de/replicate-to: ".*"
+    group: ""
+    role: ""
