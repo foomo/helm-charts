@@ -172,9 +172,9 @@ spec:
             claimName: {{ include "squadron.server.fullname" . }}-data
         {{- end }}
         {{- if .Values.configMap }}
-          - name: {{ include "squadron.server.fullname" . }}-config
-            configMap:
-              name: {{ include "squadron.server.fullname" . }}
+        - name: {{ include "squadron.server.fullname" . }}-config
+          configMap:
+            name: {{ include "squadron.server.fullname" . }}
         {{- end }}
         {{- range $key, $value := .Values.secrets }}
         - name: {{ include "squadron.server.fullname" $ }}-{{ $key }}

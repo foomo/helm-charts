@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=./../values.schema.json
+resources:
+  my-resource:
+    apiVersion: external-secrets.io/v1
+    kind: ExternalSecret
+    spec:
+      data:
+        - secretKey: my-secret
+          remoteRef:
+            key: secret-name
+            version: "unique-hex-id"

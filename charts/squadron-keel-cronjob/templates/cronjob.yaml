@@ -170,14 +170,14 @@ spec:
                 claimName: {{ include "keel.cronjob.fullname" . }}-data
             {{- end }}
             {{- if .Values.configMap }}
-              - name: {{ include "keel.cronjob.fullname" . }}-config
-                configMap:
-                  name: {{ include "keel.cronjob.fullname" . }}
+            - name: {{ include "keel.cronjob.fullname" . }}-config
+              configMap:
+                name: {{ include "keel.cronjob.fullname" . }}
             {{- end }}
             {{- range $key, $value := .Values.secrets }}
-              - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
-                secret:
-                  secretName: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+            - name: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
+              secret:
+                secretName: {{ include "keel.cronjob.fullname" $ }}-{{ $key }}
             {{- end }}
             {{- range .Values.secretMounts }}
             - name: {{ . }}

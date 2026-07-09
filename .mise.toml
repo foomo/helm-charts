@@ -1,5 +1,9 @@
 [tools]
-# https://github.com/helm/helm/releases
-helm = "4.2.0"
+# https://mise-tools.jdx.dev/tools/helm
+helm = "4.2.2"
+# https://mise-tools.jdx.dev/tools/helm-docs
+helm-docs = "1.14.2"
 # https://github.com/dadav/helm-schema/releases
-"github:dadav/helm-schema" = "0.23.3"
+"github:dadav/helm-schema" = "0.23.4"
+# https://github.com/helm/chart-releaser/releases
+"github:helm/chart-releaser" = "1.8.1"
