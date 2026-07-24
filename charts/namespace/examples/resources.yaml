@@ -9,3 +9,12 @@ resources:
           remoteRef:
             key: secret-name
             version: "unique-hex-id"
+  my-other-resource: |
+    apiVersion: external-secrets.io/v1
+    kind: ExternalSecret
+    spec:
+      data:
+        - secretKey: my-secret
+          remoteRef:
+            key: secret-name
+            version: "unique-hex-id"
