@@ -1,6 +1,6 @@
 # contentserver
 
-![Version: 0.6.7](https://img.shields.io/badge/Version-0.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.20.0](https://img.shields.io/badge/AppVersion-1.20.0-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.0](https://img.shields.io/badge/AppVersion-1.21.0-informational?style=flat-square)
 
 Helm chart for the foomo Content Server.
 
@@ -43,7 +43,7 @@ Helm chart for the foomo Content Server.
 | contentserver.hostAliases | list | `[]` | Host aliases |
 | contentserver.image.pullPolicy | string | `"IfNotPresent"` | Image tag |
 | contentserver.image.repository | string | `"foomo/contentserver"` | Image repository |
-| contentserver.image.tag | string | `"1.20.0"` | Image [tag](https://hub.docker.com/r/foomo/contentserver) |
+| contentserver.image.tag | string | `"1.21.0"` | Image [tag](https://hub.docker.com/r/foomo/contentserver) |
 | contentserver.imagePullSecrets | list | `[]` | Image pull secrets |
 | contentserver.livenessProbe | object | `{"httpGet":{"path":"/healthz/liveness","port":9400}}` | Liveness probe settings for pods |
 | contentserver.podAnnotations | object | `{}` | Annotations for pods |
@@ -207,3 +207,9 @@ Helm chart for the foomo Content Server.
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| extraObjects | object | `{}` |  |
