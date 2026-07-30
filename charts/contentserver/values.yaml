@@ -240,7 +240,7 @@ contentserver:
     # @schema
     # -- Image [tag](https://hub.docker.com/r/foomo/contentserver)
     # @section -- Content Server
-    tag: 1.20.0
+    tag: 1.21.0
   # @schema
   # type: object
   # additionalProperties: true
@@ -892,3 +892,10 @@ rbac:
   # -- Create PodSecurityPolicy
   # @section -- RBAC
   enabled: false
+
+# @schema
+# type: object
+# additionalProperties: true
+# @schema
+# Utilized to add dynamic manifests via values
+extraObjects: {}

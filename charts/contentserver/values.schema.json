@@ -194,7 +194,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.20.0",
+              "default": "1.21.0",
               "description": "Image [tag](https://hub.docker.com/r/foomo/contentserver)",
               "title": "tag",
               "type": "string"
@@ -403,6 +403,13 @@
         "podAnnotations"
       ],
       "title": "contentserver",
+      "type": "object"
+    },
+    "extraObjects": {
+      "additionalProperties": true,
+      "description": "Utilized to add dynamic manifests via values",
+      "required": [],
+      "title": "extraObjects",
       "type": "object"
     },
     "fullnameOverride": {
