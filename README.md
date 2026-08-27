@@ -1,6 +1,6 @@
-
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/foomo)](https://artifacthub.io/packages/search?repo=foomo)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/foomo/helm-charts/test.yaml?branch=main&logo=github&label=Build%20Status)
+[![GitHub Stars](https://img.shields.io/github/stars/foomo/helm-charts.svg?style=flat-square&logo=github)](https://github.com/foomo/helm-charts)
 
 <p align="center">
   <img alt="foomo/squadron" src="docs/public/logo.png" width="400" height="400"/>

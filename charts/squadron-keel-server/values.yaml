@@ -1209,3 +1209,9 @@ rbac:
   # -- Indicates wether scheduling is enabled or not
   # @section -- RBAC settings
   enabled: false
+
+# @schema
+# type: object
+# additionProperties: true
+# @schema
+extraObjects: {}

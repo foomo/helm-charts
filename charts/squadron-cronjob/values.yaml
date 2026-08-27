@@ -636,3 +636,9 @@ scheduling:
   # -- Tolerations for pod assignment
   # @section -- Scheduling
   topologySpreadConstraints: []
+
+# @schema
+# type: object
+# additionProperties: true
+# @schema
+extraObjects: {}
