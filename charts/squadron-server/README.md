@@ -20,6 +20,7 @@ Squadron General Server Chart
 | command | list | `[]` | Container command |
 | configMap | object | `{}` | Config map to be mounted |
 | env | object | `{}` | Map of environment variables to add |
+| extraObjects | object | `{}` | Extra k8s manifests to deploy |
 | ports | object | `{}` | Map of ports to expose |
 | replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
@@ -196,9 +197,3 @@ Squadron General Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| extraObjects | object | `{}` |  |

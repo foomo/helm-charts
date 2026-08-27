@@ -211,14 +211,8 @@
       "type": "string"
     },
     "resources": {
-      "additionalProperties": {
-        "additionalProperties": true,
-        "type": [
-          "object",
-          "string"
-        ]
-      },
-      "description": "Service accounts settings",
+      "additionalProperties": true,
+      "description": "Extra k8s manifests to deploy",
       "required": [],
       "title": "resources",
       "type": "object"

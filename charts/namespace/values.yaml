@@ -270,11 +270,9 @@ volumeClaims: {}
 
 # @schema
 # type: object
-# additionalProperties:
-#   type: [object, string]
-#   additionalProperties: true
+# additionalProperties: true
 # @schema
-# -- Service accounts settings
+# -- Extra k8s manifests to deploy
 # @section -- General
 resources: {}
 

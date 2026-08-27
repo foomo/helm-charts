@@ -1,6 +1,6 @@
 # squadron-nextjs-server
 
-![Version: 0.11.0](https://img.shields.io/badge/Version-0.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.11.0](https://img.shields.io/badge/AppVersion-0.11.0-informational?style=flat-square)
+![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.11.1](https://img.shields.io/badge/AppVersion-0.11.1-informational?style=flat-square)
 
 Squadron NextJS Server Chart
 
@@ -32,6 +32,7 @@ Squadron NextJS Server Chart
 |-----|------|---------|-------------|
 | configMap | object | `{}` | Config map to be mounted |
 | env | object | `{}` | Map of environment variables to add |
+| extraObjects | object | `{}` | Extra k8s manifests to deploy |
 | replicas | int | `1` | Number of replications |
 | revisionHistoryLimit | int | `10` | Number of revisions to keep |
 | secretEnv | object | `{}` | Map of environment variables to add as a secret |
@@ -242,9 +243,3 @@ Squadron NextJS Server Chart
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabel configs to apply to samples before scraping. |
 | serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout in Go duration format (e.g. 15s) |
 | serviceMonitor.targetLabels | list | `[]` | ServiceMonitor will add labels from the service to the Prometheus metric |
-
-### Other Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| extraObjects | object | `{}` |  |
