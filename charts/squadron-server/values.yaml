@@ -909,3 +909,9 @@ scheduling:
     - maxSkew: 1
       topologyKey: "topology.kubernetes.io/zone"
       whenUnsatisfiable: ScheduleAnyway
+
+# @schema
+# type: object
+# additionProperties: true
+# @schema
+extraObjects: {}

@@ -291,6 +291,12 @@
       "title": "env",
       "type": "object"
     },
+    "extraObjects": {
+      "additionalProperties": false,
+      "required": [],
+      "title": "extraObjects",
+      "type": "object"
+    },
     "fullnameOverride": {
       "default": "",
       "description": "Overrides the chart's computed fullname",

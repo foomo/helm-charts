@@ -122,7 +122,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/amazon/aws-cli/tags
     # @section -- Upload
-    image: amazon/aws-cli:2.34.63
+    image: amazon/aws-cli:2.36.32
     # @schema
     # type: string
     # @schema
@@ -170,7 +170,7 @@ upload:
     # -- Upload image name
     # https://hub.docker.com/r/google/cloud-sdk/tags
     # @section -- Upload
-    image: google/cloud-sdk:571.0.0
+    image: google/cloud-sdk:582.0.0
     # @schema
     # type: string
     # @schema
@@ -200,7 +200,7 @@ upload:
     # -- Upload image name
     # https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli?view=azure-cli-latest
     # @section -- Upload
-    image: mcr.microsoft.com/azure-cli:2.87.0
+    image: mcr.microsoft.com/azure-cli:2.89.1
     # @schema
     # type: string
     # @schema
@@ -244,7 +244,7 @@ upload:
       enabled: false
   # TODO do:
   # https://hub.docker.com/r/digitalocean/doctl
-  #  image: digitalocean/doctl:1.160.1
+  #  image: digitalocean/doctl:1.167.0
   #  bucket: bucket
   #  prefix: prefix
 
@@ -300,7 +300,7 @@ dump:
     # -- MongoDB image
     # https://hub.docker.com/_/mongo
     # @section -- MongoDB
-    image: mongo:8.3.2
+    image: mongo:8.3.8
     # @schema
     # type: string
     # @schema
