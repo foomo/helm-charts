@@ -1,6 +1,6 @@
 # namespace
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.2](https://img.shields.io/badge/AppVersion-0.6.2-informational?style=flat-square)
+![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.3](https://img.shields.io/badge/AppVersion-0.6.3-informational?style=flat-square)
 
 Common Namespace Resource Chart
 
@@ -22,7 +22,7 @@ Common Namespace Resource Chart
 | disableSuffix | bool | `false` | Disable suffixes |
 | dockerSecrets | object | `{}` | Docker config json secrets |
 | externalSecrets | object | `{}` | External Secrets to create (requires external-secrets.io/v1 CRD) |
-| resources | object | `{}` | Service accounts settings |
+| resources | object | `{}` | Extra k8s manifests to deploy |
 | roleBindings | object | `{}` | Role Bindings to create |
 | roles | object | `{}` | Roles to create |
 | secrets | object | `{}` | Opaque secrets |

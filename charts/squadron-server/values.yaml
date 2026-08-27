@@ -912,6 +912,8 @@ scheduling:
 
 # @schema
 # type: object
-# additionProperties: true
+# additionalProperties: true
 # @schema
+# -- Extra k8s manifests to deploy
+# @section -- General
 extraObjects: {}

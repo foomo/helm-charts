@@ -116,7 +116,8 @@
       "type": "object"
     },
     "extraObjects": {
-      "additionalProperties": false,
+      "additionalProperties": true,
+      "description": "Extra k8s manifests to deploy",
       "required": [],
       "title": "extraObjects",
       "type": "object"
