@@ -194,7 +194,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.21.0",
+              "default": "1.21.2",
               "description": "Image [tag](https://hub.docker.com/r/foomo/contentserver)",
               "title": "tag",
               "type": "string"
@@ -565,7 +565,7 @@
     },
     "nameOverride": {
       "default": "",
-      "description": "yaml-language-server: $schema=values.schema.json\nOverrides the chart's name",
+      "description": "Overrides the chart's name",
       "title": "nameOverride",
       "type": "string"
     },
