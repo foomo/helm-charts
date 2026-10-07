@@ -156,6 +156,36 @@ entries:
         - name: Pinniped Chart Source
           url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
     apiVersion: v2
+    appVersion: 0.6.10
+    created: "2026-10-07T06:06:17.112980877Z"
+    dependencies:
+    - alias: pinniped
+      condition: pinniped.enabled
+      name: pinniped
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.4.23
+    description: Secure infrastructure access
+    digest: c57d428bfb88e3225942f699e4e021c341a4a46842fe1e3957f88366d6451c35
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - pinniped
+    - cloudflared
+    name: beam
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/beam-0.6.10/beam-0.6.10.tgz
+    version: 0.6.10
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-chartstree/main/charts/beam
+        - name: Pinniped Chart Source
+          url: https://github.com/bitnami/charts/tree/main/bitnami/pinniped/
+    apiVersion: v2
     appVersion: 0.6.9
     created: "2026-08-27T07:12:23.523610911Z"
     dependencies:
@@ -1037,6 +1067,30 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/blank-0.1.0/blank-0.1.0.tgz
     version: 0.1.0
   contentserver:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/contentserver
+        - name: Image Source
+          url: https://github.com/foomo/contentserver
+    apiVersion: v2
+    appVersion: 1.21.2
+    created: "2026-10-07T06:06:17.335440228Z"
+    description: Helm chart for the foomo Content Server.
+    digest: 37284a5e41c78a4f941c807c66c6a9d04a1fc89a8b29f59d9ba1e1dd38a9d021
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - foomo-contentserver
+    name: contentserver
+    sources:
+    - https://github.com/foomo/helm-charts
+    - https://github.com/foomo/contentserver
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/contentserver-0.8.0/contentserver-0.8.0.tgz
+    version: 0.8.0
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -2103,6 +2157,32 @@ entries:
     - https://github.com/foomo/helm-charts/releases/download/namespace-0.1.0/namespace-0.1.0.tgz
     version: 0.1.0
   sesamy-gtm:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
+        - name: GTM Changelog
+          url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
+    apiVersion: v2
+    appVersion: 4.4.0
+    created: "2026-10-07T06:06:17.539154658Z"
+    description: Helm chart for the Sesamy GTM tagging & preview service.
+    digest: 0b4de2cfd4c2653c0605e77aa466febbc4dc9848702b36b5bccd1ffc3761e133
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    - google-tag
+    - gtm-server-side
+    - google-tag-manager
+    name: sesamy-gtm
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/sesamy-gtm-0.6.7/sesamy-gtm-0.6.7.tgz
+    version: 0.6.7
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -6056,4 +6136,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-27T08:17:51.25007132Z"
+generated: "2026-10-07T06:06:17.539524583Z"
