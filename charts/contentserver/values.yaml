@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=values.schema.json
+
 # @schema
 # type: string
 # @schema
@@ -240,7 +241,7 @@ contentserver:
     # @schema
     # -- Image [tag](https://hub.docker.com/r/foomo/contentserver)
     # @section -- Content Server
-    tag: 1.21.0
+    tag: 1.21.2
   # @schema
   # type: object
   # additionalProperties: true

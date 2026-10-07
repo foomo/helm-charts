@@ -1,9 +1,18 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[settings]
+minimum_release_age = "7d"
+
 [tools]
 # https://mise-tools.jdx.dev/tools/helm
-helm = "4.2.2"
+helm = "4.3.0"
 # https://mise-tools.jdx.dev/tools/helm-docs
 helm-docs = "1.14.2"
+# https://mise-tools.jdx.dev/tools/lefthook
+lefthook = "2.1.14"
+# https://mise-tools.jdx.dev/tools/actionlint
+actionlint = "1.7.12"
 # https://github.com/dadav/helm-schema/releases
-"github:dadav/helm-schema" = "0.23.4"
+"github:dadav/helm-schema" = "0.23.5"
 # https://github.com/helm/chart-releaser/releases
 "github:helm/chart-releaser" = "1.8.1"
