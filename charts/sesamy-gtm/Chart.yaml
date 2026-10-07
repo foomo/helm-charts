@@ -18,5 +18,5 @@ annotations:
       url: https://github.com/foomo/helm-charts/tree/main/charts/sesamy-gtm
     - name: GTM Changelog
       url: https://developers.google.com/tag-platform/tag-manager/server-side/release-notes
-version: 0.6.6
+version: 0.6.7
 appVersion: 4.4.0
