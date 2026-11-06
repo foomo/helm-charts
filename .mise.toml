@@ -15,4 +15,4 @@ actionlint = "1.7.12"
 # https://github.com/dadav/helm-schema/releases
 "github:dadav/helm-schema" = "0.24.0"
 # https://github.com/helm/chart-releaser/releases
-"github:helm/chart-releaser" = "1.8.1"
+"github:helm/chart-releaser" = "1.9.0"
