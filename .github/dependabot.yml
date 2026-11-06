@@ -20,6 +20,26 @@ updates:
     cooldown:
       default-days: 7
 
+  - package-ecosystem: helm
+    commit-message: { prefix: chore(helm) }
+    directories: [ "**/*" ]
+    schedule:
+      day: sunday
+      interval: weekly
+      timezone: Europe/Berlin
+    groups:
+      deps:
+        applies-to: version-updates
+        patterns: [ "*" ]
+      security:
+        applies-to: security-updates
+        patterns: [ "*" ]
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major" ]
+    cooldown:
+      default-days: 7
+
   - package-ecosystem: docker
     commit-message: { prefix: chore(docker) }
     directories: [ "**/*" ]

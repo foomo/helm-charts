@@ -191,7 +191,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "2026.10.6",
+              "default": "2026.10.7",
               "description": "Image tag",
               "title": "tag",
               "type": "string"
