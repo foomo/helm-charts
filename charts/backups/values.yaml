@@ -200,7 +200,7 @@ upload:
     # -- Upload image name
     # https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli?view=azure-cli-latest
     # @section -- Upload
-    image: mcr.microsoft.com/azure-cli:2.91.0
+    image: mcr.microsoft.com/azure-cli:2.92.0
     # @schema
     # type: string
     # @schema
