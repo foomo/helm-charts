@@ -11,8 +11,8 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    {{- if .Values.serviceMonitor.enabled }}
-    - port: {{ .Values.metrics.port }}
+    {{- if (.Values.serviceMonitor | default dict).enabled }}
+    - port: {{ (.Values.metrics | default dict).port | default 9200 }}
       targetPort: metrics
       protocol: TCP
       name: metrics

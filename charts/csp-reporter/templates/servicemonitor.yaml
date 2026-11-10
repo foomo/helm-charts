@@ -1,11 +1,13 @@
-{{- if and .Values.serviceMonitor.enabled (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor") }}
+{{- /* values reused from an older chart version have no serviceMonitor key */ -}}
+{{- $serviceMonitor := .Values.serviceMonitor | default dict }}
+{{- if and $serviceMonitor.enabled (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor") }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "csp-reporter.fullname" . }}
   labels:
     {{- include "csp-reporter.labels" . | nindent 4 }}
-    {{- with .Values.serviceMonitor.additionalLabels }}
+    {{- with $serviceMonitor.additionalLabels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
@@ -15,7 +17,7 @@ spec:
   endpoints:
     - port: metrics
       path: /metrics
-      {{- with .Values.serviceMonitor.interval }}
+      {{- with $serviceMonitor.interval }}
       interval: {{ . }}
       {{- end }}
 {{- end }}
