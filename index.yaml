@@ -1736,6 +1736,27 @@ entries:
         - name: Chart Source
           url: https://github.com/foomo/helm-charts
     apiVersion: v2
+    appVersion: 1.4.0
+    created: "2026-11-10T15:56:47.951713435Z"
+    description: Content Security Policy Reporter
+    digest: 3b55615be65006efd61cbaf4077d77c29f8903e83ca46204a4c6f17156fa8d60
+    home: https://www.foomo.org
+    icon: https://avatars.githubusercontent.com/u/889755?s=200&v=4
+    keywords:
+    - foomo
+    - sesamy
+    name: csp-reporter
+    sources:
+    - https://github.com/foomo/helm-charts
+    type: application
+    urls:
+    - https://github.com/foomo/helm-charts/releases/download/csp-reporter-2.4.0/csp-reporter-2.4.0.tgz
+    version: 2.4.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/foomo/helm-charts
+    apiVersion: v2
     appVersion: 1.3.0
     created: "2026-11-10T14:11:10.426036772Z"
     description: Content Security Policy Reporter
@@ -6317,4 +6338,4 @@ entries:
     urls:
     - https://github.com/foomo/helm-charts/releases/download/squadron-server-0.1.0/squadron-server-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-10T14:11:10.426278833Z"
+generated: "2026-11-10T15:56:47.952024235Z"
