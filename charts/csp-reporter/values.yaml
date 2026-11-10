@@ -123,7 +123,6 @@ ingress:
 
 # Each concurrent report upload holds up to 1 MiB of body plus its decoded reports; raise the
 # memory limit when report bursts get the container OOM-killed.
-# With autoscaling enabled, the CPU request is the base of targetCPUUtilizationPercentage.
 resources:
   requests:
     # -- CPU request
