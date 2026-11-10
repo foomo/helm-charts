@@ -16,12 +16,13 @@ The container now runs as uid/gid 65532 with a read-only root filesystem, no cap
 `RuntimeDefault` seccomp profile, and listens on `http.port` (8080) instead of 80. The Service keeps
 `service.port` (80) and targets the named port, so clients and ingresses need no change. The chart
 always runs `/usr/bin/service --address=:<http.port>` and appends `args`; an address flag in `args`
-fails the render. New resource defaults request 10m CPU and 32Mi memory and limit memory to 256Mi;
+fails the render. New resource defaults request 10m CPU and 64Mi memory and limit memory to 256Mi;
 with `autoscaling.enabled` the HPA now scales on that 10m CPU request.
 
 `helm upgrade --reuse-values` from 2.x keeps the old empty security contexts and resources, so the
 pod runs as root on port 8080. To return to root on container port 80, null every new default,
-because Helm merges these maps into the chart defaults:
+because Helm merges these maps into the chart defaults. The result runs like 2.x but is not
+identical: the explicit command and its address flag stay.
 
 ```yaml
 http:
@@ -77,7 +78,7 @@ resources:
 | replicaCount | int | `1` |  |
 | resources.limits.memory | string | `"256Mi"` | Memory limit |
 | resources.requests.cpu | string | `"10m"` | CPU request |
-| resources.requests.memory | string | `"32Mi"` | Memory request |
+| resources.requests.memory | string | `"64Mi"` | Memory request |
 | securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
 | securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
 | securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |

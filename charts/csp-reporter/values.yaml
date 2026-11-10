@@ -12,7 +12,8 @@ image:
 
 # Since chart 3.0.0 the container listens on http.port (8080) as uid/gid 65532 with the hardened
 # security contexts below; the Service still exposes port 80. To run as root on container port 80
-# again, set the following; Helm merges these maps into the defaults, so an empty map keeps them:
+# again, set the following; Helm merges these maps into the defaults, so an empty map keeps them.
+# The result runs like 2.x but still renders the explicit command and its address flag:
 # http:
 #   port: 80
 # podSecurityContext:
@@ -120,14 +121,15 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# The memory limit holds 64 report uploads of 1 MiB decoded at the same time.
+# Each concurrent report upload holds up to 1 MiB of body plus its decoded reports; raise the
+# memory limit when report bursts get the container OOM-killed.
 # With autoscaling enabled, the CPU request is the base of targetCPUUtilizationPercentage.
 resources:
   requests:
     # -- CPU request
     cpu:    10m
     # -- Memory request
-    memory: 32Mi
+    memory: 64Mi
   limits:
     # -- Memory limit
     memory: 256Mi
