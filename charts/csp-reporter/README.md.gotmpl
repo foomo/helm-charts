@@ -13,4 +13,34 @@
 
 {{ template "chart.requirementsSection" . }}
 
+## Upgrading to 3.0.0
+
+The container now runs as uid/gid 65532 with a read-only root filesystem, no capabilities and the
+`RuntimeDefault` seccomp profile, and listens on `http.port` (8080) instead of 80. The Service keeps
+`service.port` (80) and targets the named port, so clients and ingresses need no change. The chart
+always runs `/usr/bin/service --address=:<http.port>` and appends `args`; an address flag in `args`
+fails the render. New resource defaults request 10m CPU and 64Mi memory and limit memory to 256Mi.
+
+`helm upgrade --reuse-values` from 2.x keeps the old empty security contexts and resources, so the
+pod runs as root on port 8080. To return to root on container port 80, null every new default,
+because Helm merges these maps into the chart defaults. The result runs like 2.x but is not
+identical: the explicit command and its address flag stay.
+
+```yaml
+http:
+  port: 80
+podSecurityContext:
+  runAsUser: null
+  runAsGroup: null
+  runAsNonRoot: null
+  seccompProfile: null
+securityContext:
+  allowPrivilegeEscalation: null
+  readOnlyRootFilesystem: null
+  capabilities: null
+resources:
+  requests: null
+  limits: null
+```
+
 {{ template "chart.valuesSection" . }}

@@ -36,17 +36,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- with .Values.args }}
+          {{- /* values reused from an older chart version have no http key */}}
+          {{- $httpPort := (.Values.http | default dict).port | default 8080 | int }}
           command:
             - /usr/bin/service
           args:
-            {{- range . }}
+            - {{ printf "--address=:%d" $httpPort | quote }}
+            {{- range .Values.args }}
+            {{- /* the reporter keeps the last address flag, which would bypass http.port */}}
+            {{- if regexMatch "^--?address(=|$)" (toString .) }}
+            {{- fail "args must not set the reporter address flag; set http.port instead" }}
+            {{- end }}
             - {{ . | quote }}
             {{- end }}
-          {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ $httpPort }}
               protocol: TCP
             - name: metrics
               containerPort: {{ (.Values.metrics | default dict).port | default 9200 }}

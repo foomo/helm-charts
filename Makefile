@@ -70,7 +70,8 @@ schema:
 	@helm-schema -ran -c charts/squadron-keel-server
 	@helm-schema -ran -c charts/squadron-keel-cronjob
 	@helm-schema -ran -c charts/squadron-nextjs-server
-	@helm schema-gen charts/csp-reporter/values.yaml > charts/csp-reporter/values.schema.json
+	@# schema-gen types the resource defaults as strings, but Kubernetes quantities may also be numbers
+	@helm schema-gen charts/csp-reporter/values.yaml | jq --indent 4 'del(.properties.resources.properties)' > charts/csp-reporter/values.schema.json
 
 ### K3d
 
