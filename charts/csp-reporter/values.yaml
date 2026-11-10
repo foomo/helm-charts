@@ -8,7 +8,14 @@ image:
   repository: foomo/csp-reporter
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag:        "1.3.0" # https://github.com/foomo/csp-reporter/tags
+  tag:        "1.4.0" # https://github.com/foomo/csp-reporter/tags
+
+# Kubernetes args replace the image CMD, so a non-empty list also sets the command to /usr/bin/service.
+# Image tags before 1.4.0 accept only --address and --prometheus-address and exit on unknown flags.
+# args:
+#   - --site=shop=shop.example.com
+# -- Extra flags for the reporter binary
+args: [ ]
 
 imagePullSecrets: [ ]
 nameOverride:     ""
@@ -41,6 +48,29 @@ securityContext: { }
 service:
   type: ClusterIP
   port: 80
+
+metrics:
+  # -- Container port of the Prometheus metrics listener; when not 9200, also pass a matching --prometheus-address in args
+  port: 9200
+
+serviceMonitor:
+  # -- Create a Prometheus Operator ServiceMonitor and a metrics port on the Service (needs the ServiceMonitor CRD)
+  enabled:          false
+  # -- Additional ServiceMonitor labels, e.g. the label your Prometheus selects on
+  additionalLabels: { }
+  # -- ServiceMonitor scrape interval, Prometheus default when empty
+  interval:         ""
+
+# Defaults to a tcpSocket check on the http port, which works with every image tag.
+# From 1.4.0 the metrics listener answers GET /healthz, for example:
+# livenessProbe:
+#   httpGet:
+#     path: /healthz
+#     port: metrics
+# -- Liveness probe, tcpSocket on the http port when empty
+livenessProbe: { }
+# -- Readiness probe, tcpSocket on the http port when empty
+readinessProbe: { }
 
 ingress:
   enabled:   false

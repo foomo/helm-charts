@@ -5,6 +5,9 @@
         "affinity": {
             "type": "object"
         },
+        "args": {
+            "type": "array"
+        },
         "autoscaling": {
             "type": "object",
             "properties": {
@@ -84,6 +87,17 @@
                 }
             }
         },
+        "livenessProbe": {
+            "type": "object"
+        },
+        "metrics": {
+            "type": "object",
+            "properties": {
+                "port": {
+                    "type": "integer"
+                }
+            }
+        },
         "nameOverride": {
             "type": "string"
         },
@@ -97,6 +111,9 @@
             "type": "object"
         },
         "podSecurityContext": {
+            "type": "object"
+        },
+        "readinessProbe": {
             "type": "object"
         },
         "replicaCount": {
@@ -129,6 +146,20 @@
                     "type": "boolean"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "serviceMonitor": {
+            "type": "object",
+            "properties": {
+                "additionalLabels": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "interval": {
                     "type": "string"
                 }
             }
