@@ -40,7 +40,9 @@ spec:
           command:
             - /usr/bin/service
           args:
-            {{- toYaml . | nindent 12 }}
+            {{- range . }}
+            - {{ . | quote }}
+            {{- end }}
           {{- end }}
           ports:
             - name: http

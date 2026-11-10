@@ -11,9 +11,9 @@ image:
   tag:        "1.4.0" # https://github.com/foomo/csp-reporter/tags
 
 # Kubernetes args replace the image CMD, so a non-empty list also sets the command to /usr/bin/service.
-# Image tags before 1.4.0 accept only --address and --prometheus-address and exit on unknown flags.
+# The reporter exits on unknown flags, so pass only flags the image tag defines.
 # args:
-#   - --site=shop=shop.example.com
+#   - --prometheus-address=:9300
 # -- Extra flags for the reporter binary
 args: [ ]
 
@@ -50,7 +50,7 @@ service:
   port: 80
 
 metrics:
-  # -- Container port of the Prometheus metrics listener; when not 9200, also pass a matching --prometheus-address in args
+  # -- Container port of the Prometheus metrics listener; when not 9200, also pass a matching prometheus-address flag in args
   port: 9200
 
 serviceMonitor:
@@ -67,9 +67,9 @@ serviceMonitor:
 #   httpGet:
 #     path: /healthz
 #     port: metrics
-# -- Liveness probe, tcpSocket on the http port when empty
+# -- Liveness probe, tcpSocket on the http port when empty; a non-empty value replaces it and must include a handler
 livenessProbe: { }
-# -- Readiness probe, tcpSocket on the http port when empty
+# -- Readiness probe, tcpSocket on the http port when empty; a non-empty value replaces it and must include a handler
 readinessProbe: { }
 
 ingress:

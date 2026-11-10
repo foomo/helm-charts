@@ -32,14 +32,14 @@ Content Security Policy Reporter
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
-| livenessProbe | object | `{}` | Liveness probe, tcpSocket on the http port when empty |
-| metrics.port | int | `9200` | Container port of the Prometheus metrics listener; when not 9200, also pass a matching --prometheus-address in args |
+| livenessProbe | object | `{}` | Liveness probe, tcpSocket on the http port when empty; a non-empty value replaces it and must include a handler |
+| metrics.port | int | `9200` | Container port of the Prometheus metrics listener; when not 9200, also pass a matching prometheus-address flag in args |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
-| readinessProbe | object | `{}` | Readiness probe, tcpSocket on the http port when empty |
+| readinessProbe | object | `{}` | Readiness probe, tcpSocket on the http port when empty; a non-empty value replaces it and must include a handler |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
 | securityContext | object | `{}` |  |
