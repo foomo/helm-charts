@@ -1,6 +1,6 @@
 # csp-reporter
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.5.0](https://img.shields.io/badge/AppVersion-1.5.0-informational?style=flat-square)
 
 Content Security Policy Reporter
 
@@ -54,7 +54,7 @@ resources:
 | http.port | int | `8080` | Container port of the report listener, passed to the reporter as its address flag; the Service keeps service.port |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"foomo/csp-reporter"` |  |
-| image.tag | string | `"1.4.0"` |  |
+| image.tag | string | `"1.5.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |

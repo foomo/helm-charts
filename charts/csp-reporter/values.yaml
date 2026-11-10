@@ -8,7 +8,7 @@ image:
   repository: foomo/csp-reporter
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag:        "1.4.0" # https://github.com/foomo/csp-reporter/tags
+  tag:        "1.5.0" # https://github.com/foomo/csp-reporter/tags
 
 # Since chart 3.0.0 the container listens on http.port (8080) as uid/gid 65532 with the hardened
 # security contexts below; the Service still exposes port 80. To run as root on container port 80
