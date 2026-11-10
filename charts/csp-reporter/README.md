@@ -1,6 +1,6 @@
 # csp-reporter
 
-![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.4.0](https://img.shields.io/badge/AppVersion-1.4.0-informational?style=flat-square)
 
 Content Security Policy Reporter
 
@@ -9,6 +9,36 @@ Content Security Policy Reporter
 ## Source Code
 
 * <https://github.com/foomo/helm-charts>
+
+## Upgrading to 3.0.0
+
+The container now runs as uid/gid 65532 with a read-only root filesystem, no capabilities and the
+`RuntimeDefault` seccomp profile, and listens on `http.port` (8080) instead of 80. The Service keeps
+`service.port` (80) and targets the named port, so clients and ingresses need no change. The chart
+always runs `/usr/bin/service --address=:<http.port>` and appends `args`; an address flag in `args`
+fails the render. New resource defaults request 10m CPU and 32Mi memory and limit memory to 256Mi;
+with `autoscaling.enabled` the HPA now scales on that 10m CPU request.
+
+`helm upgrade --reuse-values` from 2.x keeps the old empty security contexts and resources, so the
+pod runs as root on port 8080. To return to root on container port 80, null every new default,
+because Helm merges these maps into the chart defaults:
+
+```yaml
+http:
+  port: 80
+podSecurityContext:
+  runAsUser: null
+  runAsGroup: null
+  runAsNonRoot: null
+  seccompProfile: null
+securityContext:
+  allowPrivilegeEscalation: null
+  readOnlyRootFilesystem: null
+  capabilities: null
+resources:
+  requests: null
+  limits: null
+```
 
 ## Values
 
@@ -21,6 +51,7 @@ Content Security Policy Reporter
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
+| http.port | int | `8080` | Container port of the report listener, passed to the reporter as its address flag; the Service keeps service.port |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"foomo/csp-reporter"` |  |
 | image.tag | string | `"1.4.0"` |  |
@@ -38,11 +69,18 @@ Content Security Policy Reporter
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext.runAsGroup | int | `65532` | Run as group id |
+| podSecurityContext.runAsNonRoot | bool | `true` | Refuse to start the container as root |
+| podSecurityContext.runAsUser | int | `65532` | Run as user id |
+| podSecurityContext.seccompProfile | object | `{"type":"RuntimeDefault"}` | Restrict the container's syscalls with seccomp |
 | readinessProbe | object | `{}` | Readiness probe, tcpSocket on the http port when empty; a non-empty value replaces it and must include a handler |
 | replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| securityContext | object | `{}` |  |
+| resources.limits.memory | string | `"256Mi"` | Memory limit |
+| resources.requests.cpu | string | `"10m"` | CPU request |
+| resources.requests.memory | string | `"32Mi"` | Memory request |
+| securityContext.allowPrivilegeEscalation | bool | `false` | Controls whether a process can gain more privileges than its parent process |
+| securityContext.capabilities | object | `{"drop":["ALL"]}` | Grant certain privileges to a process without granting all the privileges of the root user |
+| securityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |

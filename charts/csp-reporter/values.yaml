@@ -10,8 +10,31 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag:        "1.4.0" # https://github.com/foomo/csp-reporter/tags
 
-# Kubernetes args replace the image CMD, so a non-empty list also sets the command to /usr/bin/service.
+# Since chart 3.0.0 the container listens on http.port (8080) as uid/gid 65532 with the hardened
+# security contexts below; the Service still exposes port 80. To run as root on container port 80
+# again, set the following; Helm merges these maps into the defaults, so an empty map keeps them:
+# http:
+#   port: 80
+# podSecurityContext:
+#   runAsUser: null
+#   runAsGroup: null
+#   runAsNonRoot: null
+#   seccompProfile: null
+# securityContext:
+#   allowPrivilegeEscalation: null
+#   readOnlyRootFilesystem: null
+#   capabilities: null
+# resources:
+#   requests: null
+#   limits: null
+
+http:
+  # -- Container port of the report listener, passed to the reporter as its address flag; the Service keeps service.port
+  port: 8080
+
+# The chart runs /usr/bin/service with --address=:<http.port> followed by these args.
 # The reporter exits on unknown flags, so pass only flags the image tag defines.
+# Setting the address flag here fails the render; set http.port instead.
 # args:
 #   - --site=prod=shop.example.com
 #   - --site=stage=*.stage.shop.example.com
@@ -35,16 +58,24 @@ podLabels: { }
 
 podAnnotations: { }
 
-podSecurityContext: { }
-# fsGroup: 2000
+podSecurityContext:
+  # -- Run as user id
+  runAsUser:      65532
+  # -- Run as group id
+  runAsGroup:     65532
+  # -- Refuse to start the container as root
+  runAsNonRoot:   true
+  # -- Restrict the container's syscalls with seccomp
+  seccompProfile: { type: RuntimeDefault }
 
-securityContext: { }
-  # capabilities:
-  #   drop:
-  #   - ALL
-# readOnlyRootFilesystem: true
-# runAsNonRoot: true
-# runAsUser: 1000
+# Container security context; the reporter writes no files and binds no privileged port.
+securityContext:
+  # -- Controls whether a process can gain more privileges than its parent process
+  allowPrivilegeEscalation: false
+  # -- Mounts the container's root filesystem as read-only
+  readOnlyRootFilesystem:   true
+  # -- Grant certain privileges to a process without granting all the privileges of the root user
+  capabilities:             { drop: [ ALL ] }
 
 service:
   type: ClusterIP
@@ -89,17 +120,17 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: { }
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-# requests:
-#   cpu: 100m
-#   memory: 128Mi
+# The memory limit holds 64 report uploads of 1 MiB decoded at the same time.
+# With autoscaling enabled, the CPU request is the base of targetCPUUtilizationPercentage.
+resources:
+  requests:
+    # -- CPU request
+    cpu:    10m
+    # -- Memory request
+    memory: 32Mi
+  limits:
+    # -- Memory limit
+    memory: 256Mi
 
 autoscaling:
   enabled:                        false
