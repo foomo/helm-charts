@@ -1023,7 +1023,7 @@ routing:
   # @schema
   # type: object
   # additionalProperties:
-  #   type: array
+  #   type: [array, "null"]
   #   items:
   #     type: object
   #     additionalProperties: true
@@ -1031,10 +1031,16 @@ routing:
   # -- Path matches per service (preview, tagging, collect); set a service to null to drop its routes
   # @section -- Routing
   paths:
+    # @schema
+    # type: [array, "null"]
+    # @schema
     preview:
       - path: /gtm
         pathType: PathPrefix
         port: 8080
+    # @schema
+    # type: [array, "null"]
+    # @schema
     tagging:
       - path: /gtm.js
         pathType: Exact

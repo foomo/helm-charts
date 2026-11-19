@@ -1323,7 +1323,10 @@
               "additionalProperties": true,
               "type": "object"
             },
-            "type": "array"
+            "type": [
+              "array",
+              "null"
+            ]
           },
           "description": "Path matches per service (preview, tagging, collect); set a service to null to drop its routes",
           "properties": {
@@ -1359,8 +1362,12 @@
                 ],
                 "required": []
               },
+              "required": [],
               "title": "preview",
-              "type": "array"
+              "type": [
+                "array",
+                "null"
+              ]
             },
             "tagging": {
               "items": {
@@ -1498,14 +1505,15 @@
                 ],
                 "required": []
               },
+              "required": [],
               "title": "tagging",
-              "type": "array"
+              "type": [
+                "array",
+                "null"
+              ]
             }
           },
-          "required": [
-            "preview",
-            "tagging"
-          ],
+          "required": [],
           "title": "paths",
           "type": "object"
         }
