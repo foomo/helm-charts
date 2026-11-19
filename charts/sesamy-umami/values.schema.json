@@ -230,7 +230,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.31.8-alpine",
+              "default": "1.31.9-alpine",
               "description": "Image tag",
               "title": "tag",
               "type": "string"
@@ -305,6 +305,14 @@
           "description": "Indicates wether routing is enabled or not",
           "title": "enabled",
           "type": "boolean"
+        },
+        "hostnames": {
+          "description": "Hostnames matched by the route; defaults to the listener hostname (supports tpl)",
+          "items": {
+            "type": "string"
+          },
+          "title": "hostnames",
+          "type": "array"
         },
         "parentRefs": {
           "description": "Parent references",
@@ -887,7 +895,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "3.4.1",
+              "default": "3.5.0",
               "description": "The image tag",
               "title": "tag",
               "type": "string"

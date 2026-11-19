@@ -6,6 +6,12 @@ metadata:
   labels: {{- include "squadron.server.labels" . | nindent 4 }}
   namespace: {{ include "squadron.server.namespace" . }}
 spec:
+  {{- with .Values.routing.hostnames }}
+  hostnames:
+    {{- range . }}
+    - {{ tpl . $ | quote }}
+    {{- end }}
+  {{- end }}
   {{- with .Values.routing.parentRefs }}
   parentRefs: {{ toYaml . | nindent 4 }}
   {{- end }}
@@ -13,7 +19,7 @@ spec:
     {{- range .Values.routing.paths }}
     - matches:
         - path:
-            type: {{ default .pathType "PathPrefix" }}
+            type: {{ .pathType | default "PathPrefix" }}
             value: {{ .path }}
       {{- with .filters }}
       filters: {{ toYaml . | nindent 8 }}

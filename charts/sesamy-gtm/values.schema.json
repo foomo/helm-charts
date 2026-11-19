@@ -477,7 +477,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "4.6.0",
+              "default": "4.7.0",
               "description": "The image tag of the [release](https://console.cloud.google.com/artifacts/docker/cloud-tagging-10302018/us/gcr.io/gtm-cloud-image?pli=1)",
               "title": "tag",
               "type": "string"
@@ -1206,7 +1206,7 @@
               "type": "string"
             },
             "tag": {
-              "default": "1.31.8-alpine",
+              "default": "1.31.9-alpine",
               "description": "The image [tag](https://hub.docker.com/_/nginx)",
               "title": "tag",
               "type": "string"
@@ -1299,6 +1299,14 @@
           "title": "enabled",
           "type": "boolean"
         },
+        "hostnames": {
+          "description": "Hostnames matched by the route; defaults to the listener hostname (supports tpl)",
+          "items": {
+            "type": "string"
+          },
+          "title": "hostnames",
+          "type": "array"
+        },
         "parentRefs": {
           "description": "Parent references",
           "items": {
@@ -1310,8 +1318,17 @@
           "type": "array"
         },
         "paths": {
-          "additionalProperties": true,
-          "description": "Path matches",
+          "additionalProperties": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "description": "Path matches per service (preview, tagging, collect); set a service to null to drop its routes",
           "properties": {
             "preview": {
               "items": {
@@ -1345,8 +1362,12 @@
                 ],
                 "required": []
               },
+              "required": [],
               "title": "preview",
-              "type": "array"
+              "type": [
+                "array",
+                "null"
+              ]
             },
             "tagging": {
               "items": {
@@ -1438,7 +1459,7 @@
                         "type": "string"
                       },
                       "pathType": {
-                        "default": "Prefix",
+                        "default": "PathPrefix",
                         "title": "pathType",
                         "type": "string"
                       },
@@ -1484,14 +1505,15 @@
                 ],
                 "required": []
               },
+              "required": [],
               "title": "tagging",
-              "type": "array"
+              "type": [
+                "array",
+                "null"
+              ]
             }
           },
-          "required": [
-            "preview",
-            "tagging"
-          ],
+          "required": [],
           "title": "paths",
           "type": "object"
         }

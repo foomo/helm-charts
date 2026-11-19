@@ -852,6 +852,14 @@
           "title": "enabled",
           "type": "boolean"
         },
+        "hostnames": {
+          "description": "Hostnames matched by the route; defaults to the listener hostname (supports tpl)",
+          "items": {
+            "type": "string"
+          },
+          "title": "hostnames",
+          "type": "array"
+        },
         "parentRefs": {
           "description": "Parent references",
           "items": {
