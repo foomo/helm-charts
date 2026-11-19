@@ -23,7 +23,7 @@ spec:
         paths:
           {{- range $.Values.ingress.paths }}
           - path: {{ .path }}
-            pathType: {{ default .pathType "ImplementationSpecific" }}
+            pathType: {{ .pathType | default "ImplementationSpecific" }}
             backend:
               service:
                 name: {{ include "contentserver.fullname" $ }}

@@ -1,6 +1,6 @@
 # squadron-keel-server
 
-![Version: 0.12.1](https://img.shields.io/badge/Version-0.12.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.12.1](https://img.shields.io/badge/AppVersion-0.12.1-informational?style=flat-square)
+![Version: 0.12.2](https://img.shields.io/badge/Version-0.12.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.12.2](https://img.shields.io/badge/AppVersion-0.12.2-informational?style=flat-square)
 
 Squadron Keel Server Chart
 
@@ -176,6 +176,7 @@ Squadron Keel Server Chart
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | routing.enabled | bool | `false` | Indicates wether routing is enabled or not |
+| routing.hostnames | list | `[]` | Hostnames matched by the route; defaults to the listener hostname (supports tpl) |
 | routing.parentRefs | list | `[]` | Parent references |
 | routing.paths | list | `[]` | Path matches |
 

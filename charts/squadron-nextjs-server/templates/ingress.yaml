@@ -43,7 +43,7 @@ spec:
                   number: 3000
           {{- end }}
           {{- range $.Values.ingress.paths }}
-          - pathType: {{ default .pathType "ImplementationSpecific" }}
+          - pathType: {{ .pathType | default "ImplementationSpecific" }}
             path: {{ .path }}
             backend:
               service:

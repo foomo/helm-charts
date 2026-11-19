@@ -6,14 +6,49 @@ metadata:
   labels: {{- include "nextjs.server.labels" . | nindent 4 }}
   namespace: {{ include "nextjs.server.namespace" . }}
 spec:
+  {{- with .Values.routing.hostnames }}
+  hostnames:
+    {{- range . }}
+    - {{ tpl . $ | quote }}
+    {{- end }}
+  {{- end }}
   {{- with .Values.routing.parentRefs }}
   parentRefs: {{ toYaml . | nindent 4 }}
   {{- end }}
   rules:
+    {{- if .Values.gateway.enabled }}
+    # static assets addressed by the foomo gateway: /static/<fullname>/...
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /static/{{ include "nextjs.server.fullname" . }}/public
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: {{ include "nextjs.server.fullname" . }}
+          port: 3000
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /static/{{ include "nextjs.server.fullname" . }}/_next/static
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /_next/static
+      backendRefs:
+        - name: {{ include "nextjs.server.fullname" . }}
+          port: 3000
+    {{- end }}
     {{- range .Values.routing.paths }}
     - matches:
         - path:
-            type: {{ default .pathType "PathPrefix" }}
+            type: {{ .pathType | default "PathPrefix" }}
             value: {{ .path }}
       {{- with .filters }}
       filters: {{ toYaml . | nindent 8 }}

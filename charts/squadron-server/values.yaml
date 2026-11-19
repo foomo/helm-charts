@@ -303,6 +303,14 @@ routing:
   # @schema
   # type: array
   # items:
+  #   type: string
+  # @schema
+  # -- Hostnames matched by the route; defaults to the listener hostname (supports tpl)
+  # @section -- Routing
+  hostnames: []
+  # @schema
+  # type: array
+  # items:
   #   type: object
   #   additionalProperties: true
   # @schema
